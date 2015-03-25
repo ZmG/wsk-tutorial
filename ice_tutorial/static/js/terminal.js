@@ -63,7 +63,7 @@
         term.echo('I have to keep testing myself.');
       } else if (command === 'cd') {
         bash(term, inputs);
-      } else if (command === "docker") {
+      } else if (command === "ice") {
         Docker(term, inputs);
       } else if (command === "help") {
         term.echo(help);
@@ -412,30 +412,35 @@
      */
     Docker_cmd = "Usage: ice [OPTIONS] COMMAND [arg...]\n-h, --help     :  show this help message and exit\n-v, --verbose  :  display additional debug info\n--cloud        :  execute command against container cloud service\n-L, --local    :  execute any local docker host command.  For list of available commands run 'docker help'\n\nIBM Containers Extension, a self-sufficient containers infrastructure. \n\nCommands:\n";
     DockerCommands = {
+      "Commands": " ",
+      "========": " ==============",
+      "": "         For specific command help, follow the command by -h",
+      "": "         To list local docker commands, run 'ice --local -h'",
+      "": "          ",
       "login": "    Login to container cloud service",
-      "tlogin": "     Tenant login, not available for Bluemix Containers",
-      "ps": "    List containers in container cloud",
+      "tlogin": "   Tenant login, not available for Bluemix Containers",
+      "ps": "       List containers in container cloud",
       "run": "      Create and start container in container cloud",
-      "inspect": "    Inspect container details",
-      "logs": "   Get container logs",
+      "inspect": "  Inspect container details",
+      "logs": "     Get container logs",
       "build": "    Build docker image and push to cloud registry",
       "start": "    Run existing container",
-      "stop": "      Stop running container",
-      "restart": "    Restart running container",
-      "pause": "   Pause existing container",
-      "unpause": "      Unpause existing container",
-      "rm": "     Remove existing container",
-      "images": "      List images registered in container cloud",
+      "stop": "     Stop running container",
+      "restart": "  Restart running container",
+      "pause": "    Pause existing container",
+      "unpause": "  Unpause existing container",
+      "rm": "       Remove existing container",
+      "images": "   List images registered in container cloud",
       "rmi": "      Remove image from container cloud registry",
-      "search": "        Search image registry",
-      "info": "      Display system info",
-      "ip": "      Manage floating-ips",
-      "group": "   Manage auto-scaling groups",
-      "route": "        Manage routing to container groups",
-      "volume": "       Manage storage volumes",
-      "namespace": "       Manage repository namespace",
-      "help": "    Provide usage help for a specified command",
-      "version": "     Display program version"
+      "search": "   Search image registry",
+      "info": "     Display system info",
+      "ip": "       Manage floating-ips",
+      "group": "    Manage auto-scaling groups",
+      "route": "    Manage routing to container groups",
+      "volume": "   Manage storage volumes",
+      "namespace": "Manage repository namespace",
+      "help": "     Provide usage help for a specified command",
+      "version": "  Display program version"
     };
     run_switches = {
       "-p": ['port'],
@@ -448,7 +453,7 @@
       return "2013/07/08 23:51:21 Error: No such container: " + keyword;
     };
     commit_containerid = "effb66b31edb";
-    help = "Docker tutorial \n \n The Docker tutorial is a Docker emulater intended to help novice users get up to spead with the standard Docker commands. This terminal contains a limited Docker and a limited shell emulator. Therefore some of the commands you would expect do not exist.\n \n Just follow the steps and questions. If you are stuck, click on the 'expected command' to see what the command should have been. Leave feedback if you find things confusing.";
+    help = "IBM Container tutorial \n \n The IBM Container tutorial is an emulater intended to help novice users get up to spead with standard IBM Container Extension (ice) commands. This terminal contains a limited IBM Container Extension environment and a limited shell emulator. Therefore some of the commands you might expect do not exist.\n \n Just follow the steps and questions. If you are stuck, click on the 'expected command' to see what the command should have been. Leave feedback if you find things confusing.";
     images = "ubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)\nlearn/tutorial        latest              8dbd9e392a96        2 months ago        131.5 MB (virtual 131.5 MB)\nlearn/ping            latest              effb66b31edb        10 minutes ago      11.57 MB (virtual 143.1 MB)";
     inspect = "\nUsage: Docker inspect CONTAINER|IMAGE [CONTAINER|IMAGE...]\n\nReturn low-level information on a container/image\n";
     inspect_no_such_container = function(keyword) {
@@ -507,7 +512,7 @@
     search_ubuntu = "Found 22 results matching your query (\"ubuntu\")\nNAME                DESCRIPTION\nshykes/ubuntu\nbase                Another general use Ubuntu base image. Tag...\nubuntu              General use Ubuntu base image. Tags availa...\nboxcar/raring       Ubuntu Raring 13.04 suitable for testing v...\ndhrp/ubuntu\ncreack/ubuntu       Tags:\n12.04-ssh,\n12.10-ssh,\n12.10-ssh-l...\ncrohr/ubuntu              Ubuntu base images. Only lucid (10.04) for...\nknewton/ubuntu\npallet/ubuntu2\nerikh/ubuntu\nsamalba/wget              Test container inherited from ubuntu with ...\ncreack/ubuntu-12-10-ssh\nknewton/ubuntu-12.04\ntithonium/rvm-ubuntu      The base 'ubuntu' image, with rvm installe...\ndekz/build                13.04 ubuntu with build\nooyala/test-ubuntu\nooyala/test-my-ubuntu\nooyala/test-ubuntu2\nooyala/test-ubuntu3\nooyala/test-ubuntu4\nooyala/test-ubuntu5\nsurma/go                  Simple augmentation of the standard Ubuntu...\n";
     testing = "Testing leads to failure, and failure leads to understanding. ~Burt Rutan";
     docker_version = function() {
-      return "Docker Emulator version " + EMULATOR_VERSION + "\n\nEmulating:\nClient version: 0.5.3\nServer version: 0.5.3\nGo version: go1.1";
+      return "IBM Container Extension Emulator version " + EMULATOR_VERSION + "\n\nEmulating:\nClient version: 2.0\nServer version: 0.5.3\nGo version: go1.1";
     };
     return Docker_logo = '              _ _       _                    _\n__      _____| | |   __| | ___  _ __   ___  | |\n\\\ \\\ /\\\ / / _ \\\ | |  / _` |/ _ \\\| \'_ \\\ / _ \\\ | |\n \\\ V  V /  __/ | | | (_| | (_) | | | |  __/ |_|\n  \\\_/\\\_/ \\\___|_|_|  \\\__,_|\\\___/|_| |_|\\\___| (_)\n                                              \n\n\n\n                        ##        .\n                  ## ## ##       ==\n               ## ## ## ##      ===\n           /""""""""""""""""\\\___/ ===\n      ~~~ {~~ ~~~~ ~~~ ~~~~ ~~ ~ /  ===- ~~~\n           \\\______ o          __/\n             \\\    \\\        __/\n              \\\____\\\______/\n\n              |          |\n           __ |  __   __ | _  __   _\n          /  \\\| /  \\\ /   |/  / _\\\ |\n          \\\__/| \\\__/ \\\__ |\\\_ \\\__  |\n\n';
   })();
