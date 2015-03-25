@@ -1,7 +1,7 @@
 from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
 
-from docker_tutorial.models import TutorialUser
+from ice_tutorial.models import TutorialUser
 
 
 def get_user_for_request(request):
