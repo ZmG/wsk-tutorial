@@ -1,7 +1,7 @@
 include *.txt
 include README.md
-recursive-include docker_tutorial/static *
-recursive-include docker_tutorial/templates *
+recursive-include ice_tutorial/static *
+recursive-include ice_tutorial/templates *
 
 recursive-include dockerfile_tutorial/static *
 recursive-include dockerfile_tutorial/templates *
