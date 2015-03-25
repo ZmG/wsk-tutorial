@@ -6,18 +6,19 @@
       ,_(')<
       \___)
 
+  Forked and Modified by IBM jStart
 ###
 
 do @myTerminal = ->
 
   # Which terminal emulator version are we
-  EMULATOR_VERSION = "0.1.3"
+  EMULATOR_VERSION = "0.1.4"
 
 
   @basesettings = {
     prompt: 'you@tutorial:~$ ',
     greetings: """
-               Welcome to the interactive Docker tutorial
+               Welcome to the interactive IBM Container tutorial
               """
 
   }
@@ -425,44 +426,43 @@ do @myTerminal = ->
 
   Docker_cmd = \
     """
-      Usage: Docker [OPTIONS] COMMAND [arg...]
-      -H="127.0.0.1:4243": Host:port to bind/connect to
+      Usage: ice [OPTIONS] COMMAND [arg...]
+      -h, --help     :  show this help message and exit
+      -v, --verbose  :  display additional debug info
+      --cloud        :  execute command against container cloud service
+      -L, --local    :  execute any local docker host command.  For list of available commands run 'docker help'
 
-      A self-sufficient runtime for linux containers.
+      IBM Containers Extension, a self-sufficient containers infrastructure. 
 
       Commands:
 
     """
 
   DockerCommands =
-    "attach": "    Attach to a running container"
-    "build": "     Build a container from a Dockerfile"
-    "commit": "    Create a new image from a container's changes"
-    "diff": "      Inspect changes on a container's filesystem"
-    "export": "    Stream the contents of a container as a tar archive"
-    "history": "   Show the history of an image"
-    "images": "    List images"
-    "import": "    Create a new filesystem image from the contents of a tarball"
-    "info": "      Display system-wide information"
-    "insert": "    Insert a file in an image"
-    "inspect": "   Return low-level information on a container"
-    "kill": "      Kill a running container"
-    "login": "     Register or Login to the Docker registry server"
-    "logs": "      Fetch the logs of a container"
-    "port": "      Lookup the public-facing port which is NAT-ed to PRIVATE_PORT"
-    "ps": "        List containers"
-    "pull": "      Pull an image or a repository from the Docker registry server"
-    "push": "      Push an image or a repository to the Docker registry server"
-    "restart": "   Restart a running container"
-    "rm": "        Remove a container"
-    "rmi": "       Remove an image"
-    "run": "       Run a command in a new container"
-    "search": "    Search for an image in the Docker index"
-    "start": "     Start a stopped container"
-    "stop": "      Stop a running container"
-    "tag": "       Tag an image into a repository"
-    "version": "   Show the Docker version information"
-    "wait": "      Block until a container stops, then print its exit code"
+    "login": "    Login to container cloud service"
+    "tlogin": "     Tenant login, not available for Bluemix Containers"
+    "ps": "    List containers in container cloud"
+    "run": "      Create and start container in container cloud"
+    "inspect": "    Inspect container details"
+    "logs": "   Get container logs"
+    "build": "    Build docker image and push to cloud registry"
+    "start": "    Run existing container"
+    "stop": "      Stop running container"
+    "restart": "    Restart running container"
+    "pause": "   Pause existing container"
+    "unpause": "      Unpause existing container"
+    "rm": "     Remove existing container"
+    "images": "      List images registered in container cloud"
+    "rmi": "      Remove image from container cloud registry"
+    "search": "        Search image registry"
+    "info": "      Display system info"
+    "ip": "      Manage floating-ips"
+    "group": "   Manage auto-scaling groups"
+    "route": "        Manage routing to container groups"
+    "volume": "       Manage storage volumes"
+    "namespace": "       Manage repository namespace"
+    "help": "    Provide usage help for a specified command"
+    "version": "     Display program version"
 
   run_switches =
     "-p": ['port']
