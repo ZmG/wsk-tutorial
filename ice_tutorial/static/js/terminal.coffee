@@ -12,13 +12,14 @@
 do @myTerminal = ->
 
   # Which terminal emulator version are we
-  EMULATOR_VERSION = "0.1.4"
+  EMULATOR_VERSION = "0.1.5"
 
 
   @basesettings = {
     prompt: 'you@tutorial:~$ ',
     greetings: """
-               Welcome to the interactive IBM Container tutorial
+               Welcome to the IBM Container tutorial
+               Courtesy of IBM jStart
               """
 
   }
@@ -439,30 +440,35 @@ do @myTerminal = ->
     """
 
   DockerCommands =
+    "Commands": " "
+    "--------": " --------------------------"
+    "": "         For specific command help, follow the command by -h"
+    "": "         To list local docker commands, run 'ice --local -h'"
+    "": "          "
     "login": "    Login to container cloud service"
-    "tlogin": "     Tenant login, not available for Bluemix Containers"
-    "ps": "    List containers in container cloud"
+    "tlogin": "   Tenant login, not available for Bluemix Containers"
+    "ps": "       List containers in container cloud"
     "run": "      Create and start container in container cloud"
-    "inspect": "    Inspect container details"
-    "logs": "   Get container logs"
+    "inspect": "  Inspect container details"
+    "logs": "     Get container logs"
     "build": "    Build docker image and push to cloud registry"
     "start": "    Run existing container"
-    "stop": "      Stop running container"
-    "restart": "    Restart running container"
-    "pause": "   Pause existing container"
-    "unpause": "      Unpause existing container"
-    "rm": "     Remove existing container"
-    "images": "      List images registered in container cloud"
+    "stop": "     Stop running container"
+    "restart": "  Restart running container"
+    "pause": "    Pause existing container"
+    "unpause": "  Unpause existing container"
+    "rm": "       Remove existing container"
+    "images": "   List images registered in container cloud"
     "rmi": "      Remove image from container cloud registry"
-    "search": "        Search image registry"
-    "info": "      Display system info"
-    "ip": "      Manage floating-ips"
-    "group": "   Manage auto-scaling groups"
-    "route": "        Manage routing to container groups"
-    "volume": "       Manage storage volumes"
-    "namespace": "       Manage repository namespace"
-    "help": "    Provide usage help for a specified command"
-    "version": "     Display program version"
+    "search": "   Search image registry"
+    "info": "     Display system info"
+    "ip": "       Manage floating-ips"
+    "group": "    Manage auto-scaling groups"
+    "route": "    Manage routing to container groups"
+    "volume": "   Manage storage volumes"
+    "namespace": "Manage repository namespace"
+    "help": "     Provide usage help for a specified command"
+    "version": "  Display program version"
 
   run_switches =
     "-p": ['port']
@@ -493,11 +499,11 @@ do @myTerminal = ->
 
   help = \
     "
-Docker tutorial \n
+IBM Container tutorial \n
 \n
-The Docker tutorial is a Docker emulater intended to help novice users get up to spead with the standard Docker
-commands. This terminal contains a limited Docker and a limited shell emulator. Therefore some of the commands
-you would expect do not exist.\n
+The IBM Container tutorial is an emulater intended to help novice users get up to spead with the IBM Container
+Extension (ice) commands. This terminal contains a limited IBM Container CLI and a limited shell emulator.  
+Therefore some of the commands that you would expect do not exist.\n
 \n
 Just follow the steps and questions. If you are stuck, click on the 'expected command' to see what the command
 should have been. Leave feedback if you find things confusing.
