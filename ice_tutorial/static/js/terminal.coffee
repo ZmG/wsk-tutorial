@@ -75,7 +75,7 @@ do @myTerminal = ->
     else if command is 'cd'
       bash(term, inputs)
 
-    else if command is "docker"
+    else if command is "ice"
       Docker(term, inputs)
 
     else if command is "help"
