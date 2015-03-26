@@ -412,11 +412,9 @@
      */
     Docker_cmd = "Usage: ice [OPTIONS] COMMAND [arg...]\n-h, --help     :  show this help message and exit\n-v, --verbose  :  display additional debug info\n--cloud        :  execute command against container cloud service\n-L, --local    :  execute any local docker host command.  For list of available commands run 'docker help'\n\nIBM Containers Extension, a self-sufficient containers infrastructure. \n\nCommands:\n";
     DockerCommands = {
-      "Commands": " ",
-      "--------": " --------------------------",
-      "": "         For specific command help, follow the command by -h",
-      "": "         To list local docker commands, run 'ice --local -h'",
-      "": "          ",
+      " ": "        For specific command help, follow the command by -h",
+      " ": "        To list local docker commands, run 'ice --local -h'",
+      " ": "        ",
       "login": "    Login to container cloud service",
       "tlogin": "   Tenant login, not available for Bluemix Containers",
       "ps": "       List containers in container cloud",

@@ -440,11 +440,9 @@ do @myTerminal = ->
     """
 
   DockerCommands =
-    "Commands": " "
-    "--------": " --------------------------"
-    "": "         For specific command help, follow the command by -h"
-    "": "         To list local docker commands, run 'ice --local -h'"
-    "": "          "
+    " ": "        For specific command help, follow the command by -h"
+    " ": "        To list local docker commands, run 'ice --local -h'"
+    " ": "        "
     "login": "    Login to container cloud service"
     "tlogin": "   Tenant login, not available for Bluemix Containers"
     "ps": "       List containers in container cloud"
