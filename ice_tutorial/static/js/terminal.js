@@ -63,7 +63,7 @@
         term.echo('I have to keep testing myself.');
       } else if (command === 'cd') {
         bash(term, inputs);
-      } else if (command === "docker") {
+      } else if (command === "ice") {
         Docker(term, inputs);
       } else if (command === "help") {
         term.echo(help);
