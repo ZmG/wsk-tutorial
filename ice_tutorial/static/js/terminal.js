@@ -306,8 +306,10 @@
         console.log("switches");
         console.log(switches);
         console.log("login");
-        if (inputs[2] === "-h" || "--help") {
+        if (inputs[2] === "-h" || inputs[2] === "--help") {
           echo(login_cmd);
+        } else {
+          term.echo("Need to simulate login sequence here");
         }
       } else if (inputs[1] === "run") {
         parsed_input = parseInput(inputs);

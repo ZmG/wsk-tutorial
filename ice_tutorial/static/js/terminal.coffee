@@ -313,7 +313,7 @@ do @myTerminal = ->
       else
         echo push
 
-    # Command run
+    # Command login
     else if inputs[1] is "login"
       # parse all input so we have a json object
       parsed_input = parseInput(inputs)
@@ -327,8 +327,10 @@ do @myTerminal = ->
       console.log "switches"
       console.log switches
       console.log("login")
-      if inputs[2] is "-h" or "--help"
+      if inputs[2] is "-h" or inputs[2] is "--help"
         echo login_cmd
+      else
+        term.echo "Need to simulate login sequence here"
 
     # Command run
     else if inputs[1] is "run"

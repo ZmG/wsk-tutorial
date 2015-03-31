@@ -45,10 +45,10 @@ html: """
       """
 assignment: """
       <h3>Assignment</h3>
-      <p>Use the commandline to log in to the IBM Containers infrastructure while manually specifying your cloud service endpoint</p>
+      <p>Use the commandline to log in to the IBM Containers infrastructure while manually specifying your cloud service host or url using the <b>short option format</b></p>
       """
-command_expected: ['ice', 'login', '-H https://api-ice.ng.bluemix.net/v2/containers']
-result: """<p>You found it!</p>"""
+command_expected: ['ice', 'login', '-H', 'https://api-ice.ng.bluemix.net/v2/containers']
+result: """<p>You found it! Way to go!</p>"""
 tip: "the optional arguments for login are specified in the online Bluemix Containers doc</code>"
 })
 
