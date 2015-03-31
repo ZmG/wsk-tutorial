@@ -25,31 +25,31 @@ html: """
       """
 assignment: """
       <h3>Assignment</h3>
-      <p>Check IBM Containers Extension CLI Info to identify configuration details about the client that you are running</p>
-      <p>This will help you verify which version of the ICE CLI is running. If you see various 
-      versioning and host information related to your ICE client environment, then you know you are all set.</p>
+      <p>Check IBM Containers Extension (ICE) to identify the version of the client that you are running</p>
+      <p>This will help you verify which version of the ICE CLI is running. If you see a version value
+      then you know you that your all set with your ICE client installation. The ICE CLI is supported on Linux OS.
+      For Windows, your best option is to create an Ubuntu VM and install your client software there.</p>
       """
 tip: "<p>Try typing <code>ice</code> to see the full list of accepted arguments</p>
       <p>This emulator provides only a limited set of shell and ICE commands, so some commands may not work as expected</p>"
-command_expected: ['ice', 'info']
+command_expected: ['ice', 'version']
 result: """<p>Well done! Let's move to the next assignment.</p>"""
 })
 
 q.push ({
 html: """
-      <h3>Searching for images</h3>
-      <p>The easiest way to get started is to use a container image from someone else. Container images are
-      available on the Docker index, a central place to store images. You can find them online at
-      <a href="#1" onClick="window.open('http://index.docker.io','Docker Index','width=1000,height=900,left=50,top=50,menubar=0')";>index.docker.io</a>
+      <h3>Logging In</h3>
+      <p>The easiest way to get started is to log in to the IBM Containers infrastructure.  For details on login arguments, search the online 
+      <a href="#1" onClick="window.open('https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#genTopProcId4','IBM Containers Doc','width=1000,height=900,left=50,top=50,menubar=0')";>IBM Containers Doc</a>
       and by using the commandline</p>
       """
 assignment: """
       <h3>Assignment</h3>
-      <p>Use the commandline to search for an image called tutorial</p>
+      <p>Use the commandline to log in to the IBM Containers infrastructure while manually specifying your cloud service endpoint</p>
       """
-command_expected: ['docker', 'search', 'tutorial']
+command_expected: ['ice', 'login', '-H https://api-ice.ng.bluemix.net/v2/containers']
 result: """<p>You found it!</p>"""
-tip: "the format is <code>docker search &lt;string&gt;</code>"
+tip: "the optional arguments for login are specified in the online Bluemix Containers doc</code>"
 })
 
 q.push ({

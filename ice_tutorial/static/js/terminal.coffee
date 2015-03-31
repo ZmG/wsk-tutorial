@@ -313,6 +313,22 @@ do @myTerminal = ->
       else
         echo push
 
+    # Command run
+    else if inputs[1] is "login"
+      # parse all input so we have a json object
+      parsed_input = parseInput(inputs)
+
+      switches = parsed_input.switches
+      swargs = parsed_input.switchArgs
+      commands = parsed_input.commands
+
+      console.log "commands"
+      console.log commands
+      console.log "switches"
+      console.log switches
+      console.log("login")
+      if inputs[2] is "-h" or "--help"
+        echo login_cmd
 
     # Command run
     else if inputs[1] is "run"
@@ -682,6 +698,24 @@ should have been. Leave feedback if you find things confusing.
   """
   The push refers to a repository [dhrp/fail] (len: 0)
   """
+
+  login_cmd = \
+    """
+    Usage: ice login [OPTIONS] [ARG...]
+
+    Login to the IBM Container Infrastructure
+
+    -h, --help                        show this help message and exit
+    --cf                              use Bluemix cf login, default (Bluemix params are used, api key ignored)
+    -k API_KEY, --key API_KEY         secret key string (ignored when Bluemix login is used)
+    -H HOST, --host HOST              container cloud service host or url
+    -R REG_HOST, --registry REG_HOST  container cloud registry host
+    -u USER, --user USER              Bluemix user id/email
+    -p PSSWD, --psswd PSSWD           Bluemix password
+    -o ORG, --org ORG                 Bluemix organization
+    -s SPACE, --space SPACE           Bluemix space
+    -a API_URL, --api API_URL         Bluemix API Endpoint
+    """
 
   run_cmd = \
     """
