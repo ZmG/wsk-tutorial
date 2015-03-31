@@ -18,19 +18,20 @@ q = []
 q.push ({
 html: """
       <h3>Getting started</h3>
-      <p>There are actually two programs: The Docker daemon, which is a server process and which manages all the
-      containers, and the Docker client, which acts as a remote control on the daemon. On most systems, like in this
-      emulator, both execute on the same host.</p>
+      <p>Use IBM® Containers to run Docker containers in a hosted cloud environment on IBM Bluemix™. IBM Containers 
+      helps you build and deploy containers where you can package your applications and services. Each container is 
+      based on an image format, includes a set of standard operations, and is an execution environment in itself.
+      </p>
       """
 assignment: """
       <h3>Assignment</h3>
-      <p>Check which Docker versions are running</p>
-      <p>This will help you verify the daemon is running and you can connect to it. If you see which version is running
-      you know you are all set.</p>
+      <p>Check IBM Containers Extension CLI Info to identify configuration details about the client that you are running</p>
+      <p>This will help you verify which version of the ICE CLI is running. If you see various 
+      versioning and host information related to your ICE client environment, then you know you are all set.</p>
       """
-tip: "<p>Try typing <code>docker</code> to see the full list of accepted arguments</p>
-      <p>This emulator provides only a limited set of shell and Docker commands, so some commands may not work as expected</p>"
-command_expected: ['docker', 'version']
+tip: "<p>Try typing <code>ice</code> to see the full list of accepted arguments</p>
+      <p>This emulator provides only a limited set of shell and ICE commands, so some commands may not work as expected</p>"
+command_expected: ['ice', 'info']
 result: """<p>Well done! Let's move to the next assignment.</p>"""
 })
 
