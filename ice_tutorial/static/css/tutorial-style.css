@@ -12,7 +12,7 @@
   font-family: "Cabin", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 20px;
-  color: #333333;
+  color: white;
 }
 .tutorial h1,
 .tutorial h2,
@@ -117,7 +117,7 @@
 .tutorial h4 {
   margin-top: 5px;
   margin-bottom: 7px;
-  color: #394D54;
+  color: white;
 }
 .tutorial h3 {
   font-size: 24px;
