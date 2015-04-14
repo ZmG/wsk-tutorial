@@ -286,7 +286,7 @@
 #command .text {
   font-size: 16px;
 }
-.tutorial #instructions .assignment h3 {
+#assignHead {
   color: black;
 }
 #instructions circle {
@@ -320,7 +320,6 @@
   padding: 15px;
   padding-top: 5px;
   background-color: white;
-  color: black;
 }
 .circle {
   position: relative;
