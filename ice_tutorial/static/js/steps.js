@@ -71,19 +71,33 @@
     tip: "<p>Don't forget to use -y for noninteractive mode installation</p>\n<p>Not specifying -y on the apt-get install command will fail for most commands because it expects you to accept\n(y/n) but you cannot respond.\n</p>"
   });
 
-  q.push({
-    html: "<h3>Save your changes</h3>\n<p>After you make changes (by running a command inside a container), you probably want to save those changes.\nThis will enable you to later start from this point onwards.</p>\n<p>With Docker, the process of saving the state is called <em>committing</em>. Commit basically saves the difference\nbetween the old image and the new state. The result is a new layer.</p>",
-    assignment: "<h3>Assignment</h3>\n<p>First use <code>docker ps -l</code> to find the ID of the container you created by installing ping.</p>\n<p>Then save (commit) this container with the repository name 'learn/ping' </p>",
-    command_expected: ["docker", "commit", "698", "learn/ping"],
-    command_show: ["docker", "commit", "698", 'learn/ping'],
-    result: "<p>That worked! Please take note that Docker has returned a new ID. This id is the <em>image id</em>.</p>",
-    intermediateresults: [
-      function() {
-        return "You have not specified the correct repository name to commit to (learn/ping). This works, but giving your images a name\nmakes them much easier to work with.";
-      }
-    ],
-    tip: "<ul>\n<li>Giving just <code>docker commit</code> will show you the possible arguments.</li>\n<li>You will need to specify the container to commit by the ID you found</li>\n<li>You don't need to copy (type) the entire ID. Three or four characters are usually enough.</li>\n</ul>"
-  });
+
+  /*
+  q.push ({
+  html: """
+        <h3>Save your changes</h3>
+        <p>After you make changes (by running a command inside a container), you probably want to save those changes.
+        This will enable you to later start from this point onwards.</p>
+        <p>With Docker, the process of saving the state is called <em>committing</em>. Commit basically saves the difference
+        between the old image and the new state. The result is a new layer.</p>
+        """
+  assignment: """
+        <h3>Assignment</h3>
+        <p>First use <code>docker ps -l</code> to find the ID of the container you created by installing ping.</p>
+        <p>Then save (commit) this container with the repository name 'learn/ping' </p>
+        """
+  command_expected: ["docker", "commit", "698", "learn/ping"]
+  command_show: ["docker", "commit", "698", 'learn/ping']
+  result: """<p>That worked! Please take note that Docker has returned a new ID. This id is the <em>image id</em>.</p>"""
+  intermediateresults: [ () -> """You have not specified the correct repository name to commit to (learn/ping). This works, but giving your images a name
+                        makes them much easier to work with."""]
+  tip: """<ul>
+       <li>Giving just <code>docker commit</code> will show you the possible arguments.</li>
+       <li>You will need to specify the container to commit by the ID you found</li>
+       <li>You don't need to copy (type) the entire ID. Three or four characters are usually enough.</li>
+       </ul>"""
+  })
+   */
 
   q.push({
     html: "<h3>Run your new image</h3>\n<p>Now you have basically setup a complete, self contained environment with the 'ping' program installed. </p>\n<p>Your image can now be run on any host that runs Docker.</p>\n<p>Lets run this image on this machine.</p>",
@@ -113,10 +127,10 @@
   });
 
   q.push({
-    html: "<h3>Push your image to the index</h3>\n<p>Now you have verified that your application container works, you can share it.</p>\n<p>Remember you pulled (downloaded) the learn/tutorial image from the index? You can also share your built images\nto the index by pushing (uploading) them to there. That way you can easily retrieve them for re-use and share them\nwith others. </p>",
-    assignment: "<h3>Assignment</h3>\n<p>Push your container image learn/ping to the index</p>\n",
+    html: "<h3>Tagging your image with ice</h3>\n<p>Now you have verified that your application container works locally, it's time to get it ready for Bluemix.</p>\n<p>Remember you pulled (downloaded) the learn/tutorial image from the Docker Registry? You can also share your built images\nto the Registry by pushing (uploading) them to there. That way you can easily retrieve them for re-use and share them\nwith others. </p>\n<p>To use an image on bluemix, you will first need to push the image up to your,\nbluemix registry. To do that we need to tag the pulled image with your namespace and a name, that will identify it in your \nbluemix registry.\n</p>",
+    assignment: "<h3>Assignment</h3>\n<p>Tag the learn/tutorial image with that will be sent to the bluemix registry.</p>\n",
     command_expected: ["will_never_be_valid"],
-    command_show: ["docker", "push", "learn/ping"],
+    command_show: ["ice", "--local", "tag", "learn/ping", "registry-ice.ng.bluemix.net/<Namespace>/ping"],
     result: "",
     intermediateresults: [
       function() {
