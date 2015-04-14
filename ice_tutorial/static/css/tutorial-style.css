@@ -133,7 +133,10 @@
   color: #a9a9a9;
   font-style: italic;
 }
-#commandShownText,
+#commandShownText {
+  color: darkslategray !important;
+  font-style: normal !important;
+}
 #tipShownText {
   color: whitesmoke !important;
   font-style: normal !important;
@@ -285,6 +288,9 @@
 #tips .text,
 #command .text {
   font-size: 16px;
+}
+#assignHead {
+  color: black;
 }
 #assignHead h3 {
   color: black;
