@@ -95,8 +95,8 @@ do @myTerminal = ->
       term.echo "This is an emulator, not a shell. Try following the instructions."
 
     else if command is "colors"
-      for DockerCommand, description of DockerCommands
-        term.echo ("[[b;#fff;]" + DockerCommand + "] - " + description + "")
+      for IceCommand, description of IceCommands
+        term.echo ("[[b;#fff;]" + IceCommand + "] - " + description + "")
 
     else if command is "pull"
       term.echo '[[b;#fff;]some text]'
@@ -263,9 +263,9 @@ do @myTerminal = ->
     # no command
     if not inputs[1]
       console.debug "no args"
-      echo Docker_cmd
-      for DockerCommand, description of DockerCommands
-        echo "[[b;#fff;]" + DockerCommand + "]" + description + ""
+      echo Ice_cmd
+      for IceCommand, description of IceCommands
+        echo "[[b;#fff;]" + IceCommand + "]" + description + ""
 
     # Command commit
     else if inputs[1] is "commit"
@@ -436,13 +436,13 @@ do @myTerminal = ->
       echo ice_version()
 
 
-    else if DockerCommands[inputs[1]]
+    else if IceCommands[inputs[1]]
       echo "#{inputs[1]} is a valid argument, but not implemented"
 
     else
-      echo Docker_cmd
-      for DockerCommand, description of DockerCommands
-        echo "[[b;#fff;]" + DockerCommand + "]" + description + ""
+      echo Ice_cmd
+      for IceCommand, description of IceCommands
+        echo "[[b;#fff;]" + IceCommand + "]" + description + ""
 
     # return empty value because otherwise coffeescript will return last var
     return
@@ -453,7 +453,7 @@ do @myTerminal = ->
     All items are sorted by alphabet
   ###
 
-  Docker_cmd = \
+  Ice_cmd = \
     """
       Usage: ice [OPTIONS] COMMAND [arg...]
       -h, --help     :  show this help message and exit
@@ -467,34 +467,34 @@ do @myTerminal = ->
 
     """
 
-  DockerCommands =
-    " ": "        For specific command help, follow the command by -h"
-    " ": "        To list local docker commands, run 'ice --local -h'"
-    " ": "        "
-    "login": "    Login to container cloud service"
-    "tlogin": "   Tenant login, not available for Bluemix Containers"
-    "ps": "       List containers in container cloud"
-    "run": "      Create and start container in container cloud"
-    "inspect": "  Inspect container details"
-    "logs": "     Get container logs"
-    "build": "    Build docker image and push to cloud registry"
-    "start": "    Run existing container"
-    "stop": "     Stop running container"
-    "restart": "  Restart running container"
-    "pause": "    Pause existing container"
-    "unpause": "  Unpause existing container"
-    "rm": "       Remove existing container"
-    "images": "   List images registered in container cloud"
-    "rmi": "      Remove image from container cloud registry"
-    "search": "   Search image registry"
-    "info": "     Display system info"
-    "ip": "       Manage floating-ips"
-    "group": "    Manage auto-scaling groups"
-    "route": "    Manage routing to container groups"
-    "volume": "   Manage storage volumes"
-    "namespace": "Manage repository namespace"
-    "help": "     Provide usage help for a specified command"
-    "version": "  Display program version"
+  IceCommands =
+    " ": "            `For specific command help, follow the command by -h"
+    " ": "            `To list local docker commands, run 'ice --local -h'"
+    " ": "            `"
+    "login": "        `Login to container cloud service"
+    "tlogin": "       `Tenant login, not available for Bluemix Containers"
+    "ps": "           `List containers in container cloud"
+    "run": "          `Create and start container in container cloud"
+    "inspect": "      `Inspect container details"
+    "logs": "         `Get container logs"
+    "build": "        `Build docker image and push to cloud registry"
+    "start": "        `Run existing container"
+    "stop": "         `Stop running container"
+    "restart": "      `Restart running container"
+    "pause": "        `Pause existing container"
+    "unpause": "      `Unpause existing container"
+    "rm": "           `Remove existing container"
+    "images": "       `List images registered in container cloud"
+    "rmi": "          `Remove image from container cloud registry"
+    "search": "       `Search image registry"
+    "info": "         `Display system info"
+    "ip": "           `Manage floating-ips"
+    "group": "        `Manage auto-scaling groups"
+    "route": "        `Manage routing to container groups"
+    "volume": "       `Manage storage volumes"
+    "namespace": "    `Manage repository namespace"
+    "help": "         `Provide usage help for a specified command"
+    "version": "      `Display program version"
 
   run_switches =
     "-p": ['port']

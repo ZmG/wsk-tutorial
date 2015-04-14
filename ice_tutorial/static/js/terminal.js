@@ -13,7 +13,7 @@
 
 (function() {
   (this.myTerminal = function() {
-    var Docker, DockerCommands, Docker_cmd, EMULATOR_VERSION, ICE_logo, bash, commit, commit_containerid, commit_id_does_not_exist, docker_version, help, ice_version, images, inspect, inspect_no_such_container, inspect_ping_container, login_cmd, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_results, pull_tutorial, pull_ubuntu, push, push_container_learn_ping, push_wrong_name, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_not_google, run_ping_www_google_com, run_switches, search, search_no_results, search_tutorial, search_ubuntu, testing, util_slow_lines, wait;
+    var Docker, EMULATOR_VERSION, ICE_logo, IceCommands, Ice_cmd, bash, commit, commit_containerid, commit_id_does_not_exist, docker_version, help, ice_version, images, inspect, inspect_no_such_container, inspect_ping_container, login_cmd, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_results, pull_tutorial, pull_ubuntu, push, push_container_learn_ping, push_wrong_name, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_not_google, run_ping_www_google_com, run_switches, search, search_no_results, search_tutorial, search_ubuntu, testing, util_slow_lines, wait;
     EMULATOR_VERSION = "0.1.5";
     this.basesettings = {
       prompt: 'you@tutorial:~$ ',
@@ -39,7 +39,7 @@
       Base interpreter
      */
     this.interpreter = function(input, term) {
-      var DockerCommand, command, description, inputs;
+      var IceCommand, command, description, inputs;
       inputs = input.split(" ");
       command = inputs[0];
       if (command === 'hi') {
@@ -70,9 +70,9 @@
       } else if (command === "ls") {
         term.echo("This is an emulator, not a shell. Try following the instructions.");
       } else if (command === "colors") {
-        for (DockerCommand in DockerCommands) {
-          description = DockerCommands[DockerCommand];
-          term.echo("[[b;#fff;]" + DockerCommand + "] - " + description + "");
+        for (IceCommand in IceCommands) {
+          description = IceCommands[IceCommand];
+          term.echo("[[b;#fff;]" + IceCommand + "] - " + description + "");
         }
       } else if (command === "pull") {
         term.echo('[[b;#fff;]some text]');
@@ -237,7 +237,7 @@
       Docker program
      */
     Docker = function(term, inputs) {
-      var DockerCommand, callback, command, commands, description, echo, i, imagename, insert, keyword, parsed_input, result, swargs, switches;
+      var IceCommand, callback, command, commands, description, echo, i, imagename, insert, keyword, parsed_input, result, swargs, switches;
       echo = term.echo;
       insert = term.insert;
       callback = function() {
@@ -246,10 +246,10 @@
       command = inputs[1];
       if (!inputs[1]) {
         console.debug("no args");
-        echo(Docker_cmd);
-        for (DockerCommand in DockerCommands) {
-          description = DockerCommands[DockerCommand];
-          echo("[[b;#fff;]" + DockerCommand + "]" + description + "");
+        echo(Ice_cmd);
+        for (IceCommand in IceCommands) {
+          description = IceCommands[IceCommand];
+          echo("[[b;#fff;]" + IceCommand + "]" + description + "");
         }
       } else if (inputs[1] === "commit") {
         if (inputs.containsAllOfTheseParts(['docker', 'commit', '698', 'learn/ping'])) {
@@ -409,13 +409,13 @@
         }
       } else if (inputs[1] === "version") {
         echo(ice_version());
-      } else if (DockerCommands[inputs[1]]) {
+      } else if (IceCommands[inputs[1]]) {
         echo(inputs[1] + " is a valid argument, but not implemented");
       } else {
-        echo(Docker_cmd);
-        for (DockerCommand in DockerCommands) {
-          description = DockerCommands[DockerCommand];
-          echo("[[b;#fff;]" + DockerCommand + "]" + description + "");
+        echo(Ice_cmd);
+        for (IceCommand in IceCommands) {
+          description = IceCommands[IceCommand];
+          echo("[[b;#fff;]" + IceCommand + "]" + description + "");
         }
       }
     };
@@ -425,35 +425,35 @@
     
       All items are sorted by alphabet
      */
-    Docker_cmd = "Usage: ice [OPTIONS] COMMAND [arg...]\n-h, --help     :  show this help message and exit\n-v, --verbose  :  display additional debug info\n--cloud        :  execute command against container cloud service\n-L, --local    :  execute any local docker host command.  For list of available commands run 'docker help'\n\nIBM Containers Extension, a self-sufficient containers infrastructure. \n\nCommands:\n";
-    DockerCommands = {
-      " ": "        For specific command help, follow the command by -h",
-      " ": "        To list local docker commands, run 'ice --local -h'",
-      " ": "        ",
-      "login": "    Login to container cloud service",
-      "tlogin": "   Tenant login, not available for Bluemix Containers",
-      "ps": "       List containers in container cloud",
-      "run": "      Create and start container in container cloud",
-      "inspect": "  Inspect container details",
-      "logs": "     Get container logs",
-      "build": "    Build docker image and push to cloud registry",
-      "start": "    Run existing container",
-      "stop": "     Stop running container",
-      "restart": "  Restart running container",
-      "pause": "    Pause existing container",
-      "unpause": "  Unpause existing container",
-      "rm": "       Remove existing container",
-      "images": "   List images registered in container cloud",
-      "rmi": "      Remove image from container cloud registry",
-      "search": "   Search image registry",
-      "info": "     Display system info",
-      "ip": "       Manage floating-ips",
-      "group": "    Manage auto-scaling groups",
-      "route": "    Manage routing to container groups",
-      "volume": "   Manage storage volumes",
-      "namespace": "Manage repository namespace",
-      "help": "     Provide usage help for a specified command",
-      "version": "  Display program version"
+    Ice_cmd = "Usage: ice [OPTIONS] COMMAND [arg...]\n-h, --help     :  show this help message and exit\n-v, --verbose  :  display additional debug info\n--cloud        :  execute command against container cloud service\n-L, --local    :  execute any local docker host command.  For list of available commands run 'docker help'\n\nIBM Containers Extension, a self-sufficient containers infrastructure. \n\nCommands:\n";
+    IceCommands = {
+      " ": "            `For specific command help, follow the command by -h",
+      " ": "            `To list local docker commands, run 'ice --local -h'",
+      " ": "            `",
+      "login": "        `Login to container cloud service",
+      "tlogin": "       `Tenant login, not available for Bluemix Containers",
+      "ps": "           `List containers in container cloud",
+      "run": "          `Create and start container in container cloud",
+      "inspect": "      `Inspect container details",
+      "logs": "         `Get container logs",
+      "build": "        `Build docker image and push to cloud registry",
+      "start": "        `Run existing container",
+      "stop": "         `Stop running container",
+      "restart": "      `Restart running container",
+      "pause": "        `Pause existing container",
+      "unpause": "      `Unpause existing container",
+      "rm": "           `Remove existing container",
+      "images": "       `List images registered in container cloud",
+      "rmi": "          `Remove image from container cloud registry",
+      "search": "       `Search image registry",
+      "info": "         `Display system info",
+      "ip": "           `Manage floating-ips",
+      "group": "        `Manage auto-scaling groups",
+      "route": "        `Manage routing to container groups",
+      "volume": "       `Manage storage volumes",
+      "namespace": "    `Manage repository namespace",
+      "help": "         `Provide usage help for a specified command",
+      "version": "      `Display program version"
     };
     run_switches = {
       "-p": ['port'],
