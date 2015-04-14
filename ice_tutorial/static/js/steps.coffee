@@ -128,6 +128,7 @@ tip: """
      """
 })
 
+###
 q.push ({
 html: """
       <h3>Save your changes</h3>
@@ -152,7 +153,7 @@ tip: """<ul>
      <li>You don't need to copy (type) the entire ID. Three or four characters are usually enough.</li>
      </ul>"""
 })
-
+###
 
 q.push ({
 html: """
@@ -210,20 +211,24 @@ currentDockerPs:
 
 q.push ({
 html: """
-      <h3>Push your image to the index</h3>
-      <p>Now you have verified that your application container works, you can share it.</p>
-      <p>Remember you pulled (downloaded) the learn/tutorial image from the index? You can also share your built images
-      to the index by pushing (uploading) them to there. That way you can easily retrieve them for re-use and share them
+      <h3>Tagging your image with ice</h3>
+      <p>Now you have verified that your application container works locally, it's time to get it ready for Bluemix.</p>
+      <p>Remember you pulled (downloaded) the learn/tutorial image from the Docker Registry? You can also share your built images
+      to the Registry by pushing (uploading) them to there. That way you can easily retrieve them for re-use and share them
       with others. </p>
+      <p>To use an image on bluemix, you will first need to push the image up to your,
+      bluemix registry. To do that we need to tag the pulled image with your namespace and a name, that will identify it in your 
+      bluemix registry.
+      </p>
       """
 assignment: """
       <h3>Assignment</h3>
-      <p>Push your container image learn/ping to the index</p>
+      <p>Tag the learn/tutorial image with that will be sent to the bluemix registry.</p>
 
       """
 #command_expected: ["docker", "push", "learn/ping"]
 command_expected: ["will_never_be_valid"]
-command_show: ["docker", "push", "learn/ping"]
+command_show: ["ice", "--local", "tag", "learn/ping", "registry-ice.ng.bluemix.net/<Namespace>/ping"]
 result: """"""
 intermediateresults:
   [
