@@ -286,6 +286,9 @@
 #command .text {
   font-size: 16px;
 }
+.assignment {
+  color: black;
+}
 #instructions circle {
   fill: #FF8100;
 }
