@@ -291,8 +291,6 @@ questions = []
 @webterm = $('#terminal').terminal(interpreter, basesettings)
 
 
-
-
 EVENT_TYPES =
   none: "none"
   start: "start"
