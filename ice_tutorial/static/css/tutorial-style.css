@@ -286,7 +286,7 @@
 #command .text {
   font-size: 16px;
 }
-.tutorial .assignment h3 {
+.tutorial #instructions .assignment h3 {
   color: black;
 }
 #instructions circle {
