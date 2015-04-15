@@ -45,7 +45,7 @@ html: """
       """
 assignment: """
       <h3>Assignment</h3>
-      <p>Use the commandline to log in to the IBM Containers infrastructure while manually specifying your cloud service host or url using the <b>short option format</b></p>
+      <p>Use the <code>ice login</code> command to log in to the IBM Containers infrastructure while manually specifying your cloud service host or url using the <b>short option format</b></p>
       """
 command_expected: ['ice', 'login', '-H', 'https://api-ice.ng.bluemix.net/v2/containers']
 result: """<p>You found it! Way to go!</p>"""
@@ -302,11 +302,16 @@ EVENT_TYPES =
 
 
 
+###
+  Sending events to the server (disabled for ice tutorial)
+###
+logEvent = (data, feedback) ->
+    console.log(data)
+
 
 ###
   Event handlers
 ###
-
 
 ## next
 $('#buttonNext').click (e) ->
@@ -330,6 +335,12 @@ $('#leftside').bind('mousewheel',
     this.scrollTop += deltaY * -30
     event.preventDefault()
   )
+
+## submit feedback
+$('#feedbackSubmit').click ->
+  feedback = $('#feedbackInput').val()
+  data = { type: EVENT_TYPES.feedback, feedback: feedback}
+  logEvent(data, feedback=true)
 
 ## fullsize
 $('#fullSizeOpen').click ->
