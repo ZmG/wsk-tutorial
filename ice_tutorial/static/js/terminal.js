@@ -13,7 +13,7 @@
 
 (function() {
   (this.myTerminal = function() {
-    var Docker, EMULATOR_VERSION, ICE_logo, IceCommands, Ice_cmd, bash, commit, commit_containerid, commit_id_does_not_exist, docker_version, help, ice, ice_version, images, inspect, inspect_no_such_container, inspect_ping_container, login_cmd, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_results, pull_tutorial, pull_ubuntu, push, push_container_learn_ping, push_wrong_name, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_not_google, run_ping_www_google_com, run_switches, search, search_no_results, search_tutorial, search_ubuntu, testing, util_slow_lines, wait;
+    var EMULATOR_VERSION, ICE_logo, IceCommands, Ice_cmd, bash, commit, commit_containerid, commit_id_does_not_exist, docker_version, help, ice, ice_version, images, inspect, inspect_no_such_container, inspect_ping_container, login, login_cmd, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_results, pull_tutorial, pull_ubuntu, push, push_container_learn_ping, push_wrong_name, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_not_google, run_ping_www_google_com, run_switches, search, search_no_results, search_tutorial, search_ubuntu, testing, util_slow_lines, wait;
     EMULATOR_VERSION = "0.1.5";
     this.basesettings = {
       prompt: 'you@tutorial:~$ ',
@@ -234,188 +234,20 @@
     };
 
     /*
-      Docker program
+      ice login program
      */
-    Docker = function(term, inputs) {
-      var IceCommand, callback, command, commands, description, echo, i, imagename, insert, keyword, parsed_input, result, swargs, switches;
+    login = function(term, inputs) {
+      var argument, echo, insert;
       echo = term.echo;
       insert = term.insert;
-      callback = function() {
-        return this.finishedCallback(inputs);
-      };
-      command = inputs[1];
       if (!inputs[1]) {
-        console.debug("no args");
-        echo(Ice_cmd);
-        for (IceCommand in IceCommands) {
-          description = IceCommands[IceCommand];
-          echo("[[b;#fff;]" + IceCommand + "]" + description + "");
-        }
-      } else if (inputs[1] === "commit") {
-        if (inputs.containsAllOfTheseParts(['docker', 'commit', '698', 'learn/ping'])) {
-          util_slow_lines(term, commit_containerid, "", callback);
-        } else if (inputs.containsAllOfTheseParts(['docker', 'commit', '698'])) {
-          util_slow_lines(term, commit_containerid, "", callback);
-          intermediateResults(0);
-        } else if (inputs.containsAllOfTheseParts(['docker', 'commit']) && inputs[2]) {
-          echo(commit_id_does_not_exist(inputs[2]));
-        } else {
-          echo(commit);
-        }
-      } else if (inputs[1] === "do") {
-        term.push('do', {
-          prompt: "do $ "
-        });
-      } else if (inputs[1] === "logo") {
-        echo(ICE_logo);
-      } else if (inputs[1] === "images") {
-        echo(images);
-      } else if (inputs[1] === "inspect") {
-        if (inputs[2] && inputs[2].match('ef')) {
-          echo(inspect_ping_container);
-        } else if (inputs[2]) {
-          echo(inspect_no_such_container(inputs[2]));
-        } else {
-          echo(inspect);
-        }
-      } else if (command === "ps") {
-        if (inputs.containsAllOfThese(['-l'])) {
-          echo(ps_l);
-        } else if (inputs.containsAllOfThese(['-a'])) {
-          echo(ps_a);
-        } else {
-          echo(currentDockerPs);
-        }
-      } else if (inputs[1] === "push") {
-        if (inputs[2] === "learn/ping") {
-          util_slow_lines(term, push_container_learn_ping, "", callback);
-          intermediateResults(0);
-          return;
-        } else if (inputs[2]) {
-          echo(push_wrong_name);
-        } else {
-          echo(push);
-        }
-      } else if (inputs[1] === "login") {
-        parsed_input = parseInput(inputs);
-        switches = parsed_input.switches;
-        swargs = parsed_input.switchArgs;
-        commands = parsed_input.commands;
-        console.log("commands");
-        console.log(commands);
-        console.log("switches");
-        console.log(switches);
-        console.log("login");
-        if (inputs[2] === "-h" || inputs[2] === "--help") {
-          echo(login_cmd);
-        } else {
-          term.echo("Need to simulate login sequence here");
-        }
-      } else if (inputs[1] === "run") {
-        parsed_input = parseInput(inputs);
-        switches = parsed_input.switches;
-        swargs = parsed_input.switchArgs;
-        imagename = parsed_input.imageName;
-        commands = parsed_input.commands;
-        console.log("commands");
-        console.log(commands);
-        console.log("switches");
-        console.log(switches);
-        console.log("parsed input");
-        console.log(parsed_input);
-        console.log("imagename: " + imagename);
-        if (imagename === "ubuntu") {
-          if (switches.containsAllOfTheseParts(['-i', '-t'])) {
-            if (commands.containsAllOfTheseParts(['bash'])) {
-              term.push((function(command, term) {
-                if (command) {
-                  echo("this shell is not implemented. Enter 'exit' to exit.");
-                }
-              }), {
-                prompt: 'root@687bbbc4231b:/# '
-              });
-            } else {
-              echo(run_image_wrong_command(commands));
-            }
-          } else {
-            echo(run_flag_defined_not_defined(switches));
-          }
-        } else if (imagename === "learn/tutorial") {
-          if (switches.length > 0) {
-            echo(run_learn_no_command);
-            intermediateResults(0);
-          } else if (commands[0] === "/bin/bash") {
-            echo(run_learn_tutorial_echo_hello_world(commands));
-            intermediateResults(2);
-          } else if (commands[0] === "echo") {
-            echo(run_learn_tutorial_echo_hello_world(commands));
-          } else if (commands.containsAllOfThese(['apt-get', 'install', '-y', 'iputils-ping'])) {
-            echo(run_apt_get_install_iputils_ping);
-          } else if (commands.containsAllOfThese(['apt-get', 'install', 'iputils-ping'])) {
-            echo(run_apt_get_install_iputils_ping);
-          } else if (commands.containsAllOfThese(['apt-get', 'install', 'ping'])) {
-            echo(run_apt_get_install_iputils_ping);
-          } else if (commands.containsAllOfThese(['apt-get', 'install'])) {
-            i = commands.length - 1;
-            echo(run_apt_get_install_unknown_package(commands[i]));
-          } else if (commands[0] === "apt-get") {
-            echo(run_apt_get);
-          } else if (commands[0]) {
-            echo(run_image_wrong_command(commands[0]));
-          } else {
-            echo(run_learn_no_command);
-          }
-        } else if (imagename === "learn/ping") {
-          if (commands.containsAllOfTheseParts(["ping", "google.com"])) {
-            util_slow_lines(term, run_ping_www_google_com, "", callback);
-          } else if (commands[0] === "ping" && commands[1]) {
-            echo(run_ping_not_google(commands[1]));
-          } else if (commands[0] === "ping") {
-            echo(ping);
-          } else if (commands[0]) {
-            echo(commands[0] + ": command not found");
-          } else {
-            echo(run_learn_no_command);
-          }
-        } else if (imagename) {
-          echo(run_notfound(inputs[2]));
-        } else {
-          console.log("run");
-          echo(run_cmd);
-        }
-      } else if (inputs[1] === "search") {
-        if (keyword = inputs[2]) {
-          if (keyword === "ubuntu") {
-            echo(search_ubuntu);
-          } else if (keyword === "tutorial") {
-            echo(search_tutorial);
-          } else {
-            echo(search_no_results(inputs[2]));
-          }
-        } else {
-          echo(search);
-        }
-      } else if (inputs[1] === "pull") {
-        if (keyword = inputs[2]) {
-          if (keyword === 'ubuntu') {
-            result = util_slow_lines(term, pull_ubuntu, "", callback);
-          } else if (keyword === 'learn/tutorial') {
-            result = util_slow_lines(term, pull_tutorial, "", callback);
-          } else {
-            util_slow_lines(term, pull_no_results, keyword);
-          }
-        } else {
-          echo(pull);
-        }
-      } else if (inputs[1] === "version") {
-        echo(ice_version());
-      } else if (IceCommands[inputs[1]]) {
-        echo(inputs[1] + " is a valid argument, but not implemented");
+        return console.log("none");
       } else {
-        echo(Ice_cmd);
-        for (IceCommand in IceCommands) {
-          description = IceCommands[IceCommand];
-          echo("[[b;#fff;]" + IceCommand + "]" + description + "");
+        argument = inputs[1];
+        if (argument.beginsWith('..')) {
+          return echo("-bash: cd: " + argument + ": Permission denied");
+        } else {
+          return echo("-bash: cd: " + argument + ": No such file or directory");
         }
       }
     };
@@ -496,7 +328,12 @@
         if (inputs[2] === "-h" || inputs[2] === "--help") {
           echo(login_cmd);
         } else {
-          term.echo("Need to simulate login sequence here");
+          term.push(function(command, term) {
+            debugger;
+            return login(term, inputs);
+          }, {
+            prompt: '> $ '
+          });
         }
       } else if (inputs[1] === "run") {
         parsed_input = parseInput(inputs);
