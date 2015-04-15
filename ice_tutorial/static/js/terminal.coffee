@@ -86,7 +86,7 @@ do @myTerminal = ->
       bash(term, inputs)
 
     else if command is "ice"
-      Docker(term, inputs)
+      ice(term, inputs)
 
     else if command is "help"
       term.echo help
@@ -254,6 +254,204 @@ do @myTerminal = ->
   ###
 
   Docker = (term, inputs) ->
+
+    echo = term.echo
+    insert = term.insert
+    callback = () -> @finishedCallback(inputs)
+    command = inputs[1]
+
+    # no command
+    if not inputs[1]
+      console.debug "no args"
+      echo Ice_cmd
+      for IceCommand, description of IceCommands
+        echo "[[b;#fff;]" + IceCommand + "]" + description + ""
+
+    # Command commit
+    else if inputs[1] is "commit"
+      if inputs.containsAllOfTheseParts(['docker', 'commit', '698', 'learn/ping'])
+        util_slow_lines(term, commit_containerid, "", callback )
+      else if inputs.containsAllOfTheseParts(['docker', 'commit', '698'])
+        util_slow_lines(term, commit_containerid, "", callback )
+        intermediateResults(0)
+      else if inputs.containsAllOfTheseParts(['docker', 'commit']) and inputs[2]
+        echo commit_id_does_not_exist(inputs[2])
+      else
+        echo commit
+
+    else if inputs[1] is "do"
+      term.push('do', {prompt: "do $ "})
+
+    else if inputs[1] is "logo"
+      echo ICE_logo
+
+    else if inputs[1] is "images"
+      echo images
+
+    else if inputs[1] is "inspect"
+      if inputs[2] and inputs[2].match('ef')
+        echo inspect_ping_container
+      else if inputs[2]
+        echo inspect_no_such_container(inputs[2])
+      else
+        echo inspect
+
+    # command ps
+    else if command is "ps"
+      if inputs.containsAllOfThese(['-l'])
+        echo ps_l
+      else if inputs.containsAllOfThese(['-a'])
+        echo ps_a
+      else
+        echo currentDockerPs
+    else if inputs[1] is "push"
+      if inputs[2] is "learn/ping"
+        util_slow_lines(term, push_container_learn_ping, "", callback )
+        intermediateResults(0)
+        return
+      else if inputs[2]
+        echo push_wrong_name
+      else
+        echo push
+
+    # Command login
+    else if inputs[1] is "login"
+      # parse all input so we have a json object
+      parsed_input = parseInput(inputs)
+
+      switches = parsed_input.switches
+      swargs = parsed_input.switchArgs
+      commands = parsed_input.commands
+
+      console.log "commands"
+      console.log commands
+      console.log "switches"
+      console.log switches
+      console.log("login")
+      if inputs[2] is "-h" or inputs[2] is "--help"
+        echo login_cmd
+      else
+        term.echo "Need to simulate login sequence here"
+
+    # Command run
+    else if inputs[1] is "run"
+      # parse all input so we have a json object
+      parsed_input = parseInput(inputs)
+
+      switches = parsed_input.switches
+      swargs = parsed_input.switchArgs
+      imagename = parsed_input.imageName
+      commands = parsed_input.commands
+
+      console.log "commands"
+      console.log commands
+      console.log "switches"
+      console.log switches
+
+      console.log "parsed input"
+      console.log parsed_input
+      console.log "imagename: #{imagename}"
+
+      if imagename is "ubuntu"
+        if switches.containsAllOfTheseParts(['-i', '-t'])
+          if commands.containsAllOfTheseParts(['bash'])
+            term.push ( (command, term) ->
+              if command
+                echo """this shell is not implemented. Enter 'exit' to exit."""
+              return
+            ), {prompt: 'root@687bbbc4231b:/# '}
+          else
+            echo run_image_wrong_command(commands)
+        else
+          echo run_flag_defined_not_defined(switches)
+      else if imagename is "learn/tutorial"
+        if switches.length > 0
+          echo run_learn_no_command
+          intermediateResults(0)
+        else if commands[0] is "/bin/bash"
+          echo run_learn_tutorial_echo_hello_world(commands)
+          intermediateResults(2)
+        else if commands[0] is "echo"
+          echo run_learn_tutorial_echo_hello_world(commands)
+        else if commands.containsAllOfThese(['apt-get', 'install', '-y', 'iputils-ping'])
+          echo run_apt_get_install_iputils_ping
+        else if commands.containsAllOfThese(['apt-get', 'install', 'iputils-ping'])
+          echo run_apt_get_install_iputils_ping
+#          intermediateResults(0)
+        else if commands.containsAllOfThese(['apt-get', 'install', 'ping'])
+          echo run_apt_get_install_iputils_ping
+#          intermediateResults(0)
+        else if commands.containsAllOfThese(['apt-get', 'install'])
+          i = commands.length - 1
+          echo run_apt_get_install_unknown_package( commands[i] )
+#          intermediateResults(0)
+        else if commands[0] is "apt-get"
+          echo run_apt_get
+        else if commands[0]
+          echo run_image_wrong_command(commands[0])
+        else
+          echo run_learn_no_command
+
+      else if imagename is "learn/ping"
+        if commands.containsAllOfTheseParts(["ping", "google.com"])
+          util_slow_lines(term, run_ping_www_google_com, "", callback )
+        else if commands[0] is "ping" and commands[1]
+          echo run_ping_not_google(commands[1])
+        else if commands[0] is "ping"
+          echo ping
+        else if commands[0]
+          echo "#{commands[0]}: command not found"
+        else
+          echo run_learn_no_command
+
+      else if imagename
+        echo run_notfound(inputs[2])
+      else
+        console.log("run")
+        echo run_cmd
+
+    else if inputs[1] is "search"
+      if keyword = inputs[2]
+        if keyword is "ubuntu"
+          echo search_ubuntu
+        else if keyword is "tutorial"
+          echo search_tutorial
+        else
+          echo search_no_results(inputs[2])
+      else echo search
+
+    else if inputs[1] is "pull"
+      if keyword = inputs[2]
+        if keyword is 'ubuntu'
+          result = util_slow_lines(term, pull_ubuntu, "", callback )
+        else if keyword is 'learn/tutorial'
+          result = util_slow_lines(term, pull_tutorial, "", callback )
+        else
+          util_slow_lines(term, pull_no_results, keyword)
+      else
+        echo pull
+
+    else if inputs[1] is "version"
+#      console.log(version)
+      echo ice_version()
+
+
+    else if IceCommands[inputs[1]]
+      echo "#{inputs[1]} is a valid argument, but not implemented"
+
+    else
+      echo Ice_cmd
+      for IceCommand, description of IceCommands
+        echo "[[b;#fff;]" + IceCommand + "]" + description + ""
+
+    # return empty value because otherwise coffeescript will return last var
+    return
+
+  ###
+    ice program
+  ###
+
+  ice = (term, inputs) ->
 
     echo = term.echo
     insert = term.insert

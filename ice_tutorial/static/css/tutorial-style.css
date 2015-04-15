@@ -251,7 +251,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: #212c36;
+  background-color: #3B4B54;
   margin-top: 70px;
   overflow-y: scroll;
 }
@@ -290,10 +290,10 @@
   font-size: 16px;
 }
 #assignHead {
-  color: black;
+  color: #646464;
 }
 #assignHead h3 {
-  color: black;
+  color: #646464;
 }
 #instructions circle {
   fill: #FF8100;

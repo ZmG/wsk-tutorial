@@ -5,7 +5,7 @@
  */
 
 (function() {
-  var COMPLETE_URL, EVENT_TYPES, buildfunction, current_question, currentquestion, drawStatusMarker, err, f, j, len, logEvent, next, previous, progressIndicator, q, question, questionNumber, questions, results, staticDockerPs, statusMarker;
+  var COMPLETE_URL, EVENT_TYPES, buildfunction, current_question, currentquestion, drawStatusMarker, err, f, j, len, next, previous, progressIndicator, q, question, questionNumber, questions, results, staticDockerPs, statusMarker;
 
   COMPLETE_URL = "/whats-next/";
 
@@ -173,36 +173,6 @@
 
 
   /*
-    Sending events to the server
-   */
-
-  logEvent = function(data, feedback) {
-    var ajax_load, callback, loadUrl;
-    ajax_load = "loading......";
-    loadUrl = "/tutorial/api/";
-    if (!feedback) {
-      callback = function(responseText) {
-        return $("#ajax").html(responseText);
-      };
-    } else {
-      callback = function(responseText) {
-        results.set("Thank you for your feedback! We appreciate it!", true);
-        $('#feedbackInput').val("");
-        return $("#ajax").html(responseText);
-      };
-    }
-    if (!data) {
-      data = {
-        type: EVENT_TYPES.none
-      };
-    }
-    data.question = current_question;
-    $("#ajax").html(ajax_load);
-    return $.post(loadUrl, data, callback, "html");
-  };
-
-
-  /*
     Event handlers
    */
 
@@ -224,16 +194,6 @@
   $('#leftside').bind('mousewheel', function(event, delta, deltaX, deltaY) {
     this.scrollTop += deltaY * -30;
     return event.preventDefault();
-  });
-
-  $('#feedbackSubmit').click(function() {
-    var data, feedback;
-    feedback = $('#feedbackInput').val();
-    data = {
-      type: EVENT_TYPES.feedback,
-      feedback: feedback
-    };
-    return logEvent(data, feedback = true);
   });
 
   $('#fullSizeOpen').click(function() {

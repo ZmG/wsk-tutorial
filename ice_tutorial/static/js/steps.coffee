@@ -302,29 +302,6 @@ EVENT_TYPES =
 
 
 
-###
-  Sending events to the server
-###
-
-logEvent = (data, feedback) ->
-    ajax_load = "loading......";
-    loadUrl = "/tutorial/api/";
-    if not feedback
-      callback = (responseText) -> $("#ajax").html(responseText)
-    else
-      callback = (responseText) ->
-        results.set("Thank you for your feedback! We appreciate it!", true)
-        $('#feedbackInput').val("")
-        $("#ajax").html(responseText)
-
-    if not data then data = {type: EVENT_TYPES.none}
-    data.question = current_question
-
-
-    $("#ajax").html(ajax_load);
-    $.post(loadUrl, data, callback, "html")
-
-
 
 ###
   Event handlers
@@ -353,12 +330,6 @@ $('#leftside').bind('mousewheel',
     this.scrollTop += deltaY * -30
     event.preventDefault()
   )
-
-## submit feedback
-$('#feedbackSubmit').click ->
-  feedback = $('#feedbackInput').val()
-  data = { type: EVENT_TYPES.feedback, feedback: feedback}
-  logEvent(data, feedback=true)
 
 ## fullsize
 $('#fullSizeOpen').click ->
