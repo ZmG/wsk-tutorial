@@ -255,7 +255,8 @@ do @myTerminal = ->
   login = (term, inputs) ->
     echo = term.echo
     insert = term.insert
-
+    echo "Password> "
+    debugger
     if not inputs[1]
       console.log("none")
 
@@ -350,8 +351,8 @@ do @myTerminal = ->
       else
         term.push (command, term) ->
             debugger
+            echo "API endpoint: https://api.ng.bluemix.net\n\nEmail> "
             login(term, inputs)
-        , {prompt: '> $ '}
 
     # Command run
     else if inputs[1] is "run"

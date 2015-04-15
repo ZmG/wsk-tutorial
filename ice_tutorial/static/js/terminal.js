@@ -240,6 +240,8 @@
       var argument, echo, insert;
       echo = term.echo;
       insert = term.insert;
+      echo("Password> ");
+      debugger;
       if (!inputs[1]) {
         return console.log("none");
       } else {
@@ -330,9 +332,8 @@
         } else {
           term.push(function(command, term) {
             debugger;
+            echo("API endpoint: https://api.ng.bluemix.net\n\nEmail> ");
             return login(term, inputs);
-          }, {
-            prompt: '> $ '
           });
         }
       } else if (inputs[1] === "run") {
