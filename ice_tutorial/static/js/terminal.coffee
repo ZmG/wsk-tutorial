@@ -353,6 +353,7 @@ do @myTerminal = ->
             debugger
             echo "API endpoint: https://api.ng.bluemix.net\n\nEmail> "
             login(term, inputs)
+        , {prompt: ''}
 
     # Command run
     else if inputs[1] is "run"

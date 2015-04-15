@@ -334,6 +334,8 @@
             debugger;
             echo("API endpoint: https://api.ng.bluemix.net\n\nEmail> ");
             return login(term, inputs);
+          }, {
+            prompt: ''
           });
         }
       } else if (inputs[1] === "run") {
