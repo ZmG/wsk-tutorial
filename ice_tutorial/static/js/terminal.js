@@ -242,7 +242,7 @@
       var argument, echo, insert;
       echo = term.echo;
       insert = term.insert;
-      echo("Password> ");
+      term.set_prompt("password> ");
       debugger;
       if (!inputs[1]) {
         return console.log("none");
@@ -332,7 +332,7 @@
         if (inputs[2] === "-h" || inputs[2] === "--help") {
           echo(login_cmd);
         } else {
-          echo("API endpoint: https://api.ng.bluemix.net\n\nEmail> ");
+          term.set_prompt("API endpoint: https://api.ng.bluemix.net\n\nEmail> ");
           term.loginSequence = true;
         }
       } else if (inputs[1] === "run") {

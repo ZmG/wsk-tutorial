@@ -258,7 +258,7 @@ do @myTerminal = ->
   login = (term, inputs) ->
     echo = term.echo
     insert = term.insert
-    echo "Password> "
+    term.set_prompt "password> "
     debugger
     if not inputs[1]
       console.log("none")
@@ -352,7 +352,7 @@ do @myTerminal = ->
       if inputs[2] is "-h" or inputs[2] is "--help"
         echo login_cmd
       else
-        echo "API endpoint: https://api.ng.bluemix.net\n\nEmail> "
+        term.set_prompt "API endpoint: https://api.ng.bluemix.net\n\nEmail> "
         term.loginSequence = true
 
     # Command run
