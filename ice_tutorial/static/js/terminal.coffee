@@ -259,12 +259,11 @@ do @myTerminal = ->
     echo = term.echo
     insert = term.insert
     if term.loginSequence is 1
-      term.echo "\n"
       term.set_prompt "Password> "
       term.loginSequence = 2
 
     else if term.loginSequence is 2
-      util_slow_lines(term, auth, "", callback )
+      util_slow_lines(term, auth, "", null)
       term.loginSequence = 3
 
     if not inputs[1]
