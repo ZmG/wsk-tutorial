@@ -62,7 +62,7 @@ do @myTerminal = ->
     inputs = input.split(" ")
     command = inputs[0]
 
-    if term.loginSequence is true
+    if term.loginSequence in [1, 2]
       login(term, inputs)
 
     else if command is 'hi'
@@ -258,8 +258,15 @@ do @myTerminal = ->
   login = (term, inputs) ->
     echo = term.echo
     insert = term.insert
-    term.set_prompt "password> "
-    debugger
+    if term.loginSequence is 1
+      term.echo "\n"
+      term.set_prompt "Password> "
+      term.loginSequence = 2
+
+    else if term.loginSequence is 2
+      util_slow_lines(term, auth, "", callback )
+      term.loginSequence = 3
+
     if not inputs[1]
       console.log("none")
 
@@ -352,9 +359,9 @@ do @myTerminal = ->
       if inputs[2] is "-h" or inputs[2] is "--help"
         echo login_cmd
       else
-        term.echo "API endpoint: https://api.ng.bluemix.net"
+        term.echo "API endpoint: https://api.ng.bluemix.net\n"
         term.set_prompt "Email> "
-        term.loginSequence = true
+        term.loginSequence = 1
 
     # Command run
     else if inputs[1] is "run"
@@ -550,6 +557,12 @@ do @myTerminal = ->
   commit_containerid = \
     """
     effb66b31edb
+    """
+
+  auth = \
+    """
+    Authenticating...
+    OK
     """
 
   help = \
@@ -965,7 +978,6 @@ should have been. Leave feedback if you find things confusing.
       """
       ICE CLI Version        : 2.0.1 271 2015-03-30T15:40:18
       """
-
 
   ICE_logo = \
   '''
