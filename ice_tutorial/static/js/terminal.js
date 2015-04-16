@@ -332,7 +332,8 @@
         if (inputs[2] === "-h" || inputs[2] === "--help") {
           echo(login_cmd);
         } else {
-          term.set_prompt("API endpoint: https://api.ng.bluemix.net\n\nEmail> ");
+          term.echo("API endpoint: https://api.ng.bluemix.net");
+          term.set_prompt("Email> ");
           term.loginSequence = true;
         }
       } else if (inputs[1] === "run") {

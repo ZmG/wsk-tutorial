@@ -352,7 +352,8 @@ do @myTerminal = ->
       if inputs[2] is "-h" or inputs[2] is "--help"
         echo login_cmd
       else
-        term.set_prompt "API endpoint: https://api.ng.bluemix.net\n\nEmail> "
+        term.echo "API endpoint: https://api.ng.bluemix.net"
+        term.set_prompt "Email> "
         term.loginSequence = true
 
     # Command run
