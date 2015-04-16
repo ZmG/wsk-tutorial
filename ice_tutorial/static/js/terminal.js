@@ -42,7 +42,9 @@
       var IceCommand, command, description, inputs;
       inputs = input.split(" ");
       command = inputs[0];
-      if (command === 'hi') {
+      if (term.loginSequence === true) {
+        login(term, inputs);
+      } else if (command === 'hi') {
         term.echo('hi there! What is your name??');
         term.push(function(command, term) {
           return term.echo(command + ' is a pretty name');
@@ -331,11 +333,7 @@
           echo(login_cmd);
         } else {
           echo("API endpoint: https://api.ng.bluemix.net\n\nEmail> ");
-          term.push(function(command, term) {
-            return login(term, inputs);
-          }, {
-            prompt: '> $'
-          });
+          term.loginSequence = true;
         }
       } else if (inputs[1] === "run") {
         parsed_input = parseInput(inputs);

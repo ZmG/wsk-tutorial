@@ -62,7 +62,10 @@ do @myTerminal = ->
     inputs = input.split(" ")
     command = inputs[0]
 
-    if command is 'hi'
+    if term.loginSequence is true
+      login(term, inputs)
+
+    else if command is 'hi'
       term.echo 'hi there! What is your name??'
       term.push (command, term) ->
         term.echo command + ' is a pretty name'
@@ -350,9 +353,7 @@ do @myTerminal = ->
         echo login_cmd
       else
         echo "API endpoint: https://api.ng.bluemix.net\n\nEmail> "
-        term.push (command, term) ->
-            login(term, inputs)
-        , {prompt: '> $'}
+        term.loginSequence = true
 
     # Command run
     else if inputs[1] is "run"
