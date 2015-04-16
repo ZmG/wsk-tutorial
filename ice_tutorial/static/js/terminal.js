@@ -330,12 +330,11 @@
         if (inputs[2] === "-h" || inputs[2] === "--help") {
           echo(login_cmd);
         } else {
+          echo("API endpoint: https://api.ng.bluemix.net\n\nEmail> ");
           term.push(function(command, term) {
-            debugger;
-            echo("API endpoint: https://api.ng.bluemix.net\n\nEmail> ");
             return login(term, inputs);
           }, {
-            prompt: ''
+            prompt: '> $'
           });
         }
       } else if (inputs[1] === "run") {

@@ -349,11 +349,10 @@ do @myTerminal = ->
       if inputs[2] is "-h" or inputs[2] is "--help"
         echo login_cmd
       else
+        echo "API endpoint: https://api.ng.bluemix.net\n\nEmail> "
         term.push (command, term) ->
-            debugger
-            echo "API endpoint: https://api.ng.bluemix.net\n\nEmail> "
             login(term, inputs)
-        , {prompt: ''}
+        , {prompt: '> $'}
 
     # Command run
     else if inputs[1] is "run"
