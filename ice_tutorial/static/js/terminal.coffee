@@ -455,17 +455,17 @@ do @myTerminal = ->
         else
           echo search_no_results(inputs[2])
       else echo search
-
-    else if inputs[1] is "pull"
-      if keyword = inputs[2]
-        if keyword is 'ubuntu'
-          result = util_slow_lines(term, pull_ubuntu, "", callback )
-        else if keyword is 'learn/tutorial'
-          result = util_slow_lines(term, pull_tutorial, "", callback )
+    else if inputs[1] is "--local"
+      if inputs[2] is "pull"
+        if keyword = inputs[3]
+          if keyword is 'ubuntu'
+            result = util_slow_lines(term, pull_ubuntu, "", callback )
+          else if keyword is 'learn/tutorial'
+            result = util_slow_lines(term, pull_tutorial, "", callback )
+          else
+            util_slow_lines(term, pull_no_results, keyword)
         else
-          util_slow_lines(term, pull_no_results, keyword)
-      else
-        echo pull
+          echo pull
 
     else if inputs[1] is "version"
 #      console.log(version)

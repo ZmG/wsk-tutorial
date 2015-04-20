@@ -61,16 +61,19 @@ html: """
       <h3>Downloading container images</h3>
       <p>Container images can be downloaded just as easily, using <code>docker pull</code>.</p>
       <p>However, instead of calling <code>docker pull</code> we will use <code>ice --local pull</code>, to pull images from registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image&gt;.</p>
-      <p>For images from the central index, the name you specify is constructed as &lt;username&gt;/&lt;repository&gt;</p>
-      <p>A group of special, trusted images such as the ubuntu base image can be retrieved by just their name &lt;repository&gt;.</p>
+      <p>For images from the central index, the name you specify is constructed as &lt;Namespace&gt;/&lt;Image Name&gt;</p>
+      <p>A group of special, trusted images such as the ubuntu base image can be retrieved by just their name &lt;Image Name&gt;.</p>
       """
 assignment:
       """
       <h3>Assignment</h3>
-      <p>Pull the <b>'tutorial'</b> image from the <b>'learn'</b> namespace </p>
+      <p>Pull the <b>'tutorial'</b> image from the <b>'learn'</b> namespace in the <b>'registry-ice.ng.bluemix.net'</b> registry</p>
       """
 command_expected: ['ice', '--local', 'pull', 'registry-ice.ng.bluemix.net/learn/tutorial']
 result: """<p>Cool. Look at the results. You'll see that Docker has downloaded a number of layers. In Docker all images (except the base image) are made up of several cumulative layers.</p>"""
+intermediateresults: [
+  () -> """<p>You seem to be almost there. Don't forget to tell <b>ice --local pull</b> where to find the image, ice --local pull &lt;<Registry url>&gt;/&lt;learn&gt;/&lt;tutorial&gt; """
+  ]
 tip: """<p>Don't forget to pull the full name of the repository e.g. 'learn/tutorial'</p>
      <p>Look under 'show expected command if you're stuck.</p>
      """

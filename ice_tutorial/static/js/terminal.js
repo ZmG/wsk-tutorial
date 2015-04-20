@@ -428,17 +428,19 @@
         } else {
           echo(search);
         }
-      } else if (inputs[1] === "pull") {
-        if (keyword = inputs[2]) {
-          if (keyword === 'ubuntu') {
-            result = util_slow_lines(term, pull_ubuntu, "", callback);
-          } else if (keyword === 'learn/tutorial') {
-            result = util_slow_lines(term, pull_tutorial, "", callback);
+      } else if (inputs[1] === "--local") {
+        if (inputs[2] === "pull") {
+          if (keyword = inputs[3]) {
+            if (keyword === 'ubuntu') {
+              result = util_slow_lines(term, pull_ubuntu, "", callback);
+            } else if (keyword === 'learn/tutorial') {
+              result = util_slow_lines(term, pull_tutorial, "", callback);
+            } else {
+              util_slow_lines(term, pull_no_results, keyword);
+            }
           } else {
-            util_slow_lines(term, pull_no_results, keyword);
+            echo(pull);
           }
-        } else {
-          echo(pull);
         }
       } else if (inputs[1] === "version") {
         echo(ice_version());
