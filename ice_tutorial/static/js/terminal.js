@@ -248,6 +248,7 @@
       } else if (term.loginSequence === 2) {
         util_slow_lines(term, auth, "", null);
         term.loginSequence = 3;
+        term.set_prompt("you@tutorial:~$");
       }
       if (!inputs[1]) {
         return console.log("none");
