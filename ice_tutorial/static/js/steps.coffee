@@ -60,7 +60,7 @@ q.push ({
 html: """
       <h3>Downloading container images</h3>
       <p>Container images can be downloaded just as easily, using <code>docker pull</code>.</p>
-      <p>However, instead of calling <code>docker pull</code> we will use <code>ice --local pull</code>, to pull images from registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image&gt;.</p>
+      <p>However, instead of calling <code>docker pull</code> directly we will use <code>ice --local pull</code>, to pull images from registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image&gt;.</p>
       <p>For images from the central index, the name you specify is constructed as &lt;Namespace&gt;/&lt;Image Name&gt;</p>
       <p>A group of special, trusted images such as the ubuntu base image can be retrieved by just their name &lt;Image Name&gt;.</p>
       """
@@ -70,7 +70,7 @@ assignment:
       <p>Pull the <b>'tutorial'</b> image from the <b>'learn'</b> namespace in the <b>'registry-ice.ng.bluemix.net'</b> registry</p>
       """
 command_expected: ['ice', '--local', 'pull', 'registry-ice.ng.bluemix.net/learn/tutorial']
-result: """<p>Cool. Look at the results. You'll see that Docker has downloaded a number of layers. In Docker all images (except the base image) are made up of several cumulative layers.</p>"""
+result: """<p>Cool. Look at the results. You'll see that ice has invoked docker to download a number of layers. In Docker all images (except the base image) are made up of several cumulative layers.</p>"""
 intermediateresults: [
   () -> """<p>You seem to be almost there. Don't forget to tell <b>ice --local pull</b> where to find the image, ice --local pull &lt;<Registry url>&gt;/&lt;learn&gt;/&lt;tutorial&gt; """,
   () -> """<p>You got the namespace and image name correct, but forgot to specify a registry, hint ice --local pull &lt;Registry url&gt;/&lt;Namespace&gt;/&lt;Image Name&gt;</p>"""
@@ -95,7 +95,7 @@ assignment: """
       <p>To do so you should run 'echo' in the container and have that say "hello world"
 
       """
-command_expected: ["docker", "run", "learn/tutorial", "echo", "hello"]
+command_expected: ["ice", "--local", "run", "learn/tutorial", "echo", "hello"]
 command_show: ["docker", "run", "learn/tutorial", 'echo "hello world"']
 
 result: """<p>Great! Hellooooo World!</p><p>You have just started a container and executed a program inside of it, when

@@ -344,78 +344,6 @@
         } else if (inputs.containsAllOfTheseParts(['ice', 'login'])) {
           intermediateResults(0);
         }
-      } else if (inputs[1] === "run") {
-        parsed_input = parseInput(inputs);
-        switches = parsed_input.switches;
-        swargs = parsed_input.switchArgs;
-        imagename = parsed_input.imageName;
-        commands = parsed_input.commands;
-        console.log("commands");
-        console.log(commands);
-        console.log("switches");
-        console.log(switches);
-        console.log("parsed input");
-        console.log(parsed_input);
-        console.log("imagename: " + imagename);
-        if (imagename === "ubuntu") {
-          if (switches.containsAllOfTheseParts(['-i', '-t'])) {
-            if (commands.containsAllOfTheseParts(['bash'])) {
-              term.push((function(command, term) {
-                if (command) {
-                  echo("this shell is not implemented. Enter 'exit' to exit.");
-                }
-              }), {
-                prompt: 'root@687bbbc4231b:/# '
-              });
-            } else {
-              echo(run_image_wrong_command(commands));
-            }
-          } else {
-            echo(run_flag_defined_not_defined(switches));
-          }
-        } else if (imagename === "learn/tutorial") {
-          if (switches.length > 0) {
-            echo(run_learn_no_command);
-            intermediateResults(0);
-          } else if (commands[0] === "/bin/bash") {
-            echo(run_learn_tutorial_echo_hello_world(commands));
-            intermediateResults(2);
-          } else if (commands[0] === "echo") {
-            echo(run_learn_tutorial_echo_hello_world(commands));
-          } else if (commands.containsAllOfThese(['apt-get', 'install', '-y', 'iputils-ping'])) {
-            echo(run_apt_get_install_iputils_ping);
-          } else if (commands.containsAllOfThese(['apt-get', 'install', 'iputils-ping'])) {
-            echo(run_apt_get_install_iputils_ping);
-          } else if (commands.containsAllOfThese(['apt-get', 'install', 'ping'])) {
-            echo(run_apt_get_install_iputils_ping);
-          } else if (commands.containsAllOfThese(['apt-get', 'install'])) {
-            i = commands.length - 1;
-            echo(run_apt_get_install_unknown_package(commands[i]));
-          } else if (commands[0] === "apt-get") {
-            echo(run_apt_get);
-          } else if (commands[0]) {
-            echo(run_image_wrong_command(commands[0]));
-          } else {
-            echo(run_learn_no_command);
-          }
-        } else if (imagename === "learn/ping") {
-          if (commands.containsAllOfTheseParts(["ping", "google.com"])) {
-            util_slow_lines(term, run_ping_www_google_com, "", callback);
-          } else if (commands[0] === "ping" && commands[1]) {
-            echo(run_ping_not_google(commands[1]));
-          } else if (commands[0] === "ping") {
-            echo(ping);
-          } else if (commands[0]) {
-            echo(commands[0] + ": command not found");
-          } else {
-            echo(run_learn_no_command);
-          }
-        } else if (imagename) {
-          echo(run_notfound(inputs[2]));
-        } else {
-          console.log("run");
-          echo(run_cmd);
-        }
       } else if (inputs[1] === "search") {
         if (keyword = inputs[2]) {
           if (keyword === "ubuntu") {
@@ -442,6 +370,78 @@
             }
           } else {
             echo(pull);
+          }
+        } else if (inputs[2] === "run") {
+          parsed_input = parseInput(inputs);
+          switches = parsed_input.switches;
+          swargs = parsed_input.switchArgs;
+          imagename = parsed_input.imageName;
+          commands = parsed_input.commands;
+          console.log("commands");
+          console.log(commands);
+          console.log("switches");
+          console.log(switches);
+          console.log("parsed input");
+          console.log(parsed_input);
+          console.log("imagename: " + imagename);
+          if (imagename === "ubuntu") {
+            if (switches.containsAllOfTheseParts(['-i', '-t'])) {
+              if (commands.containsAllOfTheseParts(['bash'])) {
+                term.push((function(command, term) {
+                  if (command) {
+                    echo("this shell is not implemented. Enter 'exit' to exit.");
+                  }
+                }), {
+                  prompt: 'root@687bbbc4231b:/# '
+                });
+              } else {
+                echo(run_image_wrong_command(commands));
+              }
+            } else {
+              echo(run_flag_defined_not_defined(switches));
+            }
+          } else if (imagename === "learn/tutorial") {
+            if (switches.length > 0) {
+              echo(run_learn_no_command);
+              intermediateResults(0);
+            } else if (commands[0] === "/bin/bash") {
+              echo(run_learn_tutorial_echo_hello_world(commands));
+              intermediateResults(2);
+            } else if (commands[0] === "echo") {
+              echo(run_learn_tutorial_echo_hello_world(commands));
+            } else if (commands.containsAllOfThese(['apt-get', 'install', '-y', 'iputils-ping'])) {
+              echo(run_apt_get_install_iputils_ping);
+            } else if (commands.containsAllOfThese(['apt-get', 'install', 'iputils-ping'])) {
+              echo(run_apt_get_install_iputils_ping);
+            } else if (commands.containsAllOfThese(['apt-get', 'install', 'ping'])) {
+              echo(run_apt_get_install_iputils_ping);
+            } else if (commands.containsAllOfThese(['apt-get', 'install'])) {
+              i = commands.length - 1;
+              echo(run_apt_get_install_unknown_package(commands[i]));
+            } else if (commands[0] === "apt-get") {
+              echo(run_apt_get);
+            } else if (commands[0]) {
+              echo(run_image_wrong_command(commands[0]));
+            } else {
+              echo(run_learn_no_command);
+            }
+          } else if (imagename === "learn/ping") {
+            if (commands.containsAllOfTheseParts(["ping", "google.com"])) {
+              util_slow_lines(term, run_ping_www_google_com, "", callback);
+            } else if (commands[0] === "ping" && commands[1]) {
+              echo(run_ping_not_google(commands[1]));
+            } else if (commands[0] === "ping") {
+              echo(ping);
+            } else if (commands[0]) {
+              echo(commands[0] + ": command not found");
+            } else {
+              echo(run_learn_no_command);
+            }
+          } else if (imagename) {
+            echo(run_notfound(inputs[2]));
+          } else {
+            console.log("run");
+            echo(run_cmd);
           }
         }
       } else if (inputs[1] === "version") {
@@ -519,12 +519,12 @@
     ps = "ID                  IMAGE               COMMAND               CREATED             STATUS              PORTS\nefefdc74a1d5        learn/ping:latest   ping www.google.com   37 seconds ago      Up 36 seconds";
     ps_a = "ID                  IMAGE               COMMAND                CREATED             STATUS              PORTS\n6982a9948422        ubuntu:12.04        apt-get install ping   1 minute ago        Exit 0\nefefdc74a1d5        learn/ping:latest   ping www.google.com   37 seconds ago       Up 36 seconds";
     ps_l = "ID                  IMAGE               COMMAND                CREATED             STATUS              PORTS\n6982a9948422        ubuntu:12.04        apt-get install ping   1 minute ago        Exit 0";
-    pull = "Usage: Docker pull NAME\n\nPull an image or a repository from the registry\n\n-registry=\"\": Registry to download from. Necessary if image is pulled by ID\n-t=\"\": Download tagged image in repository";
+    pull = "Usage: ice [--local] pull NAME\n\nPull an image or a repository from the registry\n\n-registry=\"\": Registry to download from. Necessary if image is pulled by ID\n-t=\"\": Download tagged image in repository";
     pull_no_results = function(keyword) {
       return "Pulling repository " + keyword + "\n2013/06/19 19:27:03 HTTP code: 404";
     };
-    pull_ubuntu = "Pulling repository ubuntu from https://index.docker.io/v1\nPulling image 8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c (precise) from ubuntu\nPulling image b750fe79269d2ec9a3c593ef05b4332b1d1a02a62b4accb2c21d589ff2f5f2dc (12.10) from ubuntu\nPulling image 27cf784147099545 () from ubuntu";
-    pull_tutorial = "Pulling repository learn/tutorial from https://index.docker.io/v1\nPulling image 8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c (precise) from ubuntu\nPulling image b750fe79269d2ec9a3c593ef05b4332b1d1a02a62b4accb2c21d589ff2f5f2dc (12.10) from ubuntu\nPulling image 27cf784147099545 () from tutorial";
+    pull_ubuntu = "Target is local host. Invoking docker with the given arguments...\nPulling repository ubuntu from https://index.docker.io/v1\nPulling image 8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c (precise) from ubuntu\nPulling image b750fe79269d2ec9a3c593ef05b4332b1d1a02a62b4accb2c21d589ff2f5f2dc (12.10) from ubuntu\nPulling image 27cf784147099545 () from ubuntu";
+    pull_tutorial = "Target is local host. Invoking docker with the given arguments...\nPulling repository learn/tutorial from https://index.docker.io/v1\nPulling image 8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c (precise) from ubuntu\nPulling image b750fe79269d2ec9a3c593ef05b4332b1d1a02a62b4accb2c21d589ff2f5f2dc (12.10) from ubuntu\nPulling image 27cf784147099545 () from tutorial";
     push = "\nUsage: docker push NAME\n\nPush an image or a repository to the registry";
     push_container_learn_ping = "The push refers to a repository [learn/ping] (len: 1)\nProcessing checksums\nSending image list\nPushing repository learn/ping (1 tags)\nPushing 8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c\nImage 8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c already pushed, skipping\nPushing tags for rev [8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c] on {https://registry-1.docker.io/v1/repositories/learn/ping/tags/latest}\nPushing a1dbb48ce764c6651f5af98b46ed052a5f751233d731b645a6c57f91a4cb7158\nPushing  11.5 MB/11.5 MB (100%)\nPushing tags for rev [a1dbb48ce764c6651f5af98b46ed052a5f751233d731b645a6c57f91a4cb7158] on {https://registry-1.docker.io/v1/repositories/learn/ping/tags/latest}";
     push_wrong_name = "The push refers to a repository [dhrp/fail] (len: 0)";

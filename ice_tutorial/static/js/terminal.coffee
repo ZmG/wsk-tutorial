@@ -369,82 +369,7 @@ do @myTerminal = ->
         intermediateResults(0)
         
 
-    # Command run
-    else if inputs[1] is "run"
-      # parse all input so we have a json object
-      parsed_input = parseInput(inputs)
-
-      switches = parsed_input.switches
-      swargs = parsed_input.switchArgs
-      imagename = parsed_input.imageName
-      commands = parsed_input.commands
-
-      console.log "commands"
-      console.log commands
-      console.log "switches"
-      console.log switches
-
-      console.log "parsed input"
-      console.log parsed_input
-      console.log "imagename: #{imagename}"
-
-      if imagename is "ubuntu"
-        if switches.containsAllOfTheseParts(['-i', '-t'])
-          if commands.containsAllOfTheseParts(['bash'])
-            term.push ( (command, term) ->
-              if command
-                echo """this shell is not implemented. Enter 'exit' to exit."""
-              return
-            ), {prompt: 'root@687bbbc4231b:/# '}
-          else
-            echo run_image_wrong_command(commands)
-        else
-          echo run_flag_defined_not_defined(switches)
-      else if imagename is "learn/tutorial"
-        if switches.length > 0
-          echo run_learn_no_command
-          intermediateResults(0)
-        else if commands[0] is "/bin/bash"
-          echo run_learn_tutorial_echo_hello_world(commands)
-          intermediateResults(2)
-        else if commands[0] is "echo"
-          echo run_learn_tutorial_echo_hello_world(commands)
-        else if commands.containsAllOfThese(['apt-get', 'install', '-y', 'iputils-ping'])
-          echo run_apt_get_install_iputils_ping
-        else if commands.containsAllOfThese(['apt-get', 'install', 'iputils-ping'])
-          echo run_apt_get_install_iputils_ping
-#          intermediateResults(0)
-        else if commands.containsAllOfThese(['apt-get', 'install', 'ping'])
-          echo run_apt_get_install_iputils_ping
-#          intermediateResults(0)
-        else if commands.containsAllOfThese(['apt-get', 'install'])
-          i = commands.length - 1
-          echo run_apt_get_install_unknown_package( commands[i] )
-#          intermediateResults(0)
-        else if commands[0] is "apt-get"
-          echo run_apt_get
-        else if commands[0]
-          echo run_image_wrong_command(commands[0])
-        else
-          echo run_learn_no_command
-
-      else if imagename is "learn/ping"
-        if commands.containsAllOfTheseParts(["ping", "google.com"])
-          util_slow_lines(term, run_ping_www_google_com, "", callback )
-        else if commands[0] is "ping" and commands[1]
-          echo run_ping_not_google(commands[1])
-        else if commands[0] is "ping"
-          echo ping
-        else if commands[0]
-          echo "#{commands[0]}: command not found"
-        else
-          echo run_learn_no_command
-
-      else if imagename
-        echo run_notfound(inputs[2])
-      else
-        console.log("run")
-        echo run_cmd
+    
 
     else if inputs[1] is "search"
       if keyword = inputs[2]
@@ -468,6 +393,82 @@ do @myTerminal = ->
             util_slow_lines(term, pull_no_results, keyword)
         else
           echo pull
+      # Command run
+      else if inputs[2] is "run"
+        # parse all input so we have a json object
+        parsed_input = parseInput(inputs)
+
+        switches = parsed_input.switches
+        swargs = parsed_input.switchArgs
+        imagename = parsed_input.imageName
+        commands = parsed_input.commands
+
+        console.log "commands"
+        console.log commands
+        console.log "switches"
+        console.log switches
+
+        console.log "parsed input"
+        console.log parsed_input
+        console.log "imagename: #{imagename}"
+
+        if imagename is "ubuntu"
+          if switches.containsAllOfTheseParts(['-i', '-t'])
+            if commands.containsAllOfTheseParts(['bash'])
+              term.push ( (command, term) ->
+                if command
+                  echo """this shell is not implemented. Enter 'exit' to exit."""
+                return
+              ), {prompt: 'root@687bbbc4231b:/# '}
+            else
+              echo run_image_wrong_command(commands)
+          else
+            echo run_flag_defined_not_defined(switches)
+        else if imagename is "learn/tutorial"
+          if switches.length > 0
+            echo run_learn_no_command
+            intermediateResults(0)
+          else if commands[0] is "/bin/bash"
+            echo run_learn_tutorial_echo_hello_world(commands)
+            intermediateResults(2)
+          else if commands[0] is "echo"
+            echo run_learn_tutorial_echo_hello_world(commands)
+          else if commands.containsAllOfThese(['apt-get', 'install', '-y', 'iputils-ping'])
+            echo run_apt_get_install_iputils_ping
+          else if commands.containsAllOfThese(['apt-get', 'install', 'iputils-ping'])
+            echo run_apt_get_install_iputils_ping
+  #          intermediateResults(0)
+          else if commands.containsAllOfThese(['apt-get', 'install', 'ping'])
+            echo run_apt_get_install_iputils_ping
+  #          intermediateResults(0)
+          else if commands.containsAllOfThese(['apt-get', 'install'])
+            i = commands.length - 1
+            echo run_apt_get_install_unknown_package( commands[i] )
+  #          intermediateResults(0)
+          else if commands[0] is "apt-get"
+            echo run_apt_get
+          else if commands[0]
+            echo run_image_wrong_command(commands[0])
+          else
+            echo run_learn_no_command
+
+        else if imagename is "learn/ping"
+          if commands.containsAllOfTheseParts(["ping", "google.com"])
+            util_slow_lines(term, run_ping_www_google_com, "", callback )
+          else if commands[0] is "ping" and commands[1]
+            echo run_ping_not_google(commands[1])
+          else if commands[0] is "ping"
+            echo ping
+          else if commands[0]
+            echo "#{commands[0]}: command not found"
+          else
+            echo run_learn_no_command
+
+        else if imagename
+          echo run_notfound(inputs[2])
+        else
+          console.log("run")
+          echo run_cmd
 
     else if inputs[1] is "version"
 #      console.log(version)
@@ -712,7 +713,7 @@ should have been. Leave feedback if you find things confusing.
 
   pull = \
     """
-    Usage: Docker pull NAME
+    Usage: ice [--local] pull NAME
 
     Pull an image or a repository from the registry
 
@@ -728,6 +729,7 @@ should have been. Leave feedback if you find things confusing.
 
   pull_ubuntu =
     """
+    Target is local host. Invoking docker with the given arguments...
     Pulling repository ubuntu from https://index.docker.io/v1
     Pulling image 8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c (precise) from ubuntu
     Pulling image b750fe79269d2ec9a3c593ef05b4332b1d1a02a62b4accb2c21d589ff2f5f2dc (12.10) from ubuntu
@@ -736,6 +738,7 @@ should have been. Leave feedback if you find things confusing.
 
   pull_tutorial = \
     """
+    Target is local host. Invoking docker with the given arguments...
     Pulling repository learn/tutorial from https://index.docker.io/v1
     Pulling image 8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c (precise) from ubuntu
     Pulling image b750fe79269d2ec9a3c593ef05b4332b1d1a02a62b4accb2c21d589ff2f5f2dc (12.10) from ubuntu
