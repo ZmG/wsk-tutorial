@@ -28,10 +28,17 @@
 
   q.push({
     html: "<h3>Logging In</h3>\n<p>The easiest way to get started is to log in to the IBM Containers infrastructure.  For details on login arguments, search the online \n<a href=\"#1\" onClick=\"window.open('https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#genTopProcId4','IBM Containers Doc','width=1000,height=900,left=50,top=50,menubar=0')\";>IBM Containers Doc</a>\nand by using the commandline</p>",
-    assignment: "<h3>Assignment</h3>\n<p>Use the <code>ice login</code> command to log in to the IBM Containers infrastructure while manually specifying your cloud service host or url using the <b>short option format</b></p>",
+    assignment: "<h3>Assignment</h3>\n<p>Use the <code>ice login</code> command to log in to the IBM Containers infrastructure while manually specifying your cloud service host or url using the <b>short option format</b>. Ice will ask you for a username and password, any value will work.</p>",
     command_expected: ['ice', 'login', '-H', 'https://api-ice.ng.bluemix.net/v2/containers'],
     result: "<p>You found it! Way to go!</p>",
-    tip: "the optional arguments for login are specified in the online Bluemix Containers doc</code>"
+    intermediateresults: [
+      function() {
+        return "<p>You seem to be almost there. Did you specify the endpoint with '-h  https://api-ice.ng.bluemix.net/v2/containers' ";
+      }, function() {
+        return "<p>You've got the arguments right. Did you get the command? Try <em>/bin/bash </em>?</p>";
+      }
+    ],
+    tip: "the optional arguments for login are specified in the online Bluemix Containers doc"
   });
 
   q.push({

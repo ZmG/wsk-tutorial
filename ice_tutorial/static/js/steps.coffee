@@ -45,11 +45,15 @@ html: """
       """
 assignment: """
       <h3>Assignment</h3>
-      <p>Use the <code>ice login</code> command to log in to the IBM Containers infrastructure while manually specifying your cloud service host or url using the <b>short option format</b></p>
+      <p>Use the <code>ice login</code> command to log in to the IBM Containers infrastructure while manually specifying your cloud service host or url using the <b>short option format</b>. Ice will ask you for a username and password, any value will work.</p>
       """
 command_expected: ['ice', 'login', '-H', 'https://api-ice.ng.bluemix.net/v2/containers']
 result: """<p>You found it! Way to go!</p>"""
-tip: "the optional arguments for login are specified in the online Bluemix Containers doc</code>"
+intermediateresults: [
+  () -> """<p>You seem to be almost there. Did you specify the endpoint with '-h  https://api-ice.ng.bluemix.net/v2/containers' """,
+  () -> """<p>You've got the arguments right. Did you get the command? Try <em>/bin/bash </em>?</p>"""
+  ]
+tip: "the optional arguments for login are specified in the online Bluemix Containers doc"
 })
 
 q.push ({

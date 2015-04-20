@@ -268,7 +268,7 @@ do @myTerminal = ->
       util_slow_lines(term, auth, "", loginResult)
       term.loginSequence = 3
 
-      term.set_prompt "you@tutorial:~$"
+      term.set_prompt "you@tutorial:~$ "
 
     if not inputs[1]
       console.log("none")
@@ -361,10 +361,13 @@ do @myTerminal = ->
       console.log("login")
       if inputs[2] is "-h" or inputs[2] is "--help"
         echo login_cmd
-      else
+      else if inputs.containsAllOfTheseParts(['ice', 'login', 'https://api-ice.ng.bluemix.net/v2/containers'])
         term.echo "API endpoint: https://api.ng.bluemix.net\n"
         term.set_prompt "Email> "
         term.loginSequence = 1
+      else if inputs.containsAllOfTheseParts(['ice', 'login'])
+        intermediateResults(0)
+        
 
     # Command run
     else if inputs[1] is "run"
@@ -582,6 +585,7 @@ do @myTerminal = ->
 
       Proceeding to authenticate with the container cloud registry at registry-ice.ng.bluemix.net
       Login Succeeded
+
       """
     )
 
