@@ -33,7 +33,7 @@
     result: "<p>You found it! Way to go!</p>",
     intermediateresults: [
       function() {
-        return "<p>You seem to be almost there. Did you specify the endpoint with '-h  https://api-ice.ng.bluemix.net/v2/containers' ";
+        return "<p>You seem to be almost there. Did you specify the host with </b>'-h  https://api-ice.ng.bluemix.net/v2/containers'</b> ";
       }, function() {
         return "<p>You've got the arguments right. Did you get the command? Try <em>/bin/bash </em>?</p>";
       }
@@ -42,9 +42,9 @@
   });
 
   q.push({
-    html: "<h3>Downloading container images</h3>\n<p>Container images can be downloaded just as easily, using <code>docker pull</code>.</p>\n<p>For images from the central index, the name you specify is constructed as &lt;username&gt;/&lt;repository&gt;</p>\n<p>A group of special, trusted images such as the ubuntu base image can be retrieved by just their name &lt;repository&gt;.</p>",
-    assignment: "<h3>Assignment</h3>\n<p>Please download the tutorial image you have just found</p>",
-    command_expected: ['docker', 'pull', 'learn/tutorial'],
+    html: "<h3>Downloading container images</h3>\n<p>Container images can be downloaded just as easily, using <code>docker pull</code>.</p>\n<p>However, instead of calling <code>docker pull</code> we will use <code>ice --local pull</code>, to pull images from registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image&gt;.</p>\n<p>For images from the central index, the name you specify is constructed as &lt;username&gt;/&lt;repository&gt;</p>\n<p>A group of special, trusted images such as the ubuntu base image can be retrieved by just their name &lt;repository&gt;.</p>",
+    assignment: "<h3>Assignment</h3>\n<p>Pull the <b>'tutorial'</b> image from the <b>'learn'</b> namespace </p>",
+    command_expected: ['ice', '--local', 'pull', 'registry-ice.ng.bluemix.net/learn/tutorial'],
     result: "<p>Cool. Look at the results. You'll see that Docker has downloaded a number of layers. In Docker all images (except the base image) are made up of several cumulative layers.</p>",
     tip: "<p>Don't forget to pull the full name of the repository e.g. 'learn/tutorial'</p>\n<p>Look under 'show expected command if you're stuck.</p>"
   });
