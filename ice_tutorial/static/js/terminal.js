@@ -434,6 +434,8 @@
             if (keyword === 'ubuntu') {
               result = util_slow_lines(term, pull_ubuntu, "", callback);
             } else if (keyword === 'learn/tutorial') {
+              intermediateResults(1);
+            } else if (keyword === 'registry-ice.ng.bluemix.net/learn/tutorial') {
               result = util_slow_lines(term, pull_tutorial, "", callback);
             } else {
               util_slow_lines(term, pull_no_results, keyword);

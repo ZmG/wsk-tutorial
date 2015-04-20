@@ -72,7 +72,8 @@ assignment:
 command_expected: ['ice', '--local', 'pull', 'registry-ice.ng.bluemix.net/learn/tutorial']
 result: """<p>Cool. Look at the results. You'll see that Docker has downloaded a number of layers. In Docker all images (except the base image) are made up of several cumulative layers.</p>"""
 intermediateresults: [
-  () -> """<p>You seem to be almost there. Don't forget to tell <b>ice --local pull</b> where to find the image, ice --local pull &lt;<Registry url>&gt;/&lt;learn&gt;/&lt;tutorial&gt; """
+  () -> """<p>You seem to be almost there. Don't forget to tell <b>ice --local pull</b> where to find the image, ice --local pull &lt;<Registry url>&gt;/&lt;learn&gt;/&lt;tutorial&gt; """,
+  () -> """<p>You got the namespace and image name correct, but forgot to specify a registry, hint ice --local pull &lt;Registry url&gt;/&lt;Namespace&gt;/&lt;Image Name&gt;</p>"""
   ]
 tip: """<p>Don't forget to pull the full name of the repository e.g. 'learn/tutorial'</p>
      <p>Look under 'show expected command if you're stuck.</p>
@@ -136,32 +137,6 @@ tip: """
      """
 })
 
-###
-q.push ({
-html: """
-      <h3>Save your changes</h3>
-      <p>After you make changes (by running a command inside a container), you probably want to save those changes.
-      This will enable you to later start from this point onwards.</p>
-      <p>With Docker, the process of saving the state is called <em>committing</em>. Commit basically saves the difference
-      between the old image and the new state. The result is a new layer.</p>
-      """
-assignment: """
-      <h3>Assignment</h3>
-      <p>First use <code>docker ps -l</code> to find the ID of the container you created by installing ping.</p>
-      <p>Then save (commit) this container with the repository name 'learn/ping' </p>
-      """
-command_expected: ["docker", "commit", "698", "learn/ping"]
-command_show: ["docker", "commit", "698", 'learn/ping']
-result: """<p>That worked! Please take note that Docker has returned a new ID. This id is the <em>image id</em>.</p>"""
-intermediateresults: [ () -> """You have not specified the correct repository name to commit to (learn/ping). This works, but giving your images a name
-                      makes them much easier to work with."""]
-tip: """<ul>
-     <li>Giving just <code>docker commit</code> will show you the possible arguments.</li>
-     <li>You will need to specify the container to commit by the ID you found</li>
-     <li>You don't need to copy (type) the entire ID. Three or four characters are usually enough.</li>
-     </ul>"""
-})
-###
 
 q.push ({
 html: """
