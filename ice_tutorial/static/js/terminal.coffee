@@ -217,11 +217,11 @@ do @myTerminal = ->
           foo(lines)
         else
           term.resume()
-          finishedCallback
-          return
+          finishedCallback(term)
       ), 1000
 
     foo(lines)
+
 
 
   wait = (term, time, dots) ->
@@ -265,7 +265,7 @@ do @myTerminal = ->
       term.loginSequence = 2
 
     else if term.loginSequence is 2
-      util_slow_lines(term, auth, "", loginResult(term))
+      util_slow_lines(term, auth, "", loginResult)
       term.loginSequence = 3
 
       term.set_prompt "you@tutorial:~$"
