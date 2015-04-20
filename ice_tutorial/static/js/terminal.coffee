@@ -259,14 +259,14 @@ do @myTerminal = ->
 
     if term.loginSequence is 1
       term.email = inputs[0]
-      term.echo "\n"
+      term.echo ""
       term.set_prompt "Password> "
       term.loginSequence = 2
 
     else if term.loginSequence is 2
-      util_slow_lines(term, auth, "", term.echo(loginResult(term.email)))
+      util_slow_lines(term, auth, "", loginResult(term))
       term.loginSequence = 3
-      term.echo "\n"
+
       term.set_prompt "you@tutorial:~$"
 
     if not inputs[1]
@@ -565,22 +565,24 @@ do @myTerminal = ->
     """
     Authenticating...
     OK
+
     """
 
-  loginResult = (email) ->
-    """
-    
-    API endpoint:   https://api.ng.bluemix.net (API version: 2.19.0)
-    User:           #{email}
-    Org:            tutorial
-    Space:          tutorial
-    Authentication with container cloud service at https://api-ice.ng.bluemix.net/v2/containers completed successfully
-    You can issue commands now to the container service
+  loginResult = (term) ->
+    term.echo (
+      """
+      
+      API endpoint:   https://api.ng.bluemix.net (API version: 2.19.0)
+      User:           #{term.email}
+      Org:            tutorial
+      Space:          tutorial
+      Authentication with container cloud service at https://api-ice.ng.bluemix.net/v2/containers completed successfully
+      You can issue commands now to the container service
 
-    Proceeding to authenticate with the container cloud registry at registry-ice.ng.bluemix.net
-    Login Succeeded
-    """
- 
+      Proceeding to authenticate with the container cloud registry at registry-ice.ng.bluemix.net
+      Login Succeeded
+      """
+    )
 
   help = \
     "

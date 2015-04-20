@@ -242,13 +242,12 @@
       var argument;
       if (term.loginSequence === 1) {
         term.email = inputs[0];
-        term.echo("\n");
+        term.echo("");
         term.set_prompt("Password> ");
         term.loginSequence = 2;
       } else if (term.loginSequence === 2) {
-        util_slow_lines(term, auth, "", term.echo(loginResult(term.email)));
+        util_slow_lines(term, auth, "", loginResult(term));
         term.loginSequence = 3;
-        term.echo("\n");
         term.set_prompt("you@tutorial:~$");
       }
       if (!inputs[1]) {
@@ -499,9 +498,9 @@
       return "2013/07/08 23:51:21 Error: No such container: " + keyword;
     };
     commit_containerid = "effb66b31edb";
-    auth = "Authenticating...\nOK";
-    loginResult = function(email) {
-      return "\nAPI endpoint:   https://api.ng.bluemix.net (API version: 2.19.0)\nUser:           " + email + "\nOrg:            tutorial\nSpace:          tutorial\nAuthentication with container cloud service at https://api-ice.ng.bluemix.net/v2/containers completed successfully\nYou can issue commands now to the container service\n\nProceeding to authenticate with the container cloud registry at registry-ice.ng.bluemix.net\nLogin Succeeded";
+    auth = "Authenticating...\nOK\n";
+    loginResult = function(term) {
+      return term.echo("\nAPI endpoint:   https://api.ng.bluemix.net (API version: 2.19.0)\nUser:           " + term.email + "\nOrg:            tutorial\nSpace:          tutorial\nAuthentication with container cloud service at https://api-ice.ng.bluemix.net/v2/containers completed successfully\nYou can issue commands now to the container service\n\nProceeding to authenticate with the container cloud registry at registry-ice.ng.bluemix.net\nLogin Succeeded");
     };
     help = "IBM Container tutorial \n \n The IBM Container tutorial is an emulater intended to help novice users get up to spead with the IBM Container Extension (ice) commands. This terminal contains a limited IBM Container CLI and a limited shell emulator. Therefore some of the commands that you would expect do not exist.\n \n Just follow the steps and questions. If you are stuck, click on the 'expected command' to see what the command should have been. Leave feedback if you find things confusing.";
     images = "ubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)\nlearn/tutorial        latest              8dbd9e392a96        2 months ago        131.5 MB (virtual 131.5 MB)\nlearn/ping            latest              effb66b31edb        10 minutes ago      11.57 MB (virtual 143.1 MB)";
