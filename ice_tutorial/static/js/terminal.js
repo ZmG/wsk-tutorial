@@ -195,7 +195,7 @@
             return foo(lines);
           } else {
             term.resume();
-            return finishedCallback();
+            finishedCallback;
           }
         }), 1000);
       };

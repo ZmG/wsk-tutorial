@@ -458,7 +458,6 @@ results = {
   clear: ->
     $('#resulttext').html("")
     $('#results').fadeOut('slow')
-#    $('#buttonNext').addAttr('disabled')
 }
 
 

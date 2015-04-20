@@ -217,7 +217,8 @@ do @myTerminal = ->
           foo(lines)
         else
           term.resume()
-          finishedCallback()
+          finishedCallback
+          return
       ), 1000
 
     foo(lines)
