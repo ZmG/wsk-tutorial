@@ -75,7 +75,7 @@
   q.push({
     html: "<h3>Installing things in the container</h3>\n<p>Next we are going to install a simple program (ping) in the container. The image is based upon ubuntu, so you\ncan run the command <code>apt-get install -y ping</code> in the container. </p>\n<p>Note that even though the container stops right after a command completes, the changes are not forgotten.</p>",
     assignment: "<h3>Assignment</h3>\n<p>Install 'ping' on top of the learn/tutorial image.</p>",
-    command_expected: ["docker", "run", "learn/tutorial", "apt-get", "install", "-y", "ping"],
+    command_expected: ["ice", "--local", "run", "learn/tutorial", "apt-get", "install", "-y", "ping"],
     result: "<p>That worked! You have installed a program on top of a base image. Your changes to the filesystem have been\nkept, but are not yet saved.</p>",
     intermediateresults: [
       function() {
@@ -88,7 +88,7 @@
   q.push({
     html: "<h3>Run your new image</h3>\n<p>Now you have basically setup a complete, self contained environment with the 'ping' program installed. </p>\n<p>Your image can now be run on any host that runs Docker.</p>\n<p>Lets run this image on this machine.</p>",
     assignment: "<h3>Assignment</h3>\n<p>Run the ping program to ping www.google.com</p>\n",
-    command_expected: ["docker", "run", 'learn/ping', 'ping', 'google.com'],
+    command_expected: ["ice", "--local", "run", 'learn/ping', 'ping', 'google.com'],
     result: "<p>That worked! Note that normally you can use Ctrl-C to disconnect. The container will keep running. This\ncontainer will disconnect automatically.</p>",
     intermediateresults: [
       function() {
