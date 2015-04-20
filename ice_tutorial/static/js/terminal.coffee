@@ -425,7 +425,8 @@ do @myTerminal = ->
           else
             echo run_flag_defined_not_defined(switches)
         else if imagename is "learn/tutorial"
-          if switches.length > 0
+          if switches.length = 0
+            #missing local tag TODO
             echo run_learn_no_command
             intermediateResults(0)
           else if commands[0] is "/bin/bash"
@@ -469,6 +470,10 @@ do @myTerminal = ->
         else
           console.log("run")
           echo run_cmd
+      else
+        echo Ice_cmd
+        for IceCommand, description of IceCommands
+          echo "[[b;#fff;]" + IceCommand + "]" + description + ""
 
     else if inputs[1] is "version"
 #      console.log(version)
@@ -713,7 +718,7 @@ should have been. Leave feedback if you find things confusing.
 
   pull = \
     """
-    Usage: ice [--local] pull NAME
+    Usage: docker pull NAME
 
     Pull an image or a repository from the registry
 
@@ -896,7 +901,7 @@ should have been. Leave feedback if you find things confusing.
     """
 
   run_learn_tutorial_echo_hello_world = (commands) ->
-    string = ""
+    string = "Target is local host. Invoking docker with the given arguments...\n"
     for command in commands[1..]
       command = command.replace('"','');
       string += ("#{command} ")

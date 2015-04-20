@@ -59,6 +59,7 @@ tip: "the optional arguments for login are specified in the online Bluemix Conta
 q.push ({
 html: """
       <h3>Downloading container images</h3>
+      <p>This exercise will introduce the --local tag. calling ice --local is the same as calling docker. ice --local will pass arguements to docker and run like standard docker.</p>
       <p>Container images can be downloaded just as easily, using <code>docker pull</code>.</p>
       <p>However, instead of calling <code>docker pull</code> directly we will use <code>ice --local pull</code>, to pull images from registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image&gt;.</p>
       <p>For images from the central index, the name you specify is constructed as &lt;Namespace&gt;/&lt;Image Name&gt;</p>

@@ -401,7 +401,7 @@
               echo(run_flag_defined_not_defined(switches));
             }
           } else if (imagename === "learn/tutorial") {
-            if (switches.length > 0) {
+            if (switches.length = 0) {
               echo(run_learn_no_command);
               intermediateResults(0);
             } else if (commands[0] === "/bin/bash") {
@@ -442,6 +442,12 @@
           } else {
             console.log("run");
             echo(run_cmd);
+          }
+        } else {
+          echo(Ice_cmd);
+          for (IceCommand in IceCommands) {
+            description = IceCommands[IceCommand];
+            echo("[[b;#fff;]" + IceCommand + "]" + description + "");
           }
         }
       } else if (inputs[1] === "version") {
@@ -519,7 +525,7 @@
     ps = "ID                  IMAGE               COMMAND               CREATED             STATUS              PORTS\nefefdc74a1d5        learn/ping:latest   ping www.google.com   37 seconds ago      Up 36 seconds";
     ps_a = "ID                  IMAGE               COMMAND                CREATED             STATUS              PORTS\n6982a9948422        ubuntu:12.04        apt-get install ping   1 minute ago        Exit 0\nefefdc74a1d5        learn/ping:latest   ping www.google.com   37 seconds ago       Up 36 seconds";
     ps_l = "ID                  IMAGE               COMMAND                CREATED             STATUS              PORTS\n6982a9948422        ubuntu:12.04        apt-get install ping   1 minute ago        Exit 0";
-    pull = "Usage: ice [--local] pull NAME\n\nPull an image or a repository from the registry\n\n-registry=\"\": Registry to download from. Necessary if image is pulled by ID\n-t=\"\": Download tagged image in repository";
+    pull = "Usage: docker pull NAME\n\nPull an image or a repository from the registry\n\n-registry=\"\": Registry to download from. Necessary if image is pulled by ID\n-t=\"\": Download tagged image in repository";
     pull_no_results = function(keyword) {
       return "Pulling repository " + keyword + "\n2013/06/19 19:27:03 HTTP code: 404";
     };
@@ -541,7 +547,7 @@
     run_learn_no_command = "2013/07/02 02:00:59 Error: No command specified";
     run_learn_tutorial_echo_hello_world = function(commands) {
       var command, k, len, ref, string;
-      string = "";
+      string = "Target is local host. Invoking docker with the given arguments...\n";
       ref = commands.slice(1);
       for (k = 0, len = ref.length; k < len; k++) {
         command = ref[k];
