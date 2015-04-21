@@ -53,6 +53,9 @@ do @myTerminal = ->
 
 	@currentDockerPs = ""
 
+	@currentLocalImages = ""
+	@currentCloudImages = ""
+
 	###
 		Base interpreter
 	###
@@ -301,7 +304,9 @@ do @myTerminal = ->
 		else if inputs[1] is "logo"
 			echo ICE_logo
 
-		
+		else if inputs[1] is "images"
+			echo currentCloudImages
+
 		# Command login
 		else if inputs[1] is "login"
 			# parse all input so we have a json object
@@ -443,7 +448,7 @@ do @myTerminal = ->
 					echo run_cmd
 
 			else if inputs[2] is "images"
-				echo images
+				echo currentLocalImages
 
 			else if inputs[2] is "inspect"
 				if inputs[3] and inputs[3].match('ef')
@@ -720,31 +725,16 @@ do @myTerminal = ->
 		)
 
 	help = \
-		"
-IBM Container tutorial \n
-\n
-The IBM Container tutorial is an emulater intended to help novice users get up to spead with the IBM Container
-Extension (ice) commands. This terminal contains a limited IBM Container CLI and a limited shell emulator.  
-Therefore some of the commands that you would expect do not exist.\n
-\n
-Just follow the steps and questions. If you are stuck, click on the 'expected command' to see what the command
-should have been. Leave feedback if you find things confusing.
-
-		"
-
-	images = \
 		"""
-		ubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)
-		learn/tutorial        latest              8dbd9e392a96        2 months ago        131.5 MB (virtual 131.5 MB)
-		learn/ping            latest              effb66b31edb        10 minutes ago      11.57 MB (virtual 143.1 MB)
-		"""
+		IBM Container tutorial \n
+		\n
+		The IBM Container tutorial is an emulater intended to help novice users get up to spead with the IBM Container
+		Extension (ice) commands. This terminal contains a limited IBM Container CLI and a limited shell emulator.  
+		Therefore some of the commands that you would expect do not exist.\n
+		\n
+		Just follow the steps and questions. If you are stuck, click on the 'expected command' to see what the command
+		should have been. Leave feedback if you find things confusing.
 
-	ice_images = \
-		"""
-		Image Id                             Created              Image Name
-
-		d0feae99-b91d-4ce3-bcb4-6128886f6968 Mar 23 10:44:59 2015 registry-ice.ng.bluemix.net/ibmliberty:latest
-		74831680-1c9c-424e-b8ea-ceede4aa0e40 Mar 23 10:41:24 2015 registry-ice.ng.bluemix.net/ibmnode:latest
 		"""
 
 	inspect = \

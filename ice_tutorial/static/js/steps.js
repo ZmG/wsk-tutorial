@@ -5,7 +5,7 @@
  */
 
 (function() {
-  var COMPLETE_URL, EVENT_TYPES, buildfunction, current_question, currentquestion, drawStatusMarker, err, f, j, len, logEvent, next, previous, progressIndicator, q, question, questionNumber, questions, results, staticDockerPs, statusMarker;
+  var COMPLETE_URL, EVENT_TYPES, buildfunction, current_question, currentquestion, drawStatusMarker, err, f, j, len, logEvent, next, previous, progressIndicator, q, question, questionNumber, questions, results, staticCloudImages, staticDockerPs, staticLocalImages, statusMarker;
 
   COMPLETE_URL = "/whats-next/";
 
@@ -15,6 +15,10 @@
    */
 
   staticDockerPs = "ID                  IMAGE               COMMAND               CREATED             STATUS              PORTS";
+
+  staticLocalImages = "Target is local host. Invoking docker with the given arguments...\nREPOSITORY                                        TAG                 IMAGE ID            CREATED              VIRTUAL SIZE";
+
+  staticCloudImages = "Image Id                             Created              Image Name\n\nd0feae99-b91d-4ce3-bcb4-6128886f6968 Mar 23 10:44:59 2015 registry-ice.ng.bluemix.net/ibmliberty:latest\n74831680-1c9c-424e-b8ea-ceede4aa0e40 Mar 23 10:41:24 2015 registry-ice.ng.bluemix.net/ibmnode:latest";
 
   q = [];
 
@@ -69,7 +73,8 @@
         return "<p>You've got the arguments right. Did you get the command? Try <em>/bin/bash </em>?</p>";
       }
     ],
-    tip: "<p>The command <code>docker run</code> takes a minimum of two arguments. An image name, and the command you want to execute\nwithin that image.</p>\n<p>Check the expected command below if it does not work as expected</p>"
+    tip: "<p>The command <code>docker run</code> takes a minimum of two arguments. An image name, and the command you want to execute\nwithin that image.</p>\n<p>Check the expected command below if it does not work as expected</p>",
+    currentLocalImages: "ubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)\nlearn/tutorial        latest              8dbd9e392a96        2 months ago        131.5 MB (virtual 131.5 MB)\nlearn/ping            latest              effb66b31edb        10 minutes ago      11.57 MB (virtual 143.1 MB)"
   });
 
   q.push({
@@ -123,13 +128,13 @@
         return "You have not specified a repository name. This is not wrong, but giving your images a name make them much easier to work with.";
       }
     ],
-    tip: "<ul>\n<li>Remember you can use a partial match of the image id</li>\n</ul>",
+    tip: "<ul>\n<li>Remember you can use a partial match of the image id, three or more letters should work.</li>\n</ul>",
     currentDockerPs: "ID                  IMAGE               COMMAND               CREATED             STATUS              PORTS\nefefdc74a1d5        learn/ping:latest   ping www.google.com   37 seconds ago      Up 36 seconds"
   });
 
   q.push({
-    html: "<h3>Tagging your image with ice</h3>\n<p>Now you have verified that your application container works locally, it's time to get it ready for Bluemix.</p>\n<p>Remember you pulled (downloaded) the learn/tutorial image from the Bluemix Private Registry? You can also share your built images\nto the Registry by pushing (uploading) them to there. That way you can easily retrieve them for re-use and share them\nwith others. </p>\n\n<p>To use an image on bluemix, you will first need to push the image up to your,\nbluemix registry. To do that we need to tag the pulled image with your namespace and a name, that will identify it in your \nbluemix registry.\n</p>\n\n<p>tag usage: 'ice --local tag &lt;local_Image_name&gt; registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image_name&gt;'</p>\n\n<p>Note: You can also push images downloaded from the <a href=\"registry.hub.docker.com\">Docker Public Registry</a> to your Bluemix Private Registry.</p>",
-    assignment: "<h3>Assignment</h3>\n<p>Tag the learn/tutorial image using <code>ice --local tag</code>. tag the image with the name <b>'learn/ping'</b>. This prepares the image for pushing to the bluemix registry.</p>\n<br>\n<p>tag usage: <code>ice --local tag &lt;local_Image_name&gt; registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image_name&gt;</code></p>",
+    html: "<h3>Tagging your image with ice</h3>\n<p>Now you have verified that your application container works locally, it's time to get it ready for Bluemix.</p>\n<p>Remember you pulled (downloaded) the learn/tutorial image from the Bluemix Private Registry? You can also share your built images\nto the Registry by pushing (uploading) them to there. That way you can easily retrieve them for re-use and share them\nwith others. </p>\n\n<p>To use an image on bluemix, you will first need to push the image up to your,\nbluemix registry. To do that we need to tag the pulled image with your namespace and a name, that will identify it in your \nbluemix registry.\n</p>\n<p>Note: You can also push images downloaded from the <a href=\"registry.hub.docker.com\">Docker Public Registry</a> to your Bluemix Private Registry.</p>",
+    assignment: "<h3>Assignment</h3>\n<p>Tag the learn/tutorial image using <code>ice --local tag</code>. tag the image with the name <b>'learn/ping'</b>. This prepares the image for pushing to the bluemix registry.</p>\n<p>tag usage: <b>'ice --local tag &lt;local_Image_name&gt; registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image_name&gt;'</b></p>",
     command_expected: ["ice", "--local", "tag", "learn/tutorial", "registry-ice.ng.bluemix.net/learn/ping"],
     command_show: ["ice", "--local", "tag", "learn/tutorial", "registry-ice.ng.bluemix.net/learn/ping"],
     result: "<p>Success! The image is now tagged and ready to push. In the next section we'll push to the registry</p>",
@@ -381,6 +386,16 @@
         window.currentDockerPs = _q.currentDockerPs;
       } else {
         window.currentDockerPs = staticDockerPs;
+      }
+      if (_q.currentImages != null) {
+        window.currentImages = _q.currentImages;
+      } else {
+        window.currentImages = staticImages;
+      }
+      if (_q.currentImages != null) {
+        window.currentImages = _q.currentImages;
+      } else {
+        window.currentImages = staticImages;
       }
       if (_q.finishedCallback != null) {
         window.finishedCallback = q.finishedCallback;

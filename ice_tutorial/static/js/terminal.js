@@ -13,7 +13,7 @@
 
 (function() {
   (this.myTerminal = function() {
-    var EMULATOR_VERSION, ICE_logo, IceCommands, Ice_cmd, auth, bash, commit, commit_containerid, commit_id_does_not_exist, docker_cmd, docker_version, help, ice, ice_images, ice_no_args, ice_version, images, inspect, inspect_no_such_container, inspect_ping_container, login, loginResult, login_cmd, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push, push_container_learn_ping, push_wrong_name, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_not_google, run_ping_www_google_com, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait;
+    var EMULATOR_VERSION, ICE_logo, IceCommands, Ice_cmd, auth, bash, commit, commit_containerid, commit_id_does_not_exist, docker_cmd, docker_version, help, ice, ice_no_args, ice_version, inspect, inspect_no_such_container, inspect_ping_container, login, loginResult, login_cmd, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push, push_container_learn_ping, push_wrong_name, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_not_google, run_ping_www_google_com, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait;
     EMULATOR_VERSION = "0.1.5";
     this.basesettings = {
       prompt: 'you@tutorial:~$ ',
@@ -34,6 +34,8 @@
       console.debug("sent " + string);
     };
     this.currentDockerPs = "";
+    this.currentLocalImages = "";
+    this.currentCloudImages = "";
 
     /*
     		Base interpreter
@@ -282,6 +284,8 @@
         });
       } else if (inputs[1] === "logo") {
         echo(ICE_logo);
+      } else if (inputs[1] === "images") {
+        echo(currentCloudImages);
       } else if (inputs[1] === "login") {
         parsed_input = parseInput(inputs);
         switches = parsed_input.switches;
@@ -417,7 +421,7 @@
             echo(run_cmd);
           }
         } else if (inputs[2] === "images") {
-          echo(images);
+          echo(currentLocalImages);
         } else if (inputs[2] === "inspect") {
           if (inputs[3] && inputs[3].match('ef')) {
             echo(inspect_ping_container);
@@ -521,9 +525,7 @@
     loginResult = function(term) {
       return term.echo("\nAPI endpoint:   https://api.ng.bluemix.net (API version: 2.19.0)\nUser:           " + term.email + "\nOrg:            tutorial\nSpace:          tutorial\nAuthentication with container cloud service at https://api-ice.ng.bluemix.net/v2/containers completed successfully\nYou can issue commands now to the container service\n\nProceeding to authenticate with the container cloud registry at registry-ice.ng.bluemix.net\nLogin Succeeded\n");
     };
-    help = "IBM Container tutorial \n \n The IBM Container tutorial is an emulater intended to help novice users get up to spead with the IBM Container Extension (ice) commands. This terminal contains a limited IBM Container CLI and a limited shell emulator. Therefore some of the commands that you would expect do not exist.\n \n Just follow the steps and questions. If you are stuck, click on the 'expected command' to see what the command should have been. Leave feedback if you find things confusing.";
-    images = "ubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)\nlearn/tutorial        latest              8dbd9e392a96        2 months ago        131.5 MB (virtual 131.5 MB)\nlearn/ping            latest              effb66b31edb        10 minutes ago      11.57 MB (virtual 143.1 MB)";
-    ice_images = "Image Id                             Created              Image Name\n\nd0feae99-b91d-4ce3-bcb4-6128886f6968 Mar 23 10:44:59 2015 registry-ice.ng.bluemix.net/ibmliberty:latest\n74831680-1c9c-424e-b8ea-ceede4aa0e40 Mar 23 10:41:24 2015 registry-ice.ng.bluemix.net/ibmnode:latest";
+    help = "IBM Container tutorial \n\n\n\nThe IBM Container tutorial is an emulater intended to help novice users get up to spead with the IBM Container\nExtension (ice) commands. This terminal contains a limited IBM Container CLI and a limited shell emulator.  \nTherefore some of the commands that you would expect do not exist.\n\n\n\nJust follow the steps and questions. If you are stuck, click on the 'expected command' to see what the command\nshould have been. Leave feedback if you find things confusing.\n";
     inspect = "\nUsage: Docker inspect CONTAINER|IMAGE [CONTAINER|IMAGE...]\n\nReturn low-level information on a container/image\n";
     inspect_no_such_container = function(keyword) {
       return "Error: No such image: " + keyword;

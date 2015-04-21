@@ -13,6 +13,16 @@ staticDockerPs = """
     ID                  IMAGE               COMMAND               CREATED             STATUS              PORTS
     """
 
+staticLocalImages = """
+    Target is local host. Invoking docker with the given arguments...
+    REPOSITORY                                        TAG                 IMAGE ID            CREATED              VIRTUAL SIZE
+    """
+staticCloudImages = """
+    Image Id                             Created              Image Name
+
+    d0feae99-b91d-4ce3-bcb4-6128886f6968 Mar 23 10:44:59 2015 registry-ice.ng.bluemix.net/ibmliberty:latest
+    74831680-1c9c-424e-b8ea-ceede4aa0e40 Mar 23 10:41:24 2015 registry-ice.ng.bluemix.net/ibmnode:latest
+    """
 
 q = []
 q.push ({
@@ -114,6 +124,12 @@ tip: """
      within that image.</p>
      <p>Check the expected command below if it does not work as expected</p>
     """
+currentLocalImages :
+  """
+  ubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)
+  learn/tutorial        latest              8dbd9e392a96        2 months ago        131.5 MB (virtual 131.5 MB)
+  learn/ping            latest              effb66b31edb        10 minutes ago      11.57 MB (virtual 143.1 MB)
+  """
 })
 
 q.push ({
@@ -213,7 +229,7 @@ intermediateresults:
     () -> """You have not specified a repository name. This is not wrong, but giving your images a name make them much easier to work with."""
   ]
 tip: """<ul>
-     <li>Remember you can use a partial match of the image id</li>
+     <li>Remember you can use a partial match of the image id, three or more letters should work.</li>
      </ul>"""
 currentDockerPs:
     """
@@ -237,16 +253,12 @@ html: """
       bluemix registry. To do that we need to tag the pulled image with your namespace and a name, that will identify it in your 
       bluemix registry.
       </p>
-
-      <p>tag usage: 'ice --local tag &lt;local_Image_name&gt; registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image_name&gt;'</p>
-
       <p>Note: You can also push images downloaded from the <a href="registry.hub.docker.com">Docker Public Registry</a> to your Bluemix Private Registry.</p>
       """
 assignment: """
       <h3>Assignment</h3>
       <p>Tag the learn/tutorial image using <code>ice --local tag</code>. tag the image with the name <b>'learn/ping'</b>. This prepares the image for pushing to the bluemix registry.</p>
-      <br>
-      <p>tag usage: <code>ice --local tag &lt;local_Image_name&gt; registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image_name&gt;</code></p>
+      <p>tag usage: <b>'ice --local tag &lt;local_Image_name&gt; registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image_name&gt;'</b></p>
       """
 command_expected: ["ice", "--local", "tag", "learn/tutorial", "registry-ice.ng.bluemix.net/learn/ping"]
 command_show: ["ice", "--local", "tag", "learn/tutorial", "registry-ice.ng.bluemix.net/learn/ping"]
@@ -512,6 +524,16 @@ buildfunction = (q) ->
       window.currentDockerPs = _q.currentDockerPs
     else
       window.currentDockerPs = staticDockerPs
+
+    if _q.currentImages?
+      window.currentImages = _q.currentImages
+    else
+      window.currentImages = staticImages
+
+    if _q.currentImages?
+      window.currentImages = _q.currentImages
+    else
+      window.currentImages = staticImages
 
     if _q.finishedCallback?
       window.finishedCallback = q.finishedCallback
