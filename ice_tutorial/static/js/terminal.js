@@ -334,12 +334,12 @@
             echo(search);
           }
         } else if (inputs[2] === "commit") {
-          if (inputs.containsAllOfTheseParts(['docker', 'commit', '698', 'learn/ping'])) {
+          if (inputs.containsAllOfTheseParts(['ice', '--local', 'commit', '698', 'learn/ping'])) {
             util_slow_lines(term, commit_containerid, "", callback);
-          } else if (inputs.containsAllOfTheseParts(['docker', 'commit', '698'])) {
+          } else if (inputs.containsAllOfTheseParts(['ice', '--local', 'commit', '698'])) {
             util_slow_lines(term, commit_containerid, "", callback);
             intermediateResults(0);
-          } else if (inputs.containsAllOfTheseParts(['docker', 'commit']) && inputs[3]) {
+          } else if (inputs.containsAllOfTheseParts(['ice', '--local', 'commit']) && inputs[3]) {
             echo(commit_id_does_not_exist(inputs[3]));
           } else {
             echo(commit);
