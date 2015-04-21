@@ -400,7 +400,7 @@ do @myTerminal = ->
 						echo run_flag_defined_not_defined(switches)
 				else if imagename is "learn/tutorial"
 					if switches.length = 0
-						#missing local tag TODO
+						#missing --local tag TODO
 						echo run_learn_no_command
 						intermediateResults(0)
 					else if commands[0] is "/bin/bash"
@@ -412,14 +412,11 @@ do @myTerminal = ->
 						echo run_apt_get_install_iputils_ping
 					else if commands.containsAllOfThese(['apt-get', 'install', 'iputils-ping'])
 						echo run_apt_get_install_iputils_ping
-	#          intermediateResults(0)
 					else if commands.containsAllOfThese(['apt-get', 'install', 'ping'])
 						echo run_apt_get_install_iputils_ping
-	#          intermediateResults(0)
 					else if commands.containsAllOfThese(['apt-get', 'install'])
 						i = commands.length - 1
 						echo run_apt_get_install_unknown_package( commands[i] )
-	#          intermediateResults(0)
 					else if commands[0] is "apt-get"
 						echo run_apt_get
 					else if commands[0]

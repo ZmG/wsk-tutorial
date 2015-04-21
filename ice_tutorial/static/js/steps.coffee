@@ -143,6 +143,31 @@ tip: """
      """
 })
 
+q.push ({
+html: """
+      <h3>Save your changes</h3>
+      <p>After you make changes (by running a command inside a container), you probably want to save those changes.
+      This will enable you to later start from this point onwards.</p>
+      <p>With Docker, the process of saving the state is called <em>committing</em>. Commit basically saves the difference
+      between the old image and the new state. The result is a new layer.</p>
+      """
+assignment: """
+      <h3>Assignment</h3>
+      <p>First use <code>ice --local ps -l</code> to find the ID of the container you created by installing ping.</p>
+      <p>Then save (commit) this container with the repository name 'learn/ping' </p>
+      """
+command_expected: ["ice", "--local", "commit", "698", "learn/ping"]
+command_show: ["ice", "--local", "commit", "698", 'learn/ping']
+result: """<p>That worked! Please take note that Docker has returned a new ID. This id is the <em>image id</em>.</p>"""
+intermediateresults: [ () -> """You have not specified the correct repository name to commit to (learn/ping). This works, but giving your images a name
+                      makes them much easier to work with."""]
+tip: """<ul>
+     <li>Giving just <code>ice --local commit</code> will show you the possible arguments.</li>
+     <li>You will need to specify the container to commit by the ID you found</li>
+     <li>You don't need to copy (type) the entire ID. Three or four characters are usually enough.</li>
+     </ul>"""
+})
+
 
 q.push ({
 html: """
