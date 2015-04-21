@@ -329,7 +329,9 @@
           echo(search);
         }
       } else if (inputs[1] === "--local") {
-        if (inputs[2] === "pull") {
+        if (inputs[2] === "-h" || inputs[2] === "--help") {
+
+        } else if (inputs[2] === "pull") {
           if (keyword = inputs[3]) {
             if (keyword === 'ubuntu') {
               result = util_slow_lines(term, pull_ubuntu, "", callback);
@@ -426,7 +428,7 @@
             echo(inspect);
           }
         } else if (inputs[2] === "tag") {
-          if (inputs[3] && inputs[3] === "-h" || inputs[3] === "--help") {
+          if (inputs[3] === "-h" || inputs[3] === "--help") {
             echo(tag_help);
           } else if (inputs[3] === "learn/ping") {
             if (inputs[4] === "registry-ice.ng.bluemix.net/learn/ping") {
@@ -454,18 +456,14 @@
             echo(push);
           }
         } else {
-          echo(ice_no_args);
+          echo(docker_cmd);
         }
       } else if (inputs[1] === "version") {
         echo(ice_version());
       } else if (IceCommands[inputs[1]]) {
         echo(inputs[1] + " is a valid argument, but not implemented");
       } else {
-        echo(Ice_cmd);
-        for (IceCommand in IceCommands) {
-          description = IceCommands[IceCommand];
-          echo("[[b;#fff;]" + IceCommand + "]" + description + "");
-        }
+        echo(ice_no_args);
       }
     };
 
@@ -474,7 +472,7 @@
     
     		All items are sorted by alphabet
      */
-    Ice_cmd = "usage: ice [-h] [--verbose] [--cloud | --local]\n			 {login,tlogin,ps,run,inspect,logs,build,start,stop,restart,pause,unpause,rm,images,rmi,search,info,ip,group,route,volume,namespace,help,version,cpi}\n			 ...\n\npositional arguments:\n	{login,tlogin,ps,run,inspect,logs,build,start,stop,restart,pause,unpause,rm,images,rmi,search,info,ip,group,route,volume,namespace,help,version,cpi}\n-h, --help     :  show this help message and exit\n-v, --verbose  :  display additional debug info\n--cloud        :  execute command against container cloud service\n-L, --local    :  execute any local docker host command.  For list of available commands run 'docker help'\n\nIBM Containers Extension, a self-sufficient containers infrastructure. \n\nCommands:\n";
+    Ice_cmd = "usage: ice [-h] [--verbose] [--cloud | --local]\n           {login,tlogin,ps,run,inspect,logs,build,start,stop,restart,pause,unpause,rm,images,rmi,search,info,ip,group,route,volume,namespace,help,version,cpi}\n           ...\n\npositional arguments:\n  {login,tlogin,ps,run,inspect,logs,build,start,stop,restart,pause,unpause,rm,images,rmi,search,info,ip,group,route,volume,namespace,help,version,cpi}\n                        cloud commands, for specific command help follow the\n                        command by -h, to list local docker commands run\n                        'docker -h' or 'ice --local -h'\n    login               login to container cloud service\n    tlogin              tenant login, not available for Bluemix Containers\n    ps                  list containers in container cloud\n    run                 create and start container in container cloud\n    inspect             inspect container details\n    logs                get container logs\n    build               build docker image and push to cloud registry\n    start               run existing container\n    stop                stop running container\n    restart             restart running container\n    pause               pause existing container\n    unpause             unpause existing container\n    rm                  remove existing container\n    images              list images registered in container cloud\n    rmi                 remove image from container cloud registry\n    search              search image registry\n    info                display system info\n    ip                  manage floating-ips\n    group               manage auto-scaling groups\n    route               manage routing to container groups\n    volume              manage storage volumes\n    namespace           manage repository namespace\n    help                provide usage help for a specified command\n    version             display program version\n    cpi                 image copy (equivalent to pull, tag, and push)\n\noptional arguments:\n  -h, --help            show this help message and exit\n  --verbose, -v         display additional debug info\n  --cloud               execute command against container cloud service,\n                        default\n  --local, -L           execute any local docker host command. For list of\n                        available commands run 'docker help'";
     docker_cmd = "Target is local host. Invoking docker with the given arguments...\nUsage: docker [OPTIONS] COMMAND [arg...]\n\nA self-sufficient runtime for linux containers.\n\nOptions:\n  --api-enable-cors=false                                                Enable CORS headers in the remote API\n  -D, --debug=false                                                      Enable debug mode\n  -d, --daemon=false                                                     Enable daemon mode\n  -G, --group=\"docker\"                                                   Group to assign the unix socket specified by -H when running in daemon mode\n                                                                           use '' (the empty string) to disable setting of a group\n  -H, --host=[]                                                          The socket(s) to bind to in daemon mode or connect to in client mode, specified using one or more tcp://host:port, unix:///path/to/socket, fd://* or fd://socketfd.\n  -h, --help=false                                                       Print usage\n  -l, --log-level=\"info\"                                                 Set the logging level (debug, info, warn, error, fatal)\n  --tls=false                                                            Use TLS; implied by --tlsverify flag\n  --tlscacert=\"/Users/Pair5/.boot2docker/certs/boot2docker-vm/ca.pem\"    Trust only remotes providing a certificate signed by the CA given here\n  --tlscert=\"/Users/Pair5/.boot2docker/certs/boot2docker-vm/cert.pem\"    Path to TLS certificate file\n  --tlskey=\"/Users/Pair5/.boot2docker/certs/boot2docker-vm/key.pem\"      Path to TLS key file\n  --tlsverify=true                                                       Use TLS and verify the remote (daemon: verify client, client: verify daemon)\n  -v, --version=false                                                    Print version information and quit\n\nCommands:\n    attach    Attach to a running container\n    build     Build an image from a Dockerfile\n    commit    Create a new image from a container's changes\n    cp        Copy files/folders from a container's filesystem to the host path\n    create    Create a new container\n    diff      Inspect changes on a container's filesystem\n    events    Get real time events from the server\n    exec      Run a command in a running container\n    export    Stream the contents of a container as a tar archive\n    history   Show the history of an image\n    images    List images\n    import    Create a new filesystem image from the contents of a tarball\n    info      Display system-wide information\n    inspect   Return low-level information on a container or image\n    kill      Kill a running container\n    load      Load an image from a tar archive\n    login     Register or log in to a Docker registry server\n    logout    Log out from a Docker registry server\n    logs      Fetch the logs of a container\n    port      Lookup the public-facing port that is NAT-ed to PRIVATE_PORT\n    pause     Pause all processes within a container\n    ps        List containers\n    pull      Pull an image or a repository from a Docker registry server\n    push      Push an image or a repository to a Docker registry server\n    rename    Rename an existing container\n    restart   Restart a running container\n    rm        Remove one or more containers\n    rmi       Remove one or more images\n    run       Run a command in a new container\n    save      Save an image to a tar archive\n    search    Search for an image on the Docker Hub\n    start     Start a stopped container\n    stats     Display a live stream of one or more containers' resource usage statistics\n    stop      Stop a running container\n    tag       Tag an image into a repository\n    top       Lookup the running processes of a container\n    unpause   Unpause a paused container\n    version   Show the Docker version information\n    wait      Block until a container stops, then print its exit code\n\nRun 'docker COMMAND --help' for more information on a command.";
     IceCommands = {
       " ": "              For specific command help, follow the command by -h",
