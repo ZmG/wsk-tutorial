@@ -9,10 +9,13 @@
   Styles largely duplicates from the docker website
 */
 .tutorial {
-  font-family: "Cabin", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 20px;
   color: white;
+}
+.tutorial a {
+  color: #5DD4FA;
 }
 .tutorial h1,
 .tutorial h2,
@@ -123,7 +126,7 @@
   font-size: 24px;
 }
 .tutorial h4 {
-  color: #008bb8;
+  color: #61cae0;
 }
 #command .box {
   border: 1px grey solid;
@@ -147,11 +150,6 @@
   visibility: hidden;
   height: 1px;
   width: 1px;
-}
-#ajax {
-  position: absolute;
-  bottom: 0;
-  margin: 20px;
 }
 #resulttext {
   border-radius: 5px;
@@ -296,7 +294,7 @@
   color: #646464;
 }
 #instructions circle {
-  fill: #FF8100;
+  fill: #FFC476;
 }
 #results {
   z-index: 20;
@@ -310,10 +308,10 @@
   margin-top: 100px;
 }
 #results circle {
-  fill: green;
+  fill: #abda6e;
 }
 #results.intermediate circle {
-  fill: #008bb8;
+  fill: #61cae0;
 }
 #results button {
   position: relative;

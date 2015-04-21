@@ -1,4 +1,4 @@
-@informationblue: #008BB8;
+@informationblue: #61CAE0;
 @tutorialTopHeight: 60px;
 @greySuperLight: #E7E7E7;
 @topBarHeight: 70px;
@@ -16,10 +16,14 @@
 */
 
 .tutorial {
-  font-family: "Cabin", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 20px;
   color: white;
+
+  a {
+    color: #5DD4FA;
+  }
 
   h1, h2, h3, h4, h5, h6 {
     margin: 10px 0;
@@ -145,12 +149,6 @@
   height: 1px; width: 1px;
 }
 
-#ajax {
-  position: absolute;
-  bottom: 0;
-  margin: 20px;
-//  border: 1px red dotted;
-}
 
 #resulttext {
   border-radius: 5px;
@@ -320,7 +318,7 @@
 
 
 #instructions {
-  circle { fill: #FF8100; }
+  circle { fill: #FFC476; }
 }
 
 #results {
@@ -336,7 +334,7 @@
   top: 0;
   margin-top: @topBarHeight + 30px;
 
-  circle { fill: green; }
+  circle { fill: rgb(171, 218, 110); }
 
   &.intermediate {
     circle { fill: @informationblue }

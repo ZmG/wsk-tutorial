@@ -615,6 +615,14 @@ should have been. Leave feedback if you find things confusing.
 		learn/ping            latest              effb66b31edb        10 minutes ago      11.57 MB (virtual 143.1 MB)
 		"""
 
+	ice_images = \
+		"""
+		Image Id                             Created              Image Name
+
+		d0feae99-b91d-4ce3-bcb4-6128886f6968 Mar 23 10:44:59 2015 registry-ice.ng.bluemix.net/ibmliberty:latest
+		74831680-1c9c-424e-b8ea-ceede4aa0e40 Mar 23 10:41:24 2015 registry-ice.ng.bluemix.net/ibmnode:latest
+		"""
+
 	inspect = \
 		"""
 
