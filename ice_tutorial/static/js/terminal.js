@@ -13,7 +13,7 @@
 
 (function() {
   (this.myTerminal = function() {
-    var EMULATOR_VERSION, ICE_logo, IceCommands, Ice_cmd, auth, bash, commit, commit_containerid, commit_id_does_not_exist, docker_cmd, docker_version, help, ice, ice_images, ice_no_args, ice_version, images, inspect, inspect_no_such_container, inspect_ping_container, login, loginResult, login_cmd, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_results, pull_tutorial, pull_ubuntu, push, push_container_learn_ping, push_wrong_name, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_not_google, run_ping_www_google_com, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait;
+    var EMULATOR_VERSION, ICE_logo, IceCommands, Ice_cmd, auth, bash, commit, commit_containerid, commit_id_does_not_exist, docker_cmd, docker_version, help, ice, ice_images, ice_no_args, ice_version, images, inspect, inspect_no_such_container, inspect_ping_container, login, loginResult, login_cmd, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push, push_container_learn_ping, push_wrong_name, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_not_google, run_ping_www_google_com, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait;
     EMULATOR_VERSION = "0.1.5";
     this.basesettings = {
       prompt: 'you@tutorial:~$ ',
@@ -62,7 +62,7 @@
       } else if (command === '#') {
         term.echo('which question?');
       } else if (command === 'docker') {
-        term.echo('This tutorial was created to teach ice commands, the docker functionality has been disabled. You can call docker commands using "ice --local".');
+        term.echo('This tutorial was created to teach ice commands, the docker functionality has been disabled. Use "ice --local" instead! (ice --local == docker)');
       } else if (command === 'cd') {
         bash(term, inputs);
       } else if (command === "ice") {
@@ -305,7 +305,12 @@
         if (inputs[2] === "-h" || inputs[2] === "--help") {
           echo(docker_cmd);
         } else if (inputs[2] === "pull") {
-          if (keyword = inputs[3]) {
+          keyword = inputs[3];
+          if (inputs[3] === '-h' || inputs === '--help') {
+            echo(pull);
+          } else if (!inputs[3]) {
+            echo(pull_no_args);
+          } else {
             if (keyword === 'ubuntu') {
               result = util_slow_lines(term, pull_ubuntu, "", callback);
             } else if (keyword === 'learn/tutorial') {
@@ -315,8 +320,6 @@
             } else {
               util_slow_lines(term, pull_no_results, keyword);
             }
-          } else {
-            echo(pull);
           }
         } else if (inputs[2] === "search") {
           if (keyword = inputs[3]) {
@@ -531,6 +534,7 @@
     ps_a = "ID                  IMAGE               COMMAND                CREATED             STATUS              PORTS\n6982a9948422        ubuntu:12.04        apt-get install ping   1 minute ago        Exit 0\nefefdc74a1d5        learn/ping:latest   ping www.google.com   37 seconds ago       Up 36 seconds";
     ps_l = "ID                  IMAGE               COMMAND                CREATED             STATUS              PORTS\n6982a9948422        ubuntu:12.04        apt-get install ping   1 minute ago        Exit 0";
     pull = "Usage: docker pull NAME\n\nPull an image or a repository from the registry\n\n-registry=\"\": Registry to download from. Necessary if image is pulled by ID\n-t=\"\": Download tagged image in repository";
+    pull_no_args = "Target is local host. Invoking docker with the given arguments...\ndocker: \"pull\" requires 1 argument. See 'docker pull --help'.";
     pull_no_results = function(keyword) {
       return "Pulling repository " + keyword + "\n2013/06/19 19:27:03 HTTP code: 404";
     };

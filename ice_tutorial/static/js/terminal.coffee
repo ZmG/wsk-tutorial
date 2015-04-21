@@ -82,7 +82,7 @@ do @myTerminal = ->
 			term.echo 'which question?'
 
 		else if command is 'docker'
-			term.echo 'This tutorial was created to teach ice commands, the docker functionality has been disabled. You can call docker commands using "ice --local".'
+			term.echo 'This tutorial was created to teach ice commands, the docker functionality has been disabled. Use "ice --local" instead! (ice --local == docker)'
 
 		else if command is 'cd'
 			bash(term, inputs)
@@ -329,7 +329,12 @@ do @myTerminal = ->
 			if inputs[2] is "-h" or inputs[2] is "--help"
 				echo docker_cmd
 			else if inputs[2] is "pull"
-				if keyword = inputs[3]
+				keyword = inputs[3]
+				if inputs[3] is '-h' or inputs is'--help'
+					echo pull
+				else if not inputs[3]
+					echo pull_no_args
+				else
 					if keyword is 'ubuntu'
 						result = util_slow_lines(term, pull_ubuntu, "", callback )
 					else if keyword is 'learn/tutorial'
@@ -337,9 +342,7 @@ do @myTerminal = ->
 					else if keyword is 'registry-ice.ng.bluemix.net/learn/tutorial'
 						result = util_slow_lines(term, pull_tutorial, "", callback )
 					else
-						util_slow_lines(term, pull_no_results, keyword)
-				else
-					echo pull
+						util_slow_lines(term, pull_no_results, keyword)					
 
 			# Search
 			else if inputs[2] is "search"
@@ -855,6 +858,12 @@ should have been. Leave feedback if you find things confusing.
 		-registry="": Registry to download from. Necessary if image is pulled by ID
 		-t="": Download tagged image in repository
 		"""
+
+	pull_no_args = \
+	"""
+	Target is local host. Invoking docker with the given arguments...
+	docker: "pull" requires 1 argument. See 'docker pull --help'.
+	"""
 
 	pull_no_results = (keyword) ->
 		"""
