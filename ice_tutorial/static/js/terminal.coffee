@@ -316,35 +316,7 @@ do @myTerminal = ->
     else if inputs[1] is "logo"
       echo ICE_logo
 
-    else if inputs[1] is "images"
-      echo images
-
-    else if inputs[1] is "inspect"
-      if inputs[2] and inputs[2].match('ef')
-        echo inspect_ping_container
-      else if inputs[2]
-        echo inspect_no_such_container(inputs[2])
-      else
-        echo inspect
-
-    # command ps
-    else if command is "ps"
-      if inputs.containsAllOfThese(['-l'])
-        echo ps_l
-      else if inputs.containsAllOfThese(['-a'])
-        echo ps_a
-      else
-        echo currentDockerPs
-    else if inputs[1] is "push"
-      if inputs[2] is "learn/ping"
-        util_slow_lines(term, push_container_learn_ping, "", callback )
-        intermediateResults(0)
-        return
-      else if inputs[2]
-        echo push_wrong_name
-      else
-        echo push
-
+    
     # Command login
     else if inputs[1] is "login"
       # parse all input so we have a json object
@@ -367,9 +339,6 @@ do @myTerminal = ->
         term.loginSequence = 1
       else if inputs.containsAllOfTheseParts(['ice', 'login'])
         intermediateResults(0)
-        
-
-    
 
     else if inputs[1] is "search"
       if keyword = inputs[2]
@@ -470,6 +439,36 @@ do @myTerminal = ->
         else
           console.log("run")
           echo run_cmd
+
+      else if inputs[1] is "images"
+        echo images
+
+      else if inputs[1] is "inspect"
+        if inputs[2] and inputs[2].match('ef')
+          echo inspect_ping_container
+        else if inputs[2]
+          echo inspect_no_such_container(inputs[2])
+        else
+          echo inspect
+
+      # command ps
+      else if command is "ps"
+        if inputs.containsAllOfThese(['-l'])
+          echo ps_l
+        else if inputs.containsAllOfThese(['-a'])
+          echo ps_a
+        else
+          echo currentDockerPs
+      else if inputs[1] is "push"
+        if inputs[2] is "learn/ping"
+          util_slow_lines(term, push_container_learn_ping, "", callback )
+          intermediateResults(0)
+          return
+        else if inputs[2]
+          echo push_wrong_name
+        else
+          echo push
+
       else
         echo Ice_cmd
         for IceCommand, description of IceCommands

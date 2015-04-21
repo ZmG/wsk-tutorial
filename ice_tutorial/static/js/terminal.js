@@ -297,34 +297,6 @@
         });
       } else if (inputs[1] === "logo") {
         echo(ICE_logo);
-      } else if (inputs[1] === "images") {
-        echo(images);
-      } else if (inputs[1] === "inspect") {
-        if (inputs[2] && inputs[2].match('ef')) {
-          echo(inspect_ping_container);
-        } else if (inputs[2]) {
-          echo(inspect_no_such_container(inputs[2]));
-        } else {
-          echo(inspect);
-        }
-      } else if (command === "ps") {
-        if (inputs.containsAllOfThese(['-l'])) {
-          echo(ps_l);
-        } else if (inputs.containsAllOfThese(['-a'])) {
-          echo(ps_a);
-        } else {
-          echo(currentDockerPs);
-        }
-      } else if (inputs[1] === "push") {
-        if (inputs[2] === "learn/ping") {
-          util_slow_lines(term, push_container_learn_ping, "", callback);
-          intermediateResults(0);
-          return;
-        } else if (inputs[2]) {
-          echo(push_wrong_name);
-        } else {
-          echo(push);
-        }
       } else if (inputs[1] === "login") {
         parsed_input = parseInput(inputs);
         switches = parsed_input.switches;
@@ -442,6 +414,34 @@
           } else {
             console.log("run");
             echo(run_cmd);
+          }
+        } else if (inputs[1] === "images") {
+          echo(images);
+        } else if (inputs[1] === "inspect") {
+          if (inputs[2] && inputs[2].match('ef')) {
+            echo(inspect_ping_container);
+          } else if (inputs[2]) {
+            echo(inspect_no_such_container(inputs[2]));
+          } else {
+            echo(inspect);
+          }
+        } else if (command === "ps") {
+          if (inputs.containsAllOfThese(['-l'])) {
+            echo(ps_l);
+          } else if (inputs.containsAllOfThese(['-a'])) {
+            echo(ps_a);
+          } else {
+            echo(currentDockerPs);
+          }
+        } else if (inputs[1] === "push") {
+          if (inputs[2] === "learn/ping") {
+            util_slow_lines(term, push_container_learn_ping, "", callback);
+            intermediateResults(0);
+            return;
+          } else if (inputs[2]) {
+            echo(push_wrong_name);
+          } else {
+            echo(push);
           }
         } else {
           echo(Ice_cmd);
