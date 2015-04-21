@@ -450,6 +450,12 @@ do @myTerminal = ->
 				else
 					echo inspect
 
+			else if inputs[2] is "tag"
+				if inputs[3]
+					echo inspect_ping_container
+				else
+					echo tag
+
 			# command ps
 			else if inputs[2] is "ps"
 				if inputs.containsAllOfThese(['-l'])
@@ -559,6 +565,12 @@ do @myTerminal = ->
 			-author="": Author (eg. "John Hannibal Smith <hannibal@a-team.com>"
 			-m="": Commit message
 			-run="": Config automatically applied when the image is run. (ex: {"Cmd": ["cat", "/world"], "PortSpecs": ["22"]}')
+		"""
+
+	tag = \
+		"""
+		Target is local host. Invoking docker with the given arguments...
+		docker: "tag" requires 2 arguments. See 'docker tag --help'.
 		"""
 
 	commit_id_does_not_exist = (keyword) ->

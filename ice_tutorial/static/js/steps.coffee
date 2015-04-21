@@ -182,8 +182,10 @@ assignment: """
       """
 command_expected: ["ice", "--local", "inspect", "efe" ]
 result: """<p>Success! Have a look at the output. You can see the ip-address, status and other information.</p>"""
-intermediateresults: [ () -> """You have not specified a repository name. This is not wrong, but giving your images a name
-                      make them much easier to work with."""]
+intermediateresults: 
+  [ 
+    () -> """You have not specified a repository name. This is not wrong, but giving your images a name make them much easier to work with."""
+  ]
 tip: """<ul>
      <li>Remember you can use a partial match of the image id</li>
      </ul>"""
@@ -214,13 +216,27 @@ html: """
       """
 assignment: """
       <h3>Assignment</h3>
-      <p>Tag the learn/tutorial image with the name <b>'learn/ping'<.b> that will be sent to the bluemix registry.</p>
+      <p>Tag the learn/tutorial image using <code>ice --local tag</code>. tag the image with the name <b>'learn/ping'</b>. This prepares the image for pushing to the bluemix registry.</p>
 
       """
 command_expected: ["ice", "--local", "tag", "learn/ping", "registry-ice.ng.bluemix.net/learn/ping"]
 command_show: ["ice", "--local", "tag", "learn/ping", "registry-ice.ng.bluemix.net/learn/ping"]
-result: """"""
+result: """<p>Success! The image is now tagged and ready to push. In the next section we'll push to the registry</p>"""
 intermediateresults:
+  [
+    () -> """Almost there, don't forget provide a name for the tagged image (learn/ping) usage: 'ice --local tag <Your_Image> registry-ice.ng.bluemix.net/<Namespace>/<Your_Image>'"""
+  ]
+tip: """
+    <ul>
+    <li><code>ice images</code> will show you which images are currently on your host</li>
+    <li><code>ice --local images</code> will show you which images exist locally (docker)</li>
+    <li>For more usage info see the docs <a a href="https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#container_install">here</a></li>
+    <li>You can only push images to your own namespace, this emulator uses the namespace 'learn'</li>
+    </ul>
+    """
+});
+
+###intermediateresults:
   [
     () ->
       $('#instructions .assignment').hide()
@@ -254,25 +270,17 @@ intermediateresults:
 
       return """<p>All done!. You are now pushing a container image to the index. You can see that push, just like pull, happens layer by layer.</p>"""
   ]
-tip: """<ul>
-     <li><code>ice images</code> will show you which images are currently on your host</li>
-     <li><code>ice --local images</code> will show you which images exist locally (docker)</li>
-     <li>For more usage info see the docs <a a href="https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#container_install">here</a></li>
-     <li>You can only push images to your own namespace, this emulator uses the namespace 'learn'</li>
-
-     </ul>"""
-finishedCallback: () ->
+  finishedCallback: () ->
   webterm.clear()
   webterm.echo( myTerminal() )
 
 
 })
+###
 
 
 # the index arr
 questions = []
-
-
 
 
 ###

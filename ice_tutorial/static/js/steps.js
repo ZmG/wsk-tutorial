@@ -105,7 +105,7 @@
     result: "<p>Success! Have a look at the output. You can see the ip-address, status and other information.</p>",
     intermediateresults: [
       function() {
-        return "You have not specified a repository name. This is not wrong, but giving your images a name\nmake them much easier to work with.";
+        return "You have not specified a repository name. This is not wrong, but giving your images a name make them much easier to work with.";
       }
     ],
     tip: "<ul>\n<li>Remember you can use a partial match of the image id</li>\n</ul>",
@@ -114,29 +114,60 @@
 
   q.push({
     html: "<h3>Tagging your image with ice</h3>\n<p>Now you have verified that your application container works locally, it's time to get it ready for Bluemix.</p>\n<p>Remember you pulled (downloaded) the learn/tutorial image from the Bluemix Private Registry? You can also share your built images\nto the Registry by pushing (uploading) them to there. That way you can easily retrieve them for re-use and share them\nwith others. </p>\n\n<p>To use an image on bluemix, you will first need to push the image up to your,\nbluemix registry. To do that we need to tag the pulled image with your namespace and a name, that will identify it in your \nbluemix registry.\n</p>\n\n<p>Note: You can also push images downloaded from the <a href=\"registry.hub.docker.com\">Docker Public Registry</a> to your Bluemix Private Registry.</p>",
-    assignment: "<h3>Assignment</h3>\n<p>Tag the learn/tutorial image with the name <b>'learn/ping'<.b> that will be sent to the bluemix registry.</p>\n",
+    assignment: "<h3>Assignment</h3>\n<p>Tag the learn/tutorial image using <code>ice --local tag</code>. tag the image with the name <b>'learn/ping'</b>. This prepares the image for pushing to the bluemix registry.</p>\n",
     command_expected: ["ice", "--local", "tag", "learn/ping", "registry-ice.ng.bluemix.net/learn/ping"],
     command_show: ["ice", "--local", "tag", "learn/ping", "registry-ice.ng.bluemix.net/learn/ping"],
-    result: "",
+    result: "<p>Success! The image is now tagged and ready to push. In the next section we'll push to the registry</p>",
     intermediateresults: [
       function() {
-        var data;
-        $('#instructions .assignment').hide();
-        $('#tips, #command').hide();
-        $('#instructions .text').html("<div class=\"complete\">\n  <h3>Congratulations!</h3>\n  <p>You have mastered the basic docker commands!</p>\n  <p><strong>Did you enjoy this tutorial? Share it!</strong></p>\n  <p>\n    <a href=\"mailto:?Subject=Check%20out%20the%20Docker%20interactive%20tutorial!&Body=%20https://www.docker.io/gettingstarted/\"><img src=\"/static/img/email.png\"></a>\n    <a href=\"http://www.facebook.com/sharer.php?u=https://www.docker.io/gettingstarted/\"><img src=\"/static/img/facebook.png\"></a>\n    <a href=\"http://twitter.com/share?url=https://www.docker.io/gettingstarted/&text=%20Check+out+the+docker+tutorial!\"><img src=\"/static/img/twitter.png\"></a>\n  </p>\n  <h3>Your next steps</h3>\n  <ol>\n    <li><a href=\"/news_signup/\" target=\"_blank\" >Register</a> for news and updates on Docker (opens in new window)</li>\n    <li><a href=\"http://twitter.com/docker\" target=\"_blank\" >Follow</a> us on twitter (opens in new window)</li>\n    <li><a href=\"#\" onClick=\"leaveFullSizeMode()\">Close</a> this tutorial, and continue with the rest of the getting started.</li>\n  </ol>\n  <p> - Or - </p>\n  <p>Continue to learn about the way to automatically build your containers from a file. </p><p><a href=\"/learn/dockerfile/\" class='btn btn-primary secondary-action-button'>Start Dockerfile tutorial</a></p>\n\n</div>");
-        data = {
-          type: EVENT_TYPES.complete
-        };
-        logEvent(data);
-        return "<p>All done!. You are now pushing a container image to the index. You can see that push, just like pull, happens layer by layer.</p>";
+        return "Almost there, don't forget provide a name for the tagged image (learn/ping) usage: 'ice --local tag <Your_Image> registry-ice.ng.bluemix.net/<Namespace>/<Your_Image>'";
       }
     ],
-    tip: "<ul>\n<li><code>ice images</code> will show you which images are currently on your host</li>\n<li><code>ice --local images</code> will show you which images exist locally (docker)</li>\n<li>For more usage info see the docs <a a href=\"https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#container_install\">here</a></li>\n<li>You can only push images to your own namespace, this emulator uses the namespace 'learn'</li>\n\n</ul>",
-    finishedCallback: function() {
-      webterm.clear();
-      return webterm.echo(myTerminal());
-    }
+    tip: "<ul>\n<li><code>ice images</code> will show you which images are currently on your host</li>\n<li><code>ice --local images</code> will show you which images exist locally (docker)</li>\n<li>For more usage info see the docs <a a href=\"https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#container_install\">here</a></li>\n<li>You can only push images to your own namespace, this emulator uses the namespace 'learn'</li>\n</ul>"
   });
+
+
+  /*intermediateresults:
+    [
+      () ->
+        $('#instructions .assignment').hide()
+        $('#tips, #command').hide()
+  
+        $('#instructions .text').html("""
+          <div class="complete">
+            <h3>Congratulations!</h3>
+            <p>You have mastered the basic docker commands!</p>
+            <p><strong>Did you enjoy this tutorial? Share it!</strong></p>
+            <p>
+              <a href="mailto:?Subject=Check%20out%20the%20Docker%20interactive%20tutorial!&Body=%20https://www.docker.io/gettingstarted/"><img src="/static/img/email.png"></a>
+              <a href="http://www.facebook.com/sharer.php?u=https://www.docker.io/gettingstarted/"><img src="/static/img/facebook.png"></a>
+              <a href="http://twitter.com/share?url=https://www.docker.io/gettingstarted/&text=%20Check+out+the+docker+tutorial!"><img src="/static/img/twitter.png"></a>
+            </p>
+            <h3>Your next steps</h3>
+            <ol>
+              <li><a href="/news_signup/" target="_blank" >Register</a> for news and updates on Docker (opens in new window)</li>
+              <li><a href="http://twitter.com/docker" target="_blank" >Follow</a> us on twitter (opens in new window)</li>
+              <li><a href="#" onClick="leaveFullSizeMode()">Close</a> this tutorial, and continue with the rest of the getting started.</li>
+            </ol>
+            <p> - Or - </p>
+            <p>Continue to learn about the way to automatically build your containers from a file. </p><p><a href="/learn/dockerfile/" class='btn btn-primary secondary-action-button'>Start Dockerfile tutorial</a></p>
+  
+          </div>
+          """)
+  
+  
+        data = { type: EVENT_TYPES.complete }
+        logEvent(data)
+  
+        return """<p>All done!. You are now pushing a container image to the index. You can see that push, just like pull, happens layer by layer.</p>"""
+    ]
+    finishedCallback: () ->
+    webterm.clear()
+    webterm.echo( myTerminal() )
+  
+  
+  })
+   */
 
   questions = [];
 
