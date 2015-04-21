@@ -53,8 +53,8 @@ do @myTerminal = ->
 
 	@currentDockerPs = ""
 
-	@currentLocalImages = ""
-	@currentCloudImages = ""
+	@currentLocalImages = staticLocalImages
+	@currentCloudImages = staticCloudImages
 
 	###
 		Base interpreter
@@ -506,8 +506,20 @@ do @myTerminal = ->
 	###
 		Some default variables / commands
 
-		All items are sorted by alphabet
 	###
+
+	staticLocalImages = """
+    Target is local host. Invoking docker with the given arguments...
+    REPOSITORY            TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+    ubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)
+    """
+	staticCloudImages = """
+    Image Id                             Created              Image Name
+
+    d0feae99-b91d-4ce3-bcb4-6128886f6968 Mar 23 10:44:59 2015 registry-ice.ng.bluemix.net/ibmliberty:latest
+    74831680-1c9c-424e-b8ea-ceede4aa0e40 Mar 23 10:41:24 2015 registry-ice.ng.bluemix.net/ibmnode:latest
+
+    """
 
 	Ice_cmd = \
 		"""
