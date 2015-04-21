@@ -415,17 +415,17 @@
             console.log("run");
             echo(run_cmd);
           }
-        } else if (inputs[1] === "images") {
+        } else if (inputs[2] === "images") {
           echo(images);
-        } else if (inputs[1] === "inspect") {
-          if (inputs[2] && inputs[2].match('ef')) {
+        } else if (inputs[2] === "inspect") {
+          if (inputs[3] && inputs[3].match('ef')) {
             echo(inspect_ping_container);
-          } else if (inputs[2]) {
-            echo(inspect_no_such_container(inputs[2]));
+          } else if (inputs[3]) {
+            echo(inspect_no_such_container(inputs[3]));
           } else {
             echo(inspect);
           }
-        } else if (command === "ps") {
+        } else if (inputs[2] === "ps") {
           if (inputs.containsAllOfThese(['-l'])) {
             echo(ps_l);
           } else if (inputs.containsAllOfThese(['-a'])) {
@@ -433,12 +433,12 @@
           } else {
             echo(currentDockerPs);
           }
-        } else if (inputs[1] === "push") {
-          if (inputs[2] === "learn/ping") {
+        } else if (inputs[2] === "push") {
+          if (inputs[3] === "learn/ping") {
             util_slow_lines(term, push_container_learn_ping, "", callback);
             intermediateResults(0);
             return;
-          } else if (inputs[2]) {
+          } else if (inputs[3]) {
             echo(push_wrong_name);
           } else {
             echo(push);

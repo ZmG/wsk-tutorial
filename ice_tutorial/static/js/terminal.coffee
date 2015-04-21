@@ -439,31 +439,31 @@ do @myTerminal = ->
 					console.log("run")
 					echo run_cmd
 
-			else if inputs[1] is "images"
+			else if inputs[2] is "images"
 				echo images
 
-			else if inputs[1] is "inspect"
-				if inputs[2] and inputs[2].match('ef')
+			else if inputs[2] is "inspect"
+				if inputs[3] and inputs[3].match('ef')
 					echo inspect_ping_container
-				else if inputs[2]
-					echo inspect_no_such_container(inputs[2])
+				else if inputs[3]
+					echo inspect_no_such_container(inputs[3])
 				else
 					echo inspect
 
 			# command ps
-			else if command is "ps"
+			else if inputs[2] is "ps"
 				if inputs.containsAllOfThese(['-l'])
 					echo ps_l
 				else if inputs.containsAllOfThese(['-a'])
 					echo ps_a
 				else
 					echo currentDockerPs
-			else if inputs[1] is "push"
-				if inputs[2] is "learn/ping"
+			else if inputs[2] is "push"
+				if inputs[3] is "learn/ping"
 					util_slow_lines(term, push_container_learn_ping, "", callback )
 					intermediateResults(0)
 					return
-				else if inputs[2]
+				else if inputs[3]
 					echo push_wrong_name
 				else
 					echo push
