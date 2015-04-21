@@ -60,7 +60,7 @@
     html: "<h3>Hello world from a container</h3>\n<p>You can think about containers as a process in a box. The box contains everything the process might need, so\nit has the filesystem, system libraries, shell and such, but by default none of it is started or run.<p>\n<p>You 'start' a container <em>by</em> running a process in it. This process is the only process run, so when\nit completes the container is fully stopped.",
     assignment: "<h3>Assignment</h3>\n<p>Make our freshly loaded container image output \"hello world\"</p>\n<p>To do so you should run 'echo' in the container and have that say \"hello world\"\n",
     command_expected: ["ice", "--local", "run", "learn/tutorial", "echo", "hello"],
-    command_show: ["docker", "run", "learn/tutorial", 'echo "hello world"'],
+    command_show: ["ice", "--local", "run", "learn/tutorial", 'echo "hello world"'],
     result: "<p>Great! Hellooooo World!</p><p>You have just started a container and executed a program inside of it, when\nthe program stopped, so did the container.",
     intermediateresults: [
       function() {
@@ -76,6 +76,7 @@
     html: "<h3>Installing things in the container</h3>\n<p>Next we are going to install a simple program (ping) in the container. The image is based upon ubuntu, so you\ncan run the command <code>apt-get install -y ping</code> in the container. </p>\n<p>Note that even though the container stops right after a command completes, the changes are not forgotten.</p>",
     assignment: "<h3>Assignment</h3>\n<p>Install 'ping' on top of the learn/tutorial image.</p>",
     command_expected: ["ice", "--local", "run", "learn/tutorial", "apt-get", "install", "-y", "ping"],
+    command_show: ["ice --local", "run", "learn/tutorial", 'echo "hello world"'],
     result: "<p>That worked! You have installed a program on top of a base image. Your changes to the filesystem have been\nkept, but are not yet saved.</p>",
     intermediateresults: [
       function() {
