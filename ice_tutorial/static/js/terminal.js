@@ -17,7 +17,7 @@
     EMULATOR_VERSION = "0.1.5";
     this.basesettings = {
       prompt: 'you@tutorial:~$ ',
-      greetings: " Imitation is the sincerest form of flattery\n We loved Docker's try it approach - so we forked it \n Welcome to the IBM Bluemix(tm) Container tutorial\n Courtesy of IBM jStart (http://ibm.com/jstart)\n\n	 ____  __                     _     \n	/ __ )/ /_  _____  ____ ___  (_)  __\n  / __  / / / / / _ \\/ __ `__ \\/ / |/_/\n / /_/ / / /_/ /  __/ / / / / / />  <  \n/_____/_/\\__,_/\\___/_/ /_/ /_/_/_/|_|  \n												 \n												"
+      greetings: " Imitation is the sincerest form of flattery\n We loved Docker's try it approach - so we forked it \n Welcome to the IBM Bluemix(tm) Container tutorial\n Courtesy of IBM jStart (http://ibm.com/jstart)\n\n    ____  __                     _     \n   / __ )/ /_  _____  ____ ___  (_)  __\n  / __  / / / / / _ \\/ __ `__ \\/ / |/_/\n / /_/ / / /_/ /  __/ / / / / / />  <  \n/_____/_/\\__,_/\\___/_/ /_/ /_/_/_/|_|  											 \n												"
     };
 
     /*
