@@ -81,8 +81,8 @@ do @myTerminal = ->
 		else if command is '#'
 			term.echo 'which question?'
 
-		else if command is 'test'
-			term.echo 'I have to keep testing myself.'
+		else if command is 'docker'
+			term.echo 'This tutorial was created to teach ice commands, the docker functionality has been disabled. You can call docker commands using "ice --local".'
 
 		else if command is 'cd'
 			bash(term, inputs)
@@ -294,20 +294,6 @@ do @myTerminal = ->
 		if not inputs[1]
 			console.debug "no args"
 			echo Ice_cmd
-			for IceCommand, description of IceCommands
-				echo "[[b;#fff;]" + IceCommand + "]" + description + ""
-
-		# Command commit
-		else if inputs[1] is "commit"
-			if inputs.containsAllOfTheseParts(['docker', 'commit', '698', 'learn/ping'])
-				util_slow_lines(term, commit_containerid, "", callback )
-			else if inputs.containsAllOfTheseParts(['docker', 'commit', '698'])
-				util_slow_lines(term, commit_containerid, "", callback )
-				intermediateResults(0)
-			else if inputs.containsAllOfTheseParts(['docker', 'commit']) and inputs[2]
-				echo commit_id_does_not_exist(inputs[2])
-			else
-				echo commit
 
 		else if inputs[1] is "do"
 			term.push('do', {prompt: "do $ "})
@@ -339,17 +325,9 @@ do @myTerminal = ->
 			else if inputs.containsAllOfTheseParts(['ice', 'login'])
 				intermediateResults(0)
 
-		else if inputs[1] is "search"
-			if keyword = inputs[2]
-				if keyword is "ubuntu"
-					echo search_ubuntu
-				else if keyword is "tutorial"
-					echo search_tutorial
-				else
-					echo search_no_results(inputs[2])
-			else echo search
 		else if inputs[1] is "--local"
 			if inputs[2] is "-h" or inputs[2] is "--help"
+				echo docker_cmd
 			else if inputs[2] is "pull"
 				if keyword = inputs[3]
 					if keyword is 'ubuntu'
@@ -362,6 +340,30 @@ do @myTerminal = ->
 						util_slow_lines(term, pull_no_results, keyword)
 				else
 					echo pull
+
+			# Search
+			else if inputs[2] is "search"
+				if keyword = inputs[3]
+					if keyword is "ubuntu"
+						echo search_ubuntu
+					else if keyword is "tutorial"
+						echo search_tutorial
+					else
+						echo search_no_results(inputs[3])
+				else echo search
+
+			# Command commit
+			else if inputs[2] is "commit"
+				if inputs.containsAllOfTheseParts(['docker', 'commit', '698', 'learn/ping'])
+					util_slow_lines(term, commit_containerid, "", callback )
+				else if inputs.containsAllOfTheseParts(['docker', 'commit', '698'])
+					util_slow_lines(term, commit_containerid, "", callback )
+					intermediateResults(0)
+				else if inputs.containsAllOfTheseParts(['docker', 'commit']) and inputs[3]
+					echo commit_id_does_not_exist(inputs[3])
+				else
+					echo commit
+
 			# Command run
 			else if inputs[2] is "run"
 				# parse all input so we have a json object

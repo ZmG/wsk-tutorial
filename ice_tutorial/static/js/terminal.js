@@ -61,8 +61,8 @@
         location.reload('forceGet');
       } else if (command === '#') {
         term.echo('which question?');
-      } else if (command === 'test') {
-        term.echo('I have to keep testing myself.');
+      } else if (command === 'docker') {
+        term.echo('This tutorial was created to teach ice commands, the docker functionality has been disabled. You can call docker commands using "ice --local".');
       } else if (command === 'cd') {
         bash(term, inputs);
       } else if (command === "ice") {
@@ -266,7 +266,7 @@
     		ice program
      */
     ice = function(term, inputs) {
-      var IceCommand, callback, command, commands, description, echo, i, imagename, insert, keyword, parsed_input, result, swargs, switches;
+      var callback, command, commands, echo, i, imagename, insert, keyword, parsed_input, result, swargs, switches;
       echo = term.echo;
       insert = term.insert;
       callback = function() {
@@ -276,21 +276,6 @@
       if (!inputs[1]) {
         console.debug("no args");
         echo(Ice_cmd);
-        for (IceCommand in IceCommands) {
-          description = IceCommands[IceCommand];
-          echo("[[b;#fff;]" + IceCommand + "]" + description + "");
-        }
-      } else if (inputs[1] === "commit") {
-        if (inputs.containsAllOfTheseParts(['docker', 'commit', '698', 'learn/ping'])) {
-          util_slow_lines(term, commit_containerid, "", callback);
-        } else if (inputs.containsAllOfTheseParts(['docker', 'commit', '698'])) {
-          util_slow_lines(term, commit_containerid, "", callback);
-          intermediateResults(0);
-        } else if (inputs.containsAllOfTheseParts(['docker', 'commit']) && inputs[2]) {
-          echo(commit_id_does_not_exist(inputs[2]));
-        } else {
-          echo(commit);
-        }
       } else if (inputs[1] === "do") {
         term.push('do', {
           prompt: "do $ "
@@ -316,21 +301,9 @@
         } else if (inputs.containsAllOfTheseParts(['ice', 'login'])) {
           intermediateResults(0);
         }
-      } else if (inputs[1] === "search") {
-        if (keyword = inputs[2]) {
-          if (keyword === "ubuntu") {
-            echo(search_ubuntu);
-          } else if (keyword === "tutorial") {
-            echo(search_tutorial);
-          } else {
-            echo(search_no_results(inputs[2]));
-          }
-        } else {
-          echo(search);
-        }
       } else if (inputs[1] === "--local") {
         if (inputs[2] === "-h" || inputs[2] === "--help") {
-
+          echo(docker_cmd);
         } else if (inputs[2] === "pull") {
           if (keyword = inputs[3]) {
             if (keyword === 'ubuntu') {
@@ -344,6 +317,29 @@
             }
           } else {
             echo(pull);
+          }
+        } else if (inputs[2] === "search") {
+          if (keyword = inputs[3]) {
+            if (keyword === "ubuntu") {
+              echo(search_ubuntu);
+            } else if (keyword === "tutorial") {
+              echo(search_tutorial);
+            } else {
+              echo(search_no_results(inputs[3]));
+            }
+          } else {
+            echo(search);
+          }
+        } else if (inputs[2] === "commit") {
+          if (inputs.containsAllOfTheseParts(['docker', 'commit', '698', 'learn/ping'])) {
+            util_slow_lines(term, commit_containerid, "", callback);
+          } else if (inputs.containsAllOfTheseParts(['docker', 'commit', '698'])) {
+            util_slow_lines(term, commit_containerid, "", callback);
+            intermediateResults(0);
+          } else if (inputs.containsAllOfTheseParts(['docker', 'commit']) && inputs[3]) {
+            echo(commit_id_does_not_exist(inputs[3]));
+          } else {
+            echo(commit);
           }
         } else if (inputs[2] === "run") {
           parsed_input = parseInput(inputs);

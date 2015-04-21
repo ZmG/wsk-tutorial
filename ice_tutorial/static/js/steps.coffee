@@ -212,6 +212,8 @@ html: """
       bluemix registry.
       </p>
 
+      <p>tag usage: 'ice --local tag &lt;local_Image_name&gt; registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image_name&gt;'</p>
+
       <p>Note: You can also push images downloaded from the <a href="registry.hub.docker.com">Docker Public Registry</a> to your Bluemix Private Registry.</p>
       """
 assignment: """
@@ -224,7 +226,7 @@ command_show: ["ice", "--local", "tag", "learn/tutorial", "registry-ice.ng.bluem
 result: """<p>Success! The image is now tagged and ready to push. In the next section we'll push to the registry</p>"""
 intermediateresults:
   [
-    () -> """Almost there, don't forget provide the name of the local image that will be tagged (learn/tutorial) usage: 'ice --local tag <b>&lt;local_Image&gt;</b> registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image_name&gt;'"""
+    () -> """Almost there, don't forget to provide the name of the local image that will be tagged (learn/tutorial)"""
   ]
 tip: """
     <ul>
