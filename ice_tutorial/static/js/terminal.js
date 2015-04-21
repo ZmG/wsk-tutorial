@@ -13,7 +13,7 @@
 
 (function() {
   (this.myTerminal = function() {
-    var EMULATOR_VERSION, ICE_logo, IceCommands, Ice_cmd, auth, bash, commit, commit_containerid, commit_id_does_not_exist, docker_version, help, ice, ice_images, ice_version, images, inspect, inspect_no_such_container, inspect_ping_container, login, loginResult, login_cmd, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_results, pull_tutorial, pull_ubuntu, push, push_container_learn_ping, push_wrong_name, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_not_google, run_ping_www_google_com, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag, testing, util_slow_lines, wait;
+    var EMULATOR_VERSION, ICE_logo, IceCommands, Ice_cmd, auth, bash, commit, commit_containerid, commit_id_does_not_exist, docker_version, help, ice, ice_images, ice_version, images, inspect, inspect_no_such_container, inspect_ping_container, login, loginResult, login_cmd, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_results, pull_tutorial, pull_ubuntu, push, push_container_learn_ping, push_wrong_name, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_not_google, run_ping_www_google_com, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag, tag_help, testing, util_slow_lines, wait;
     EMULATOR_VERSION = "0.1.5";
     this.basesettings = {
       prompt: 'you@tutorial:~$ ',
@@ -426,8 +426,8 @@
             echo(inspect);
           }
         } else if (inputs[2] === "tag") {
-          if (inputs[3]) {
-            echo(inspect_ping_container);
+          if (inputs[3] && inputs[3] === "-h" || inputs[3] === "--help") {
+            echo(tag_help);
           } else {
             echo(tag);
           }
@@ -513,6 +513,7 @@
     };
     commit = "Usage: Docker commit [OPTIONS] CONTAINER [REPOSITORY [TAG]]\n\nCreate a new image from a container's changes\n\n	-author=\"\": Author (eg. \"John Hannibal Smith <hannibal@a-team.com>\"\n	-m=\"\": Commit message\n	-run=\"\": Config automatically applied when the image is run. (ex: {\"Cmd\": [\"cat\", \"/world\"], \"PortSpecs\": [\"22\"]}')";
     tag = "Target is local host. Invoking docker with the given arguments...\ndocker: \"tag\" requires 2 arguments. See 'docker tag --help'.";
+    tag_help = "Target is local host. Invoking docker with the given arguments...\n\nUsage: ice --local tag [OPTIONS] IMAGE[:TAG] [REGISTRYHOST/][USERNAME/]NAME[:TAG]\n\nTag an image into a repository\n\n  -f, --force=false    Force\n  --help=false         Print usage";
     commit_id_does_not_exist = function(keyword) {
       return "2013/07/08 23:51:21 Error: No such container: " + keyword;
     };

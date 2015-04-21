@@ -294,7 +294,7 @@
   color: #646464;
 }
 #instructions circle {
-  fill: #FFC476;
+  fill: #ffc476;
 }
 #results {
   z-index: 20;
@@ -480,16 +480,16 @@
   fill: black;
 }
 .progress-marker.complete circle {
-  fill: #8bf097;
+  fill: #9ed782;
 }
 .progress-marker:hover circle {
   fill: #70dcf2;
 }
 .progress-marker:active circle {
-  fill: #fd8c78;
+  fill: #ffc476;
 }
 .progress-marker.active circle {
-  fill: #fd8c78;
+  fill: #ffc476;
 }
 .complete img {
   height: 45px;

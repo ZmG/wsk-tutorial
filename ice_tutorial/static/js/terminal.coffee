@@ -451,8 +451,8 @@ do @myTerminal = ->
 					echo inspect
 
 			else if inputs[2] is "tag"
-				if inputs[3]
-					echo inspect_ping_container
+				if inputs[3] and inputs[3] is "-h" or inputs[3] is "--help"
+					echo tag_help
 				else
 					echo tag
 
@@ -571,6 +571,18 @@ do @myTerminal = ->
 		"""
 		Target is local host. Invoking docker with the given arguments...
 		docker: "tag" requires 2 arguments. See 'docker tag --help'.
+		"""
+
+	tag_help = \
+		"""
+		Target is local host. Invoking docker with the given arguments...
+
+		Usage: ice --local tag [OPTIONS] IMAGE[:TAG] [REGISTRYHOST/][USERNAME/]NAME[:TAG]
+
+		Tag an image into a repository
+
+		  -f, --force=false    Force
+		  --help=false         Print usage
 		"""
 
 	commit_id_does_not_exist = (keyword) ->
