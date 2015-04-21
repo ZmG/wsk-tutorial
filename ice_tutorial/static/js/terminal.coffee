@@ -453,8 +453,12 @@ do @myTerminal = ->
 			else if inputs[2] is "tag"
 				if inputs[3] and inputs[3] is "-h" or inputs[3] is "--help"
 					echo tag_help
+				else if inputs[3] is "learn/ping"
+					if inputs[4] is "registry-ice.ng.bluemix.net/learn/ping"
+						echo
 				else
-					echo tag
+					echo tag_no_args
+				
 
 			# command ps
 			else if inputs[2] is "ps"
@@ -566,8 +570,11 @@ do @myTerminal = ->
 			-m="": Commit message
 			-run="": Config automatically applied when the image is run. (ex: {"Cmd": ["cat", "/world"], "PortSpecs": ["22"]}')
 		"""
-
-	tag = \
+	tag_success = \
+	"""
+		Target is local host. Invoking docker with the given arguments...
+	"""
+	tag_no_args = \
 		"""
 		Target is local host. Invoking docker with the given arguments...
 		docker: "tag" requires 2 arguments. See 'docker tag --help'.

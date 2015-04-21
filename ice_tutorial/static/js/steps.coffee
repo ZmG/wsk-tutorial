@@ -59,7 +59,7 @@ tip: "the optional arguments for login are specified in the online Bluemix Conta
 q.push ({
 html: """
       <h3>Downloading container images</h3>
-      <p>This exercise will introduce the --local tag. calling ice --local is the same as calling docker. ice --local will pass arguements to docker and run like standard docker.</p>
+      <p>This exercise will introduce the --local. calling ice --local is the same as calling docker. ice --local will pass arguements to docker and run like standard docker.</p>
       <p>Container images can be downloaded just as easily, using <code>docker pull</code>.</p>
       <p>However, instead of calling <code>docker pull</code> directly we will use <code>ice --local pull</code>, to pull images from registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image&gt;.</p>
       <p>For images from the central index, the name you specify is constructed as &lt;Namespace&gt;/&lt;Image Name&gt;</p>
@@ -219,12 +219,12 @@ assignment: """
       <p>Tag the learn/tutorial image using <code>ice --local tag</code>. tag the image with the name <b>'learn/ping'</b>. This prepares the image for pushing to the bluemix registry.</p>
 
       """
-command_expected: ["ice", "--local", "tag", "learn/ping", "registry-ice.ng.bluemix.net/learn/ping"]
-command_show: ["ice", "--local", "tag", "learn/ping", "registry-ice.ng.bluemix.net/learn/ping"]
+command_expected: ["ice", "--local", "tag", "learn/tutorial", "registry-ice.ng.bluemix.net/learn/ping"]
+command_show: ["ice", "--local", "tag", "learn/tutorial", "registry-ice.ng.bluemix.net/learn/ping"]
 result: """<p>Success! The image is now tagged and ready to push. In the next section we'll push to the registry</p>"""
 intermediateresults:
   [
-    () -> """Almost there, don't forget provide a name for the tagged image (learn/ping) usage: 'ice --local tag <Your_Image> registry-ice.ng.bluemix.net/<Namespace>/<Your_Image>'"""
+    () -> """Almost there, don't forget provide the name of the local image that will be tagged (learn/tutorial) usage: 'ice --local tag <b>&lt;local_Image&gt;</b> registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image_name&gt;'"""
   ]
 tip: """
     <ul>
