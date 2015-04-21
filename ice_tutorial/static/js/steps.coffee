@@ -76,8 +76,12 @@ intermediateresults: [
   () -> """<p>You seem to be almost there. Don't forget to tell <b>ice --local pull</b> where to find the image, ice --local pull &lt;<Registry url>&gt;/&lt;learn&gt;/&lt;tutorial&gt; """,
   () -> """<p>You got the namespace and image name correct, but forgot to specify a registry, hint ice --local pull &lt;Registry url&gt;/&lt;Namespace&gt;/&lt;Image Name&gt;</p>"""
   ]
-tip: """<p>Don't forget to pull the full name of the repository e.g. 'learn/tutorial'</p>
-     <p>Look under 'show expected command if you're stuck.</p>
+tip: """
+    <ul>
+      <li>Don't forget to pull the full name of the repository e.g. 'learn/tutorial'</li>
+      <li>For this tutorial the Namespace for you registry will always be <b>'learn'</b></li>
+      <li>Look under 'show expected command if you're stuck.</li>
+    </ul>
      """
 })
 
@@ -168,15 +172,15 @@ q.push ({
 html: """
       <h3>Check your running image</h3>
       <p>You now have a running container. Let's see what is going on.</p>
-      <p>Using <code>docker ps</code> we can see a list of all running containers, and using <code>docker inspect</code>
+      <p>Using <code>ice --local ps</code> we can see a list of all running containers, and using <code>ice --local inspect</code>
       we can see all sorts of useful information about this container.</p>
       """
 assignment: """
       <h3>Assignment</h3>
-      <p><em>Find the container id</em> of the running container, and then inspect the container using <em>docker inspect</em>.</p>
+      <p><em>Find the container id</em> of the running container, and then inspect the container using <em>ice --local inspect</em>.</p>
 
       """
-command_expected: ["docker", "inspect", "efe" ]
+command_expected: ["ice", "--local", "inspect", "efe" ]
 result: """<p>Success! Have a look at the output. You can see the ip-address, status and other information.</p>"""
 intermediateresults: [ () -> """You have not specified a repository name. This is not wrong, but giving your images a name
                       make them much easier to work with."""]
@@ -197,22 +201,24 @@ q.push ({
 html: """
       <h3>Tagging your image with ice</h3>
       <p>Now you have verified that your application container works locally, it's time to get it ready for Bluemix.</p>
-      <p>Remember you pulled (downloaded) the learn/tutorial image from the Docker Registry? You can also share your built images
+      <p>Remember you pulled (downloaded) the learn/tutorial image from the Bluemix Private Registry? You can also share your built images
       to the Registry by pushing (uploading) them to there. That way you can easily retrieve them for re-use and share them
       with others. </p>
+
       <p>To use an image on bluemix, you will first need to push the image up to your,
       bluemix registry. To do that we need to tag the pulled image with your namespace and a name, that will identify it in your 
       bluemix registry.
       </p>
+
+      <p>Note: You can also push images downloaded from the <a href="registry.hub.docker.com">Docker Public Registry</a> to your Bluemix Private Registry.</p>
       """
 assignment: """
       <h3>Assignment</h3>
-      <p>Tag the learn/tutorial image with that will be sent to the bluemix registry.</p>
+      <p>Tag the learn/tutorial image with the name <b>'learn/ping'<.b> that will be sent to the bluemix registry.</p>
 
       """
-#command_expected: ["docker", "push", "learn/ping"]
-command_expected: ["will_never_be_valid"]
-command_show: ["ice", "--local", "tag", "learn/ping", "registry-ice.ng.bluemix.net/<Namespace>/ping"]
+command_expected: ["ice", "--local", "tag", "learn/ping", "registry-ice.ng.bluemix.net/learn/ping"]
+command_show: ["ice", "--local", "tag", "learn/ping", "registry-ice.ng.bluemix.net/learn/ping"]
 result: """"""
 intermediateresults:
   [
@@ -249,9 +255,10 @@ intermediateresults:
       return """<p>All done!. You are now pushing a container image to the index. You can see that push, just like pull, happens layer by layer.</p>"""
   ]
 tip: """<ul>
-     <li><code>docker images</code> will show you which images are currently on your host</li>
-     <li><code>docker push</code>is the command to push images</li>
-     <li>You can only push images to your own namespace, this emulator is logged in as user 'learn'</li>
+     <li><code>ice images</code> will show you which images are currently on your host</li>
+     <li><code>ice --local images</code> will show you which images exist locally (docker)</li>
+     <li>For more usage info see the docs <a a href="https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#container_install">here</a></li>
+     <li>You can only push images to your own namespace, this emulator uses the namespace 'learn'</li>
 
      </ul>"""
 finishedCallback: () ->
