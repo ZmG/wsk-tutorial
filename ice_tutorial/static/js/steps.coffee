@@ -525,15 +525,15 @@ buildfunction = (q) ->
     else
       window.currentDockerPs = staticDockerPs
 
-    if _q.currentImages?
-      window.currentImages = _q.currentImages
+    if _q.currentLocalImages?
+      window.currentLocalImages = _q.currentLocalImages
     else
-      window.currentImages = staticImages
+      window.currentLocalImages = staticLocalImages
 
-    if _q.currentImages?
-      window.currentImages = _q.currentImages
+    if _q.currentCloudImages?
+      window.currentCloudImages = _q.currentCloudImages
     else
-      window.currentImages = staticImages
+      window.currentCloudImages = staticCloudImages
 
     if _q.finishedCallback?
       window.finishedCallback = q.finishedCallback

@@ -387,15 +387,15 @@
       } else {
         window.currentDockerPs = staticDockerPs;
       }
-      if (_q.currentImages != null) {
-        window.currentImages = _q.currentImages;
+      if (_q.currentLocalImages != null) {
+        window.currentLocalImages = _q.currentLocalImages;
       } else {
-        window.currentImages = staticImages;
+        window.currentLocalImages = staticLocalImages;
       }
-      if (_q.currentImages != null) {
-        window.currentImages = _q.currentImages;
+      if (_q.currentCloudImages != null) {
+        window.currentCloudImages = _q.currentCloudImages;
       } else {
-        window.currentImages = staticImages;
+        window.currentCloudImages = staticCloudImages;
       }
       if (_q.finishedCallback != null) {
         window.finishedCallback = q.finishedCallback;
