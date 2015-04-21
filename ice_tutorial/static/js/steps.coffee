@@ -15,13 +15,15 @@ staticDockerPs = """
 
 staticLocalImages = """
     Target is local host. Invoking docker with the given arguments...
-    REPOSITORY                                        TAG                 IMAGE ID            CREATED              VIRTUAL SIZE
+    REPOSITORY            TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+    ubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)
     """
 staticCloudImages = """
     Image Id                             Created              Image Name
 
     d0feae99-b91d-4ce3-bcb4-6128886f6968 Mar 23 10:44:59 2015 registry-ice.ng.bluemix.net/ibmliberty:latest
     74831680-1c9c-424e-b8ea-ceede4aa0e40 Mar 23 10:41:24 2015 registry-ice.ng.bluemix.net/ibmnode:latest
+
     """
 
 q = []
@@ -126,6 +128,8 @@ tip: """
     """
 currentLocalImages :
   """
+  REPOSITORY            TAG                 IMAGE ID            CREATED              VIRTUAL SIZE
+    
   ubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)
   learn/tutorial        latest              8dbd9e392a96        2 months ago        131.5 MB (virtual 131.5 MB)
   learn/ping            latest              effb66b31edb        10 minutes ago      11.57 MB (virtual 143.1 MB)
@@ -239,8 +243,6 @@ currentDockerPs:
 
 })
 
-
-
 q.push ({
 html: """
       <h3>Tagging your image with ice</h3>
@@ -276,6 +278,145 @@ tip: """
     </ul>
     """
 });
+
+q.push ({
+html: """
+      <h3>Pushing your image to the Bluemix registry</h3>
+      <p></p>
+      """
+assignment: """
+      <h3>Assignment</h3>
+      <p></p>
+      """
+command_expected: ["ice"]
+command_show: ["ice"]
+result: """<p>Success! </p>"""
+intermediateresults:
+  [
+    () -> """"""
+  ]
+tip: """
+    <ul>
+
+    </ul>
+    """
+});
+
+q.push ({
+html: """
+      <h3>Running on Bluemix</h3>
+      <p></p>
+      """
+assignment: """
+      <h3>Assignment</h3>
+      <p></p>
+      """
+command_expected: ["ice"]
+command_show: ["ice"]
+result: """<p>Success! </p>"""
+intermediateresults:
+  [
+    () -> """"""
+  ]
+tip: """
+    <ul>
+
+    </ul>
+    """
+});
+
+q.push ({
+html: """
+      <h3>Check the running app</h3>
+      <p></p>
+      """
+assignment: """
+      <h3>Assignment</h3>
+      <p></p>
+      """
+command_expected: ["ice"]
+command_show: ["ice"]
+result: """<p>Success! </p>"""
+intermediateresults:
+  [
+    () -> """"""
+  ]
+tip: """
+    <ul>
+
+    </ul>
+    """
+});
+
+q.push ({
+html: """
+      <h3>working with IP's</h3>
+      <p></p>
+      """
+assignment: """
+      <h3>Assignment</h3>
+      <p></p>
+      """
+command_expected: ["ice"]
+command_show: ["ice"]
+result: """<p>Success! </p>"""
+intermediateresults:
+  [
+    () -> """"""
+  ]
+tip: """
+    <ul>
+
+    </ul>
+    """
+});
+
+q.push ({
+html: """
+      <h3>Bind an IP</h3>
+      <p></p>
+      """
+assignment: """
+      <h3>Assignment</h3>
+      <p></p>
+      """
+command_expected: ["ice"]
+command_show: ["ice"]
+result: """<p>Success! </p>"""
+intermediateresults:
+  [
+    () -> """"""
+  ]
+tip: """
+    <ul>
+
+    </ul>
+    """
+});
+
+q.push ({
+html: """
+      <h3>Check Logs</h3>
+      <p></p>
+      """
+assignment: """
+      <h3>Assignment</h3>
+      <p></p>
+      """
+command_expected: ["ice"]
+command_show: ["ice"]
+result: """<p>Success! </p>"""
+intermediateresults:
+  [
+    () -> """"""
+  ]
+tip: """
+    <ul>
+
+    </ul>
+    """
+});
+
 
 ###intermediateresults:
   [
@@ -525,15 +666,12 @@ buildfunction = (q) ->
     else
       window.currentDockerPs = staticDockerPs
 
+    # as the user progresses images are added to the registries
     if _q.currentLocalImages?
       window.currentLocalImages = _q.currentLocalImages
-    else
-      window.currentLocalImages = staticLocalImages
 
     if _q.currentCloudImages?
       window.currentCloudImages = _q.currentCloudImages
-    else
-      window.currentCloudImages = staticCloudImages
 
     if _q.finishedCallback?
       window.finishedCallback = q.finishedCallback

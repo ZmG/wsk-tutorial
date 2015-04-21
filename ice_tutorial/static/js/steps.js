@@ -16,9 +16,9 @@
 
   staticDockerPs = "ID                  IMAGE               COMMAND               CREATED             STATUS              PORTS";
 
-  staticLocalImages = "Target is local host. Invoking docker with the given arguments...\nREPOSITORY                                        TAG                 IMAGE ID            CREATED              VIRTUAL SIZE";
+  staticLocalImages = "Target is local host. Invoking docker with the given arguments...\nREPOSITORY            TAG                 IMAGE ID            CREATED             VIRTUAL SIZE\nubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)";
 
-  staticCloudImages = "Image Id                             Created              Image Name\n\nd0feae99-b91d-4ce3-bcb4-6128886f6968 Mar 23 10:44:59 2015 registry-ice.ng.bluemix.net/ibmliberty:latest\n74831680-1c9c-424e-b8ea-ceede4aa0e40 Mar 23 10:41:24 2015 registry-ice.ng.bluemix.net/ibmnode:latest";
+  staticCloudImages = "Image Id                             Created              Image Name\n\nd0feae99-b91d-4ce3-bcb4-6128886f6968 Mar 23 10:44:59 2015 registry-ice.ng.bluemix.net/ibmliberty:latest\n74831680-1c9c-424e-b8ea-ceede4aa0e40 Mar 23 10:41:24 2015 registry-ice.ng.bluemix.net/ibmnode:latest\n";
 
   q = [];
 
@@ -74,7 +74,7 @@
       }
     ],
     tip: "<p>The command <code>docker run</code> takes a minimum of two arguments. An image name, and the command you want to execute\nwithin that image.</p>\n<p>Check the expected command below if it does not work as expected</p>",
-    currentLocalImages: "ubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)\nlearn/tutorial        latest              8dbd9e392a96        2 months ago        131.5 MB (virtual 131.5 MB)\nlearn/ping            latest              effb66b31edb        10 minutes ago      11.57 MB (virtual 143.1 MB)"
+    currentLocalImages: "REPOSITORY            TAG                 IMAGE ID            CREATED              VIRTUAL SIZE\n  \nubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)\nlearn/tutorial        latest              8dbd9e392a96        2 months ago        131.5 MB (virtual 131.5 MB)\nlearn/ping            latest              effb66b31edb        10 minutes ago      11.57 MB (virtual 143.1 MB)"
   });
 
   q.push({
@@ -144,6 +144,90 @@
       }
     ],
     tip: "<ul>\n<li><code>ice images</code> will show you which images are currently on your host</li>\n<li><code>ice --local images</code> will show you which images exist locally (docker)</li>\n<li>For more usage info see the docs <a a href=\"https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#container_install\">here</a></li>\n<li>You can only push images to your own namespace, this emulator uses the namespace 'learn'</li>\n</ul>"
+  });
+
+  q.push({
+    html: "<h3>Pushing your image to the Bluemix registry</h3>\n<p></p>",
+    assignment: "<h3>Assignment</h3>\n<p></p>",
+    command_expected: ["ice"],
+    command_show: ["ice"],
+    result: "<p>Success! </p>",
+    intermediateresults: [
+      function() {
+        return "";
+      }
+    ],
+    tip: "<ul>\n\n</ul>"
+  });
+
+  q.push({
+    html: "<h3>Running on Bluemix</h3>\n<p></p>",
+    assignment: "<h3>Assignment</h3>\n<p></p>",
+    command_expected: ["ice"],
+    command_show: ["ice"],
+    result: "<p>Success! </p>",
+    intermediateresults: [
+      function() {
+        return "";
+      }
+    ],
+    tip: "<ul>\n\n</ul>"
+  });
+
+  q.push({
+    html: "<h3>Check the running app</h3>\n<p></p>",
+    assignment: "<h3>Assignment</h3>\n<p></p>",
+    command_expected: ["ice"],
+    command_show: ["ice"],
+    result: "<p>Success! </p>",
+    intermediateresults: [
+      function() {
+        return "";
+      }
+    ],
+    tip: "<ul>\n\n</ul>"
+  });
+
+  q.push({
+    html: "<h3>working with IP's</h3>\n<p></p>",
+    assignment: "<h3>Assignment</h3>\n<p></p>",
+    command_expected: ["ice"],
+    command_show: ["ice"],
+    result: "<p>Success! </p>",
+    intermediateresults: [
+      function() {
+        return "";
+      }
+    ],
+    tip: "<ul>\n\n</ul>"
+  });
+
+  q.push({
+    html: "<h3>Bind an IP</h3>\n<p></p>",
+    assignment: "<h3>Assignment</h3>\n<p></p>",
+    command_expected: ["ice"],
+    command_show: ["ice"],
+    result: "<p>Success! </p>",
+    intermediateresults: [
+      function() {
+        return "";
+      }
+    ],
+    tip: "<ul>\n\n</ul>"
+  });
+
+  q.push({
+    html: "<h3>Check Logs</h3>\n<p></p>",
+    assignment: "<h3>Assignment</h3>\n<p></p>",
+    command_expected: ["ice"],
+    command_show: ["ice"],
+    result: "<p>Success! </p>",
+    intermediateresults: [
+      function() {
+        return "";
+      }
+    ],
+    tip: "<ul>\n\n</ul>"
   });
 
 
@@ -389,13 +473,9 @@
       }
       if (_q.currentLocalImages != null) {
         window.currentLocalImages = _q.currentLocalImages;
-      } else {
-        window.currentLocalImages = staticLocalImages;
       }
       if (_q.currentCloudImages != null) {
         window.currentCloudImages = _q.currentCloudImages;
-      } else {
-        window.currentCloudImages = staticCloudImages;
       }
       if (_q.finishedCallback != null) {
         window.finishedCallback = q.finishedCallback;
