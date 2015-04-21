@@ -76,7 +76,7 @@
     html: "<h3>Installing things in the container</h3>\n<p>Next we are going to install a simple program (ping) in the container. The image is based upon ubuntu, so you\ncan run the command <code>apt-get install -y ping</code> in the container. </p>\n<p>Note that even though the container stops right after a command completes, the changes are not forgotten.</p>",
     assignment: "<h3>Assignment</h3>\n<p>Install 'ping' on top of the learn/tutorial image.</p>",
     command_expected: ["ice", "--local", "run", "learn/tutorial", "apt-get", "install", "-y", "ping"],
-    command_show: ["ice --local", "run", "learn/tutorial", 'echo "hello world"'],
+    command_show: ["ice", "--local", "run", "learn/tutorial", "apt-get", "install", "-y", "ping"],
     result: "<p>That worked! You have installed a program on top of a base image. Your changes to the filesystem have been\nkept, but are not yet saved.</p>",
     intermediateresults: [
       function() {

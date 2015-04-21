@@ -128,7 +128,7 @@ assignment: """
       <p>Install 'ping' on top of the learn/tutorial image.</p>
       """
 command_expected: ["ice", "--local", "run", "learn/tutorial", "apt-get", "install", "-y", "ping"]
-command_show: ["ice --local", "run", "learn/tutorial", 'echo "hello world"']
+command_show: ["ice", "--local", "run", "learn/tutorial", "apt-get", "install", "-y", "ping"]
 result: """<p>That worked! You have installed a program on top of a base image. Your changes to the filesystem have been
         kept, but are not yet saved.</p>"""
 intermediateresults: [
