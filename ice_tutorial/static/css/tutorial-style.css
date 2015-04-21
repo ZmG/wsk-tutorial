@@ -407,7 +407,7 @@
   /* IE10+ */
   background: linear-gradient(to bottom, #008bb8 0%, #00617f 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#008bb8', endColorstr='#00617f', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@dockBlue', endColorstr='#00617f', GradientType=0);
   /* IE6-9 */
 }
 .docker-btn-blue:enabled:active {
@@ -427,7 +427,7 @@
   /* IE10+ */
   background: linear-gradient(to bottom, #00617f 0%, #008bb8 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00617f', endColorstr='#008bb8', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00617f', endColorstr='@dockBlue', GradientType=0);
   /* IE6-9 */
 }
 .docker-btn-blue:disabled {
@@ -480,16 +480,16 @@
   fill: black;
 }
 .progress-marker.complete circle {
-  fill: green;
+  fill: #8bf097;
 }
 .progress-marker:hover circle {
-  fill: #01b0ee;
+  fill: #70dcf2;
 }
 .progress-marker:active circle {
-  fill: #ff810a;
+  fill: #fd8c78;
 }
 .progress-marker.active circle {
-  fill: #ff810a;
+  fill: #fd8c78;
 }
 .complete img {
   height: 45px;
