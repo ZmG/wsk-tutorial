@@ -459,6 +459,7 @@ do @myTerminal = ->
 					else
 						echo run_image_wrong_command(commands)
 				else if commands.containsAllOfTheseParts(['echo'])
+					sentence = ''
 					for word in commands.slice(1)
     					sentence += word
 					echo run_echo(sentence)
@@ -586,10 +587,15 @@ do @myTerminal = ->
 							term.push ( (command, term) ->
 								if command
 									echo """this shell is not implemented. Enter 'exit' to exit."""
-								return
+									
 							), {prompt: 'root@687bbbc4231b:/# '}
 						else
 							echo run_image_wrong_command(commands)
+					else if commands.containsAllOfTheseParts(['echo'])
+						sentence = ''
+						for word in commands.slice(1)
+	    					sentence += word
+						echo run_echo(sentence)
 					else
 						echo run_flag_defined_not_defined(switches)
 				else if imagename is "learn/tutorial"

@@ -265,7 +265,7 @@
       }
     };
     ice = function(term, inputs) {
-      var callback, command, commands, echo, i, imagename, insert, k, keyword, len, parsed_input, ref, result, swargs, switches, word;
+      var callback, command, commands, echo, i, imagename, insert, k, keyword, l, len, len1, parsed_input, ref, ref1, result, sentence, swargs, switches, word;
       echo = term.echo;
       insert = term.insert;
       callback = function() {
@@ -410,6 +410,7 @@
               echo(run_image_wrong_command(commands));
             }
           } else if (commands.containsAllOfTheseParts(['echo'])) {
+            sentence = '';
             ref = commands.slice(1);
             for (k = 0, len = ref.length; k < len; k++) {
               word = ref[k];
@@ -528,7 +529,7 @@
               if (commands.containsAllOfTheseParts(['bash'])) {
                 term.push((function(command, term) {
                   if (command) {
-                    echo("this shell is not implemented. Enter 'exit' to exit.");
+                    return echo("this shell is not implemented. Enter 'exit' to exit.");
                   }
                 }), {
                   prompt: 'root@687bbbc4231b:/# '
@@ -536,6 +537,14 @@
               } else {
                 echo(run_image_wrong_command(commands));
               }
+            } else if (commands.containsAllOfTheseParts(['echo'])) {
+              sentence = '';
+              ref1 = commands.slice(1);
+              for (l = 0, len1 = ref1.length; l < len1; l++) {
+                word = ref1[l];
+                sentence += word;
+              }
+              echo(run_echo(sentence));
             } else {
               echo(run_flag_defined_not_defined(switches));
             }
