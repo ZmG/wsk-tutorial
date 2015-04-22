@@ -13,7 +13,7 @@
 
 (function() {
   (this.myTerminal = function() {
-    var EMULATOR_VERSION, ICE_logo, IceCommands, auth, bash, commit, commit_containerid, commit_id_does_not_exist, docker_cmd, docker_version, help, ice, ice_help, ice_inspect_help, ice_ip, ice_ip_bind_fail, ice_ip_bind_help, ice_ip_bound, ice_ip_help, ice_ip_request, ice_ip_request_help, ice_logs, ice_logs_help, ice_no_args, ice_no_such_container, ice_rm, ice_rm_help, ice_rm_ice_ping, ice_run_help, ice_run_no_name, ice_stop, ice_stop_help, ice_stop_ice_ping, ice_version, inspect, inspect_ice_ping_container, inspect_no_such_container, inspect_ping_container, login, loginResult, login_cmd, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push_container_learn_ping, push_help, push_no_args, push_wrong_name, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_localhost, run_ping_not_localhost, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait;
+    var EMULATOR_VERSION, ICE_logo, IceCommands, auth, bash, commit, commit_containerid, commit_id_does_not_exist, docker_cmd, docker_version, help, ice, ice_help, ice_inspect_help, ice_ip, ice_ip_bind_fail, ice_ip_bind_help, ice_ip_bound, ice_ip_help, ice_ip_request, ice_ip_request_help, ice_logs, ice_logs_help, ice_no_args, ice_no_such_container, ice_rm, ice_rm_help, ice_rm_ice_ping, ice_run_help, ice_run_no_name, ice_stop, ice_stop_help, ice_stop_ice_ping, ice_version, inspect, inspect_ice_ping_container, inspect_no_such_container, inspect_ping_container, login, loginResult, login_cmd, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push_container_learn_ping, push_help, push_no_args, push_wrong_name, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_echo, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_localhost, run_ping_not_localhost, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait;
     EMULATOR_VERSION = "0.1.5";
     this.basesettings = {
       prompt: 'you@tutorial:~$ ',
@@ -265,7 +265,7 @@
       }
     };
     ice = function(term, inputs) {
-      var callback, command, commands, echo, i, imagename, insert, keyword, parsed_input, result, swargs, switches;
+      var callback, command, commands, echo, i, imagename, insert, k, keyword, len, parsed_input, ref, result, swargs, switches, word;
       echo = term.echo;
       insert = term.insert;
       callback = function() {
@@ -409,6 +409,13 @@
             } else {
               echo(run_image_wrong_command(commands));
             }
+          } else if (commands.containsAllOfTheseParts(['echo'])) {
+            ref = commands.slice(1);
+            for (k = 0, len = ref.length; k < len; k++) {
+              word = ref[k];
+              sentence += word;
+            }
+            echo(run_echo(sentence));
           } else {
             echo(run_flag_defined_not_defined(switches));
           }
@@ -720,6 +727,9 @@
         string += command + " ";
       }
       return string;
+    };
+    run_echo = function(echo) {
+      return "Target is local host. Invoking docker with the given arguments...\n" + echo;
     };
     run_image_wrong_command = function(keyword) {
       return "2013/07/08 23:13:30 Unable to locate " + keyword;

@@ -458,6 +458,10 @@ do @myTerminal = ->
 						), {prompt: 'root@687bbbc4231b:/# '}
 					else
 						echo run_image_wrong_command(commands)
+				else if commands.containsAllOfTheseParts(['echo'])
+					for word in commands.slice(1)
+    					sentence += word
+					echo run_echo(sentence)
 				else
 					echo run_flag_defined_not_defined(switches)
 			else if imagename is "learn/tutorial"
@@ -1312,6 +1316,12 @@ do @myTerminal = ->
 			command = command.replace('"','');
 			string += ("#{command} ")
 		return string
+
+	run_echo = (echo) ->
+		"""
+		Target is local host. Invoking docker with the given arguments...
+		#{echo}
+		"""
 
 
 	run_image_wrong_command = (keyword) ->
