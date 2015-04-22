@@ -351,7 +351,7 @@ do @myTerminal = ->
 			echo ice_version()
 
 		# command ps
-		else if inputs[2] is "ps"
+		else if inputs[1] is "ps"
 			if inputs.containsAllOfThese(['-l'])
 				echo ps_l
 			else if inputs.containsAllOfThese(['-a'])
@@ -359,7 +359,7 @@ do @myTerminal = ->
 			else
 				echo currentIcePs
 
-		else if inputs[2] is "push"
+		else if inputs[1] is "push"
 			if inputs[3] is "-h" or inputs[3] is "--help"
 				echo push_help
 			else if inputs[3] is "learn/ping"

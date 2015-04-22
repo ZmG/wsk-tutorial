@@ -304,7 +304,7 @@
         }
       } else if (inputs[1] === "version") {
         echo(ice_version());
-      } else if (inputs[2] === "ps") {
+      } else if (inputs[1] === "ps") {
         if (inputs.containsAllOfThese(['-l'])) {
           echo(ps_l);
         } else if (inputs.containsAllOfThese(['-a'])) {
@@ -312,7 +312,7 @@
         } else {
           echo(currentIcePs);
         }
-      } else if (inputs[2] === "push") {
+      } else if (inputs[1] === "push") {
         if (inputs[3] === "-h" || inputs[3] === "--help") {
           echo(push_help);
         } else if (inputs[3] === "learn/ping") {
