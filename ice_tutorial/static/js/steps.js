@@ -21,7 +21,7 @@
   q.push({
     html: "<h3>Getting started</h3>\n<p>Use IBM® Containers to run Docker containers in a hosted cloud environment on IBM Bluemix™. IBM Containers \nhelps you build and deploy containers where you can package your applications and services. Each container is \nbased on an image format, includes a set of standard operations, and is an execution environment in itself.\n</p>",
     assignment: "<h3>Assignment</h3>\n<p>Check IBM Containers Extension (ICE) to identify the version of the client that you are running</p>\n<p>This will help you verify which version of the ICE CLI is running. If you see a version value\nthen you know you that your all set with your ICE client installation. The ICE CLI is supported on Linux OS.\nFor Windows, your best option is to create an Ubuntu VM and install your client software there.</p>",
-    tip: "<p>Try typing <code>ice</code> to see the full list of accepted arguments</p> <p>This emulator provides only a limited set of shell and ICE commands, so some commands may not work as expected</p>",
+    tip: "<p>Try typing <code>ice --help</code> to see the full list of accepted arguments</p> <p>This emulator provides only a limited set of shell and ICE commands, so some commands may not work as expected</p>",
     command_expected: ['ice', 'version'],
     result: "<p>Well done! Let's move to the next assignment.</p>"
   });
@@ -169,7 +169,7 @@
       }
     ],
     tip: "<ul>\n<li>Notice that we will not use the <code>--local</code> because we are running on Bluemix, not local.</li> \n<li>Enter <code>ice run</code> to see flag usage details</li>\n</ul>",
-    currentIcePs: "\nContainer Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports\n\nfa219a32-bcbf-4c6d-977f-1aa67bb1233d ice-ping                          jstart/ping:latest             Apr 22 10:42 Shutdown 172.17.128.30                   []"
+    currentIcePs: "\nContainer Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports\n\nfa219a32-bcbf-4c6d-977f-1aa67bb1233d ice-ping                          learn/ping:latest             Apr 22 10:42 Shutdown 172.17.128.30                   []"
   });
 
   q.push({
@@ -207,15 +207,27 @@
   q.push({
     html: "<h3>Cleaning up</h3>\n<p>We've gone through all the main steps required for deploying docker containers to Bluemix. Now we'll finish up by learning how to stop and remove our container.</p>\n<p>Before we do anything we are going to need to stop our running app using <code>ice stop</code></p>",
     assignment: "<h3>Assignment</h3>\n<p></p>",
-    command_expected: ["ice"],
-    command_show: ["ice"],
-    result: "<p>Success! </p>",
+    command_expected: ["ice", "rm", "ice-ping"],
+    command_show: ["ice", "rm", "ice-ping"],
+    result: "<p>Great job! ice-ping has been stopped and removed</p>",
+    tip: "<ul>\n\n</ul>",
     intermediateresults: [
       function() {
-        return "";
+        var data;
+        $('#instructions .assignment').hide();
+        $('#tips, #command').hide();
+        $('#instructions .text').html("<div class=\"complete\">\n  <h3>Congratulations!</h3>\n  <p>You have mastered the basic docker commands!</p>\n  <p><strong>Did you enjoy this tutorial? Share it!</strong></p>\n  <p>\n    <a href=\"mailto:?Subject=Check%20out%20the%20Docker%20interactive%20tutorial!&Body=%20JSTART\"><img src=\"/static/img/email.png\"></a>\n    <a href=\"http://www.facebook.com/sharer.php?u=JSTART\"><img src=\"/static/img/facebook.png\"></a>\n    <a href=\"http://twitter.com/share?url=JSTART&text=%20Check+out+the+docker+tutorial!\"><img src=\"/static/img/twitter.png\"></a>\n  </p>\n  <h3>Your next steps</h3>\n  <ol>\n    <li><a href=\"/news_signup/\" target=\"_blank\" >Register</a> for news and updates on Docker (opens in new window)</li>\n    <li><a href=\"http://twitter.com/docker\" target=\"_blank\" >Follow</a> us on twitter (opens in new window)</li>\n    <li><a href=\"#\" onClick=\"leaveFullSizeMode()\">Close</a> this tutorial, and continue with the rest of the getting started.</li>\n  </ol>\n  <p> - Or - </p>\n  <p>Continue to learn about the way to automatically build your containers from a file. </p><p><a href=\"/learn/dockerfile/\" class='btn btn-primary secondary-action-button'>Start Dockerfile tutorial</a></p>\n\n</div>");
+        data = {
+          type: EVENT_TYPES.complete
+        };
+        logEvent(data);
+        return "<p>All done!. You are now pushing a container image to the index. You can see that push, just like pull, happens layer by layer.</p>";
       }
     ],
-    tip: "<ul>\n\n</ul>"
+    finishedCallback: function() {
+      webterm.clear();
+      return webterm.echo(myTerminal());
+    }
   });
 
 

@@ -13,7 +13,7 @@
 
 (function() {
   (this.myTerminal = function() {
-    var EMULATOR_VERSION, ICE_logo, IceCommands, Ice_cmd, auth, bash, commit, commit_containerid, commit_id_does_not_exist, docker_cmd, docker_version, help, ice, ice_inspect_help, ice_ip, ice_ip_bind_fail, ice_ip_bind_help, ice_ip_bound, ice_ip_help, ice_ip_request, ice_ip_request_help, ice_logs, ice_logs_help, ice_no_args, ice_ping_logs, ice_run_help, ice_run_no_name, ice_stop, ice_stop_help, ice_version, inspect, inspect_ice_ping_container, inspect_no_such_container, inspect_ping_container, login, loginResult, login_cmd, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push_container_learn_ping, push_help, push_no_args, push_wrong_name, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_localhost, run_ping_not_localhost, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait;
+    var EMULATOR_VERSION, ICE_logo, IceCommands, auth, bash, commit, commit_containerid, commit_id_does_not_exist, docker_cmd, docker_version, help, ice, ice_help, ice_inspect_help, ice_ip, ice_ip_bind_fail, ice_ip_bind_help, ice_ip_bound, ice_ip_help, ice_ip_request, ice_ip_request_help, ice_logs, ice_logs_help, ice_no_args, ice_no_such_container, ice_rm, ice_rm_help, ice_rm_ice_ping, ice_run_help, ice_run_no_name, ice_stop, ice_stop_help, ice_stop_ice_ping, ice_version, inspect, inspect_ice_ping_container, inspect_no_such_container, inspect_ping_container, login, loginResult, login_cmd, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push_container_learn_ping, push_help, push_no_args, push_wrong_name, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_localhost, run_ping_not_localhost, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait;
     EMULATOR_VERSION = "0.1.5";
     this.basesettings = {
       prompt: 'you@tutorial:~$ ',
@@ -274,7 +274,10 @@
       command = inputs[1];
       if (!inputs[1]) {
         console.debug("no args");
-        echo(Ice_cmd);
+        echo(ice_no_args);
+      } else if (inputs[1] === "--help" || inputs[1] === "-h") {
+        console.debug("no args");
+        echo(ice_help);
       } else if (inputs[1] === "do") {
         term.push('do', {
           prompt: "do $ "
@@ -312,15 +315,25 @@
         } else {
           echo(currentIcePs);
         }
-      } else if (inputs[1] === "push") {
-        if (inputs[3] === "-h" || inputs[3] === "--help") {
-          echo(push_help);
-        } else if (inputs[3] === "learn/ping") {
-          util_slow_lines(term, push_container_learn_ping, "", callback);
-        } else if (!inputs[3]) {
-          echo(push_no_args);
+      } else if (inputs[1] === "stop") {
+        if (inputs[2] === "-h" || inputs[2] === "--help") {
+          echo(ice_stop_help);
+        } else if (inputs[2] === "ice-ping") {
+          echo(ice_stop_ice_ping);
+        } else if (!inputs[2]) {
+          echo(ice_stop);
         } else {
-          echo(push_wrong_name);
+          echo(ice_no_such_container);
+        }
+      } else if (inputs[1] === "rm") {
+        if (inputs[2] === "-h" || inputs[3] === "--help") {
+          echo(ice_rm_help);
+        } else if (inputs[3] === "ice-ping") {
+          echo(ice_rm_ice_ping);
+        } else if (!inputs[3]) {
+          echo(ice_rm);
+        } else {
+          echo(ice_no_such_container);
         }
       } else if (inputs[1] === "inspect") {
         if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
@@ -328,19 +341,19 @@
         } else if (inputs[2] && (inputs[2].match('ice-ping') || inputs[2].match('fa2'))) {
           echo(inspect_ice_ping_container);
         } else if (inputs[2]) {
-          echo(inspect_no_such_container(inputs[3]));
+          echo(ice_no_such_container);
         } else {
           echo(inspect);
         }
       } else if (inputs[1] === "logs") {
         if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
-          echo(logs_help);
+          echo(ice_logs_help);
         } else if (inputs[2] && (inputs[2].match('ice-ping') || inputs[2].match('fa2'))) {
           echo(run_ping_localhost);
         } else if (inputs[2]) {
-          echo(inputs[3]);
+          echo(ice_no_such_container);
         } else {
-          echo(logs_help);
+          echo(ice_logs);
         }
       } else if (inputs[1] === "ip") {
         if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
@@ -387,7 +400,7 @@
             if (commands.containsAllOfTheseParts(['bash'])) {
               term.push((function(command, term) {
                 if (command) {
-                  echo("this shell is not implemented. Enter 'exit' to exit.");
+                  return echo("this shell is not implemented. Enter 'exit' to exit.");
                 }
               }), {
                 prompt: 'root@687bbbc4231b:/# '
@@ -612,7 +625,7 @@
     /*
     		Some default variables / commands
      */
-    Ice_cmd = "usage: ice [-h] [--verbose] [--cloud | --local]\n           {login,tlogin,ps,run,inspect,logs,build,start,stop,restart,pause,unpause,rm,images,rmi,search,info,ip,group,route,volume,namespace,help,version,cpi}\n           ...\n\npositional arguments:\n  {login,tlogin,ps,run,inspect,logs,build,start,stop,restart,pause,unpause,rm,images,rmi,search,info,ip,group,route,volume,namespace,help,version,cpi}\n                        cloud commands, for specific command help follow the\n                        command by -h, to list local docker commands run\n                        'docker -h' or 'ice --local -h'\n    login               login to container cloud service\n    tlogin              tenant login, not available for Bluemix Containers\n    ps                  list containers in container cloud\n    run                 create and start container in container cloud\n    inspect             inspect container details\n    logs                get container logs\n    build               build docker image and push to cloud registry\n    start               run existing container\n    stop                stop running container\n    restart             restart running container\n    pause               pause existing container\n    unpause             unpause existing container\n    rm                  remove existing container\n    images              list images registered in container cloud\n    rmi                 remove image from container cloud registry\n    search              search image registry\n    info                display system info\n    ip                  manage floating-ips\n    group               manage auto-scaling groups\n    route               manage routing to container groups\n    volume              manage storage volumes\n    namespace           manage repository namespace\n    help                provide usage help for a specified command\n    version             display program version\n    cpi                 image copy (equivalent to pull, tag, and push)\n\noptional arguments:\n  -h, --help            show this help message and exit\n  --verbose, -v         display additional debug info\n  --cloud               execute command against container cloud service,\n                        default\n  --local, -L           execute any local docker host command. For list of\n                        available commands run 'docker help'";
+    ice_help = "usage: ice [-h] [--verbose] [--cloud | --local]\n           {login,tlogin,ps,run,inspect,logs,build,start,stop,restart,pause,unpause,rm,images,rmi,search,info,ip,group,route,volume,namespace,help,version,cpi}\n           ...\n\npositional arguments:\n  {login,tlogin,ps,run,inspect,logs,build,start,stop,restart,pause,unpause,rm,images,rmi,search,info,ip,group,route,volume,namespace,help,version,cpi}\n                        cloud commands, for specific command help follow the\n                        command by -h, to list local docker commands run\n                        'docker -h' or 'ice --local -h'\n    login               login to container cloud service\n    tlogin              tenant login, not available for Bluemix Containers\n    ps                  list containers in container cloud\n    run                 create and start container in container cloud\n    inspect             inspect container details\n    logs                get container logs\n    build               build docker image and push to cloud registry\n    start               run existing container\n    stop                stop running container\n    restart             restart running container\n    pause               pause existing container\n    unpause             unpause existing container\n    rm                  remove existing container\n    images              list images registered in container cloud\n    rmi                 remove image from container cloud registry\n    search              search image registry\n    info                display system info\n    ip                  manage floating-ips\n    group               manage auto-scaling groups\n    route               manage routing to container groups\n    volume              manage storage volumes\n    namespace           manage repository namespace\n    help                provide usage help for a specified command\n    version             display program version\n    cpi                 image copy (equivalent to pull, tag, and push)\n\noptional arguments:\n  -h, --help            show this help message and exit\n  --verbose, -v         display additional debug info\n  --cloud               execute command against container cloud service,\n                        default\n  --local, -L           execute any local docker host command. For list of\n                        available commands run 'docker help'";
     docker_cmd = "Target is local host. Invoking docker with the given arguments...\nUsage: docker [OPTIONS] COMMAND [arg...]\n\nA self-sufficient runtime for linux containers.\n\nOptions:\n  --api-enable-cors=false                                                Enable CORS headers in the remote API\n  -D, --debug=false                                                      Enable debug mode\n  -d, --daemon=false                                                     Enable daemon mode\n  -G, --group=\"docker\"                                                   Group to assign the unix socket specified by -H when running in daemon mode\n                                                                           use '' (the empty string) to disable setting of a group\n  -H, --host=[]                                                          The socket(s) to bind to in daemon mode or connect to in client mode, specified using one or more tcp://host:port, unix:///path/to/socket, fd://* or fd://socketfd.\n  -h, --help=false                                                       Print usage\n  -l, --log-level=\"info\"                                                 Set the logging level (debug, info, warn, error, fatal)\n  --tls=false                                                            Use TLS; implied by --tlsverify flag\n  --tlscacert=\"/Users/Pair5/.boot2docker/certs/boot2docker-vm/ca.pem\"    Trust only remotes providing a certificate signed by the CA given here\n  --tlscert=\"/Users/Pair5/.boot2docker/certs/boot2docker-vm/cert.pem\"    Path to TLS certificate file\n  --tlskey=\"/Users/Pair5/.boot2docker/certs/boot2docker-vm/key.pem\"      Path to TLS key file\n  --tlsverify=true                                                       Use TLS and verify the remote (daemon: verify client, client: verify daemon)\n  -v, --version=false                                                    Print version information and quit\n\nCommands:\n    attach    Attach to a running container\n    build     Build an image from a Dockerfile\n    commit    Create a new image from a container's changes\n    cp        Copy files/folders from a container's filesystem to the host path\n    create    Create a new container\n    diff      Inspect changes on a container's filesystem\n    events    Get real time events from the server\n    exec      Run a command in a running container\n    export    Stream the contents of a container as a tar archive\n    history   Show the history of an image\n    images    List images\n    import    Create a new filesystem image from the contents of a tarball\n    info      Display system-wide information\n    inspect   Return low-level information on a container or image\n    kill      Kill a running container\n    load      Load an image from a tar archive\n    login     Register or log in to a Docker registry server\n    logout    Log out from a Docker registry server\n    logs      Fetch the logs of a container\n    port      Lookup the public-facing port that is NAT-ed to PRIVATE_PORT\n    pause     Pause all processes within a container\n    ps        List containers\n    pull      Pull an image or a repository from a Docker registry server\n    push      Push an image or a repository to a Docker registry server\n    rename    Rename an existing container\n    restart   Restart a running container\n    rm        Remove one or more containers\n    rmi       Remove one or more images\n    run       Run a command in a new container\n    save      Save an image to a tar archive\n    search    Search for an image on the Docker Hub\n    start     Start a stopped container\n    stats     Display a live stream of one or more containers' resource usage statistics\n    stop      Stop a running container\n    tag       Tag an image into a repository\n    top       Lookup the running processes of a container\n    unpause   Unpause a paused container\n    version   Show the Docker version information\n    wait      Block until a container stops, then print its exit code\n\nRun 'docker COMMAND --help' for more information on a command.";
     IceCommands = {
       " ": "              For specific command help, follow the command by -h",
@@ -732,10 +745,14 @@
       return "ICE CLI Version        : 2.0.1 271 2015-03-30T15:40:18";
     };
     ice_run_help = "usage: ice run [-h] [--name NAME] [--memory MEMORY] [--env ENV]\n               [--publish PORT] [--volume VOL] [--bind APP] [--ssh SSHKEY]\n               IMAGE [CMD [CMD ...]]\nice run: error: too few arguments";
+    ice_rm = "usage: ice rm [-h] CONTAINER\nice rm: error: too few arguments";
+    ice_rm_help = "usage: ice rm [-h] CONTAINER\n\npositional arguments:\n  CONTAINER   container name or id\n\noptional arguments:\n  -h, --help  show this help message and exit";
+    ice_rm_ice_ping = "Removed container successfully";
     ice_stop = "usage: ice stop [-h] [--time SECS] CONTAINER\nice stop: error: too few arguments";
     ice_stop_help = "usage: ice stop [-h] [--time SECS] CONTAINER\n\npositional arguments:\n  CONTAINER             container name or id\n\noptional arguments:\n  -h, --help            show this help message and exit\n  --time SECS, -t SECS  seconds to wait before killing container";
+    ice_stop_ice_ping = "Stopped container successfully";
+    ice_no_such_container = "Command failed with container cloud service\nno such container";
     ice_logs = "usage: ice logs [-h] [--stdout | --stderr] CONTAINER\nice logs: error: too few arguments";
-    ice_ping_logs = "";
     ice_logs_help = "usage: ice logs [-h] [--stdout | --stderr] CONTAINER\n\npositional arguments:\n  CONTAINER     container name or id\n\noptional arguments:\n  -h, --help    show this help message and exit\n  --stdout, -o  get output log, default\n  --stderr, -e  get error log";
     ice_run_no_name = "Please specify a name for your container using --name or -n option";
     ice_ip = "usage: ice ip [-h] {list,bind,unbind,request,release} ...\nice ip: error: too few arguments";

@@ -31,7 +31,7 @@ assignment: """
       then you know you that your all set with your ICE client installation. The ICE CLI is supported on Linux OS.
       For Windows, your best option is to create an Ubuntu VM and install your client software there.</p>
       """
-tip: "<p>Try typing <code>ice</code> to see the full list of accepted arguments</p>
+tip: "<p>Try typing <code>ice --help</code> to see the full list of accepted arguments</p>
       <p>This emulator provides only a limited set of shell and ICE commands, so some commands may not work as expected</p>"
 command_expected: ['ice', 'version']
 result: """<p>Well done! Let's move to the next assignment.</p>"""
@@ -330,7 +330,7 @@ currentIcePs: """
 
   Container Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports
 
-  fa219a32-bcbf-4c6d-977f-1aa67bb1233d ice-ping                          jstart/ping:latest             Apr 22 10:42 Shutdown 172.17.128.30                   []
+  fa219a32-bcbf-4c6d-977f-1aa67bb1233d ice-ping                          learn/ping:latest             Apr 22 10:42 Shutdown 172.17.128.30                   []
   """
 });
 
@@ -404,19 +404,56 @@ assignment: """
       <h3>Assignment</h3>
       <p></p>
       """
-command_expected: ["ice"]
-command_show: ["ice"]
-result: """<p>Success! </p>"""
-intermediateresults:
-  [
-    () -> """"""
-  ]
+command_expected: ["ice", "rm", "ice-ping"]
+command_show: ["ice", "rm", "ice-ping"]
+result: """<p>Great job! ice-ping has been stopped and removed</p>"""
 tip: """
     <ul>
 
     </ul>
     """
-});
+intermediateresults:
+  [
+    () ->
+      $('#instructions .assignment').hide()
+      $('#tips, #command').hide()
+
+      $('#instructions .text').html("""
+        <div class="complete">
+          <h3>Congratulations!</h3>
+          <p>You have mastered the basic docker commands!</p>
+          <p><strong>Did you enjoy this tutorial? Share it!</strong></p>
+          <p>
+            <a href="mailto:?Subject=Check%20out%20the%20Docker%20interactive%20tutorial!&Body=%20JSTART"><img src="/static/img/email.png"></a>
+            <a href="http://www.facebook.com/sharer.php?u=JSTART"><img src="/static/img/facebook.png"></a>
+            <a href="http://twitter.com/share?url=JSTART&text=%20Check+out+the+docker+tutorial!"><img src="/static/img/twitter.png"></a>
+          </p>
+          <h3>Your next steps</h3>
+          <ol>
+            <li><a href="/news_signup/" target="_blank" >Register</a> for news and updates on Docker (opens in new window)</li>
+            <li><a href="http://twitter.com/docker" target="_blank" >Follow</a> us on twitter (opens in new window)</li>
+            <li><a href="#" onClick="leaveFullSizeMode()">Close</a> this tutorial, and continue with the rest of the getting started.</li>
+          </ol>
+          <p> - Or - </p>
+          <p>Continue to learn about the way to automatically build your containers from a file. </p><p><a href="/learn/dockerfile/" class='btn btn-primary secondary-action-button'>Start Dockerfile tutorial</a></p>
+
+        </div>
+        """)
+
+
+      data = { type: EVENT_TYPES.complete }
+      logEvent(data)
+
+      return """<p>All done!. You are now pushing a container image to the index. You can see that push, just like pull, happens layer by layer.</p>"""
+  ]
+finishedCallback: () ->
+  webterm.clear()
+  webterm.echo( myTerminal() )
+
+
+})
+
+
 
 
 ###intermediateresults:

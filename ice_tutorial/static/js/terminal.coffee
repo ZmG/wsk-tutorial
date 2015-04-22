@@ -313,7 +313,11 @@ do @myTerminal = ->
 		# no command
 		if not inputs[1]
 			console.debug "no args"
-			echo Ice_cmd
+			echo ice_no_args
+
+		else if inputs[1] is "--help" or inputs[1] is "-h"
+			console.debug "no args"
+			echo ice_help
 
 		else if inputs[1] is "do"
 			term.push('do', {prompt: "do $ "})
@@ -359,15 +363,25 @@ do @myTerminal = ->
 			else
 				echo currentIcePs
 
-		else if inputs[1] is "push"
-			if inputs[3] is "-h" or inputs[3] is "--help"
-				echo push_help
-			else if inputs[3] is "learn/ping"
-				util_slow_lines(term, push_container_learn_ping, "", callback )
-			else if not inputs[3]
-				echo push_no_args
+		else if inputs[1] is "stop"
+			if inputs[2] is "-h" or inputs[2] is "--help"
+				echo ice_stop_help
+			else if inputs[2] is "ice-ping" 
+				echo ice_stop_ice_ping
+			else if not inputs[2]
+				echo ice_stop
 			else
-				echo push_wrong_name
+				echo ice_no_such_container
+
+		else if inputs[1] is "rm"
+			if inputs[2] is "-h" or inputs[3] is "--help"
+				echo ice_rm_help
+			else if inputs[3] is "ice-ping" 
+				echo ice_rm_ice_ping
+			else if not inputs[3]
+				echo ice_rm
+			else
+				echo ice_no_such_container
 
 		else if inputs[1] is "inspect"
 				if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
@@ -375,19 +389,19 @@ do @myTerminal = ->
 				else if inputs[2] and (inputs[2].match('ice-ping') or inputs[2].match('fa2'))
 					echo inspect_ice_ping_container
 				else if inputs[2]
-					echo inspect_no_such_container(inputs[3])
+					echo ice_no_such_container
 				else
 					echo inspect
 
 		else if inputs[1] is "logs"
 				if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
-					echo logs_help
+					echo ice_logs_help
 				else if inputs[2] and (inputs[2].match('ice-ping') or inputs[2].match('fa2'))
 					echo run_ping_localhost
 				else if inputs[2]
-					echo (inputs[3])
+					echo ice_no_such_container
 				else
-					echo logs_help
+					echo ice_logs
 
 		else if inputs[1] is "ip"
 				if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
@@ -439,7 +453,7 @@ do @myTerminal = ->
 						term.push ( (command, term) ->
 							if command
 								echo """this shell is not implemented. Enter 'exit' to exit."""
-							return
+								
 						), {prompt: 'root@687bbbc4231b:/# '}
 					else
 						echo run_image_wrong_command(commands)
@@ -676,7 +690,7 @@ do @myTerminal = ->
 
 	###
 
-	Ice_cmd = \
+	ice_help = \
 		"""
 		usage: ice [-h] [--verbose] [--cloud | --local]
            {login,tlogin,ps,run,inspect,logs,build,start,stop,restart,pause,unpause,rm,images,rmi,search,info,ip,group,route,volume,namespace,help,version,cpi}
@@ -1420,6 +1434,28 @@ do @myTerminal = ->
 	ice run: error: too few arguments
 	"""
 
+	ice_rm = \
+	"""
+	usage: ice rm [-h] CONTAINER
+	ice rm: error: too few arguments
+	"""
+
+	ice_rm_help = \
+	"""
+	usage: ice rm [-h] CONTAINER
+
+	positional arguments:
+	  CONTAINER   container name or id
+
+	optional arguments:
+	  -h, --help  show this help message and exit
+	"""
+
+	ice_rm_ice_ping = \
+	"""
+	Removed container successfully
+	"""
+
 	ice_stop = \
 	"""
 	usage: ice stop [-h] [--time SECS] CONTAINER
@@ -1438,15 +1474,21 @@ do @myTerminal = ->
 	  --time SECS, -t SECS  seconds to wait before killing container
 	"""
 
+	ice_stop_ice_ping = \
+	"""
+	Stopped container successfully
+	"""
+
+	ice_no_such_container = \
+	"""
+	Command failed with container cloud service
+	no such container
+	"""
+
 	ice_logs = \
 	"""
 	usage: ice logs [-h] [--stdout | --stderr] CONTAINER
 	ice logs: error: too few arguments
-	"""
-
-	ice_ping_logs = \
-	"""
-
 	"""
 
 	ice_logs_help = \
