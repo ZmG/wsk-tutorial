@@ -65,7 +65,7 @@ do @myTerminal = ->
     74831680-1c9c-424e-b8ea-ceede4aa0e40 Mar 23 10:41:24 2015 registry-ice.ng.bluemix.net/ibmnode:latest
 
     """
-    
+
 	###
 		Base interpreter
 	###
@@ -340,6 +340,90 @@ do @myTerminal = ->
 			else if inputs.containsAllOfTheseParts(['ice', 'login'])
 				intermediateResults(0)
 
+		else if inputs[1] is "version"
+			echo ice_version()
+
+		# Command run
+		else if inputs[1] is "run"
+			# parse all input so we have a json object
+			parsed_input = parseInput(inputs)
+
+			switches = parsed_input.switches
+			swargs = parsed_input.switchArgs
+			imagename = parsed_input.imageName
+			commands = parsed_input.commands
+
+			console.log "commands"
+			console.log commands
+			console.log "switches"
+			console.log switches
+
+			console.log "parsed input"
+			console.log parsed_input
+			console.log "imagename: #{imagename}"
+
+			if imagename is "ubuntu"
+				if switches.containsAllOfTheseParts(['-i', '-t'])
+					if commands.containsAllOfTheseParts(['bash'])
+						term.push ( (command, term) ->
+							if command
+								echo """this shell is not implemented. Enter 'exit' to exit."""
+							return
+						), {prompt: 'root@687bbbc4231b:/# '}
+					else
+						echo run_image_wrong_command(commands)
+				else
+					echo run_flag_defined_not_defined(switches)
+			else if imagename is "learn/tutorial"
+				if switches.length = 0
+					#missing --local tag TODO
+					echo run_learn_no_command
+					intermediateResults(0)
+				else if commands[0] is "/bin/bash"
+					echo run_learn_tutorial_echo_hello_world(commands)
+					intermediateResults(2)
+				else if commands[0] is "echo"
+					echo run_learn_tutorial_echo_hello_world(commands)
+				else if commands.containsAllOfThese(['apt-get', 'install', '-y', 'iputils-ping'])
+					echo run_apt_get_install_iputils_ping
+				else if commands.containsAllOfThese(['apt-get', 'install', 'iputils-ping'])
+					echo run_apt_get_install_iputils_ping
+				else if commands.containsAllOfThese(['apt-get', 'install', 'ping'])
+					echo run_apt_get_install_iputils_ping
+				else if commands.containsAllOfThese(['apt-get', 'install'])
+					i = commands.length - 1
+					echo run_apt_get_install_unknown_package( commands[i] )
+				else if commands[0] is "apt-get"
+					echo run_apt_get
+				else if commands[0]
+					echo run_image_wrong_command(commands[0])
+				else
+					echo run_learn_no_command
+
+			else if imagename is "learn/ping"
+				if commands.containsAllOfTheseParts(["ping", "google.com"])
+					util_slow_lines(term, run_ping_www_google_com, "", callback )
+				else if commands[0] is "ping" and commands[1]
+					echo run_ping_not_google(commands[1])
+				else if commands[0] is "ping"
+					echo ping
+				else if commands[0]
+					echo "#{commands[0]}: command not found"
+				else
+					echo run_learn_no_command
+
+			else if imagename
+				echo run_notfound(inputs[2])
+			else
+				console.log("run")
+				echo ice_run_help
+
+		#---------------------------------------------------------------------------------------
+		#---------------------------------------------------------------------------------------
+		#  I C E   L O C A L   C O M M A N D S   -----------------------------------------------
+		#---------------------------------------------------------------------------------------
+		#---------------------------------------------------------------------------------------
+		
 		else if inputs[1] is "--local"
 			if inputs[2] is "-h" or inputs[2] is "--help"
 				echo docker_cmd
@@ -452,7 +536,7 @@ do @myTerminal = ->
 						echo run_learn_no_command
 
 				else if imagename
-					echo run_notfound(inputs[2])
+					echo run_notfound(inputs[3])
 				else
 					console.log("run")
 					echo run_cmd
@@ -487,21 +571,19 @@ do @myTerminal = ->
 				else
 					echo currentDockerPs
 			else if inputs[2] is "push"
-				if inputs[3] is "learn/ping"
+				if inputs[3] is "-h" or inputs[3] is "--help"
+					echo push_help
+				else if inputs[3] is "learn/ping"
 					util_slow_lines(term, push_container_learn_ping, "", callback )
-					intermediateResults(0)
-					return
-				else if inputs[3]
-					echo push_wrong_name
+				else if not inputs[3]
+					echo push_no_args
 				else
-					echo push
+					echo push_wrong_name
 
 			else
 				echo docker_cmd
 
-		else if inputs[1] is "version"
-#      console.log(version)
-			echo ice_version()
+		
 
 
 		else if IceCommands[inputs[1]]
@@ -746,6 +828,14 @@ do @myTerminal = ->
 
 		"""
 
+	ice_run_help = \
+	"""
+	usage: ice run [-h] [--name NAME] [--memory MEMORY] [--env ENV]
+               [--publish PORT] [--volume VOL] [--bind APP] [--ssh SSHKEY]
+               IMAGE [CMD [CMD ...]]
+	ice run: error: too few arguments
+	"""
+
 	inspect = \
 		"""
 
@@ -885,27 +975,35 @@ do @myTerminal = ->
 		Pulling image 27cf784147099545 () from tutorial
 		"""
 
-	push = \
-		"""
+	push_no_args = \
+	"""
+	Target is local host. Invoking docker with the given arguments...
+	docker: "push" requires 1 argument. See 'docker push --help'.
+	"""
 
-		Usage: docker push NAME
+	push_help = \
+		"""
+		Usage: docker push [OPTIONS] NAME[:TAG]
 
 		Push an image or a repository to the registry
+
+  		--help=false       Print usage
 		"""
 
 
 	push_container_learn_ping = \
 		"""
-		The push refers to a repository [learn/ping] (len: 1)
+		Target is local host. Invoking docker with the given arguments...
+		The push refers to a repository [registry-ice.ng.bluemix.net/learn/ping] (len: 1)
 		Processing checksums
 		Sending image list
 		Pushing repository learn/ping (1 tags)
 		Pushing 8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c
 		Image 8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c already pushed, skipping
-		Pushing tags for rev [8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c] on {https://registry-1.docker.io/v1/repositories/learn/ping/tags/latest}
+		Pushing tags for rev [662c446b6cdd] on {https://registry-ice.ng.bluemix.net/v1/repositories/learn/ping/tags/latest}
 		Pushing a1dbb48ce764c6651f5af98b46ed052a5f751233d731b645a6c57f91a4cb7158
 		Pushing  11.5 MB/11.5 MB (100%)
-		Pushing tags for rev [a1dbb48ce764c6651f5af98b46ed052a5f751233d731b645a6c57f91a4cb7158] on {https://registry-1.docker.io/v1/repositories/learn/ping/tags/latest}
+		Pushing tags for rev [a1dbb48ce764] on {https://registry-ice.ng.bluemix.net/v1/repositories/learn/ping/tags/latest}
 		"""
 
 	push_wrong_name = \

@@ -13,7 +13,7 @@
 
 (function() {
   (this.myTerminal = function() {
-    var EMULATOR_VERSION, ICE_logo, IceCommands, Ice_cmd, auth, bash, commit, commit_containerid, commit_id_does_not_exist, docker_cmd, docker_version, help, ice, ice_no_args, ice_version, inspect, inspect_no_such_container, inspect_ping_container, login, loginResult, login_cmd, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push, push_container_learn_ping, push_wrong_name, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_not_google, run_ping_www_google_com, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait;
+    var EMULATOR_VERSION, ICE_logo, IceCommands, Ice_cmd, auth, bash, commit, commit_containerid, commit_id_does_not_exist, docker_cmd, docker_version, help, ice, ice_no_args, ice_run_help, ice_version, inspect, inspect_no_such_container, inspect_ping_container, login, loginResult, login_cmd, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push_container_learn_ping, push_help, push_no_args, push_wrong_name, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_not_google, run_ping_www_google_com, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait;
     EMULATOR_VERSION = "0.1.5";
     this.basesettings = {
       prompt: 'you@tutorial:~$ ',
@@ -305,6 +305,80 @@
         } else if (inputs.containsAllOfTheseParts(['ice', 'login'])) {
           intermediateResults(0);
         }
+      } else if (inputs[1] === "version") {
+        echo(ice_version());
+      } else if (inputs[1] === "run") {
+        parsed_input = parseInput(inputs);
+        switches = parsed_input.switches;
+        swargs = parsed_input.switchArgs;
+        imagename = parsed_input.imageName;
+        commands = parsed_input.commands;
+        console.log("commands");
+        console.log(commands);
+        console.log("switches");
+        console.log(switches);
+        console.log("parsed input");
+        console.log(parsed_input);
+        console.log("imagename: " + imagename);
+        if (imagename === "ubuntu") {
+          if (switches.containsAllOfTheseParts(['-i', '-t'])) {
+            if (commands.containsAllOfTheseParts(['bash'])) {
+              term.push((function(command, term) {
+                if (command) {
+                  echo("this shell is not implemented. Enter 'exit' to exit.");
+                }
+              }), {
+                prompt: 'root@687bbbc4231b:/# '
+              });
+            } else {
+              echo(run_image_wrong_command(commands));
+            }
+          } else {
+            echo(run_flag_defined_not_defined(switches));
+          }
+        } else if (imagename === "learn/tutorial") {
+          if (switches.length = 0) {
+            echo(run_learn_no_command);
+            intermediateResults(0);
+          } else if (commands[0] === "/bin/bash") {
+            echo(run_learn_tutorial_echo_hello_world(commands));
+            intermediateResults(2);
+          } else if (commands[0] === "echo") {
+            echo(run_learn_tutorial_echo_hello_world(commands));
+          } else if (commands.containsAllOfThese(['apt-get', 'install', '-y', 'iputils-ping'])) {
+            echo(run_apt_get_install_iputils_ping);
+          } else if (commands.containsAllOfThese(['apt-get', 'install', 'iputils-ping'])) {
+            echo(run_apt_get_install_iputils_ping);
+          } else if (commands.containsAllOfThese(['apt-get', 'install', 'ping'])) {
+            echo(run_apt_get_install_iputils_ping);
+          } else if (commands.containsAllOfThese(['apt-get', 'install'])) {
+            i = commands.length - 1;
+            echo(run_apt_get_install_unknown_package(commands[i]));
+          } else if (commands[0] === "apt-get") {
+            echo(run_apt_get);
+          } else if (commands[0]) {
+            echo(run_image_wrong_command(commands[0]));
+          } else {
+            echo(run_learn_no_command);
+          }
+        } else if (imagename === "learn/ping") {
+          if (commands.containsAllOfTheseParts(["ping", "google.com"])) {
+            util_slow_lines(term, run_ping_www_google_com, "", callback);
+          } else if (commands[0] === "ping" && commands[1]) {
+            echo(run_ping_not_google(commands[1]));
+          } else if (commands[0] === "ping") {
+            echo(ping);
+          } else if (commands[0]) {
+            echo(commands[0] + ": command not found");
+          } else {
+            echo(run_learn_no_command);
+          }
+        } else if (imagename) {
+          echo(run_notfound(inputs[2]));
+        } else {
+          console.log("run");
+          echo(ice_run_help);
+        }
       } else if (inputs[1] === "--local") {
         if (inputs[2] === "-h" || inputs[2] === "--help") {
           echo(docker_cmd);
@@ -415,7 +489,7 @@
               echo(run_learn_no_command);
             }
           } else if (imagename) {
-            echo(run_notfound(inputs[2]));
+            echo(run_notfound(inputs[3]));
           } else {
             console.log("run");
             echo(run_cmd);
@@ -449,20 +523,18 @@
             echo(currentDockerPs);
           }
         } else if (inputs[2] === "push") {
-          if (inputs[3] === "learn/ping") {
+          if (inputs[3] === "-h" || inputs[3] === "--help") {
+            echo(push_help);
+          } else if (inputs[3] === "learn/ping") {
             util_slow_lines(term, push_container_learn_ping, "", callback);
-            intermediateResults(0);
-            return;
-          } else if (inputs[3]) {
-            echo(push_wrong_name);
+          } else if (!inputs[3]) {
+            echo(push_no_args);
           } else {
-            echo(push);
+            echo(push_wrong_name);
           }
         } else {
           echo(docker_cmd);
         }
-      } else if (inputs[1] === "version") {
-        echo(ice_version());
       } else if (IceCommands[inputs[1]]) {
         echo(inputs[1] + " is a valid argument, but not implemented");
       } else {
@@ -524,6 +596,7 @@
       return term.echo("\nAPI endpoint:   https://api.ng.bluemix.net (API version: 2.19.0)\nUser:           " + term.email + "\nOrg:            tutorial\nSpace:          tutorial\nAuthentication with container cloud service at https://api-ice.ng.bluemix.net/v2/containers completed successfully\nYou can issue commands now to the container service\n\nProceeding to authenticate with the container cloud registry at registry-ice.ng.bluemix.net\nLogin Succeeded\n");
     };
     help = "IBM Container tutorial \n\n\n\nThe IBM Container tutorial is an emulater intended to help novice users get up to spead with the IBM Container\nExtension (ice) commands. This terminal contains a limited IBM Container CLI and a limited shell emulator.  \nTherefore some of the commands that you would expect do not exist.\n\n\n\nJust follow the steps and questions. If you are stuck, click on the 'expected command' to see what the command\nshould have been. Leave feedback if you find things confusing.\n";
+    ice_run_help = "usage: ice run [-h] [--name NAME] [--memory MEMORY] [--env ENV]\n               [--publish PORT] [--volume VOL] [--bind APP] [--ssh SSHKEY]\n               IMAGE [CMD [CMD ...]]\nice run: error: too few arguments";
     inspect = "\nUsage: Docker inspect CONTAINER|IMAGE [CONTAINER|IMAGE...]\n\nReturn low-level information on a container/image\n";
     inspect_no_such_container = function(keyword) {
       return "Error: No such image: " + keyword;
@@ -540,8 +613,9 @@
     };
     pull_ubuntu = "Target is local host. Invoking docker with the given arguments...\nPulling repository ubuntu from https://index.docker.io/v1\nPulling image 8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c (precise) from ubuntu\nPulling image b750fe79269d2ec9a3c593ef05b4332b1d1a02a62b4accb2c21d589ff2f5f2dc (12.10) from ubuntu\nPulling image 27cf784147099545 () from ubuntu";
     pull_tutorial = "Target is local host. Invoking docker with the given arguments...\nPulling repository learn/tutorial from https://index.docker.io/v1\nPulling image 8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c (precise) from ubuntu\nPulling image b750fe79269d2ec9a3c593ef05b4332b1d1a02a62b4accb2c21d589ff2f5f2dc (12.10) from ubuntu\nPulling image 27cf784147099545 () from tutorial";
-    push = "\nUsage: docker push NAME\n\nPush an image or a repository to the registry";
-    push_container_learn_ping = "The push refers to a repository [learn/ping] (len: 1)\nProcessing checksums\nSending image list\nPushing repository learn/ping (1 tags)\nPushing 8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c\nImage 8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c already pushed, skipping\nPushing tags for rev [8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c] on {https://registry-1.docker.io/v1/repositories/learn/ping/tags/latest}\nPushing a1dbb48ce764c6651f5af98b46ed052a5f751233d731b645a6c57f91a4cb7158\nPushing  11.5 MB/11.5 MB (100%)\nPushing tags for rev [a1dbb48ce764c6651f5af98b46ed052a5f751233d731b645a6c57f91a4cb7158] on {https://registry-1.docker.io/v1/repositories/learn/ping/tags/latest}";
+    push_no_args = "Target is local host. Invoking docker with the given arguments...\ndocker: \"push\" requires 1 argument. See 'docker push --help'.";
+    push_help = "Usage: docker push [OPTIONS] NAME[:TAG]\n\nPush an image or a repository to the registry\n\n  		--help=false       Print usage";
+    push_container_learn_ping = "Target is local host. Invoking docker with the given arguments...\nThe push refers to a repository [registry-ice.ng.bluemix.net/learn/ping] (len: 1)\nProcessing checksums\nSending image list\nPushing repository learn/ping (1 tags)\nPushing 8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c\nImage 8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c already pushed, skipping\nPushing tags for rev [662c446b6cdd] on {https://registry-ice.ng.bluemix.net/v1/repositories/learn/ping/tags/latest}\nPushing a1dbb48ce764c6651f5af98b46ed052a5f751233d731b645a6c57f91a4cb7158\nPushing  11.5 MB/11.5 MB (100%)\nPushing tags for rev [a1dbb48ce764] on {https://registry-ice.ng.bluemix.net/v1/repositories/learn/ping/tags/latest}";
     push_wrong_name = "The push refers to a repository [dhrp/fail] (len: 0)";
     login_cmd = "Usage: ice login [OPTIONS] [ARG...]\n\nLogin to the IBM Container Infrastructure\n\n-h, --help                        show this help message and exit\n--cf                              use Bluemix cf login, default (Bluemix params are used, api key ignored)\n-k API_KEY, --key API_KEY         secret key string (ignored when Bluemix login is used)\n-H HOST, --host HOST              container cloud service host or url\n-R REG_HOST, --registry REG_HOST  container cloud registry host\n-u USER, --user USER              Bluemix user id/email\n-p PSSWD, --psswd PSSWD           Bluemix password\n-o ORG, --org ORG                 Bluemix organization\n-s SPACE, --space SPACE           Bluemix space\n-a API_URL, --api API_URL         Bluemix API Endpoint";
     run_cmd = "Usage: Docker run [OPTIONS] IMAGE COMMAND [ARG...]\n\nRun a command in a new container\n\n-a=map[]: Attach to stdin, stdout or stderr.\n-c=0: CPU shares (relative weight)\n-d=false: Detached mode: leave the container running in the background\n-dns=[]: Set custom dns servers\n-e=[]: Set environment variables\n-h=\"\": Container host name\n-i=false: Keep stdin open even if not attached\n-m=0: Memory limit (in bytes)\n-p=[]: Expose a container's port to the host (use 'docker port' to see the actual mapping)\n-t=false: Allocate a pseudo-tty\n-u=\"\": Username or UID\n-v=map[]: Attach a data volume\n-volumes-from=\"\": Mount volumes from the specified container";

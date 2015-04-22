@@ -111,7 +111,7 @@ intermediateresults: [
   () -> """<p>You've got the arguments right. Did you get the command? Try <em>/bin/bash </em>?</p>"""
   ]
 tip: """
-     <p>The command <code>docker run</code> takes a minimum of two arguments. An image name, and the command you want to execute
+     <p>The command <code>ice --local run</code> takes a minimum of two arguments. An image name, and the command you want to execute
      within that image.</p>
      <p>Check the expected command below if it does not work as expected</p>
     """
@@ -187,10 +187,10 @@ html: """
       """
 assignment: """
       <h3>Assignment</h3>
-      <p>Run the ping program to ping www.google.com</p>
+      <p>Run the ping program to ping localhost</p>
 
       """
-command_expected: ["ice", "--local", "run", 'learn/ping', 'ping', 'google.com' ]
+command_expected: ["ice", "--local", "run", 'learn/ping', 'ping', 'localhost' ]
 result: """<p>That worked! Note that normally you can use Ctrl-C to disconnect. The container will keep running. This
         container will disconnect automatically.</p>"""
 intermediateresults: [ () -> """You have not specified a repository name. This is not wrong, but giving your images a name
@@ -227,7 +227,7 @@ tip: """<ul>
 currentDockerPs:
     """
     ID                  IMAGE               COMMAND               CREATED             STATUS              PORTS
-    efefdc74a1d5        learn/ping:latest   ping www.google.com   37 seconds ago      Up 36 seconds
+    efefdc74a1d5        learn/ping:latest   ping localhost        37 seconds ago      Up 36 seconds
     """
 
 })
@@ -271,14 +271,15 @@ tip: """
 q.push ({
 html: """
       <h3>Pushing your image to the Bluemix registry</h3>
-      <p></p>
+      <p>Now that our image is commited and tagged, we are ready to push it up to the private bluemix registry.</p>
+      <p>To do this we will be using the push command</p>
       """
 assignment: """
       <h3>Assignment</h3>
-      <p></p>
+      <p>Push the learn/ping image up to the public bluemix registry: registry-ice.ng.bluemix.net/learn/ping</p>
       """
-command_expected: ["ice"]
-command_show: ["ice"]
+command_expected: ["ice", "--local", "push", "registry-ice.ng.bluemix.net/learn/ping"]
+command_show: ["ice", "--local", "push", "registry-ice.ng.bluemix.net/learn/ping"]
 result: """<p>Success! </p>"""
 intermediateresults:
   [
@@ -286,7 +287,8 @@ intermediateresults:
   ]
 tip: """
     <ul>
-
+    <li>Remember that the namespace is <b>'learn'</b></li>
+    <li>For more info on how to specify a target registry, see the <a href="https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#container_install">docs</a></li>
     </ul>
     """
 });
@@ -294,14 +296,17 @@ tip: """
 q.push ({
 html: """
       <h3>Running on Bluemix</h3>
-      <p></p>
+      <p>We are now ready to run our ping container on Bluemix! To do this we will be using <code>ice run</code>.</p>
+      <p>The <code>ice run</code> command will need a couple arguements from us. First we will need to give it a name for the new container.
+       next we will specify the image that the container will need to run. Finally we will pass a command (ping) that will be run once the container is created.
+      </p>
       """
 assignment: """
       <h3>Assignment</h3>
-      <p></p>
+      <p>create and run a container on bluemix using <code>ice run</code>. The container must have the name <b>'ice-ping'</b>. It will also run our <b>learn/tutorial</b> image with the <b>ping localhost</b> command</p>
       """
-command_expected: ["ice"]
-command_show: ["ice"]
+command_expected: ["ice", "run", "--name", "ice-ping",  "learn/ping", "ping", "localhost"]
+command_show: ["ice", "run", "--name", "ice-ping",  "learn/ping", "ping", "localhost"]
 result: """<p>Success! </p>"""
 intermediateresults:
   [
@@ -309,9 +314,18 @@ intermediateresults:
   ]
 tip: """
     <ul>
-
+    <li>Notice that we will not use the <code>--local</code> because we are running on Bluemix, not local.</li> 
+    <li>Enter <code>ice run</code> to see flag usage details</li>
     </ul>
     """
+currentCloudImages :
+  """
+  Image Id                             Created              Image Name
+
+  662c446b-1c9c-424e-bcb4-61288ceede43 Apr 20 06:21:23 2015 registry-ice.ng.bluemix.net/learn/ping:latest
+  d0feae99-b91d-4ce3-bcb4-6128886f6968 Mar 23 10:44:59 2015 registry-ice.ng.bluemix.net/ibmliberty:latest
+  74831680-1c9c-424e-b8ea-ceede4aa0e40 Mar 23 10:41:24 2015 registry-ice.ng.bluemix.net/ibmnode:latest
+  """
 });
 
 q.push ({
@@ -323,16 +337,19 @@ assignment: """
       <h3>Assignment</h3>
       <p></p>
       """
-command_expected: ["ice"]
-command_show: ["ice"]
+command_expected: ["ice", "run", "--name", "ice-ping",  "learn/ping", "ping", "localhost"]
+command_show: ["ice", "run", "--name", "ice-ping",  "learn/ping", "ping", "localhost"]
 result: """<p>Success! </p>"""
 intermediateresults:
   [
+    #missing name
+    #missing image
+    #missing command
     () -> """"""
   ]
 tip: """
     <ul>
-
+    <li></li>
     </ul>
     """
 });
