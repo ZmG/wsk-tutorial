@@ -328,9 +328,10 @@
       } else if (inputs[1] === "rm") {
         if (inputs[2] === "-h" || inputs[3] === "--help") {
           echo(ice_rm_help);
-        } else if (inputs[3] === "ice-ping") {
+        } else if (inputs[2] === "ice-ping") {
+          intermediateResults(0);
           echo(ice_rm_ice_ping);
-        } else if (!inputs[3]) {
+        } else if (!inputs[2]) {
           echo(ice_rm);
         } else {
           echo(ice_no_such_container);

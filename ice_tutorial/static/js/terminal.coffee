@@ -376,9 +376,10 @@ do @myTerminal = ->
 		else if inputs[1] is "rm"
 			if inputs[2] is "-h" or inputs[3] is "--help"
 				echo ice_rm_help
-			else if inputs[3] is "ice-ping" 
+			else if inputs[2] is "ice-ping" 
+				intermediateResults(0)
 				echo ice_rm_ice_ping
-			else if not inputs[3]
+			else if not inputs[2]
 				echo ice_rm
 			else
 				echo ice_no_such_container
