@@ -13,7 +13,7 @@
 
 (function() {
   (this.myTerminal = function() {
-    var EMULATOR_VERSION, ICE_logo, IceCommands, Ice_cmd, auth, bash, commit, commit_containerid, commit_id_does_not_exist, docker_cmd, docker_version, help, ice, ice_no_args, ice_run_help, ice_run_no_name, ice_version, inspect, inspect_no_such_container, inspect_ping_container, login, loginResult, login_cmd, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push_container_learn_ping, push_help, push_no_args, push_wrong_name, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_localhost, run_ping_not_localhost, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait;
+    var EMULATOR_VERSION, ICE_logo, IceCommands, Ice_cmd, auth, bash, commit, commit_containerid, commit_id_does_not_exist, docker_cmd, docker_version, help, ice, ice_inspect_help, ice_ip, ice_ip_bind_fail, ice_ip_bind_help, ice_ip_bound, ice_ip_help, ice_ip_request, ice_ip_request_help, ice_logs, ice_logs_help, ice_no_args, ice_ping_logs, ice_run_help, ice_run_no_name, ice_stop, ice_stop_help, ice_version, inspect, inspect_ice_ping_container, inspect_no_such_container, inspect_ping_container, login, loginResult, login_cmd, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push_container_learn_ping, push_help, push_no_args, push_wrong_name, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_localhost, run_ping_not_localhost, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait;
     EMULATOR_VERSION = "0.1.5";
     this.basesettings = {
       prompt: 'you@tutorial:~$ ',
@@ -34,6 +34,7 @@
       console.debug("sent " + string);
     };
     this.currentDockerPs = "";
+    this.currentIcePs = "\nContainer Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports";
     this.currentLocalImages = "Target is local host. Invoking docker with the given arguments...\nREPOSITORY            TAG                 IMAGE ID            CREATED             VIRTUAL SIZE\nubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)";
     this.currentCloudImages = "Image Id                             Created              Image Name\n\nd0feae99-b91d-4ce3-bcb4-6128886f6968 Mar 23 10:44:59 2015 registry-ice.ng.bluemix.net/ibmliberty:latest\n74831680-1c9c-424e-b8ea-ceede4aa0e40 Mar 23 10:41:24 2015 registry-ice.ng.bluemix.net/ibmnode:latest\n";
 
@@ -263,10 +264,6 @@
         }
       }
     };
-
-    /*
-    		ice program
-     */
     ice = function(term, inputs) {
       var callback, command, commands, echo, i, imagename, insert, keyword, parsed_input, result, swargs, switches;
       echo = term.echo;
@@ -307,6 +304,71 @@
         }
       } else if (inputs[1] === "version") {
         echo(ice_version());
+      } else if (inputs[2] === "ps") {
+        if (inputs.containsAllOfThese(['-l'])) {
+          echo(ps_l);
+        } else if (inputs.containsAllOfThese(['-a'])) {
+          echo(ps_a);
+        } else {
+          echo(currentIcePs);
+        }
+      } else if (inputs[2] === "push") {
+        if (inputs[3] === "-h" || inputs[3] === "--help") {
+          echo(push_help);
+        } else if (inputs[3] === "learn/ping") {
+          util_slow_lines(term, push_container_learn_ping, "", callback);
+        } else if (!inputs[3]) {
+          echo(push_no_args);
+        } else {
+          echo(push_wrong_name);
+        }
+      } else if (inputs[1] === "inspect") {
+        if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
+          echo(inspect_help);
+        } else if (inputs[2] && (inputs[2].match('ice-ping') || inputs[2].match('fa2'))) {
+          echo(inspect_ice_ping_container);
+        } else if (inputs[2]) {
+          echo(inspect_no_such_container(inputs[3]));
+        } else {
+          echo(inspect);
+        }
+      } else if (inputs[1] === "logs") {
+        if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
+          echo(logs_help);
+        } else if (inputs[2] && (inputs[2].match('ice-ping') || inputs[2].match('fa2'))) {
+          echo(run_ping_localhost);
+        } else if (inputs[2]) {
+          echo(inputs[3]);
+        } else {
+          echo(logs_help);
+        }
+      } else if (inputs[1] === "ip") {
+        if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
+          echo(ice_ip_help);
+        } else if (inputs[2] === 'request') {
+          if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
+            echo(ice_ip_request_help);
+          } else {
+            echo(ice_ip_request);
+          }
+        } else if (inputs[2] === 'bind') {
+          if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
+            echo(ice_ip_help);
+          } else if (inputs[3] === "129.41.232.25" && inputs[4] === "ice-ping") {
+            echo(ice_ip_bound);
+          } else if (inputs[3] === "129.41.232.25" && !inputs[4]) {
+            intermediateResults(0);
+            echo(ice_ip_bind_fail);
+          } else if (!inputs[3]) {
+            intermediateResults(1);
+            echo(ice_ip_bind_fail);
+          } else {
+            intermediateResults(2);
+            echo(ice_ip_bind_fail);
+          }
+        } else {
+          echo(ice_ip);
+        }
       } else if (inputs[1] === "run") {
         parsed_input = parseInput(inputs);
         switches = parsed_input.switches;
@@ -362,13 +424,15 @@
             echo(run_learn_no_command);
           }
         } else if (imagename === "learn/ping") {
-          if (commands.containsAllOfTheseParts(["--name", "ice-ping", "ping", "localhost"])) {
+          if (commands.containsAllOfTheseParts(["ice-ping", "ping", "localhost"]) && switches.containsAllOfTheseParts(["--name"])) {
             util_slow_lines(term, run_ping_localhost, "", callback);
-          }
-          if (commands.containsAllOfTheseParts(["ping", "localhost"])) {
+          } else if (commands.containsAllOfTheseParts(["ice-ping", "ping", "localhost"]) && switches.containsAllOfTheseParts(["-n"])) {
+            util_slow_lines(term, run_ping_localhost, "", callback);
+          } else if (commands.containsAllOfTheseParts(["ping", "localhost"])) {
             echo(ice_run_no_name);
           } else if (commands[0] === "ping" && commands[1]) {
             echo(run_ping_not_localhost(commands[1]));
+            intermediateResults(0);
           } else if (commands[0] === "ping") {
             echo(ping);
           } else if (commands[0]) {
@@ -600,9 +664,11 @@
     };
     help = "IBM Container tutorial \n\n\n\nThe IBM Container tutorial is an emulater intended to help novice users get up to spead with the IBM Container\nExtension (ice) commands. This terminal contains a limited IBM Container CLI and a limited shell emulator.  \nTherefore some of the commands that you would expect do not exist.\n\n\n\nJust follow the steps and questions. If you are stuck, click on the 'expected command' to see what the command\nshould have been. Leave feedback if you find things confusing.\n";
     inspect = "\nUsage: Docker inspect CONTAINER|IMAGE [CONTAINER|IMAGE...]\n\nReturn low-level information on a container/image\n";
+    ice_inspect_help = "usage: ice inspect [-h] CONTAINER\n\npositional arguments:\n  CONTAINER   container name or id\n\noptional arguments:\n  -h, --help  show this help message and exit";
     inspect_no_such_container = function(keyword) {
       return "Error: No such image: " + keyword;
     };
+    inspect_ice_ping_container = "{\n    \"BluemixApp\": null,\n    \"Config\": {\n        \"AttachStderr\": \"\",\n        \"AttachStdin\": \"\",\n        \"AttachStdout\": \"\",\n        \"Cmd\": [\n            \"ping\",\n            \"localhost\"\n        ],\n        \"Dns\": \"\",\n        \"Env\": [\n            \"group_id=0000\",\n            \"logging_password=h6Xs4_him67H\",\n            \"tagseparator=_\",\n            \"space_id=73c83834-c956-430c-92c2-3b9b35b6\",\n            \"logstash_target=opvis.bluemix.net:9091\",\n            \"tagformat=space_id group_id uuid\",\n            \"metrics_target=opvis.bluemix.net:9095\"\n        ],\n        \"Hostname\": \"\",\n        \"Image\": \"registry-ice.ng.bluemix.net/learn/ping:latest\",\n        \"Memory\": 256,\n        \"MemorySwap\": \"\",\n        \"OpenStdin\": \"\",\n        \"PortSpecs\": \"\",\n        \"StdinOnce\": \"\",\n        \"Tty\": \"\",\n        \"User\": \"\",\n        \"VCPU\": 1,\n        \"VolumesFrom\": \"\",\n        \"WorkingDir\": \"\"\n    },\n    \"ContainerState\": \"Shutdown\",\n    \"Created\": 1429713738,\n    \"Group\": {},\n    \"HostConfig\": {\n        \"Binds\": \"null\",\n        \"CapAdd\": [],\n        \"CapDrop\": [],\n        \"ContainerIDFile\": \"\",\n        \"Links\": [],\n        \"LxcConf\": [],\n        \"PortBindings\": {},\n        \"Privileged\": \"false\",\n        \"PublishAllPorts\": \"false\"\n    },\n    \"HostId\": \"9669f466be49e034a72a56362ec824328629f1ec0621f11e73ee8163\",\n    \"Human_id\": \"ice-ping\",\n    \"Id\": \"fa219r52-bcbf-4c6d-977f-1aa67bb1233d\",\n    \"Image\": \"f44c4aa3-c4f0-4476-b670-chgd5363s5f8\",\n    \"Name\": \"ice-ping\",\n    \"NetworkSettings\": {\n        \"Bridge\": \"\",\n        \"Gateway\": \"\",\n        \"IpAddress\": \"172.4.12.30\",\n        \"IpPrefixLen\": 0,\n        \"PortMapping\": \"null\",\n        \"PublicIpAddress\": \"\"\n    },\n    \"Path\": \"date\",\n    \"ResolvConfPath\": \"/etc/resolv.conf\",\n    \"State\": {\n        \"ExitCode\": \"\",\n        \"Ghost\": \"\",\n        \"Pid\": \"\",\n        \"Running\": \"false\",\n        \"StartedAt\": \"\",\n        \"Status\": \"Shutdown\"\n    },\n    \"Volumes\": []\n}";
     inspect_ping_container = "[2013/07/30 01:52:26 GET /v1.3/containers/efef/json\n{\n	\"ID\": \"efefdc74a1d5900d7d7a74740e5261c09f5f42b6dae58ded6a1fde1cde7f4ac5\",\n	\"Created\": \"2013-07-30T00:54:12.417119736Z\",\n	\"Path\": \"ping\",\n	\"Args\": [\n			\"localhost\"\n	],\n	\"Config\": {\n			\"Hostname\": \"efefdc74a1d5\",\n			\"User\": \"\",\n			\"Memory\": 0,\n			\"MemorySwap\": 0,\n			\"CpuShares\": 0,\n			\"AttachStdin\": false,\n			\"AttachStdout\": true,\n			\"AttachStderr\": true,\n			\"PortSpecs\": null,\n			\"Tty\": false,\n			\"OpenStdin\": false,\n			\"StdinOnce\": false,\n			\"Env\": null,\n			\"Cmd\": [\n					\"ping\",\n					\"localhost\"\n			],\n			\"Dns\": null,\n			\"Image\": \"learn/ping\",\n			\"Volumes\": null,\n			\"VolumesFrom\": \"\",\n			\"Entrypoint\": null\n	},\n	\"State\": {\n			\"Running\": true,\n			\"Pid\": 22249,\n			\"ExitCode\": 0,\n			\"StartedAt\": \"2013-07-30T00:54:12.424817715Z\",\n			\"Ghost\": false\n	},\n	\"Image\": \"a1dbb48ce764c6651f5af98b46ed052a5f751233d731b645a6c57f91a4cb7158\",\n	\"NetworkSettings\": {\n			\"IPAddress\": \"172.16.42.6\",\n			\"IPPrefixLen\": 24,\n			\"Gateway\": \"172.16.42.1\",\n			\"Bridge\": \"docker0\",\n			\"PortMapping\": {\n					\"Tcp\": {},\n					\"Udp\": {}\n			}\n	},\n	\"SysInitPath\": \"/usr/bin/docker\",\n	\"ResolvConfPath\": \"/etc/resolv.conf\",\n	\"Volumes\": {},\n	\"VolumesRW\": {}";
     ping = "Usage: ping [-LRUbdfnqrvVaAD] [-c count] [-i interval] [-w deadline]\n				[-p pattern] [-s packetsize] [-t ttl] [-I interface]\n				[-M pmtudisc-hint] [-m mark] [-S sndbuf]\n				[-T tstamp-options] [-Q tos] [hop1 ...] destination";
     ps = "ID                  IMAGE               COMMAND               CREATED             STATUS              PORTS\nefefdc74a1d5        learn/ping:latest   ping localhost   37 seconds ago      Up 36 seconds";
@@ -666,7 +732,19 @@
       return "ICE CLI Version        : 2.0.1 271 2015-03-30T15:40:18";
     };
     ice_run_help = "usage: ice run [-h] [--name NAME] [--memory MEMORY] [--env ENV]\n               [--publish PORT] [--volume VOL] [--bind APP] [--ssh SSHKEY]\n               IMAGE [CMD [CMD ...]]\nice run: error: too few arguments";
+    ice_stop = "usage: ice stop [-h] [--time SECS] CONTAINER\nice stop: error: too few arguments";
+    ice_stop_help = "usage: ice stop [-h] [--time SECS] CONTAINER\n\npositional arguments:\n  CONTAINER             container name or id\n\noptional arguments:\n  -h, --help            show this help message and exit\n  --time SECS, -t SECS  seconds to wait before killing container";
+    ice_logs = "usage: ice logs [-h] [--stdout | --stderr] CONTAINER\nice logs: error: too few arguments";
+    ice_ping_logs = "";
+    ice_logs_help = "usage: ice logs [-h] [--stdout | --stderr] CONTAINER\n\npositional arguments:\n  CONTAINER     container name or id\n\noptional arguments:\n  -h, --help    show this help message and exit\n  --stdout, -o  get output log, default\n  --stderr, -e  get error log";
     ice_run_no_name = "Please specify a name for your container using --name or -n option";
+    ice_ip = "usage: ice ip [-h] {list,bind,unbind,request,release} ...\nice ip: error: too few arguments";
+    ice_ip_help = "usage: ice ip [-h] {list,bind,unbind,request,release} ...\n\npositional arguments:\n  {list,bind,unbind,request,release}\n                        floating-ips management commands, for specific command\n                        help use: ice ip <command> -h\n    list                list floating ips, defaults to available only ips\n    bind                bind floating ip to container\n    unbind              unbind floating ip from container\n    request             request a new floating ip\n    release             release floating ip back to general pool\n";
+    ice_ip_bound = "Successfully bound ip";
+    ice_ip_bind_fail = "usage: ice ip bind [-h] ADDRESS CONTAINER\nice ip bind: error: too few arguments";
+    ice_ip_bind_help = "usage: ice ip bind [-h] ADDRESS CONTAINER\n\npositional arguments:\n  ADDRESS     ip address\n  CONTAINER   container id or name\n\noptional arguments:\n  -h, --help  show this help message and exit";
+    ice_ip_request = "Successfully obtained ip: \"129.41.232.25\"";
+    ice_ip_request_help = "usage: ice ip bind [-h] ADDRESS CONTAINER\n\npositional arguments:\n  ADDRESS     ip address\n  CONTAINER   container id or name\n\noptional arguments:\n  -h, --help  show this help message and exit";
     return ICE_logo = 'ttttttttttttttttt1iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiittttttttttttttttttttttttttttttttttttttttttttttttttttttt\nttttttttttttttttt1iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiittttttttttttttttttttttttttttttttttttttttttttttttttttttt\nttttttttttttttttt1iiiiii:  iiiiii, .iiiiii. .iiiiii  ,iiiiiiiiiittttttt. .ttttt1  ;ttttt1  ittttti  itttttttttttttttttt\nttttttttttttttttt1iiiiii:  iiiiii, .iiiiii. .iiiiii  ,iiiiiiiiiittttttt. .ttttt1  ;ttttt1  ittttti  itttttttttttttttttt\nttttttttttttttttt1iiiiii:  iiiiii, .iiiiii. .iiiiii  ,iiiiiiiiiittttttt. .ttttt1  ;ttttt1  ittttti  itttttttttttttttttt\nttttttttttttttttt1iiiiii:  iiiiii, .iiiiii. .iiiiii  ,iiiiiiiiiittttttt. .ttttt1  ;ttttt1  ittttti  itttttttttttttttttt\nttttttttttttttttt1iiiiii:  iiiiii, .iiiiii. .iiiiii  ,iiiiiiiiiittttttt. .ttttt1  ;ttttt1  ittttti  itttttttttttttttttt\nttttttttttttttttt1iiiiii:  iiiiii, .iiiiii. .iiiiii  ,iiiiiiiiiittttttt. .ttttt1  ;ttttt1  ittttti  itttttttttttttttttt\nttttttttttttttttt1iiiiii:  iiiiii, .iiiiii. .iiiiii  ,iiiiiiiiiittttttt. .ttttt1  ;ttttt1  ittttti  itttttttttttttttttt\nttttttttttttttttt1iiiiii:  iiiiii, .iiiiii. .iiiiii  ,iiiiiiiiiittttttt. .ttttt1  ;ttttt1  ittttti  itttttttttttttttttt\nttttttttttttttttt1iiiiii:  iiiiii, .iiiiii. .iiiiii  ,iiiiiiiiiittttttt. .ttttt1  ;ttttt1  ittttti  itttttttttttttttttt\nttttttttttttttttt1iiiiii:  iiiiii, .iiiiii. .iiiiii  ,iiiiiiiiiittttttt. .ttttt1  ;ttttt1  ittttti  itttttttttttttttttt\ntttttttttttttttttiiiiiii:  iiiiii, .iiiiii. .iiiiii  ,iiiiiiiiiiftttttt. .ttttt1  ;ttttt1  ittttti  itttttttttttttttttt\n																																					 ,ttt1  ;ttttt1  ittttti  itttttttttttttttttt\n																																					 ,ttt1  ;ttttt1  ittttti  itttttttttttttttttt\n																																					 ,ttt1  ;ttttt1  ittttti  itttttttttttttttttt\n																																					 ,ttt1  ;ttttt1  ittttti  itttttttttttttttttt\n								:iiiiii;.   .iiiiiiiii,,iiiiiiiiii   iii                   ,ttttttttttttttttttttttttttttttttttttttttttt\n							 .CCLtttLCCf  tCCLLLLLLL fLLLCCCLLLf  LCCC1                  ,ttttttttttttttttttttttttttttttttttttttttttt\n							 :CC:   .CCf .CCf           .CCt    .CC11CC                  ,ttttttttttttttttttttttttttttttttttttttttttt\n							 LCCCCCCCL,  ;CCCCCCCCf     tCC    .CCi .CC                                                              \n							:CCi    ;CC: CCL           .CCf   :CCLtttCC1                                                             \n							tCC    ,LCC.:CC1,,,,,,.    ;CC,  1CC;;;;;CCC                 ,GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG\n						 .CCCCCCCCL;  fCCCCCCCCC     CCL  LCC.     1CC                 :GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG\n																																					 :GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG\n																																					 :GGGG;;fGGGGGC;;LGGGGGL;;LGGGGGGGGGGGGGGGGGG\n																																					 :GGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGGGGGGGG\n																																					 :GGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGGGGGGGG\n,,,,,,,,,,,,,,,,,,1iiiii:  1iiiii, .1iiiii. .1iiiii  ,iiiiii    ,LLLLLL. ,LLGGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGGGGGGGG\nG:,,,,,,,,,,,,,,,:tttttt;  tttttt: .tttttt. .tttttt  :tttttttttt0GGGGGG. ,GGGGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGGGGGGGG\nGG ,,,,,,,,,,,,,,:tttttt;  tttttt: .tttttt. .tttttt  :tttttttttt0GGGGGG. ,GGGGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGGGGGGGG\nGGGG:,,,,,,,,,,,,:tttttt;  tttttt: .tttttt. .tttttt  :tttttttttt0GGGGGG. ,GGGGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGGGGGGGG\nGGGGGG;;;;;;;;;;;ttttttt;  tttttt: .tttttt. .tttttt  :tttttttttt0GGGGGG. ,GGGGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGGGGGGGG\nGGGGGGGGGGGGGGGGGftttttt;  tttttt: .tttttt. .tttttt  :tttttttttt0GGGGGG. ,GGGGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGGGGGGGG\nGGGGGGGGGGGGGGGGGftttttt;  tttttt: .tttttt. .tttttt  :tttttttttt0GGGGGG. ,GGGGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGGGGGGGG\nGGGGGGGGGGGGGGGGGftttttt;  tttttt: .tttttt. .tttttt  :tttttttttt0GGGGGG. ,GGGGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGGGGGGGG\nGGGGGGGGGGGGGGGGGftttttt;  tttttt: .tttttt. .tttttt  :tttttttttt0GGGGGG. ,GGGGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGGGGGGGG\nGGGGGiiiiiiiiiiiiftttttt;  tttttt: .tttttt. .tttttt  :tttttttttt0GGGGGG. ,GGGGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGG1iiiiii\niiiiiiiiiiiiiiiiiftttttt;  tttttt: .tttttt. .tttttt  :tttttttttt0GGGGGG. ,GGGGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGiiiiiii\niiiiiiiiiiiiiiiiiftttttt;  tttttt: .tttttt. .tttttt  :tttttttttt0GGGGGG. ,GGGGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGiiiiiii\niiiiiiiiiiiiiiiiiftttttti::tttttt;::tttttt:::tttttt::;tttttttttt0GGGGGGii1GGGGGGiifGGGGGCiiLGGGGGLiiCGGGGGGGGGGGiiiiiii\niiiiiiiiiiiiiiiiiftttttttttttttttttttttttttttttttttttttttttttttt0GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGiiiiiii\niiiiiiiiiiiiiiiiiftttttttttttttttttttttttttttttttttttttttttttttt0GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGiiiiiii\niiiiiiiiiiiiiiiii@tttttttttttttttttttttttttttttttttttttttttffffffGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG000000iiiiiii\niiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii\niiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii1iiiiii\niiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii\niiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii\niiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii\n ';
   })();
 

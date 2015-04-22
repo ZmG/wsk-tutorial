@@ -53,6 +53,11 @@ do @myTerminal = ->
 
 	@currentDockerPs = ""
 
+	@currentIcePs = """
+
+	Container Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports
+	"""
+
 	@currentLocalImages = """
     Target is local host. Invoking docker with the given arguments...
     REPOSITORY            TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
@@ -292,9 +297,11 @@ do @myTerminal = ->
 			else
 				echo "-bash: cd: #{argument}: No such file or directory"
 
-	###
-		ice program
-	###
+	#---------------------------------------------------------------------------------------
+	#---------------------------------------------------------------------------------------
+	#  I C E   I N T E R P R E T E R   -----------------------------------------------------
+	#---------------------------------------------------------------------------------------
+	#---------------------------------------------------------------------------------------
 
 	ice = (term, inputs) ->
 
@@ -342,6 +349,70 @@ do @myTerminal = ->
 
 		else if inputs[1] is "version"
 			echo ice_version()
+
+		# command ps
+		else if inputs[2] is "ps"
+			if inputs.containsAllOfThese(['-l'])
+				echo ps_l
+			else if inputs.containsAllOfThese(['-a'])
+				echo ps_a
+			else
+				echo currentIcePs
+
+		else if inputs[2] is "push"
+			if inputs[3] is "-h" or inputs[3] is "--help"
+				echo push_help
+			else if inputs[3] is "learn/ping"
+				util_slow_lines(term, push_container_learn_ping, "", callback )
+			else if not inputs[3]
+				echo push_no_args
+			else
+				echo push_wrong_name
+
+		else if inputs[1] is "inspect"
+				if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
+					echo inspect_help
+				else if inputs[2] and (inputs[2].match('ice-ping') or inputs[2].match('fa2'))
+					echo inspect_ice_ping_container
+				else if inputs[2]
+					echo inspect_no_such_container(inputs[3])
+				else
+					echo inspect
+
+		else if inputs[1] is "logs"
+				if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
+					echo logs_help
+				else if inputs[2] and (inputs[2].match('ice-ping') or inputs[2].match('fa2'))
+					echo run_ping_localhost
+				else if inputs[2]
+					echo (inputs[3])
+				else
+					echo logs_help
+
+		else if inputs[1] is "ip"
+				if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
+					echo ice_ip_help
+				else if inputs[2] is 'request'
+					if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
+						echo ice_ip_request_help
+					else 
+						echo ice_ip_request
+				else if inputs[2] is 'bind'
+					if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
+						echo ice_ip_help
+					else if inputs[3] is "129.41.232.25" and inputs[4] is "ice-ping" 
+						echo ice_ip_bound
+					else if inputs[3] is "129.41.232.25" and not inputs[4] 
+						intermediateResults(0)
+						echo ice_ip_bind_fail
+					else if not inputs[3]
+						intermediateResults(1)
+						echo ice_ip_bind_fail
+					else 
+						intermediateResults(2)
+						echo ice_ip_bind_fail
+				else
+					echo ice_ip
 
 		# Command run
 		else if inputs[1] is "run"
@@ -401,12 +472,15 @@ do @myTerminal = ->
 					echo run_learn_no_command
 
 			else if imagename is "learn/ping"
-				if commands.containsAllOfTheseParts(["--name", "ice-ping", "ping", "localhost"])
+				if commands.containsAllOfTheseParts(["ice-ping", "ping", "localhost"]) && switches.containsAllOfTheseParts(["--name"])
 					util_slow_lines(term, run_ping_localhost, "", callback )
-				if commands.containsAllOfTheseParts([ "ping", "localhost"])
+				else if commands.containsAllOfTheseParts(["ice-ping", "ping", "localhost"]) && switches.containsAllOfTheseParts(["-n"])
+					util_slow_lines(term, run_ping_localhost, "", callback )
+				else if commands.containsAllOfTheseParts([ "ping", "localhost"])
 					echo ice_run_no_name
 				else if commands[0] is "ping" and commands[1]
 					echo run_ping_not_localhost(commands[1])
+					intermediateResults(0)
 				else if commands[0] is "ping"
 					echo ping
 				else if commands[0]
@@ -841,10 +915,97 @@ do @myTerminal = ->
 
 		"""
 
+	ice_inspect_help = \
+		"""
+		usage: ice inspect [-h] CONTAINER
+
+		positional arguments:
+		  CONTAINER   container name or id
+
+		optional arguments:
+		  -h, --help  show this help message and exit
+		"""
+
 	inspect_no_such_container = (keyword) ->
 		"""
 			Error: No such image: #{keyword}
 		"""
+
+	inspect_ice_ping_container = \
+	"""
+	{
+    "BluemixApp": null,
+    "Config": {
+        "AttachStderr": "",
+        "AttachStdin": "",
+        "AttachStdout": "",
+        "Cmd": [
+            "ping",
+            "localhost"
+        ],
+        "Dns": "",
+        "Env": [
+            "group_id=0000",
+            "logging_password=h6Xs4_him67H",
+            "tagseparator=_",
+            "space_id=73c83834-c956-430c-92c2-3b9b35b6",
+            "logstash_target=opvis.bluemix.net:9091",
+            "tagformat=space_id group_id uuid",
+            "metrics_target=opvis.bluemix.net:9095"
+        ],
+        "Hostname": "",
+        "Image": "registry-ice.ng.bluemix.net/learn/ping:latest",
+        "Memory": 256,
+        "MemorySwap": "",
+        "OpenStdin": "",
+        "PortSpecs": "",
+        "StdinOnce": "",
+        "Tty": "",
+        "User": "",
+        "VCPU": 1,
+        "VolumesFrom": "",
+        "WorkingDir": ""
+    },
+    "ContainerState": "Shutdown",
+    "Created": 1429713738,
+    "Group": {},
+    "HostConfig": {
+        "Binds": "null",
+        "CapAdd": [],
+        "CapDrop": [],
+        "ContainerIDFile": "",
+        "Links": [],
+        "LxcConf": [],
+        "PortBindings": {},
+        "Privileged": "false",
+        "PublishAllPorts": "false"
+    },
+    "HostId": "9669f466be49e034a72a56362ec824328629f1ec0621f11e73ee8163",
+    "Human_id": "ice-ping",
+    "Id": "fa219r52-bcbf-4c6d-977f-1aa67bb1233d",
+    "Image": "f44c4aa3-c4f0-4476-b670-chgd5363s5f8",
+    "Name": "ice-ping",
+    "NetworkSettings": {
+        "Bridge": "",
+        "Gateway": "",
+        "IpAddress": "172.4.12.30",
+        "IpPrefixLen": 0,
+        "PortMapping": "null",
+        "PublicIpAddress": ""
+    },
+    "Path": "date",
+    "ResolvConfPath": "/etc/resolv.conf",
+    "State": {
+        "ExitCode": "",
+        "Ghost": "",
+        "Pid": "",
+        "Running": "false",
+        "StartedAt": "",
+        "Status": "Shutdown"
+    },
+    "Volumes": []
+	}
+	"""
 
 	inspect_ping_container = \
 	"""
@@ -1259,10 +1420,115 @@ do @myTerminal = ->
 	ice run: error: too few arguments
 	"""
 
+	ice_stop = \
+	"""
+	usage: ice stop [-h] [--time SECS] CONTAINER
+	ice stop: error: too few arguments
+	"""
+
+	ice_stop_help = \
+	"""
+	usage: ice stop [-h] [--time SECS] CONTAINER
+
+	positional arguments:
+	  CONTAINER             container name or id
+
+	optional arguments:
+	  -h, --help            show this help message and exit
+	  --time SECS, -t SECS  seconds to wait before killing container
+	"""
+
+	ice_logs = \
+	"""
+	usage: ice logs [-h] [--stdout | --stderr] CONTAINER
+	ice logs: error: too few arguments
+	"""
+
+	ice_ping_logs = \
+	"""
+
+	"""
+
+	ice_logs_help = \
+	"""
+	usage: ice logs [-h] [--stdout | --stderr] CONTAINER
+
+	positional arguments:
+	  CONTAINER     container name or id
+
+	optional arguments:
+	  -h, --help    show this help message and exit
+	  --stdout, -o  get output log, default
+	  --stderr, -e  get error log
+	"""
+
 	ice_run_no_name = \
 	"""
 	Please specify a name for your container using --name or -n option
 	"""
+
+	ice_ip = \
+	"""
+	usage: ice ip [-h] {list,bind,unbind,request,release} ...
+	ice ip: error: too few arguments
+	"""
+
+	ice_ip_help = \
+	"""
+	usage: ice ip [-h] {list,bind,unbind,request,release} ...
+
+	positional arguments:
+	  {list,bind,unbind,request,release}
+	                        floating-ips management commands, for specific command
+	                        help use: ice ip <command> -h
+	    list                list floating ips, defaults to available only ips
+	    bind                bind floating ip to container
+	    unbind              unbind floating ip from container
+	    request             request a new floating ip
+	    release             release floating ip back to general pool
+
+	"""
+
+	ice_ip_bound = \
+	"""
+	Successfully bound ip
+	"""
+
+	ice_ip_bind_fail = \
+	"""
+	usage: ice ip bind [-h] ADDRESS CONTAINER
+	ice ip bind: error: too few arguments
+	"""
+
+	ice_ip_bind_help = \
+	"""
+	usage: ice ip bind [-h] ADDRESS CONTAINER
+
+	positional arguments:
+	  ADDRESS     ip address
+	  CONTAINER   container id or name
+
+	optional arguments:
+	  -h, --help  show this help message and exit
+	"""
+
+	ice_ip_request = \
+	"""
+	Successfully obtained ip: "129.41.232.25"
+	"""
+
+	ice_ip_request_help = \
+	"""
+	usage: ice ip bind [-h] ADDRESS CONTAINER
+
+	positional arguments:
+	  ADDRESS     ip address
+	  CONTAINER   container id or name
+
+	optional arguments:
+	  -h, --help  show this help message and exit
+	"""
+
 
 	ICE_logo = \
 	'''

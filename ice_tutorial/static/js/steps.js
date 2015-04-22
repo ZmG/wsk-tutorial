@@ -153,7 +153,8 @@
         return "";
       }
     ],
-    tip: "<ul>\n<li>Remember that the namespace is <b>'learn'</b></li>\n<li>For more info on how to specify a target registry, see the <a href=\"https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#container_install\">docs</a></li>\n</ul>"
+    tip: "<ul>\n<li>Remember that the namespace is <b>'learn'</b></li>\n<li>For more info on how to specify a target registry, see the <a href=\"https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#container_install\">docs</a></li>\n</ul>",
+    currentCloudImages: "Image Id                             Created              Image Name\n\n662c446b-1c9c-424e-bcb4-61288ceede43 Apr 20 06:21:23 2015 registry-ice.ng.bluemix.net/learn/ping:latest\nd0feae99-b91d-4ce3-bcb4-6128886f6968 Mar 23 10:44:59 2015 registry-ice.ng.bluemix.net/ibmliberty:latest\n74831680-1c9c-424e-b8ea-ceede4aa0e40 Mar 23 10:41:24 2015 registry-ice.ng.bluemix.net/ibmnode:latest"
   });
 
   q.push({
@@ -161,60 +162,50 @@
     assignment: "<h3>Assignment</h3>\n<p>create and run a container on bluemix using <code>ice run</code>. The container must have the name <b>'ice-ping'</b>. It will also run our <b>learn/tutorial</b> image with the <b>ping localhost</b> command</p>",
     command_expected: ["ice", "run", "--name", "ice-ping", "learn/ping", "ping", "localhost"],
     command_show: ["ice", "run", "--name", "ice-ping", "learn/ping", "ping", "localhost"],
-    result: "<p>Success! </p>",
+    result: "<p>Success! The image is up and running on Bluemix!</p>",
     intermediateresults: [
       function() {
-        return "";
+        return "getting there, try pinging 'localhost' instead.";
       }
     ],
     tip: "<ul>\n<li>Notice that we will not use the <code>--local</code> because we are running on Bluemix, not local.</li> \n<li>Enter <code>ice run</code> to see flag usage details</li>\n</ul>",
-    currentCloudImages: "Image Id                             Created              Image Name\n\n662c446b-1c9c-424e-bcb4-61288ceede43 Apr 20 06:21:23 2015 registry-ice.ng.bluemix.net/learn/ping:latest\nd0feae99-b91d-4ce3-bcb4-6128886f6968 Mar 23 10:44:59 2015 registry-ice.ng.bluemix.net/ibmliberty:latest\n74831680-1c9c-424e-b8ea-ceede4aa0e40 Mar 23 10:41:24 2015 registry-ice.ng.bluemix.net/ibmnode:latest"
+    currentIcePs: "\nContainer Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports\n\nfa219a32-bcbf-4c6d-977f-1aa67bb1233d ice-ping                          jstart/ping:latest             Apr 22 10:42 Shutdown 172.17.128.30                   []"
   });
 
   q.push({
-    html: "<h3>Check the running app</h3>\n<p></p>",
-    assignment: "<h3>Assignment</h3>\n<p></p>",
-    command_expected: ["ice", "run", "--name", "ice-ping", "learn/ping", "ping", "localhost"],
-    command_show: ["ice", "run", "--name", "ice-ping", "learn/ping", "ping", "localhost"],
-    result: "<p>Success! </p>",
+    html: "<h3>Check the running app</h3>\n<p>When you run the app on Bluemix you get the ID for your container. We want to see what's going on inside.</p>\n<p>To do this we will use <code>ice logs</code>. this will let us see the output produced by our pings to localhost.</p>\n<p>Before checking logs lets check the status of the container using <code>ice ps</code>. ps will give you information about your containers and their state. This way we can make sure the ice-ping is up and running.</p>",
+    assignment: "<h3>Assignment</h3>\n<p>After checking the state using <code>ice ps</code> go ahead and get logs using <code>ice logs</code>.</p>",
+    command_expected: ["ice", "logs", "ice-ping"],
+    command_show: ["ice", "logs", "ice-ping"],
+    result: "<p>Success! You now know how to check logs, and container status.</p>",
     intermediateresults: [
       function() {
         return "";
       }
     ],
-    tip: "<ul>\n<li></li>\n</ul>"
+    tip: "<ul>\n<li>Don't forget to specify the Container name or ID in your call to <code>ice logs</code>. </li>\n<li>You can also use <code>ice inspect</code> to get more information about your running app. Give it a try.</li>\n</ul>"
   });
 
   q.push({
-    html: "<h3>working with IP's</h3>\n<p></p>",
-    assignment: "<h3>Assignment</h3>\n<p></p>",
-    command_expected: ["ice"],
-    command_show: ["ice"],
-    result: "<p>Success! </p>",
+    html: "<h3>working with IP's</h3>\n<p>We now have a container up and running, but right now the container does not have a public IP. It is not accessible from outside of the bluemix.</p>\n<p>If we were running a web server in the container we need to bind a public IP to the container. For our ping image it is not necessary to bind an IP but for the sake of learning, let's do it anyways!</p>\n<p>There are two steps in this process, first we will need to request an ip from Bluemix using <code>ice ip request</code>\nThis will give us the IP that will be bound to our container. Once we have the IP we must then bind it to the container using <code>ice ip bind</code>\n</p>",
+    assignment: "<h3>Assignment</h3>\n<p>request an ip from Bluemix and bind it to our container using <code>ice ip bind</code></p>",
+    command_expected: ["ice", "ip", "bind", "129.41.232.25", "ice-ping"],
+    command_show: ["ice", "ip", "bind", "129.41.232.25", "ice-ping"],
+    result: "<p>Success! We now have an IP bound to our container!</p>",
     intermediateresults: [
       function() {
-        return "";
+        return "Looks like you have the right IP but no container name.";
+      }, function() {
+        return "Looks like you are missing an IP and Container name.";
+      }, function() {
+        return "That doesnt look like the IP that Bluemix gave you. remember to use the IP provided by 'ice ip request.'";
       }
     ],
-    tip: "<ul>\n\n</ul>"
+    tip: "<ul>\n<li>For usage type <code>ice ip --help</code> or <code>ice ip bind --help</code></li>\n<li>You can release a requested IP using <code>ice ip release</code>\n</ul>"
   });
 
   q.push({
-    html: "<h3>Bind an IP</h3>\n<p></p>",
-    assignment: "<h3>Assignment</h3>\n<p></p>",
-    command_expected: ["ice"],
-    command_show: ["ice"],
-    result: "<p>Success! </p>",
-    intermediateresults: [
-      function() {
-        return "";
-      }
-    ],
-    tip: "<ul>\n\n</ul>"
-  });
-
-  q.push({
-    html: "<h3>Check Logs</h3>\n<p></p>",
+    html: "<h3>Cleaning up</h3>\n<p>We've gone through all the main steps required for deploying docker containers to Bluemix. Now we'll finish up by learning how to stop and remove our container.</p>\n<p>Before we do anything we are going to need to stop our running app using <code>ice stop</code></p>",
     assignment: "<h3>Assignment</h3>\n<p></p>",
     command_expected: ["ice"],
     command_show: ["ice"],
@@ -474,8 +465,11 @@
       if (_q.currentCloudImages != null) {
         window.currentCloudImages = _q.currentCloudImages;
       }
-      if (_q.finishedCallback != null) {
-        window.finishedCallback = q.finishedCallback;
+      if (_q.currentCloudImages != null) {
+        window.currentCloudImages = _q.currentCloudImages;
+      }
+      if (_q.currentIcePs != null) {
+        window.currentIcePs = _q.currentIcePs;
       } else {
         window.finishedCallback = function() {
           return "";

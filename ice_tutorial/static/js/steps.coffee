@@ -291,6 +291,14 @@ tip: """
     <li>For more info on how to specify a target registry, see the <a href="https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#container_install">docs</a></li>
     </ul>
     """
+currentCloudImages :
+  """
+  Image Id                             Created              Image Name
+
+  662c446b-1c9c-424e-bcb4-61288ceede43 Apr 20 06:21:23 2015 registry-ice.ng.bluemix.net/learn/ping:latest
+  d0feae99-b91d-4ce3-bcb4-6128886f6968 Mar 23 10:44:59 2015 registry-ice.ng.bluemix.net/ibmliberty:latest
+  74831680-1c9c-424e-b8ea-ceede4aa0e40 Mar 23 10:41:24 2015 registry-ice.ng.bluemix.net/ibmnode:latest
+  """
 });
 
 q.push ({
@@ -307,10 +315,10 @@ assignment: """
       """
 command_expected: ["ice", "run", "--name", "ice-ping",  "learn/ping", "ping", "localhost"]
 command_show: ["ice", "run", "--name", "ice-ping",  "learn/ping", "ping", "localhost"]
-result: """<p>Success! </p>"""
+result: """<p>Success! The image is up and running on Bluemix!</p>"""
 intermediateresults:
   [
-    () -> """"""
+    () -> """getting there, try pinging 'localhost' instead."""
   ]
 tip: """
     <ul>
@@ -318,28 +326,28 @@ tip: """
     <li>Enter <code>ice run</code> to see flag usage details</li>
     </ul>
     """
-currentCloudImages :
-  """
-  Image Id                             Created              Image Name
+currentIcePs: """
 
-  662c446b-1c9c-424e-bcb4-61288ceede43 Apr 20 06:21:23 2015 registry-ice.ng.bluemix.net/learn/ping:latest
-  d0feae99-b91d-4ce3-bcb4-6128886f6968 Mar 23 10:44:59 2015 registry-ice.ng.bluemix.net/ibmliberty:latest
-  74831680-1c9c-424e-b8ea-ceede4aa0e40 Mar 23 10:41:24 2015 registry-ice.ng.bluemix.net/ibmnode:latest
+  Container Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports
+
+  fa219a32-bcbf-4c6d-977f-1aa67bb1233d ice-ping                          jstart/ping:latest             Apr 22 10:42 Shutdown 172.17.128.30                   []
   """
 });
 
 q.push ({
 html: """
       <h3>Check the running app</h3>
-      <p></p>
+      <p>When you run the app on Bluemix you get the ID for your container. We want to see what's going on inside.</p>
+      <p>To do this we will use <code>ice logs</code>. this will let us see the output produced by our pings to localhost.</p>
+      <p>Before checking logs lets check the status of the container using <code>ice ps</code>. ps will give you information about your containers and their state. This way we can make sure the ice-ping is up and running.</p>
       """
 assignment: """
       <h3>Assignment</h3>
-      <p></p>
+      <p>After checking the state using <code>ice ps</code> go ahead and get logs using <code>ice logs</code>.</p>
       """
-command_expected: ["ice", "run", "--name", "ice-ping",  "learn/ping", "ping", "localhost"]
-command_show: ["ice", "run", "--name", "ice-ping",  "learn/ping", "ping", "localhost"]
-result: """<p>Success! </p>"""
+command_expected: ["ice", "logs", "ice-ping"]
+command_show: ["ice", "logs", "ice-ping"]
+result: """<p>Success! You now know how to check logs, and container status.</p>"""
 intermediateresults:
   [
     #missing name
@@ -349,7 +357,8 @@ intermediateresults:
   ]
 tip: """
     <ul>
-    <li></li>
+    <li>Don't forget to specify the Container name or ID in your call to <code>ice logs</code>. </li>
+    <li>You can also use <code>ice inspect</code> to get more information about your running app. Give it a try.</li>
     </ul>
     """
 });
@@ -357,53 +366,39 @@ tip: """
 q.push ({
 html: """
       <h3>working with IP's</h3>
-      <p></p>
+      <p>We now have a container up and running, but right now the container does not have a public IP. It is not accessible from outside of the bluemix.</p>
+      <p>If we were running a web server in the container we need to bind a public IP to the container. For our ping image it is not necessary to bind an IP but for the sake of learning, let's do it anyways!</p>
+      <p>There are two steps in this process, first we will need to request an ip from Bluemix using <code>ice ip request</code>
+      This will give us the IP that will be bound to our container. Once we have the IP we must then bind it to the container using <code>ice ip bind</code>
+      </p>
       """
 assignment: """
       <h3>Assignment</h3>
-      <p></p>
+      <p>request an ip from Bluemix and bind it to our container using <code>ice ip bind</code></p>
       """
-command_expected: ["ice"]
-command_show: ["ice"]
-result: """<p>Success! </p>"""
+command_expected: ["ice", "ip", "bind", "129.41.232.25", "ice-ping"]
+command_show: ["ice", "ip", "bind", "129.41.232.25", "ice-ping"]
+result: """<p>Success! We now have an IP bound to our container!</p>"""
 intermediateresults:
   [
-    () -> """"""
+    () -> """Looks like you have the right IP but no container name."""
+    () -> """Looks like you are missing an IP and Container name."""
+    () -> """That doesnt look like the IP that Bluemix gave you. remember to use the IP provided by 'ice ip request.'"""
   ]
 tip: """
     <ul>
-
+    <li>For usage type <code>ice ip --help</code> or <code>ice ip bind --help</code></li>
+    <li>You can release a requested IP using <code>ice ip release</code>
     </ul>
     """
 });
 
-q.push ({
-html: """
-      <h3>Bind an IP</h3>
-      <p></p>
-      """
-assignment: """
-      <h3>Assignment</h3>
-      <p></p>
-      """
-command_expected: ["ice"]
-command_show: ["ice"]
-result: """<p>Success! </p>"""
-intermediateresults:
-  [
-    () -> """"""
-  ]
-tip: """
-    <ul>
-
-    </ul>
-    """
-});
 
 q.push ({
 html: """
-      <h3>Check Logs</h3>
-      <p></p>
+      <h3>Cleaning up</h3>
+      <p>We've gone through all the main steps required for deploying docker containers to Bluemix. Now we'll finish up by learning how to stop and remove our container.</p>
+      <p>Before we do anything we are going to need to stop our running app using <code>ice stop</code></p>
       """
 assignment: """
       <h3>Assignment</h3>
@@ -679,8 +674,11 @@ buildfunction = (q) ->
     if _q.currentCloudImages?
       window.currentCloudImages = _q.currentCloudImages
 
-    if _q.finishedCallback?
-      window.finishedCallback = q.finishedCallback
+    if _q.currentCloudImages?
+      window.currentCloudImages = _q.currentCloudImages
+
+    if _q.currentIcePs?
+      window.currentIcePs = _q.currentIcePs
     else
       window.finishedCallback = () -> return ""
 
