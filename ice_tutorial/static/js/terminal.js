@@ -414,7 +414,7 @@
             ref = commands.slice(1);
             for (k = 0, len = ref.length; k < len; k++) {
               word = ref[k];
-              sentence += word;
+              sentence += word + " ";
             }
             echo(run_echo(sentence));
           } else {
@@ -542,7 +542,7 @@
               ref1 = commands.slice(1);
               for (l = 0, len1 = ref1.length; l < len1; l++) {
                 word = ref1[l];
-                sentence += word;
+                sentence += word + " ";
               }
               echo(run_echo(sentence));
             } else {

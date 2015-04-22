@@ -19,7 +19,7 @@
   q = [];
 
   q.push({
-    html: "<h3>Getting started</h3>\n<p>Use IBM® Containers to run Docker containers in a hosted cloud environment on IBM Bluemix™. IBM Containers \nhelps you build and deploy containers where you can package your applications and services. Each container is \nbased on an image format, includes a set of standard operations, and is an execution environment in itself.\n</p>",
+    html: "<h3>Getting started</h3>\n<p>Use IBM® Containers to run Docker containers in a hosted cloud environment on IBM Bluemix™. IBM Containers \nhelps you build and deploy containers where you can package your applications and services. Each container is \nbased on an image format, includes a set of standard operations, and is an execution environment in itself.\n</p>\n<p>If you are familiar with Docker CLI, then the first half of this tutorial will show you how to use common docker \ncommands using ice --local. This cli Has disabled docker commands. If you want to use a docker command you must use\n<code>ice --local</code>. 'ice --local' is equivalent to 'docker'</p>",
     assignment: "<h3>Assignment</h3>\n<p>Check IBM Containers Extension (ICE) to identify the version of the client that you are running</p>\n<p>This will help you verify which version of the ICE CLI is running. If you see a version value\nthen you know you that your all set with your ICE client installation. The ICE CLI is supported on Linux OS.\nFor Windows, your best option is to create an Ubuntu VM and install your client software there.</p>",
     tip: "<p>Try typing <code>ice --help</code> to see the full list of accepted arguments</p> <p>This emulator provides only a limited set of shell and ICE commands, so some commands may not work as expected</p>",
     command_expected: ['ice', 'version'],
@@ -158,7 +158,7 @@
   });
 
   q.push({
-    html: "<h3>Running on Bluemix</h3>\n<p>We are now ready to run our ping container on Bluemix! To do this we will be using <code>ice run</code>.</p>\n<p>The <code>ice run</code> command will need a couple arguements from us. First we will need to give it a name for the new container.\n next we will specify the image that the container will need to run. Finally we will pass a command (ping) that will be run once the container is created.\n</p>",
+    html: "<h3>Running on Bluemix</h3>\n<p>We are now ready to run our ping container on Bluemix! To do this we will be using <code>ice run</code>.</p>\n<p>The <code>ice run</code> command will need a couple arguements from us. First we will need to give it a name for the new container.\n next we will specify the image that the container will need to run. Finally we will pass a command (ping) that will be run once the container is created.\n</p>\n<p>Note: from here on out we will no longer need to use the <code>--local</code> tag, we will be working exclusively on the cloud.</p>",
     assignment: "<h3>Assignment</h3>\n<p>create and run a container on bluemix using <code>ice run</code>. The container must have the name <b>'ice-ping'</b>. It will also run our <b>learn/tutorial</b> image with the <b>ping localhost</b> command</p>",
     command_expected: ["ice", "run", "--name", "ice-ping", "learn/ping", "ping", "localhost"],
     command_show: ["ice", "run", "--name", "ice-ping", "learn/ping", "ping", "localhost"],

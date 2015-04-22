@@ -23,6 +23,9 @@ html: """
       helps you build and deploy containers where you can package your applications and services. Each container is 
       based on an image format, includes a set of standard operations, and is an execution environment in itself.
       </p>
+      <p>If you are familiar with Docker CLI, then the first half of this tutorial will show you how to use common docker 
+      commands using ice --local. This cli Has disabled docker commands. If you want to use a docker command you must use
+      <code>ice --local</code>. 'ice --local' is equivalent to 'docker'</p>
       """
 assignment: """
       <h3>Assignment</h3>
@@ -308,6 +311,7 @@ html: """
       <p>The <code>ice run</code> command will need a couple arguements from us. First we will need to give it a name for the new container.
        next we will specify the image that the container will need to run. Finally we will pass a command (ping) that will be run once the container is created.
       </p>
+      <p>Note: from here on out we will no longer need to use the <code>--local</code> tag, we will be working exclusively on the cloud.</p>
       """
 assignment: """
       <h3>Assignment</h3>

@@ -461,13 +461,13 @@ do @myTerminal = ->
 				else if commands.containsAllOfTheseParts(['echo'])
 					sentence = ''
 					for word in commands.slice(1)
-    					sentence += word
+    					sentence += word + " "
 					echo run_echo(sentence)
 				else
 					echo run_flag_defined_not_defined(switches)
 			else if imagename is "learn/tutorial"
 				if switches.length = 0
-					#missing --local tag TODO
+					#missing --local tag 
 					echo run_learn_no_command
 					intermediateResults(0)
 				else if commands[0] is "/bin/bash"
@@ -594,7 +594,7 @@ do @myTerminal = ->
 					else if commands.containsAllOfTheseParts(['echo'])
 						sentence = ''
 						for word in commands.slice(1)
-	    					sentence += word
+	    					sentence += word + " "
 						echo run_echo(sentence)
 					else
 						echo run_flag_defined_not_defined(switches)
