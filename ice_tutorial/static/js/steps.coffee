@@ -402,14 +402,14 @@ html: """
       """
 assignment: """
       <h3>Assignment</h3>
-      <p></p>
+      <p>Use <code>ice stop</code> to stop the container. Then use <code>ice rm</code> to remove the <b>ice-ping</b> container</p>
       """
 command_expected: ["ice", "rm", "ice-ping"]
 command_show: ["ice", "rm", "ice-ping"]
-result: """<p>Great job! ice-ping has been stopped and removed</p>"""
+result: """<p>Great job! ice-ping has been stopped and removed. You Have completed the ice CLI tutorial!</p>"""
 tip: """
     <ul>
-
+    <li>type <code>ice stop --help</code> and <code>ice rm --help</code> for complete usage.</li>
     </ul>
     """
 intermediateresults:

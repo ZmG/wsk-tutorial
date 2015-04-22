@@ -206,11 +206,11 @@
 
   q.push({
     html: "<h3>Cleaning up</h3>\n<p>We've gone through all the main steps required for deploying docker containers to Bluemix. Now we'll finish up by learning how to stop and remove our container.</p>\n<p>Before we do anything we are going to need to stop our running app using <code>ice stop</code></p>",
-    assignment: "<h3>Assignment</h3>\n<p></p>",
+    assignment: "<h3>Assignment</h3>\n<p>Use <code>ice stop</code> to stop the container. Then use <code>ice rm</code> to remove the <b>ice-ping</b> container</p>",
     command_expected: ["ice", "rm", "ice-ping"],
     command_show: ["ice", "rm", "ice-ping"],
-    result: "<p>Great job! ice-ping has been stopped and removed</p>",
-    tip: "<ul>\n\n</ul>",
+    result: "<p>Great job! ice-ping has been stopped and removed. You Have completed the ice CLI tutorial!</p>",
+    tip: "<ul>\n<li>type <code>ice stop --help</code> and <code>ice rm --help</code> for complete usage.</li>\n</ul>",
     intermediateresults: [
       function() {
         var data;
