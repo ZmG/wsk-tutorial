@@ -401,10 +401,12 @@ do @myTerminal = ->
 					echo run_learn_no_command
 
 			else if imagename is "learn/ping"
-				if commands.containsAllOfTheseParts(["ping", "google.com"])
-					util_slow_lines(term, run_ping_www_google_com, "", callback )
+				if commands.containsAllOfTheseParts(["--name", "ice-ping", "ping", "localhost"])
+					util_slow_lines(term, run_ping_localhost, "", callback )
+				if commands.containsAllOfTheseParts([ "ping", "localhost"])
+					echo ice_run_no_name
 				else if commands[0] is "ping" and commands[1]
-					echo run_ping_not_google(commands[1])
+					echo run_ping_not_localhost(commands[1])
 				else if commands[0] is "ping"
 					echo ping
 				else if commands[0]
@@ -524,10 +526,10 @@ do @myTerminal = ->
 						echo run_learn_no_command
 
 				else if imagename is "learn/ping"
-					if commands.containsAllOfTheseParts(["ping", "google.com"])
-						util_slow_lines(term, run_ping_www_google_com, "", callback )
+					if commands.containsAllOfTheseParts(["ping", "localhost"])
+						util_slow_lines(term, run_ping_localhost, "", callback )
 					else if commands[0] is "ping" and commands[1]
-						echo run_ping_not_google(commands[1])
+						echo run_ping_not_localhost(commands[1])
 					else if commands[0] is "ping"
 						echo ping
 					else if commands[0]
@@ -828,13 +830,7 @@ do @myTerminal = ->
 
 		"""
 
-	ice_run_help = \
-	"""
-	usage: ice run [-h] [--name NAME] [--memory MEMORY] [--env ENV]
-               [--publish PORT] [--volume VOL] [--bind APP] [--ssh SSHKEY]
-               IMAGE [CMD [CMD ...]]
-	ice run: error: too few arguments
-	"""
+	
 
 	inspect = \
 		"""
@@ -858,7 +854,7 @@ do @myTerminal = ->
 		"Created": "2013-07-30T00:54:12.417119736Z",
 		"Path": "ping",
 		"Args": [
-				"www.google.com"
+				"localhost"
 		],
 		"Config": {
 				"Hostname": "efefdc74a1d5",
@@ -876,7 +872,7 @@ do @myTerminal = ->
 				"Env": null,
 				"Cmd": [
 						"ping",
-						"www.google.com"
+						"localhost"
 				],
 				"Dns": null,
 				"Image": "learn/ping",
@@ -919,14 +915,14 @@ do @myTerminal = ->
 	ps = \
 		"""
 		ID                  IMAGE               COMMAND               CREATED             STATUS              PORTS
-		efefdc74a1d5        learn/ping:latest   ping www.google.com   37 seconds ago      Up 36 seconds
+		efefdc74a1d5        learn/ping:latest   ping localhost   37 seconds ago      Up 36 seconds
 		"""
 
 	ps_a = \
 		"""
 		ID                  IMAGE               COMMAND                CREATED             STATUS              PORTS
 		6982a9948422        ubuntu:12.04        apt-get install ping   1 minute ago        Exit 0
-		efefdc74a1d5        learn/ping:latest   ping www.google.com   37 seconds ago       Up 36 seconds
+		efefdc74a1d5        learn/ping:latest   ping localhost   37 seconds ago       Up 36 seconds
 		"""
 
 	ps_l = \
@@ -1153,23 +1149,23 @@ do @myTerminal = ->
 		2013/07/02 02:14:47 Error: No such image: #{keyword}
 		"""
 
-	run_ping_not_google = (keyword) ->
+	run_ping_not_localhost = (keyword) ->
 		"""
 		ping: unknown host #{keyword}
 		"""
 
-	run_ping_www_google_com = \
+	run_ping_localhost = \
 		"""
-		PING www.google.com (74.125.239.129) 56(84) bytes of data.
-		64 bytes from nuq05s02-in-f20.1e100.net (74.125.239.148): icmp_req=1 ttl=55 time=2.23 ms
-		64 bytes from nuq05s02-in-f20.1e100.net (74.125.239.148): icmp_req=2 ttl=55 time=2.30 ms
-		64 bytes from nuq05s02-in-f20.1e100.net (74.125.239.148): icmp_req=3 ttl=55 time=2.27 ms
-		64 bytes from nuq05s02-in-f20.1e100.net (74.125.239.148): icmp_req=4 ttl=55 time=2.30 ms
-		64 bytes from nuq05s02-in-f20.1e100.net (74.125.239.148): icmp_req=5 ttl=55 time=2.25 ms
-		64 bytes from nuq05s02-in-f20.1e100.net (74.125.239.148): icmp_req=6 ttl=55 time=2.29 ms
-		64 bytes from nuq05s02-in-f20.1e100.net (74.125.239.148): icmp_req=7 ttl=55 time=2.23 ms
-		64 bytes from nuq05s02-in-f20.1e100.net (74.125.239.148): icmp_req=8 ttl=55 time=2.30 ms
-		64 bytes from nuq05s02-in-f20.1e100.net (74.125.239.148): icmp_req=9 ttl=55 time=2.35 ms
+		PING localhost (127.0.0.1) 56(84) bytes of data.
+		64 bytes from nuq05s02-in-f20.1e100.net (127.0.0.1): icmp_req=1 ttl=55 time=2.23 ms
+		64 bytes from nuq05s02-in-f20.1e100.net (127.0.0.1): icmp_req=2 ttl=55 time=2.30 ms
+		64 bytes from nuq05s02-in-f20.1e100.net (127.0.0.1): icmp_req=3 ttl=55 time=2.27 ms
+		64 bytes from nuq05s02-in-f20.1e100.net (127.0.0.1): icmp_req=4 ttl=55 time=2.30 ms
+		64 bytes from nuq05s02-in-f20.1e100.net (127.0.0.1): icmp_req=5 ttl=55 time=2.25 ms
+		64 bytes from nuq05s02-in-f20.1e100.net (127.0.0.1): icmp_req=6 ttl=55 time=2.29 ms
+		64 bytes from nuq05s02-in-f20.1e100.net (127.0.0.1): icmp_req=7 ttl=55 time=2.23 ms
+		64 bytes from nuq05s02-in-f20.1e100.net (127.0.0.1): icmp_req=8 ttl=55 time=2.30 ms
+		64 bytes from nuq05s02-in-f20.1e100.net (127.0.0.1): icmp_req=9 ttl=55 time=2.35 ms
 		-> This would normally just keep going. However, this emulator does not support Ctrl-C, so we quit here.
 		"""
 
@@ -1254,6 +1250,19 @@ do @myTerminal = ->
 			"""
 			ICE CLI Version        : 2.0.1 271 2015-03-30T15:40:18
 			"""
+
+	ice_run_help = \
+	"""
+	usage: ice run [-h] [--name NAME] [--memory MEMORY] [--env ENV]
+               [--publish PORT] [--volume VOL] [--bind APP] [--ssh SSHKEY]
+               IMAGE [CMD [CMD ...]]
+	ice run: error: too few arguments
+	"""
+
+	ice_run_no_name = \
+	"""
+	Please specify a name for your container using --name or -n option
+	"""
 
 	ICE_logo = \
 	'''
