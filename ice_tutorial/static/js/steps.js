@@ -171,13 +171,15 @@
 
   q.push({
     html: "<h3>Running on Bluemix</h3>\n<p>We are now ready to run our ping container on Bluemix! To do this we will be using <code>ice run</code>.</p>\n<p>The <code>ice run</code> command will need a couple arguements from us. First we will need to give it a name for the new container.\n next we will specify the image that the container will need to run. Finally we will pass a command (ping) that will be run once the container is created.\n</p>\n<p>Note: from here on out we will no longer need to use the <code>--local</code> tag, we will be working exclusively on the cloud.</p>",
-    assignment: "<h3>Assignment</h3>\n<p>create and run a container on bluemix using <code>ice run</code>. The container must have the name <b>'ice-ping'</b>. It will also run our <b>learn/tutorial</b> image with the <b>ping localhost</b> command</p>",
+    assignment: "<h3>Assignment</h3>\n<p>create and run a container on bluemix using <code>ice run</code>. The container must have the name <b>'ice-ping'</b>. It will also run our <b>learn/ping</b> image with the <b>ping localhost</b> command</p>",
     command_expected: ["ice", "run", "--name", "ice-ping", "learn/ping", "ping", "localhost"],
     command_show: ["ice", "run", "--name", "ice-ping", "learn/ping", "ping", "localhost"],
     result: "<p>Success! The image is up and running on Bluemix!</p>",
     intermediateresults: [
       function() {
         return "getting there, try pinging 'localhost' instead.";
+      }, function() {
+        return "Try naming the container 'ice-ping'";
       }
     ],
     tip: "<ul>\n<li>Notice that we will not use the <code>--local</code> because we are running on Bluemix, not local.</li> \n<li>Enter <code>ice run</code> to see flag usage details</li>\n</ul>",

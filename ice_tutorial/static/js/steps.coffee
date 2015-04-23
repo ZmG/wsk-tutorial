@@ -338,7 +338,7 @@ html: """
       """
 assignment: """
       <h3>Assignment</h3>
-      <p>create and run a container on bluemix using <code>ice run</code>. The container must have the name <b>'ice-ping'</b>. It will also run our <b>learn/tutorial</b> image with the <b>ping localhost</b> command</p>
+      <p>create and run a container on bluemix using <code>ice run</code>. The container must have the name <b>'ice-ping'</b>. It will also run our <b>learn/ping</b> image with the <b>ping localhost</b> command</p>
       """
 command_expected: ["ice", "run", "--name", "ice-ping",  "learn/ping", "ping", "localhost"]
 command_show: ["ice", "run", "--name", "ice-ping",  "learn/ping", "ping", "localhost"]
@@ -346,6 +346,7 @@ result: """<p>Success! The image is up and running on Bluemix!</p>"""
 intermediateresults:
   [
     () -> """getting there, try pinging 'localhost' instead."""
+    () -> """Try naming the container 'ice-ping'"""
   ]
 tip: """
     <ul>

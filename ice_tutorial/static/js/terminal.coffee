@@ -500,13 +500,15 @@ do @myTerminal = ->
 					echo run_learn_no_command
 
 			else if imagename is "learn/ping"
-				if commands.containsAllOfTheseParts(["ice-ping", "ping", "localhost"]) && switches.containsAllOfTheseParts(["--name"])
+				if commands.containsAllOfTheseParts(["ping", "localhost"]) && switches.containsAllOfTheseParts(["--name"]) && swargs.containsAllOfTheseParts(["ice-ping"])
 					util_slow_lines(term, run_ping_localhost, "", callback )
-				else if commands.containsAllOfTheseParts(["ice-ping", "ping", "localhost"]) && switches.containsAllOfTheseParts(["-n"])
+				else if commands.containsAllOfTheseParts(["ping", "localhost"]) && switches.containsAllOfTheseParts(["-n"]) && swargs.containsAllOfTheseParts(["ice-ping"])
 					util_slow_lines(term, run_ping_localhost, "", callback )
-				else if commands.containsAllOfTheseParts([ "ping", "localhost"])
+				else if commands.containsAllOfTheseParts([ "ping", "localhost"]) && (switches.containsAllOfTheseParts(["--name"]) or switches.containsAllOfTheseParts(["-n"]))
+					intermediateResults(1)
 					echo ice_run_no_name
 				else if commands[0] is "ping" and commands[1]
+					intermediateResults(0)
 					echo run_ping_not_localhost(commands[1])
 				else if commands[0] is "ping"
 					echo ping
@@ -574,6 +576,8 @@ do @myTerminal = ->
 			# Command run
 			else if inputs[2] is "run"
 				# parse all input so we have a json object
+
+
 				parsed_input = parseInput(inputs)
 
 				switches = parsed_input.switches
