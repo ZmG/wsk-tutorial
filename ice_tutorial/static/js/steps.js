@@ -44,7 +44,7 @@
   });
 
   q.push({
-    html: "<h3>Downloading container images</h3>\n<p>This exercise will introduce the --local. calling ice --local is the same as calling docker. ice --local will pass arguements to docker and run like standard docker.</p>\n<p>Container images can be downloaded just as easily, using <code>docker pull</code>.</p>\n<p>However, instead of calling <code>docker pull</code> directly we will use <code>ice --local pull</code>, to pull images from registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image&gt;.</p>\n<p>For images from the central index, the name you specify is constructed as &lt;Namespace&gt;/&lt;Image Name&gt;</p>\n<p>A group of special, trusted images such as the ubuntu base image can be retrieved by just their name &lt;Image Name&gt;.</p>",
+    html: "<h3>Downloading container images</h3>\n<p>This exercise will introduce the <b>--local</b> tag. calling ice --local is the same as calling docker. ice --local will pass arguements to docker and run like standard docker.</p>\n<p>Container images can be downloaded just as easily, using <code>docker pull</code>.</p>\n<p>However, instead of calling <code>docker pull</code> directly we will use <code>ice --local pull</code>, to pull images from registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image&gt;.</p>\n<p>For images from the central index, the name you specify is constructed as &lt;Namespace&gt;/&lt;Image Name&gt;</p>\n<p>A group of special, trusted images such as the ubuntu base image can be retrieved by just their name &lt;Image Name&gt;.</p>",
     assignment: "<h3>Assignment</h3>\n<p>Pull the <b>'tutorial'</b> image from the <b>'learn'</b> namespace in the <b>'registry-ice.ng.bluemix.net'</b> registry</p>",
     command_expected: ['ice', '--local', 'pull', 'registry-ice.ng.bluemix.net/learn/tutorial'],
     result: "<p>Cool. Look at the results. You'll see that ice has invoked docker to download a number of layers. In Docker all images (except the base image) are made up of several cumulative layers.</p>",
@@ -53,9 +53,12 @@
         return "<p>You seem to be almost there. Don't forget to tell <b>ice --local pull</b> where to find the image, ice --local pull &lt;<Registry url>&gt;/&lt;learn&gt;/&lt;tutorial&gt; ";
       }, function() {
         return "<p>You got the namespace and image name correct, but forgot to specify a registry, hint ice --local pull &lt;Registry url&gt;/&lt;Namespace&gt;/&lt;Image Name&gt;</p>";
+      }, function() {
+        return "<p>Looks like you forgot to use the --local flag, try <em>ice --local pull [registry/namespace/imageName]</em></p>";
       }
     ],
-    tip: "<ul>\n  <li>Don't forget to pull the full name of the repository e.g. 'learn/tutorial'</li>\n  <li>For this tutorial the Namespace for you registry will always be <b>'learn'</b></li>\n  <li>Look under 'show expected command if you're stuck.</li>\n</ul>"
+    tip: "<ul>\n  <li>Don't forget to pull the full name of the repository e.g. 'learn/tutorial'</li>\n  <li>For this tutorial the Namespace for you registry will always be <b>'learn'</b></li>\n  <li>Look under 'show expected command if you're stuck.</li>\n</ul>",
+    currentLocalImages: "REPOSITORY            TAG                 IMAGE ID            CREATED              VIRTUAL SIZE\n  \nubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)\nlearn/tutorial        latest              8dbd9e392a96        2 months ago        131.5 MB (virtual 131.5 MB)"
   });
 
   q.push({
@@ -71,8 +74,8 @@
         return "<p>You've got the arguments right. Did you get the command? Try <em>/bin/bash </em>?</p>";
       }
     ],
-    tip: "<p>The command <code>ice --local run</code> takes a minimum of two arguments. An image name, and the command you want to execute\nwithin that image.</p>\n<p>Check the expected command below if it does not work as expected</p>",
-    currentLocalImages: "REPOSITORY            TAG                 IMAGE ID            CREATED              VIRTUAL SIZE\n  \nubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)\nlearn/tutorial        latest              8dbd9e392a96        2 months ago        131.5 MB (virtual 131.5 MB)\nlearn/ping            latest              effb66b31edb        10 minutes ago      11.57 MB (virtual 143.1 MB)"
+    tip: "<ul>\n   <li>The command <code>ice --local run</code> takes a minimum of two arguments. An image name, and the command you want to execute\n   within that image.</li>\n   <li>Check the expected command below if it does not work as expected.</li>\n   <li>Remember the image name is tutorial from the learn namespace, together it is called learn/tutorial. </li>\n</ul>",
+    currentLocalImages: "REPOSITORY            TAG                 IMAGE ID            CREATED              VIRTUAL SIZE\n  \nubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)\nlearn/tutorial        latest              8dbd9e392a96        2 months ago        131.5 MB (virtual 131.5 MB)"
   });
 
   q.push({
@@ -100,7 +103,8 @@
         return "You have not specified the correct repository name to commit to (learn/ping). This works, but giving your images a name\nmakes them much easier to work with.";
       }
     ],
-    tip: "<ul>\n<li>Giving just <code>ice --local commit</code> will show you the possible arguments.</li>\n<li>You will need to specify the container to commit by the ID you found</li>\n<li>You don't need to copy (type) the entire ID. Three or four characters are usually enough.</li>\n</ul>"
+    tip: "<ul>\n<li>Giving just <code>ice --local commit</code> will show you the possible arguments.</li>\n<li>You will need to specify the container to commit by the ID you found</li>\n<li>You don't need to copy (type) the entire ID. Three or four characters are usually enough.</li>\n</ul>",
+    currentLocalImages: "REPOSITORY            TAG                 IMAGE ID            CREATED              VIRTUAL SIZE\n  \nubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)\nlearn/tutorial        latest              8dbd9e392a96        2 months ago        131.5 MB (virtual 131.5 MB)\nlearn/ping            latest              effb66b31edb        10 minutes ago      11.57 MB (virtual 143.1 MB)"
   });
 
   q.push({
@@ -110,10 +114,10 @@
     result: "<p>That worked! Note that normally you can use Ctrl-C to disconnect. The container will keep running. This\ncontainer will disconnect automatically.</p>",
     intermediateresults: [
       function() {
-        return "You have not specified a repository name. This is not wrong, but giving your images a name\nmake them much easier to work with.";
+        return "Usually you would be able to ping other domains, but this emlator only supports localhost.";
       }
     ],
-    tip: "<ul>\n<li>Make sure to use the repository name learn/ping to run ping with</li>\n</ul>"
+    tip: "<ul>\n<li>Make sure to use the learn/ping image to run ping.</li>\n</ul>"
   });
 
   q.push({

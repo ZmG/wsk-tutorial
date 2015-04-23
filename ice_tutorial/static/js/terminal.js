@@ -13,7 +13,7 @@
 
 (function() {
   (this.myTerminal = function() {
-    var EMULATOR_VERSION, ICE_logo, IceCommands, auth, bash, commit, commit_containerid, commit_id_does_not_exist, docker_cmd, docker_version, help, ice, ice_help, ice_inspect_help, ice_ip, ice_ip_bind_fail, ice_ip_bind_help, ice_ip_bound, ice_ip_help, ice_ip_request, ice_ip_request_help, ice_logs, ice_logs_help, ice_no_args, ice_no_such_container, ice_rm, ice_rm_help, ice_rm_ice_ping, ice_run_help, ice_run_no_name, ice_stop, ice_stop_help, ice_stop_ice_ping, ice_version, inspect, inspect_ice_ping_container, inspect_no_such_container, inspect_ping_container, login, loginResult, login_cmd, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push_container_learn_ping, push_help, push_no_args, push_wrong_name, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_echo, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_localhost, run_ping_not_localhost, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait;
+    var EMULATOR_VERSION, ICE_logo, IceCommands, auth, bash, commit, commit_containerid, commit_id_does_not_exist, docker_cmd, docker_version, help, ice, ice_help, ice_inspect_help, ice_ip, ice_ip_bind_fail, ice_ip_bind_help, ice_ip_bound, ice_ip_help, ice_ip_request, ice_ip_request_help, ice_logs, ice_logs_help, ice_no_args, ice_no_such_container, ice_pull, ice_rm, ice_rm_help, ice_rm_ice_ping, ice_run_help, ice_run_no_name, ice_stop, ice_stop_help, ice_stop_ice_ping, ice_version, inspect, inspect_ice_ping_container, inspect_no_such_container, inspect_ping_container, login, loginResult, login_cmd, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push_container_learn_ping, push_help, push_no_args, push_wrong_name, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_echo, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_localhost, run_ping_not_localhost, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait;
     EMULATOR_VERSION = "0.1.5";
     this.basesettings = {
       prompt: '[[b;#fff;]you@tutorial:~$] ',
@@ -304,6 +304,8 @@
           term.loginSequence = 1;
         } else if (inputs.containsAllOfTheseParts(['ice', 'login', '-H']) && inputs[3]) {
           intermediateResults(2);
+        } else if (inputs.containsAllOfTheseParts(['ice', 'login', '-H']) && !inputs[3]) {
+          intermediateResults(2);
         } else if (inputs.containsAllOfTheseParts(['ice', 'login'])) {
           intermediateResults(0);
         }
@@ -338,6 +340,9 @@
         } else {
           echo(ice_no_such_container);
         }
+      } else if (inputs[1] === "pull") {
+        intermediateResults(2);
+        echo(ice_pull);
       } else if (inputs[1] === "inspect") {
         if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
           echo(inspect_help);
@@ -503,7 +508,9 @@
             echo(search);
           }
         } else if (inputs[2] === "commit") {
-          if (inputs.containsAllOfTheseParts(['ice', '--local', 'commit', '698', 'learn/ping'])) {
+          if (inputs[2] === "-h" || inputs[2] === "--help") {
+            echo(commit);
+          } else if (inputs.containsAllOfTheseParts(['ice', '--local', 'commit', '698', 'learn/ping'])) {
             util_slow_lines(term, commit_containerid, "", callback);
           } else if (inputs.containsAllOfTheseParts(['ice', '--local', 'commit', '698'])) {
             util_slow_lines(term, commit_containerid, "", callback);
@@ -559,9 +566,10 @@
               intermediateResults(2);
             } else if (commands[0] === "echo") {
               echo(run_learn_tutorial_echo_hello_world(commands));
-            } else if (commands.containsAllOfThese(['apt-get', 'install', '-y', 'iputils-ping'])) {
+            } else if (commands.containsAllOfThese(['apt-get', 'install', '-y', 'iputils-ping']) || commands.containsAllOfThese(['apt-get', 'install', '-y', 'ping'])) {
               echo(run_apt_get_install_iputils_ping);
-            } else if (commands.containsAllOfThese(['apt-get', 'install', 'iputils-ping'])) {
+            } else if (commands.containsAllOfThese(['apt-get', 'install', 'iputils-ping']) || commands.containsAllOfThese(['apt-get', 'install', 'ping'])) {
+              intermediateResults(0);
               echo(run_apt_get_install_iputils_ping);
             } else if (commands.containsAllOfThese(['apt-get', 'install', 'ping'])) {
               echo(run_apt_get_install_iputils_ping);
@@ -774,6 +782,7 @@
     ice_stop_help = "usage: ice stop [-h] [--time SECS] CONTAINER\n\npositional arguments:\n  CONTAINER             container name or id\n\noptional arguments:\n  -h, --help            show this help message and exit\n  --time SECS, -t SECS  seconds to wait before killing container";
     ice_stop_ice_ping = "Stopped container successfully";
     ice_no_such_container = "Command failed with container cloud service\nno such container";
+    ice_pull = "usage: ice [-h] [--verbose] [--cloud | --local]\n           {login,tlogin,ps,run,inspect,logs,build,start,stop,restart,pause,unpause,rm,images,rmi,search,info,ip,group,route,volume,namespace,help,version,cpi}\n           ...\nice: error: argument subparser_name: invalid choice: 'pull' (choose from 'login', 'tlogin', 'ps', 'run', 'inspect', 'logs', 'build', 'start', 'stop', 'restart', 'pause', 'unpause', 'rm', 'images', 'rmi', 'search', 'info', 'ip', 'group', 'route', 'volume', 'namespace', 'help', 'version', 'cpi')";
     ice_logs = "usage: ice logs [-h] [--stdout | --stderr] CONTAINER\nice logs: error: too few arguments";
     ice_logs_help = "usage: ice logs [-h] [--stdout | --stderr] CONTAINER\n\npositional arguments:\n  CONTAINER     container name or id\n\noptional arguments:\n  -h, --help    show this help message and exit\n  --stdout, -o  get output log, default\n  --stderr, -e  get error log";
     ice_run_no_name = "Please specify a name for your container using --name or -n option";

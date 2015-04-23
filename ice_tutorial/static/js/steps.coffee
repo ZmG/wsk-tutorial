@@ -63,7 +63,7 @@ tip: "the optional arguments for login are specified in the online Bluemix Conta
 q.push ({
 html: """
       <h3>Downloading container images</h3>
-      <p>This exercise will introduce the --local. calling ice --local is the same as calling docker. ice --local will pass arguements to docker and run like standard docker.</p>
+      <p>This exercise will introduce the <b>--local</b> tag. calling ice --local is the same as calling docker. ice --local will pass arguements to docker and run like standard docker.</p>
       <p>Container images can be downloaded just as easily, using <code>docker pull</code>.</p>
       <p>However, instead of calling <code>docker pull</code> directly we will use <code>ice --local pull</code>, to pull images from registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image&gt;.</p>
       <p>For images from the central index, the name you specify is constructed as &lt;Namespace&gt;/&lt;Image Name&gt;</p>
@@ -79,6 +79,7 @@ result: """<p>Cool. Look at the results. You'll see that ice has invoked docker 
 intermediateresults: [
   () -> """<p>You seem to be almost there. Don't forget to tell <b>ice --local pull</b> where to find the image, ice --local pull &lt;<Registry url>&gt;/&lt;learn&gt;/&lt;tutorial&gt; """,
   () -> """<p>You got the namespace and image name correct, but forgot to specify a registry, hint ice --local pull &lt;Registry url&gt;/&lt;Namespace&gt;/&lt;Image Name&gt;</p>"""
+  () -> """<p>Looks like you forgot to use the --local flag, try <em>ice --local pull [registry/namespace/imageName]</em></p>"""
   ]
 tip: """
     <ul>
@@ -87,6 +88,13 @@ tip: """
       <li>Look under 'show expected command if you're stuck.</li>
     </ul>
      """
+currentLocalImages :
+  """
+  REPOSITORY            TAG                 IMAGE ID            CREATED              VIRTUAL SIZE
+    
+  ubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)
+  learn/tutorial        latest              8dbd9e392a96        2 months ago        131.5 MB (virtual 131.5 MB)
+  """
 })
 
 
@@ -114,9 +122,12 @@ intermediateresults: [
   () -> """<p>You've got the arguments right. Did you get the command? Try <em>/bin/bash </em>?</p>"""
   ]
 tip: """
-     <p>The command <code>ice --local run</code> takes a minimum of two arguments. An image name, and the command you want to execute
-     within that image.</p>
-     <p>Check the expected command below if it does not work as expected</p>
+  <ul>
+     <li>The command <code>ice --local run</code> takes a minimum of two arguments. An image name, and the command you want to execute
+     within that image.</li>
+     <li>Check the expected command below if it does not work as expected.</li>
+     <li>Remember the image name is tutorial from the learn namespace, together it is called learn/tutorial. </li>
+  </ul>
     """
 currentLocalImages :
   """
@@ -124,7 +135,6 @@ currentLocalImages :
     
   ubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)
   learn/tutorial        latest              8dbd9e392a96        2 months ago        131.5 MB (virtual 131.5 MB)
-  learn/ping            latest              effb66b31edb        10 minutes ago      11.57 MB (virtual 143.1 MB)
   """
 })
 
@@ -178,6 +188,15 @@ tip: """<ul>
      <li>You will need to specify the container to commit by the ID you found</li>
      <li>You don't need to copy (type) the entire ID. Three or four characters are usually enough.</li>
      </ul>"""
+
+currentLocalImages :
+  """
+  REPOSITORY            TAG                 IMAGE ID            CREATED              VIRTUAL SIZE
+    
+  ubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)
+  learn/tutorial        latest              8dbd9e392a96        2 months ago        131.5 MB (virtual 131.5 MB)
+  learn/ping            latest              effb66b31edb        10 minutes ago      11.57 MB (virtual 143.1 MB)
+  """
 })
 
 
@@ -196,10 +215,11 @@ assignment: """
 command_expected: ["ice", "--local", "run", 'learn/ping', 'ping', 'localhost' ]
 result: """<p>That worked! Note that normally you can use Ctrl-C to disconnect. The container will keep running. This
         container will disconnect automatically.</p>"""
-intermediateresults: [ () -> """You have not specified a repository name. This is not wrong, but giving your images a name
-                      make them much easier to work with."""]
+intermediateresults: [ 
+    () -> """Usually you would be able to ping other domains, but this emlator only supports localhost."""
+  ]
 tip: """<ul>
-     <li>Make sure to use the repository name learn/ping to run ping with</li>
+     <li>Make sure to use the learn/ping image to run ping.</li>
      </ul>"""
 })
 

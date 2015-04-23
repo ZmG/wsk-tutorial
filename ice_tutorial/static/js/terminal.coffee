@@ -350,6 +350,8 @@ do @myTerminal = ->
 				term.loginSequence = 1
 			else if inputs.containsAllOfTheseParts(['ice', 'login', '-H']) and inputs[3]
 				intermediateResults(2)
+			else if inputs.containsAllOfTheseParts(['ice', 'login', '-H']) and not inputs[3]
+				intermediateResults(2)
 			else if inputs.containsAllOfTheseParts(['ice', 'login'])
 				intermediateResults(0)
 
@@ -385,6 +387,10 @@ do @myTerminal = ->
 				echo ice_rm
 			else
 				echo ice_no_such_container
+
+		else if inputs[1] is "pull"
+			intermediateResults(2)
+			echo ice_pull
 
 		else if inputs[1] is "inspect"
 				if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
@@ -554,7 +560,9 @@ do @myTerminal = ->
 
 			# Command commit
 			else if inputs[2] is "commit"
-				if inputs.containsAllOfTheseParts(['ice', '--local', 'commit', '698', 'learn/ping'])
+				if inputs[2] is "-h" or inputs[2] is "--help"
+					echo commit
+				else if inputs.containsAllOfTheseParts(['ice', '--local', 'commit', '698', 'learn/ping'])
 					util_slow_lines(term, commit_containerid, "", callback )
 				else if inputs.containsAllOfTheseParts(['ice', '--local', 'commit', '698'])
 					util_slow_lines(term, commit_containerid, "", callback )
@@ -610,9 +618,10 @@ do @myTerminal = ->
 						intermediateResults(2)
 					else if commands[0] is "echo"
 						echo run_learn_tutorial_echo_hello_world(commands)
-					else if commands.containsAllOfThese(['apt-get', 'install', '-y', 'iputils-ping'])
+					else if commands.containsAllOfThese(['apt-get', 'install', '-y', 'iputils-ping']) or commands.containsAllOfThese(['apt-get', 'install', '-y', 'ping'])
 						echo run_apt_get_install_iputils_ping
-					else if commands.containsAllOfThese(['apt-get', 'install', 'iputils-ping'])
+					else if commands.containsAllOfThese(['apt-get', 'install', 'iputils-ping']) or commands.containsAllOfThese(['apt-get', 'install', 'ping'])
+						intermediateResults(0)
 						echo run_apt_get_install_iputils_ping
 					else if commands.containsAllOfThese(['apt-get', 'install', 'ping'])
 						echo run_apt_get_install_iputils_ping
@@ -1502,6 +1511,14 @@ do @myTerminal = ->
 	"""
 	Command failed with container cloud service
 	no such container
+	"""
+
+	ice_pull = \
+	"""
+	usage: ice [-h] [--verbose] [--cloud | --local]
+           {login,tlogin,ps,run,inspect,logs,build,start,stop,restart,pause,unpause,rm,images,rmi,search,info,ip,group,route,volume,namespace,help,version,cpi}
+           ...
+	ice: error: argument subparser_name: invalid choice: 'pull' (choose from 'login', 'tlogin', 'ps', 'run', 'inspect', 'logs', 'build', 'start', 'stop', 'restart', 'pause', 'unpause', 'rm', 'images', 'rmi', 'search', 'info', 'ip', 'group', 'route', 'volume', 'namespace', 'help', 'version', 'cpi')
 	"""
 
 	ice_logs = \
