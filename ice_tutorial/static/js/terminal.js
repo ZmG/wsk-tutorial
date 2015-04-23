@@ -311,8 +311,8 @@
         } else if (inputs.containsAllOfTheseParts(['ice', 'login'])) {
           intermediateResults(0);
         }
-      } else if (inputs[1] === "version" || echo(ice_version())) {
-
+      } else if (inputs[1] === "version") {
+        echo(ice_version());
       } else if (inputs[1] === "--version" || inputs[1] === "-version") {
         intermediateResults();
         echo(ice_no_args);

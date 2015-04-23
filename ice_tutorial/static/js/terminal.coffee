@@ -357,7 +357,7 @@ do @myTerminal = ->
 			else if inputs.containsAllOfTheseParts(['ice', 'login'])
 				intermediateResults(0)
 
-		else if inputs[1] is "version" or 
+		else if inputs[1] is "version"
 			echo ice_version()
 		else if inputs[1] is "--version" or inputs[1] is "-version"
 			intermediateResults()
