@@ -76,6 +76,7 @@ do @myTerminal = ->
 	###
 
 	@interpreter = (input, term) ->
+		input = input.trim()
 		inputs = input.split(" ")
 		command = inputs[0]
 

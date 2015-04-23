@@ -43,6 +43,7 @@
      */
     this.interpreter = function(input, term) {
       var IceCommand, command, description, inputs, ref;
+      input = input.trim();
       inputs = input.split(" ");
       command = inputs[0];
       if ((ref = term.loginSequence) === 1 || ref === 2) {
