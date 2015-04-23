@@ -29,9 +29,8 @@ html: """
       """
 assignment: """
       <h3>Assignment</h3>
-      <p>Check IBM Containers Extension (ICE) to identify the version of the client that you are running</p>
-      <p>This will help you verify which version of the ICE CLI is running. If you see a version value
-      then you know you that your all set with your ICE client installation. The ICE CLI is supported on Linux OS.
+      <p>use ice commands to check the current ICE (IBM Containers Extension) CLI version you are running.</p>
+      <p>If you see a version value then you know you that your all set with your ICE client installation. The ICE CLI is supported on Linux OS.
       For Windows, your best option is to create an Ubuntu VM and install your client software there.</p>
       """
 tip: "<p>Try typing <code>ice --help</code> to see the full list of accepted arguments</p>
