@@ -416,7 +416,7 @@ intermediateresults:
 tip: """
     <ul>
     <li>For usage type <code>ice ip --help</code> or <code>ice ip bind --help</code></li>
-    <li>You can release a requested IP using <code>ice ip release</code>
+    <li>You can release a requested IP using <code>ice ip release</code> note: ip release is not supported by this emulator.
     </ul>
     """
 });

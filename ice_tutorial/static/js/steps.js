@@ -215,7 +215,7 @@
         return "That doesnt look like the IP that Bluemix gave you. remember to use the IP provided by 'ice ip request.'";
       }
     ],
-    tip: "<ul>\n<li>For usage type <code>ice ip --help</code> or <code>ice ip bind --help</code></li>\n<li>You can release a requested IP using <code>ice ip release</code>\n</ul>"
+    tip: "<ul>\n<li>For usage type <code>ice ip --help</code> or <code>ice ip bind --help</code></li>\n<li>You can release a requested IP using <code>ice ip release</code> note: ip release is not supported by this emulator.\n</ul>"
   });
 
   q.push({

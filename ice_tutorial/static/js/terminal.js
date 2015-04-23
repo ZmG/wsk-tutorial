@@ -373,8 +373,8 @@
             echo(ice_ip_request);
           }
         } else if (inputs[2] === 'bind') {
-          if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
-            echo(ice_ip_help);
+          if (inputs[3] && (inputs[3] === "--help" || inputs[3] === "-h")) {
+            echo(ice_ip_bind_help);
           } else if (inputs[3] === "129.41.232.25" && inputs[4] === "ice-ping") {
             echo(ice_ip_bound);
           } else if (inputs[3] === "129.41.232.25" && !inputs[4]) {
@@ -456,9 +456,9 @@
           }
         } else if (imagename === "learn/ping") {
           if (commands.containsAllOfTheseParts(["ping", "localhost"]) && switches.containsAllOfTheseParts(["--name"]) && swargs.containsAllOfTheseParts(["ice-ping"])) {
-            util_slow_lines(term, run_ping_localhost, "", callback);
+            echo("fa219a32-bcbf-4c6d-977f-1aa67bb1233d");
           } else if (commands.containsAllOfTheseParts(["ping", "localhost"]) && switches.containsAllOfTheseParts(["-n"]) && swargs.containsAllOfTheseParts(["ice-ping"])) {
-            util_slow_lines(term, run_ping_localhost, "", callback);
+            echo("fa219a32-bcbf-4c6d-977f-1aa67bb1233d");
           } else if (commands.containsAllOfTheseParts(["ping", "localhost"]) && (switches.containsAllOfTheseParts(["--name"]) || switches.containsAllOfTheseParts(["-n"]))) {
             intermediateResults(1);
             echo(ice_run_no_name);

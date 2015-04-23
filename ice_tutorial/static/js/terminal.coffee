@@ -421,8 +421,8 @@ do @myTerminal = ->
 					else 
 						echo ice_ip_request
 				else if inputs[2] is 'bind'
-					if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
-						echo ice_ip_help
+					if inputs[3] and (inputs[3] is "--help" or inputs[3] is "-h")
+						echo ice_ip_bind_help
 					else if inputs[3] is "129.41.232.25" and inputs[4] is "ice-ping" 
 						echo ice_ip_bound
 					else if inputs[3] is "129.41.232.25" and not inputs[4] 
@@ -504,9 +504,9 @@ do @myTerminal = ->
 
 			else if imagename is "learn/ping"
 				if commands.containsAllOfTheseParts(["ping", "localhost"]) && switches.containsAllOfTheseParts(["--name"]) && swargs.containsAllOfTheseParts(["ice-ping"])
-					util_slow_lines(term, run_ping_localhost, "", callback )
+					echo "fa219a32-bcbf-4c6d-977f-1aa67bb1233d"
 				else if commands.containsAllOfTheseParts(["ping", "localhost"]) && switches.containsAllOfTheseParts(["-n"]) && swargs.containsAllOfTheseParts(["ice-ping"])
-					util_slow_lines(term, run_ping_localhost, "", callback )
+					echo "fa219a32-bcbf-4c6d-977f-1aa67bb1233d"
 				else if commands.containsAllOfTheseParts([ "ping", "localhost"]) && (switches.containsAllOfTheseParts(["--name"]) or switches.containsAllOfTheseParts(["-n"]))
 					intermediateResults(1)
 					echo ice_run_no_name
