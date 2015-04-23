@@ -459,7 +459,7 @@ do @myTerminal = ->
 			if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
 				echo ice_run_help
 
-			if imagename is "ubuntu"
+			else if imagename is "ubuntu"
 				if switches.containsAllOfTheseParts(['-i', '-t'])
 					if commands.containsAllOfTheseParts(['bash'])
 						term.push ( (command, term) ->

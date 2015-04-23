@@ -405,8 +405,7 @@
         console.log("imagename: " + imagename);
         if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
           echo(ice_run_help);
-        }
-        if (imagename === "ubuntu") {
+        } else if (imagename === "ubuntu") {
           if (switches.containsAllOfTheseParts(['-i', '-t'])) {
             if (commands.containsAllOfTheseParts(['bash'])) {
               term.push((function(command, term) {
