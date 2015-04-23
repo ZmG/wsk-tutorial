@@ -691,13 +691,19 @@ do @myTerminal = ->
 					echo ps_a
 				else
 					echo currentDockerPs
+
 			else if inputs[2] is "push"
 				if inputs[3] is "-h" or inputs[3] is "--help"
 					echo push_help
 				else if inputs[3] is "learn/ping"
+					intermediateResults(0)
+					echo push_wrong_name
+				else if inputs[3] is "http://registry-ice.ng.bluemix.net/learn/ping"
 					util_slow_lines(term, push_container_learn_ping, "", callback )
 				else if not inputs[3]
 					echo push_no_args
+				else if inputs[3] is not "http://registry-ice.ng.bluemix.net/learn/ping"
+					intermediateResults(0)
 				else
 					echo push_wrong_name
 

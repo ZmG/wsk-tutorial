@@ -302,14 +302,14 @@ html: """
       """
 assignment: """
       <h3>Assignment</h3>
-      <p>Push the learn/ping image up to the public bluemix registry: registry-ice.ng.bluemix.net/learn/ping</p>
+      <p>Push the <b>learn/ping</b> image up to the public bluemix registry: <b>registry-ice.ng.bluemix.net/learn/ping</b></p>
       """
 command_expected: ["ice", "--local", "push", "registry-ice.ng.bluemix.net/learn/ping"]
 command_show: ["ice", "--local", "push", "registry-ice.ng.bluemix.net/learn/ping"]
-result: """<p>Success! </p>"""
+result: """<p>Success! The learn/ping image will now show up in you bluemix registry!</p>"""
 intermediateresults:
   [
-    () -> """"""
+    () -> """You're pushing up the wrong image, try pushing the image we just tagged <em>registry-ice.ng.bluemix.net/learn/ping</em>"""
   ]
 tip: """
     <ul>

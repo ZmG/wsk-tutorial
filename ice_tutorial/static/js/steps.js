@@ -156,13 +156,13 @@
 
   q.push({
     html: "<h3>Pushing your image to the Bluemix registry</h3>\n<p>Now that our image is commited and tagged, we are ready to push it up to the private bluemix registry.</p>\n<p>To do this we will be using the push command</p>",
-    assignment: "<h3>Assignment</h3>\n<p>Push the learn/ping image up to the public bluemix registry: registry-ice.ng.bluemix.net/learn/ping</p>",
+    assignment: "<h3>Assignment</h3>\n<p>Push the <b>learn/ping</b> image up to the public bluemix registry: <b>registry-ice.ng.bluemix.net/learn/ping</b></p>",
     command_expected: ["ice", "--local", "push", "registry-ice.ng.bluemix.net/learn/ping"],
     command_show: ["ice", "--local", "push", "registry-ice.ng.bluemix.net/learn/ping"],
-    result: "<p>Success! </p>",
+    result: "<p>Success! The learn/ping image will now show up in you bluemix registry!</p>",
     intermediateresults: [
       function() {
-        return "";
+        return "You're pushing up the wrong image, try pushing the image we just tagged <em>registry-ice.ng.bluemix.net/learn/ping</em>";
       }
     ],
     tip: "<ul>\n<li>Remember that the namespace is <b>'learn'</b></li>\n<li>For more info on how to specify a target registry, see the <a href=\"https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#container_install\">docs</a></li>\n</ul>",
