@@ -33,9 +33,11 @@
     result: "<p>You found it! Way to go!</p>",
     intermediateresults: [
       function() {
-        return "<p>You seem to be almost there. Did you specify the host with </b>'-h  https://api-ice.ng.bluemix.net/v2/containers'</b> ";
+        return "<p>You seem to be almost there. Did you specify the host with </b>'-H  https://api-ice.ng.bluemix.net/v2/containers'</b> ";
       }, function() {
         return "<p>You've got the arguments right. Did you get the command? Try <em>/bin/bash </em>?</p>";
+      }, function() {
+        return "<p>Looks like the right command but the wrong url. try <em>-H  https://api-ice.ng.bluemix.net/v2/containers</em></p>";
       }
     ],
     tip: "the optional arguments for login are specified in the online Bluemix Containers doc"

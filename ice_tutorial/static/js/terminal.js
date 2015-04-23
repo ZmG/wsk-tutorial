@@ -302,6 +302,8 @@
           term.echo("API endpoint: https://api.ng.bluemix.net\n");
           term.set_prompt("Email> ");
           term.loginSequence = 1;
+        } else if (inputs.containsAllOfTheseParts(['ice', 'login', '-H']) && inputs[3]) {
+          intermediateResults(2);
         } else if (inputs.containsAllOfTheseParts(['ice', 'login'])) {
           intermediateResults(0);
         }
