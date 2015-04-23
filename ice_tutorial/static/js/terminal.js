@@ -300,7 +300,7 @@
         console.log("login");
         if (inputs[2] === "-h" || inputs[2] === "--help") {
           echo(login_cmd);
-        } else if (inputs.containsAllOfTheseParts(['ice', 'login', 'https://api-ice.ng.bluemix.net/v2/containers'])) {
+        } else if (inputs.containsAllOfTheseParts(['ice', 'login', 'api-ice.ng.bluemix.net/v2/containers'])) {
           term.echo("API endpoint: https://api.ng.bluemix.net\n");
           term.set_prompt("Email> ");
           term.loginSequence = 1;
