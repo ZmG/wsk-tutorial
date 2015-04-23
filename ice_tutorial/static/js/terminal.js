@@ -643,7 +643,7 @@
           } else if (inputs[3] === "learn/ping") {
             intermediateResults(0);
             echo(push_wrong_name);
-          } else if (inputs[3] === "http://registry-ice.ng.bluemix.net/learn/ping") {
+          } else if (inputs[3].match("registry-ice.ng.bluemix.net/learn/ping")) {
             util_slow_lines(term, push_container_learn_ping, "", callback);
           } else if (!inputs[3]) {
             echo(push_no_args);
