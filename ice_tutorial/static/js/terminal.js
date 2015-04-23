@@ -403,6 +403,9 @@
         console.log("parsed input");
         console.log(parsed_input);
         console.log("imagename: " + imagename);
+        if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
+          echo(ice_run_help);
+        }
         if (imagename === "ubuntu") {
           if (switches.containsAllOfTheseParts(['-i', '-t'])) {
             if (commands.containsAllOfTheseParts(['bash'])) {
@@ -720,6 +723,7 @@
     help = "IBM Container tutorial \n\n\n\nThe IBM Container tutorial is an emulater intended to help novice users get up to spead with the IBM Container\nExtension (ice) commands. This terminal contains a limited IBM Container CLI and a limited shell emulator.  \nTherefore some of the commands that you would expect do not exist.\n\n\n\nJust follow the steps and questions. If you are stuck, click on the 'expected command' to see what the command\nshould have been. Leave feedback if you find things confusing.\n";
     inspect = "\nUsage: Docker inspect CONTAINER|IMAGE [CONTAINER|IMAGE...]\n\nReturn low-level information on a container/image\n";
     ice_inspect_help = "usage: ice inspect [-h] CONTAINER\n\npositional arguments:\n  CONTAINER   container name or id\n\noptional arguments:\n  -h, --help  show this help message and exit";
+    ice_run_help = "usage: ice run [-h] [--name NAME] [--memory MEMORY] [--env ENV]\n               [--publish PORT] [--volume VOL] [--bind APP] [--ssh SSHKEY]\n               IMAGE [CMD [CMD ...]]\n\npositional arguments:\n  IMAGE                 image to run\n  CMD                   command & args passed to container to execute\n\noptional arguments:\n  -h, --help            show this help message and exit\n  --name NAME, -n NAME  assign a name to the container\n  --memory MEMORY, -m MEMORY\n                        memory limit in MB, default is 256\n  --env ENV, -e ENV     set environment variable, ENV is key=value pair\n  --publish PORT, -p PORT\n                        expose PORT\n  --volume VOL, -v VOL  mount volume, VOL is VolumeId:ContainerPath[:ro],\n                        specifying ro makes the volume read-only instead of\n                        the default read-write\n  --bind APP, -b APP    bind to Bluemix app\n  --ssh SSHKEY, -k SSHKEY\n                        ssh key to be injected in container";
     inspect_no_such_container = function(keyword) {
       return "Error: No such image: " + keyword;
     };

@@ -456,6 +456,9 @@ do @myTerminal = ->
 			console.log parsed_input
 			console.log "imagename: #{imagename}"
 
+			if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
+				echo ice_run_help
+
 			if imagename is "ubuntu"
 				if switches.containsAllOfTheseParts(['-i', '-t'])
 					if commands.containsAllOfTheseParts(['bash'])
@@ -980,6 +983,32 @@ do @myTerminal = ->
 		optional arguments:
 		  -h, --help  show this help message and exit
 		"""
+
+	ice_run_help = \
+	"""
+	usage: ice run [-h] [--name NAME] [--memory MEMORY] [--env ENV]
+               [--publish PORT] [--volume VOL] [--bind APP] [--ssh SSHKEY]
+               IMAGE [CMD [CMD ...]]
+
+	positional arguments:
+	  IMAGE                 image to run
+	  CMD                   command & args passed to container to execute
+
+	optional arguments:
+	  -h, --help            show this help message and exit
+	  --name NAME, -n NAME  assign a name to the container
+	  --memory MEMORY, -m MEMORY
+	                        memory limit in MB, default is 256
+	  --env ENV, -e ENV     set environment variable, ENV is key=value pair
+	  --publish PORT, -p PORT
+	                        expose PORT
+	  --volume VOL, -v VOL  mount volume, VOL is VolumeId:ContainerPath[:ro],
+	                        specifying ro makes the volume read-only instead of
+	                        the default read-write
+	  --bind APP, -b APP    bind to Bluemix app
+	  --ssh SSHKEY, -k SSHKEY
+	                        ssh key to be injected in container
+	"""
 
 	inspect_no_such_container = (keyword) ->
 		"""
