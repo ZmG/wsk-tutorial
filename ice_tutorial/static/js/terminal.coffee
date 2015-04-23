@@ -1502,14 +1502,6 @@ do @myTerminal = ->
 			ICE CLI Version        : 2.0.1 271 2015-03-30T15:40:18
 			"""
 
-	ice_run_help = \
-	"""
-	usage: ice run [-h] [--name NAME] [--memory MEMORY] [--env ENV]
-               [--publish PORT] [--volume VOL] [--bind APP] [--ssh SSHKEY]
-               IMAGE [CMD [CMD ...]]
-	ice run: error: too few arguments
-	"""
-
 	ice_rm = \
 	"""
 	usage: ice rm [-h] CONTAINER

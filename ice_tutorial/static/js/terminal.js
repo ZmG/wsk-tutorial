@@ -793,7 +793,6 @@
     ice_version = function() {
       return "ICE CLI Version        : 2.0.1 271 2015-03-30T15:40:18";
     };
-    ice_run_help = "usage: ice run [-h] [--name NAME] [--memory MEMORY] [--env ENV]\n               [--publish PORT] [--volume VOL] [--bind APP] [--ssh SSHKEY]\n               IMAGE [CMD [CMD ...]]\nice run: error: too few arguments";
     ice_rm = "usage: ice rm [-h] CONTAINER\nice rm: error: too few arguments";
     ice_rm_help = "usage: ice rm [-h] CONTAINER\n\npositional arguments:\n  CONTAINER   container name or id\n\noptional arguments:\n  -h, --help  show this help message and exit";
     ice_rm_ice_ping = "Removed container successfully";
