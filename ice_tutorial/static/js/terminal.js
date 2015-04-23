@@ -315,6 +315,7 @@
 
       } else if (inputs[1] === "--version" || inputs[1] === "-version") {
         intermediateResults();
+        echo(ice_no_args);
       } else if (inputs[1] === "ps") {
         if (inputs.containsAllOfThese(['-l'])) {
           echo(ps_l);

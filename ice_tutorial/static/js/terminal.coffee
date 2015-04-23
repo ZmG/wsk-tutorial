@@ -361,6 +361,7 @@ do @myTerminal = ->
 			echo ice_version()
 		else if inputs[1] is "--version" or inputs[1] is "-version"
 			intermediateResults()
+			echo ice_no_args
 		# command ps
 		else if inputs[1] is "ps"
 			if inputs.containsAllOfThese(['-l'])
