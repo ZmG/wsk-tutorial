@@ -16,7 +16,7 @@
     var EMULATOR_VERSION, ICE_logo, IceCommands, auth, bash, commit, commit_containerid, commit_id_does_not_exist, docker_cmd, docker_version, help, ice, ice_help, ice_inspect_help, ice_ip, ice_ip_bind_fail, ice_ip_bind_help, ice_ip_bound, ice_ip_help, ice_ip_request, ice_ip_request_help, ice_logs, ice_logs_help, ice_no_args, ice_no_such_container, ice_rm, ice_rm_help, ice_rm_ice_ping, ice_run_help, ice_run_no_name, ice_stop, ice_stop_help, ice_stop_ice_ping, ice_version, inspect, inspect_ice_ping_container, inspect_no_such_container, inspect_ping_container, login, loginResult, login_cmd, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push_container_learn_ping, push_help, push_no_args, push_wrong_name, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_echo, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_localhost, run_ping_not_localhost, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait;
     EMULATOR_VERSION = "0.1.5";
     this.basesettings = {
-      prompt: 'you@tutorial:~$ ',
+      prompt: '[[b;#fff;]you@tutorial:~$] ',
       greetings: " Imitation is the sincerest form of flattery\n We loved Docker's try it approach - so we forked it \n Welcome to the IBM Bluemix(tm) Container tutorial\n Courtesy of IBM jStart (http://ibm.com/jstart)\n\n    ____  __                     _     \n   / __ )/ /_  _____  ____ ___  (_)  __\n  / __  / / / / / _ \\/ __ `__ \\/ / |/_/\n / /_/ / / /_/ /  __/ / / / / / />  <  \n/_____/_/\\__,_/\\___/_/ /_/ /_/_/_/|_|  											 \n												"
     };
 
@@ -72,7 +72,7 @@
         ice(term, inputs);
       } else if (command === "help") {
         term.echo(help);
-      } else if (command === "ls") {
+      } else if (command === "ls" || command === "cd" || command === "pwd") {
         term.echo("This is an emulator, not a shell. Try following the instructions.");
       } else if (command === "colors") {
         for (IceCommand in IceCommands) {
@@ -251,7 +251,7 @@
       } else if (term.loginSequence === 2) {
         util_slow_lines(term, auth, "", loginResult);
         term.loginSequence = 3;
-        term.set_prompt("you@tutorial:~$ ");
+        term.set_prompt("[[b;#fff;]you@tutorial:~$] ");
       }
       if (!inputs[1]) {
         return console.log("none");

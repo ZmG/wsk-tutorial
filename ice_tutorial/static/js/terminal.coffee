@@ -16,7 +16,7 @@ do @myTerminal = ->
 
 
 	@basesettings = {
-		prompt: 'you@tutorial:~$ ',
+		prompt: '[[b;#fff;]you@tutorial:~$] ',
 		greetings: """
 							 Imitation is the sincerest form of flattery
 							 We loved Docker's try it approach - so we forked it 
@@ -111,7 +111,7 @@ do @myTerminal = ->
 		else if command is "help"
 			term.echo help
 
-		else if command is "ls"
+		else if command is "ls" or command is "cd" or command is "pwd"
 			term.echo "This is an emulator, not a shell. Try following the instructions."
 
 		else if command is "colors"
@@ -285,7 +285,7 @@ do @myTerminal = ->
 			util_slow_lines(term, auth, "", loginResult)
 			term.loginSequence = 3
 
-			term.set_prompt "you@tutorial:~$ "
+			term.set_prompt "[[b;#fff;]you@tutorial:~$] "
 
 		if not inputs[1]
 			console.log("none")
