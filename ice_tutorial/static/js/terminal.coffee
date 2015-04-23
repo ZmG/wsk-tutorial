@@ -508,7 +508,6 @@ do @myTerminal = ->
 					echo ice_run_no_name
 				else if commands[0] is "ping" and commands[1]
 					echo run_ping_not_localhost(commands[1])
-					intermediateResults(0)
 				else if commands[0] is "ping"
 					echo ping
 				else if commands[0]
@@ -639,6 +638,7 @@ do @myTerminal = ->
 					if commands.containsAllOfTheseParts(["ping", "localhost"])
 						util_slow_lines(term, run_ping_localhost, "", callback )
 					else if commands[0] is "ping" and commands[1]
+						intermediateResults(0)
 						echo run_ping_not_localhost(commands[1])
 					else if commands[0] is "ping"
 						echo ping
@@ -667,10 +667,19 @@ do @myTerminal = ->
 			else if inputs[2] is "tag"
 				if inputs[3] is "-h" or inputs[3] is "--help"
 					echo tag_help
-				else if inputs[3] is "learn/ping"
-					if inputs[4] is "registry-ice.ng.bluemix.net/learn/ping"
-						echo
+				else if inputs.containsAllOfTheseParts(["registry-ice.ng.bluemix.net/learn/ping", "learn/ping"])
+						echo "Target is local host. Invoking docker with the given arguments..."
+				else if inputs.containsAllOfTheseParts(["registry-ice.ng.bluemix.net/learn/ping"])
+					intermediateResults(0)
+					echo tag_no_args
+				else if inputs.containsAllOfTheseParts(["learn/ping"])
+					intermediateResults(3)
+					echo tag_no_args
+				else if inputs.containsAllOfTheseParts(["learn/tutorial"])
+					intermediateResults(2)
+					echo tag_no_args
 				else
+					intermediateResults(1)
 					echo tag_no_args
 				
 

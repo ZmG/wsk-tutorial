@@ -135,17 +135,23 @@
   });
 
   q.push({
-    html: "<h3>Tagging your image with ice</h3>\n<p>Now you have verified that your application container works locally, it's time to get it ready for Bluemix.</p>\n<p>Remember you pulled (downloaded) the learn/tutorial image from the Bluemix Private Registry? You can also share your built images\nto the Registry by pushing (uploading) them to there. That way you can easily retrieve them for re-use and share them\nwith others. </p>\n\n<p>To use an image on bluemix, you will first need to push the image up to your,\nbluemix registry. To do that we need to tag the pulled image with your namespace and a name, that will identify it in your \nbluemix registry.\n</p>\n<p>Note: You can also push images downloaded from the <a href=\"registry.hub.docker.com\">Docker Public Registry</a> to your Bluemix Private Registry.</p>",
+    html: "<h3>Tagging your image with ice</h3>\n<p>Now you have verified that your application container works locally, it's time to get it ready for Bluemix.</p>\n<p>Remember you pulled (downloaded) the learn/tutorial image from the Bluemix Private Registry? You can also push (upload) your built images\nto the Registry. That way you can easily retrieve them for re-use and share them with others. </p>\n\n<p>To use an image on bluemix, you will first need to push the image up to your,\nbluemix registry. To do that we need to tag the pulled image with your namespace and a name, that will identify it in your \nbluemix registry.\n</p>\n<p>Note: You can also push images downloaded from the <a href=\"registry.hub.docker.com\">Docker Public Registry</a> to your Bluemix Private Registry.</p>",
     assignment: "<h3>Assignment</h3>\n<p>Tag the learn/tutorial image using <code>ice --local tag</code>. tag the image with the name <b>'learn/ping'</b>. This prepares the image for pushing to the bluemix registry.</p>\n<p>tag usage: <b>'ice --local tag &lt;local_Image_name&gt; registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image_name&gt;'</b></p>",
-    command_expected: ["ice", "--local", "tag", "learn/tutorial", "registry-ice.ng.bluemix.net/learn/ping"],
-    command_show: ["ice", "--local", "tag", "learn/tutorial", "registry-ice.ng.bluemix.net/learn/ping"],
+    command_expected: ["ice", "--local", "tag", "learn/ping", "registry-ice.ng.bluemix.net/learn/ping"],
+    command_show: ["ice", "--local", "tag", "learn/ping", "registry-ice.ng.bluemix.net/learn/ping"],
     result: "<p>Success! The image is now tagged and ready to push. In the next section we'll push to the registry</p>",
     intermediateresults: [
       function() {
-        return "Almost there, don't forget to provide the name of the local image that will be tagged (learn/tutorial)";
+        return "Almost there, don't forget to provide the name of the local image that will be tagged (learn/ping)";
+      }, function() {
+        return "remember the local image is <b>learn/tutorial</b> and the tag name will be registry-ice.ng.bluemix.net/learn/ping";
+      }, function() {
+        return "you need to use learn/ping not learn/tutorial";
+      }, function() {
+        return "Looks like you did'nt give ice a name to tag the image with, try adding registry-ice.ng.bluemix.net/learn/ping";
       }
     ],
-    tip: "<ul>\n<li><code>ice images</code> will show you which images are currently on your host</li>\n<li><code>ice --local images</code> will show you which images exist locally (docker)</li>\n<li>For more usage info see the docs <a a href=\"https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#container_install\">here</a></li>\n<li>You can only push images to your own namespace, this emulator uses the namespace 'learn'</li>\n</ul>"
+    tip: "<ul>\n  <li><code>ice images</code> will show you which images are currently on your host</li>\n  <li><code>ice --local images</code> will show you which images exist locally (docker)</li>\n  <li>For more usage info see the docs <a a href=\"https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#container_install\">here</a></li>\n  <li>You can only push images to your own namespace, this emulator uses the namespace 'learn'</li>\n  <li>Click the hint below if you get stuck.</li>\n</ul>"
   });
 
   q.push({
