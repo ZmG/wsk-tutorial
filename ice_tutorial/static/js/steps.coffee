@@ -33,7 +33,10 @@ assignment: """
       <p>If you see a version value then you know you that your all set with your ICE client installation. The ICE CLI is supported on Linux OS.
       For Windows, your best option is to create an Ubuntu VM and install your client software there.</p>
       """
-tip: "<p>Try typing <code>ice --help</code> to see the full list of accepted arguments</p>
+intermediateresults: [
+  () -> """<p>Use version instead of --version</p>"""
+  ]
+tip: "<p>Try typing <code>ice -i swelp</code> to see the full list of accepted arguments</p>
       <p>This emulator provides only a limited set of shell and ICE commands, so some commands may not work as expected</p>"
 command_expected: ['ice', 'version']
 result: """<p>Well done! Let's move to the next assignment.</p>"""
@@ -50,10 +53,10 @@ assignment: """
       <h3>Assignment</h3>
       <p>Use the <code>ice login</code> command to log in to the IBM Containers infrastructure while manually specifying your cloud service host or url using the <b>short option format</b>. Ice will ask you for a username and password, any value will work.</p>
       """
-command_expected: ['ice', 'login', '-H', 'https://api-ice.ng.bluemix.net/v2/containers']
+command_expected: ['ice', 'login', '-H', 'api-ice.ng.bluemix.net/v2/containers']
 result: """<p>You found it! Way to go!</p>"""
 intermediateresults: [
-  () -> """<p>You seem to be almost there. Did you specify the host with </b>'-H  https://api-ice.ng.bluemix.net/v2/containers'</b> """,
+  () -> """<p>You seem to be almost there. Did you specify the host with </b>'-H  wellapi-ice.ng.bluemix.net/v2/containers'</b> """,
   () -> """<p>You've got the arguments right. Did you get the command? Try <em>/bin/bash </em>?</p>"""
   () -> """<p>Looks like the right command but the wrong url. try <em>-H  https://api-ice.ng.bluemix.net/v2/containers</em></p>"""
   ]
@@ -385,7 +388,7 @@ intermediateresults:
   ]
 tip: """
     <ul>
-    <li>Don't forget to specify the Container name or ID in your call to <code>ice logs</code>. </li>
+    <li>Don't forget to specify the Container name in your call to <code>ice logs</code>. </li>
     <li>You can also use <code>ice inspect</code> to get more information about your running app. Give it a try.</li>
     </ul>
     """
@@ -412,6 +415,7 @@ intermediateresults:
     () -> """Looks like you have the right IP but no container name."""
     () -> """Looks like you are missing an IP and Container name."""
     () -> """That doesnt look like the IP that Bluemix gave you. remember to use the IP provided by 'ice ip request.'"""
+    () -> """Whoops, looks like you misspelled the container name try ice-ping"""
   ]
 tip: """
     <ul>

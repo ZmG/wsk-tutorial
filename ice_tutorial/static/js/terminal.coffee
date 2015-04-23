@@ -169,7 +169,9 @@ do @myTerminal = ->
 		if inputArr
 			valid = inputArr.every( (value) ->
 				for item in me
-					if item.match(value)
+					itemDashes = (item.match(/-/g) || []).length
+					valueDashes = (value.match(/-/g) || []).length
+					if item.match(value) and itemDashes is valueDashes
 						return true
 
 				return false
@@ -355,9 +357,10 @@ do @myTerminal = ->
 			else if inputs.containsAllOfTheseParts(['ice', 'login'])
 				intermediateResults(0)
 
-		else if inputs[1] is "version"
+		else if inputs[1] is "version" or 
 			echo ice_version()
-
+		else if inputs[1] is "--version" or inputs[1] is "-version"
+			intermediateResults()
 		# command ps
 		else if inputs[1] is "ps"
 			if inputs.containsAllOfThese(['-l'])
@@ -427,6 +430,9 @@ do @myTerminal = ->
 						echo ice_ip_bound
 					else if inputs[3] is "129.41.232.25" and not inputs[4] 
 						intermediateResults(0)
+						echo ice_ip_bind_fail
+					else if inputs[3] is "129.41.232.25" and inputs[4] is not "ice-ping" 
+						intermediateResults(3)
 						echo ice_ip_bind_fail
 					else if not inputs[3]
 						intermediateResults(1)
@@ -1050,7 +1056,7 @@ do @myTerminal = ->
         "VolumesFrom": "",
         "WorkingDir": ""
     },
-    "ContainerState": "Shutdown",
+    "ContainerState": "Running",
     "Created": 1429713738,
     "Group": {},
     "HostConfig": {

@@ -131,10 +131,12 @@
       me = this;
       if (inputArr) {
         valid = inputArr.every(function(value) {
-          var item, k, len;
+          var item, itemDashes, k, len, valueDashes;
           for (k = 0, len = me.length; k < len; k++) {
             item = me[k];
-            if (item.match(value)) {
+            itemDashes = (item.match(/-/g) || []).length;
+            valueDashes = (value.match(/-/g) || []).length;
+            if (item.match(value) && itemDashes === valueDashes) {
               return true;
             }
           }
@@ -309,8 +311,10 @@
         } else if (inputs.containsAllOfTheseParts(['ice', 'login'])) {
           intermediateResults(0);
         }
-      } else if (inputs[1] === "version") {
-        echo(ice_version());
+      } else if (inputs[1] === "version" || echo(ice_version())) {
+
+      } else if (inputs[1] === "--version" || inputs[1] === "-version") {
+        intermediateResults();
       } else if (inputs[1] === "ps") {
         if (inputs.containsAllOfThese(['-l'])) {
           echo(ps_l);
@@ -379,6 +383,9 @@
             echo(ice_ip_bound);
           } else if (inputs[3] === "129.41.232.25" && !inputs[4]) {
             intermediateResults(0);
+            echo(ice_ip_bind_fail);
+          } else if (inputs[3] === "129.41.232.25" && inputs[4] === !"ice-ping") {
+            intermediateResults(3);
             echo(ice_ip_bind_fail);
           } else if (!inputs[3]) {
             intermediateResults(1);
@@ -726,7 +733,7 @@
     inspect_no_such_container = function(keyword) {
       return "Error: No such image: " + keyword;
     };
-    inspect_ice_ping_container = "{\n    \"BluemixApp\": null,\n    \"Config\": {\n        \"AttachStderr\": \"\",\n        \"AttachStdin\": \"\",\n        \"AttachStdout\": \"\",\n        \"Cmd\": [\n            \"ping\",\n            \"localhost\"\n        ],\n        \"Dns\": \"\",\n        \"Env\": [\n            \"group_id=0000\",\n            \"logging_password=h6Xs4_him67H\",\n            \"tagseparator=_\",\n            \"space_id=73c83834-c956-430c-92c2-3b9b35b6\",\n            \"logstash_target=opvis.bluemix.net:9091\",\n            \"tagformat=space_id group_id uuid\",\n            \"metrics_target=opvis.bluemix.net:9095\"\n        ],\n        \"Hostname\": \"\",\n        \"Image\": \"registry-ice.ng.bluemix.net/learn/ping:latest\",\n        \"Memory\": 256,\n        \"MemorySwap\": \"\",\n        \"OpenStdin\": \"\",\n        \"PortSpecs\": \"\",\n        \"StdinOnce\": \"\",\n        \"Tty\": \"\",\n        \"User\": \"\",\n        \"VCPU\": 1,\n        \"VolumesFrom\": \"\",\n        \"WorkingDir\": \"\"\n    },\n    \"ContainerState\": \"Shutdown\",\n    \"Created\": 1429713738,\n    \"Group\": {},\n    \"HostConfig\": {\n        \"Binds\": \"null\",\n        \"CapAdd\": [],\n        \"CapDrop\": [],\n        \"ContainerIDFile\": \"\",\n        \"Links\": [],\n        \"LxcConf\": [],\n        \"PortBindings\": {},\n        \"Privileged\": \"false\",\n        \"PublishAllPorts\": \"false\"\n    },\n    \"HostId\": \"9669f466be49e034a72a56362ec824328629f1ec0621f11e73ee8163\",\n    \"Human_id\": \"ice-ping\",\n    \"Id\": \"fa219r52-bcbf-4c6d-977f-1aa67bb1233d\",\n    \"Image\": \"f44c4aa3-c4f0-4476-b670-chgd5363s5f8\",\n    \"Name\": \"ice-ping\",\n    \"NetworkSettings\": {\n        \"Bridge\": \"\",\n        \"Gateway\": \"\",\n        \"IpAddress\": \"172.4.12.30\",\n        \"IpPrefixLen\": 0,\n        \"PortMapping\": \"null\",\n        \"PublicIpAddress\": \"\"\n    },\n    \"Path\": \"date\",\n    \"ResolvConfPath\": \"/etc/resolv.conf\",\n    \"State\": {\n        \"ExitCode\": \"\",\n        \"Ghost\": \"\",\n        \"Pid\": \"\",\n        \"Running\": \"false\",\n        \"StartedAt\": \"\",\n        \"Status\": \"Shutdown\"\n    },\n    \"Volumes\": []\n}";
+    inspect_ice_ping_container = "{\n    \"BluemixApp\": null,\n    \"Config\": {\n        \"AttachStderr\": \"\",\n        \"AttachStdin\": \"\",\n        \"AttachStdout\": \"\",\n        \"Cmd\": [\n            \"ping\",\n            \"localhost\"\n        ],\n        \"Dns\": \"\",\n        \"Env\": [\n            \"group_id=0000\",\n            \"logging_password=h6Xs4_him67H\",\n            \"tagseparator=_\",\n            \"space_id=73c83834-c956-430c-92c2-3b9b35b6\",\n            \"logstash_target=opvis.bluemix.net:9091\",\n            \"tagformat=space_id group_id uuid\",\n            \"metrics_target=opvis.bluemix.net:9095\"\n        ],\n        \"Hostname\": \"\",\n        \"Image\": \"registry-ice.ng.bluemix.net/learn/ping:latest\",\n        \"Memory\": 256,\n        \"MemorySwap\": \"\",\n        \"OpenStdin\": \"\",\n        \"PortSpecs\": \"\",\n        \"StdinOnce\": \"\",\n        \"Tty\": \"\",\n        \"User\": \"\",\n        \"VCPU\": 1,\n        \"VolumesFrom\": \"\",\n        \"WorkingDir\": \"\"\n    },\n    \"ContainerState\": \"Running\",\n    \"Created\": 1429713738,\n    \"Group\": {},\n    \"HostConfig\": {\n        \"Binds\": \"null\",\n        \"CapAdd\": [],\n        \"CapDrop\": [],\n        \"ContainerIDFile\": \"\",\n        \"Links\": [],\n        \"LxcConf\": [],\n        \"PortBindings\": {},\n        \"Privileged\": \"false\",\n        \"PublishAllPorts\": \"false\"\n    },\n    \"HostId\": \"9669f466be49e034a72a56362ec824328629f1ec0621f11e73ee8163\",\n    \"Human_id\": \"ice-ping\",\n    \"Id\": \"fa219r52-bcbf-4c6d-977f-1aa67bb1233d\",\n    \"Image\": \"f44c4aa3-c4f0-4476-b670-chgd5363s5f8\",\n    \"Name\": \"ice-ping\",\n    \"NetworkSettings\": {\n        \"Bridge\": \"\",\n        \"Gateway\": \"\",\n        \"IpAddress\": \"172.4.12.30\",\n        \"IpPrefixLen\": 0,\n        \"PortMapping\": \"null\",\n        \"PublicIpAddress\": \"\"\n    },\n    \"Path\": \"date\",\n    \"ResolvConfPath\": \"/etc/resolv.conf\",\n    \"State\": {\n        \"ExitCode\": \"\",\n        \"Ghost\": \"\",\n        \"Pid\": \"\",\n        \"Running\": \"false\",\n        \"StartedAt\": \"\",\n        \"Status\": \"Shutdown\"\n    },\n    \"Volumes\": []\n}";
     inspect_ping_container = "[2013/07/30 01:52:26 GET /v1.3/containers/efef/json\n{\n	\"ID\": \"efefdc74a1d5900d7d7a74740e5261c09f5f42b6dae58ded6a1fde1cde7f4ac5\",\n	\"Created\": \"2013-07-30T00:54:12.417119736Z\",\n	\"Path\": \"ping\",\n	\"Args\": [\n			\"localhost\"\n	],\n	\"Config\": {\n			\"Hostname\": \"efefdc74a1d5\",\n			\"User\": \"\",\n			\"Memory\": 0,\n			\"MemorySwap\": 0,\n			\"CpuShares\": 0,\n			\"AttachStdin\": false,\n			\"AttachStdout\": true,\n			\"AttachStderr\": true,\n			\"PortSpecs\": null,\n			\"Tty\": false,\n			\"OpenStdin\": false,\n			\"StdinOnce\": false,\n			\"Env\": null,\n			\"Cmd\": [\n					\"ping\",\n					\"localhost\"\n			],\n			\"Dns\": null,\n			\"Image\": \"learn/ping\",\n			\"Volumes\": null,\n			\"VolumesFrom\": \"\",\n			\"Entrypoint\": null\n	},\n	\"State\": {\n			\"Running\": true,\n			\"Pid\": 22249,\n			\"ExitCode\": 0,\n			\"StartedAt\": \"2013-07-30T00:54:12.424817715Z\",\n			\"Ghost\": false\n	},\n	\"Image\": \"a1dbb48ce764c6651f5af98b46ed052a5f751233d731b645a6c57f91a4cb7158\",\n	\"NetworkSettings\": {\n			\"IPAddress\": \"172.16.42.6\",\n			\"IPPrefixLen\": 24,\n			\"Gateway\": \"172.16.42.1\",\n			\"Bridge\": \"docker0\",\n			\"PortMapping\": {\n					\"Tcp\": {},\n					\"Udp\": {}\n			}\n	},\n	\"SysInitPath\": \"/usr/bin/docker\",\n	\"ResolvConfPath\": \"/etc/resolv.conf\",\n	\"Volumes\": {},\n	\"VolumesRW\": {}";
     ping = "Usage: ping [-LRUbdfnqrvVaAD] [-c count] [-i interval] [-w deadline]\n				[-p pattern] [-s packetsize] [-t ttl] [-I interface]\n				[-M pmtudisc-hint] [-m mark] [-S sndbuf]\n				[-T tstamp-options] [-Q tos] [hop1 ...] destination";
     ps = "ID                  IMAGE               COMMAND               CREATED             STATUS              PORTS\nefefdc74a1d5        learn/ping:latest   ping localhost   37 seconds ago      Up 36 seconds";

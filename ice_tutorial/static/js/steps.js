@@ -21,7 +21,12 @@
   q.push({
     html: "<h3>Getting started</h3>\n<p>Use IBM® Containers to run Docker containers in a hosted cloud environment on IBM Bluemix™. IBM Containers \nhelps you build and deploy containers where you can package your applications and services. Each container is \nbased on an image format, includes a set of standard operations, and is an execution environment in itself.\n</p>\n<p>If you are familiar with Docker CLI, then the first half of this tutorial will show you how to use common docker \ncommands using ice --local. This cli Has disabled docker commands. If you want to use a docker command you must use\n<code>ice --local</code>. 'ice --local' is equivalent to 'docker'</p>",
     assignment: "<h3>Assignment</h3>\n<p>use ice commands to check the current ICE (IBM Containers Extension) CLI version you are running.</p>\n<p>If you see a version value then you know you that your all set with your ICE client installation. The ICE CLI is supported on Linux OS.\nFor Windows, your best option is to create an Ubuntu VM and install your client software there.</p>",
-    tip: "<p>Try typing <code>ice --help</code> to see the full list of accepted arguments</p> <p>This emulator provides only a limited set of shell and ICE commands, so some commands may not work as expected</p>",
+    intermediateresults: [
+      function() {
+        return "<p>Use version instead of --version</p>";
+      }
+    ],
+    tip: "<p>Try typing <code>ice -i swelp</code> to see the full list of accepted arguments</p> <p>This emulator provides only a limited set of shell and ICE commands, so some commands may not work as expected</p>",
     command_expected: ['ice', 'version'],
     result: "<p>Well done! Let's move to the next assignment.</p>"
   });
@@ -29,11 +34,11 @@
   q.push({
     html: "<h3>Logging In</h3>\n<p>The easiest way to get started is to log in to the IBM Containers infrastructure.  For details on login arguments, search the online \n<a href=\"#1\" onClick=\"window.open('https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#genTopProcId4','IBM Containers Doc','width=1000,height=900,left=50,top=50,menubar=0')\";>IBM Containers Doc</a>\nand by using the commandline</p>",
     assignment: "<h3>Assignment</h3>\n<p>Use the <code>ice login</code> command to log in to the IBM Containers infrastructure while manually specifying your cloud service host or url using the <b>short option format</b>. Ice will ask you for a username and password, any value will work.</p>",
-    command_expected: ['ice', 'login', '-H', 'https://api-ice.ng.bluemix.net/v2/containers'],
+    command_expected: ['ice', 'login', '-H', 'api-ice.ng.bluemix.net/v2/containers'],
     result: "<p>You found it! Way to go!</p>",
     intermediateresults: [
       function() {
-        return "<p>You seem to be almost there. Did you specify the host with </b>'-H  https://api-ice.ng.bluemix.net/v2/containers'</b> ";
+        return "<p>You seem to be almost there. Did you specify the host with </b>'-H  wellapi-ice.ng.bluemix.net/v2/containers'</b> ";
       }, function() {
         return "<p>You've got the arguments right. Did you get the command? Try <em>/bin/bash </em>?</p>";
       }, function() {
@@ -197,7 +202,7 @@
         return "";
       }
     ],
-    tip: "<ul>\n<li>Don't forget to specify the Container name or ID in your call to <code>ice logs</code>. </li>\n<li>You can also use <code>ice inspect</code> to get more information about your running app. Give it a try.</li>\n</ul>"
+    tip: "<ul>\n<li>Don't forget to specify the Container name in your call to <code>ice logs</code>. </li>\n<li>You can also use <code>ice inspect</code> to get more information about your running app. Give it a try.</li>\n</ul>"
   });
 
   q.push({
@@ -213,6 +218,8 @@
         return "Looks like you are missing an IP and Container name.";
       }, function() {
         return "That doesnt look like the IP that Bluemix gave you. remember to use the IP provided by 'ice ip request.'";
+      }, function() {
+        return "Whoops, looks like you misspelled the container name try ice-ping";
       }
     ],
     tip: "<ul>\n<li>For usage type <code>ice ip --help</code> or <code>ice ip bind --help</code></li>\n<li>You can release a requested IP using <code>ice ip release</code> note: ip release is not supported by this emulator.\n</ul>"
