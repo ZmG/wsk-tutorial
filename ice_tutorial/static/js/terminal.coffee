@@ -360,7 +360,7 @@ do @myTerminal = ->
 		else if inputs[1] is "version"
 			echo ice_version()
 		else if inputs[1] is "--version" or inputs[1] is "-version"
-			intermediateResults()
+			intermediateResults(0)
 			echo ice_no_args
 		# command ps
 		else if inputs[1] is "ps"

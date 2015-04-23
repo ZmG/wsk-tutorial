@@ -314,7 +314,7 @@
       } else if (inputs[1] === "version") {
         echo(ice_version());
       } else if (inputs[1] === "--version" || inputs[1] === "-version") {
-        intermediateResults();
+        intermediateResults(0);
         echo(ice_no_args);
       } else if (inputs[1] === "ps") {
         if (inputs.containsAllOfThese(['-l'])) {
