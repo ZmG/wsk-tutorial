@@ -140,12 +140,12 @@ q.push ({
 html: """
       <h3>Installing things in the container</h3>
       <p>Next we are going to install a simple program (ping) in the container. The image is based upon ubuntu, so you
-      can run the command <code>apt-get install -y ping</code> in the container. </p>
+      can run the command <code>apt-get install -y iputils-ping</code> in the container. </p>
       <p>Note that even though the container stops right after a command completes, the changes are not forgotten.</p>
       """
 assignment: """
       <h3>Assignment</h3>
-      <p>Install 'ping' on top of the registry-ice.ng.bluemix.net/ibmnode image.</p>
+      <p>Install 'iputils-ping' on top of the registry-ice.ng.bluemix.net/ibmnode image.</p>
       """
 command_expected: ["ice", "--local", "run", "registry-ice.ng.bluemix.net/ibmnode", "apt-get", "install", "-y", "iputils-ping"]
 command_show: ["ice", "--local", "run", "registry-ice.ng.bluemix.net/ibmnode", "apt-get", "install", "-y", "iputils-ping"]
