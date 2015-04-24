@@ -64,34 +64,34 @@ html: """
       <p>This exercise will introduce the <b>--local</b> tag. calling ice --local is the same as calling docker. ice --local will pass arguements to docker and run like standard docker.</p>
       <p>Container images can be downloaded just as easily, using <code>docker pull</code>.</p>
       <p>However, instead of calling <code>docker pull</code> directly we will use <code>ice --local pull</code>, to pull images from registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image&gt;.</p>
-      <p>For images from the central index, the name you specify is constructed as &lt;Namespace&gt;/&lt;Image Name&gt;</p>
-      <p>A group of special, trusted images such as the ubuntu base image can be retrieved by just their name &lt;Image Name&gt;.</p>
+      <p>For images from your namespace index, the name you specify is constructed as &lt;Namespace&gt;/&lt;Image Name&gt;</p>
+      <p>A group of special, trusted images such as the ibmnode image can be retrieved by just their name registry-ice.ng.bluemix.net/&lt;Image Name&gt;.</p>
       """
 assignment:
       """
       <h3>Assignment</h3>
-      <p>Pull the <b>'tutorial'</b> image from the <b>'learn'</b> namespace in the <b>'registry-ice.ng.bluemix.net'</b> registry</p>
+      <p>Pull the trusted <b>'ibmnode'</b> image <b>'registry-ice.ng.bluemix.net/'</b></p>
       """
-command_expected: ['ice', '--local', 'pull', 'registry-ice.ng.bluemix.net/learn/tutorial']
+command_expected: ['ice', '--local', 'pull', 'registry-ice.ng.bluemix.net/ibmnode']
 result: """<p>Cool. Look at the results. You'll see that ice has invoked docker to download a number of layers. In Docker all images (except the base image) are made up of several cumulative layers.</p>"""
 intermediateresults: [
   () -> """<p>You seem to be almost there. Don't forget to tell <b>ice --local pull</b> where to find the image, ice --local pull &lt;<Registry url>&gt;/&lt;learn&gt;/&lt;tutorial&gt; """,
-  () -> """<p>You got the namespace and image name correct, but forgot to specify a registry, hint ice --local pull &lt;Registry url&gt;/&lt;Namespace&gt;/&lt;Image Name&gt;</p>"""
+  () -> """<p>You got the namespace and image name correct, but forgot to specify a registry, hint ice --ltiyu5ocal pull &lt;Registry url&gt;/&lt;Namespace&gt;/&lt;Image Name&gt;</p>"""
   () -> """<p>Looks like you forgot to use the --local flag, try <em>ice --local pull [registry/namespace/imageName]</em></p>"""
   ]
 tip: """
     <ul>
-      <li>Don't forget to pull the full name of the repository e.g. 'learn/tutorial'</li>
-      <li>For this tutorial the Namespace for you registry will always be <b>'learn'</b></li>
+      <li>The ibmnode image is a trusted image. Therefore you do not have to specify a namespace.</li>
+      <li>For this tutorial the namespace for your registry will always be <b>'learn'</b></li>
       <li>Look under 'show expected command if you're stuck.</li>
     </ul>
      """
 currentLocalImages :
   """
-  REPOSITORY            TAG                 IMAGE ID            CREATED              VIRTUAL SIZE
+  REPOSITORY                              TAG                 IMAGE ID            CREATED              VIRTUAL SIZE
     
-  ubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)
-  learn/tutorial        latest              8dbd9e392a96        2 months ago        131.5 MB (virtual 131.5 MB)
+  ubuntu                                  latest              8dbd9e392a96        4 months ago         131.5 MB (virtual 131.5 MB)
+  registry-ice.ng.bluemix.net/ibmnode     latest              8dbd9e392a96        2 months ago         131.5 MB (virtual 131.5 MB)
   """
 })
 
@@ -110,8 +110,8 @@ assignment: """
       <p>To do so you should run 'echo' in the container and have that say "hello world"
 
       """
-command_expected: ["ice", "--local", "run", "learn/tutorial", "echo", "hello"]
-command_show: ["ice", "--local", "run", "learn/tutorial", 'echo "hello world"']
+command_expected: ["ice", "--local", "run", "registry-ice.ng.bluemix.net/ibmnode", "echo", "hello"]
+command_show: ["ice", "--local", "run", "registry-ice.ng.bluemix.net/ibmnode", 'echo "hello world"']
 
 result: """<p>Great! Hellooooo World!</p><p>You have just started a container and executed a program inside of it, when
         the program stopped, so did the container."""
@@ -124,15 +124,15 @@ tip: """
      <li>The command <code>ice --local run</code> takes a minimum of two arguments. An image name, and the command you want to execute
      within that image.</li>
      <li>Check the expected command below if it does not work as expected.</li>
-     <li>Remember the image name is tutorial from the learn namespace, together it is called learn/tutorial. </li>
+     <li>Remember the image name is registry-ice.ng.bluemix.net/ibmnode  </li>
   </ul>
     """
 currentLocalImages :
   """
-  REPOSITORY            TAG                 IMAGE ID            CREATED              VIRTUAL SIZE
+  REPOSITORY                              TAG                 IMAGE ID            CREATED              VIRTUAL SIZE
     
-  ubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)
-  learn/tutorial        latest              8dbd9e392a96        2 months ago        131.5 MB (virtual 131.5 MB)
+  ubuntu                                  latest              8dbd9e392a96        4 months ago         131.5 MB (virtual 131.5 MB)
+  registry-ice.ng.bluemix.net/ibmnode     latest              8dbd9e392a96        2 months ago         131.5 MB (virtual 131.5 MB)
   """
 })
 
@@ -145,10 +145,10 @@ html: """
       """
 assignment: """
       <h3>Assignment</h3>
-      <p>Install 'ping' on top of the learn/tutorial image.</p>
+      <p>Install 'ping' on top of the registry-ice.ng.bluemix.net/ibmnode image.</p>
       """
-command_expected: ["ice", "--local", "run", "learn/tutorial", "apt-get", "install", "-y", "ping"]
-command_show: ["ice", "--local", "run", "learn/tutorial", "apt-get", "install", "-y", "ping"]
+command_expected: ["ice", "--local", "run", "registry-ice.ng.bluemix.net/ibmnode", "apt-get", "install", "-y", "iputils-ping"]
+command_show: ["ice", "--local", "run", "registry-ice.ng.bluemix.net/ibmnode", "apt-get", "install", "-y", "iputils-ping"]
 result: """<p>That worked! You have installed a program on top of a base image. Your changes to the filesystem have been
         kept, but are not yet saved.</p>"""
 intermediateresults: [
@@ -175,6 +175,7 @@ assignment: """
       <h3>Assignment</h3>
       <p>First use <code>ice --local ps -l</code> to find the ID of the container you created by installing ping.</p>
       <p>Then save (commit) this container with the repository name 'learn/ping' </p>
+      <p>Remember for this tutorial our namespace is <b>learn</b></p>
       """
 command_expected: ["ice", "--local", "commit", "698", "learn/ping"]
 command_show: ["ice", "--local", "commit", "698", 'learn/ping']
@@ -189,11 +190,11 @@ tip: """<ul>
 
 currentLocalImages :
   """
-  REPOSITORY            TAG                 IMAGE ID            CREATED              VIRTUAL SIZE
+  REPOSITORY                              TAG                 IMAGE ID            CREATED              VIRTUAL SIZE
     
-  ubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)
-  learn/tutorial        latest              8dbd9e392a96        2 months ago        131.5 MB (virtual 131.5 MB)
-  learn/ping            latest              effb66b31edb        10 minutes ago      11.57 MB (virtual 143.1 MB)
+  ubuntu                                  latest              8dbd9e392a96        4 months ago         131.5 MB (virtual 131.5 MB)
+  registry-ice.ng.bluemix.net/ibmnode     latest              8dbd9e392a96        2 months ago         131.5 MB (virtual 131.5 MB)
+  learn/ping                              latest              effb66b31edb        10 minutes ago       11.57 MB (virtual 143.1 MB)
   """
 })
 
@@ -257,7 +258,7 @@ q.push ({
 html: """
       <h3>Tagging your image with ice</h3>
       <p>Now you have verified that your application container works locally, it's time to get it ready for Bluemix.</p>
-      <p>Remember you pulled (downloaded) the learn/tutorial image from the Bluemix Private Registry? You can also push (upload) your built images
+      <p>Remember you pulled (downloaded) the registry-ice.ng.bluemix.net/ibmnode image from the Bluemix Registry? You can also push (upload) your built images
       to the Registry. That way you can easily retrieve them for re-use and share them with others. </p>
 
       <p>To use an image on bluemix, you will first need to push the image up to your,
@@ -268,7 +269,7 @@ html: """
       """
 assignment: """
       <h3>Assignment</h3>
-      <p>Tag the learn/tutorial image using <code>ice --local tag</code>. tag the image with the name <b>'learn/ping'</b>. This prepares the image for pushing to the bluemix registry.</p>
+      <p>Tag the learn/ping image using <code>ice --local tag</code>. tag the image with the name <b>'learn/ping'</b>. This prepares the image for pushing to the bluemix registry.</p>
       <p>tag usage: <b>'ice --local tag &lt;local_Image_name&gt; registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image_name&gt;'</b></p>
       """
 command_expected: ["ice", "--local", "tag", "learn/ping", "registry-ice.ng.bluemix.net/learn/ping"]
@@ -277,8 +278,8 @@ result: """<p>Success! The image is now tagged and ready to push. In the next se
 intermediateresults:
   [
     () -> """Almost there, don't forget to provide the name of the local image that will be tagged (learn/ping)"""
-    () -> """remember the local image is <b>learn/tutorial</b> and the tag name will be registry-ice.ng.bluemix.net/learn/ping"""
-    () -> """you need to use learn/ping not learn/tutorial"""
+    () -> """remember the local image is <b>learn/ping</b> and the tag name will be registry-ice.ng.bluemix.net/learn/ping"""
+    () -> """you need to use learn/ping not registry-ice.ng.bluemix.net/ibmnode"""
     () -> """Looks like you did'nt give ice a name to tag the image with, try adding registry-ice.ng.bluemix.net/learn/ping"""
   ]
 tip: """
@@ -320,7 +321,6 @@ currentCloudImages :
   Image Id                             Created              Image Name
 
   662c446b-1c9c-424e-bcb4-61288ceede43 Apr 20 06:21:23 2015 registry-ice.ng.bluemix.net/learn/ping:latest
-  54831682-4ce3-b8ea-424e-gefre4aa0e41 Apr 24 09:44:59 2015 registry-ice.ng.bluemix.net/learn/tutorial:latest
   d0feae99-b91d-4ce3-bcb4-6128886f6968 Mar 23 10:44:59 2015 registry-ice.ng.bluemix.net/ibmliberty:latest
   74831680-1c9c-424e-b8ea-ceede4aa0e40 Mar 23 10:41:24 2015 registry-ice.ng.bluemix.net/ibmnode:latest
   """
@@ -480,52 +480,6 @@ finishedCallback: () ->
 
 
 })
-
-
-
-
-###intermediateresults:
-  [
-    () ->
-      $('#instructions .assignment').hide()
-      $('#tips, #command').hide()
-
-      $('#instructions .text').html("""
-        <div class="complete">
-          <h3>Congratulations!</h3>
-          <p>You have mastered the basic docker commands!</p>
-          <p><strong>Did you enjoy this tutorial? Share it!</strong></p>
-          <p>
-            <a href="mailto:?Subject=Check%20out%20the%20Docker%20interactive%20tutorial!&Body=%20https://www.docker.io/gettingstarted/"><img src="/static/img/email.png"></a>
-            <a href="http://www.facebook.com/sharer.php?u=https://www.docker.io/gettingstarted/"><img src="/static/img/facebook.png"></a>
-            <a href="http://twitter.com/share?url=https://www.docker.io/gettingstarted/&text=%20Check+out+the+docker+tutorial!"><img src="/static/img/twitter.png"></a>
-          </p>
-          <h3>Your next steps</h3>
-          <ol>
-            <li><a href="/news_signup/" target="_blank" >Register</a> for news and updates on Docker (opens in new window)</li>
-            <li><a href="http://twitter.com/docker" target="_blank" >Follow</a> us on twitter (opens in new window)</li>
-            <li><a href="#" onClick="leaveFullSizeMode()">Close</a> this tutorial, and continue with the rest of the getting started.</li>
-          </ol>
-          <p> - Or - </p>
-          <p>Continue to learn about the way to automatically build your containers from a file. </p><p><a href="/learn/dockerfile/" class='btn btn-primary secondary-action-button'>Start Dockerfile tutorial</a></p>
-
-        </div>
-        """)
-
-
-      data = { type: EVENT_TYPES.complete }
-      logEvent(data)
-
-      return """<p>All done!. You are now pushing a container image to the index. You can see that push, just like pull, happens layer by layer.</p>"""
-  ]
-  finishedCallback: () ->
-  webterm.clear()
-  webterm.echo( myTerminal() )
-
-
-})
-###
-
 
 # the index arr
 questions = []

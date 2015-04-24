@@ -66,7 +66,6 @@ do @myTerminal = ->
 	@currentCloudImages = """
     Image Id                             Created              Image Name
 
-    54831682-4ce3-b8ea-424e-gefre4aa0e41 Apr 24 09:44:59 2015 registry-ice.ng.bluemix.net/learn/tutorial:latest
     d0feae99-b91d-4ce3-bcb4-6128886f6968 Mar 23 10:44:59 2015 registry-ice.ng.bluemix.net/ibmliberty:latest
     74831680-1c9c-424e-b8ea-ceede4aa0e40 Mar 23 10:41:24 2015 registry-ice.ng.bluemix.net/ibmnode:latest
 
@@ -171,9 +170,10 @@ do @myTerminal = ->
 		if inputArr
 			valid = inputArr.every( (value) ->
 				for item in me
-					itemDashes = (item.match(/-/g) || []).length
-					valueDashes = (value.match(/-/g) || []).length
-					if item.match(value) and itemDashes is valueDashes
+					# we use string matching, but we want to be sensitive to dashes, because '--login' != 'login'
+					itemDashes = (item.match(/--/g) || []).length
+					valueDashes = (value.match(/--/g) || []).length
+					if item.match(value) and itemDashes >= valueDashes
 						return true
 
 				return false
