@@ -36,7 +36,7 @@ assignment: """
 intermediateresults: [
   () -> """<p>Use version instead of --version</p>"""
   ]
-tip: "<p>Try typing <code>ice -i swelp</code> to see the full list of accepted arguments</p>
+tip: "<p>Try typing <code>ice --help</code> to see the full list of accepted arguments</p>
       <p>This emulator provides only a limited set of shell and ice commands, so some commands may not work as expected</p>"
 command_expected: ['ice', 'version']
 result: """<p>Well done! Let's move to the next assignment.</p>"""
