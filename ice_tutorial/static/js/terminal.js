@@ -36,7 +36,7 @@
     this.currentDockerPs = "";
     this.currentIcePs = "\nContainer Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports";
     this.currentLocalImages = "Target is local host. Invoking docker with the given arguments...\nREPOSITORY            TAG                 IMAGE ID            CREATED             VIRTUAL SIZE\nubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)";
-    this.currentCloudImages = "Image Id                             Created              Image Name\n\nd0feae99-b91d-4ce3-bcb4-6128886f6968 Mar 23 10:44:59 2015 registry-ice.ng.bluemix.net/ibmliberty:latest\n74831680-1c9c-424e-b8ea-ceede4aa0e40 Mar 23 10:41:24 2015 registry-ice.ng.bluemix.net/ibmnode:latest\n";
+    this.currentCloudImages = "Image Id                             Created              Image Name\n\n54831682-4ce3-b8ea-424e-gefre4aa0e41 Apr 24 09:44:59 2015 registry-ice.ng.bluemix.net/learn/tutorial:latest\nd0feae99-b91d-4ce3-bcb4-6128886f6968 Mar 23 10:44:59 2015 registry-ice.ng.bluemix.net/ibmliberty:latest\n74831680-1c9c-424e-b8ea-ceede4aa0e40 Mar 23 10:41:24 2015 registry-ice.ng.bluemix.net/ibmnode:latest\n";
 
     /*
     		Base interpreter

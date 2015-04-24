@@ -162,7 +162,7 @@
       }
     ],
     tip: "<ul>\n<li>Remember that the namespace is <b>'learn'</b></li>\n<li>For more info on how to specify a target registry, see the <a href=\"https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#container_install\">docs</a></li>\n</ul>",
-    currentCloudImages: "Image Id                             Created              Image Name\n\n662c446b-1c9c-424e-bcb4-61288ceede43 Apr 20 06:21:23 2015 registry-ice.ng.bluemix.net/learn/ping:latest\nd0feae99-b91d-4ce3-bcb4-6128886f6968 Mar 23 10:44:59 2015 registry-ice.ng.bluemix.net/ibmliberty:latest\n74831680-1c9c-424e-b8ea-ceede4aa0e40 Mar 23 10:41:24 2015 registry-ice.ng.bluemix.net/ibmnode:latest"
+    currentCloudImages: "Image Id                             Created              Image Name\n\n662c446b-1c9c-424e-bcb4-61288ceede43 Apr 20 06:21:23 2015 registry-ice.ng.bluemix.net/learn/ping:latest\n54831682-4ce3-b8ea-424e-gefre4aa0e41 Apr 24 09:44:59 2015 registry-ice.ng.bluemix.net/learn/tutorial:latest\nd0feae99-b91d-4ce3-bcb4-6128886f6968 Mar 23 10:44:59 2015 registry-ice.ng.bluemix.net/ibmliberty:latest\n74831680-1c9c-424e-b8ea-ceede4aa0e40 Mar 23 10:41:24 2015 registry-ice.ng.bluemix.net/ibmnode:latest"
   });
 
   q.push({
