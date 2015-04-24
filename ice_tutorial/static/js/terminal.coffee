@@ -347,16 +347,10 @@ do @myTerminal = ->
 			console.log("login")
 			if inputs[2] is "-h" or inputs[2] is "--help"
 				echo login_cmd
-			else if inputs.containsAllOfTheseParts(['ice', 'login', 'api-ice.ng.bluemix.net/v2/containers'])
+			else if inputs.containsAllOfTheseParts(['ice', 'login'])
 				term.echo "API endpoint: https://api.ng.bluemix.net\n"
 				term.set_prompt "Email> "
 				term.loginSequence = 1
-			else if inputs.containsAllOfTheseParts(['ice', 'login', '-H']) and inputs[3]
-				intermediateResults(2)
-			else if inputs.containsAllOfTheseParts(['ice', 'login', '-H']) and not inputs[3]
-				intermediateResults(2)
-			else if inputs.containsAllOfTheseParts(['ice', 'login'])
-				intermediateResults(0)
 
 		else if inputs[1] is "version"
 			echo ice_version()
