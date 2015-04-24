@@ -432,7 +432,7 @@
           } else {
             echo(run_flag_defined_not_defined(switches));
           }
-        } else if (imagename === "learn/tutorial") {
+        } else if (imagename === "registry-ice.ng.bluemix.net/ibmnode") {
           if (switches.length = 0) {
             echo(run_learn_no_command);
             intermediateResults(0);
@@ -493,9 +493,9 @@
           } else {
             if (keyword === 'ubuntu') {
               result = util_slow_lines(term, pull_ubuntu, "", callback);
-            } else if (keyword === 'learn/tutorial') {
+            } else if (keyword === 'ibmnode') {
               intermediateResults(1);
-            } else if (keyword === 'registry-ice.ng.bluemix.net/learn/tutorial') {
+            } else if (keyword === 'registry-ice.ng.bluemix.net/ibmnode') {
               result = util_slow_lines(term, pull_tutorial, "", callback);
             } else {
               util_slow_lines(term, pull_no_results, keyword);
@@ -563,7 +563,7 @@
             } else {
               echo(run_flag_defined_not_defined(switches));
             }
-          } else if (imagename === "learn/tutorial") {
+          } else if (imagename === "registry-ice.ng.bluemix.net/ibmnode") {
             if (switches.length = 0) {
               echo(run_learn_no_command);
               intermediateResults(0);
@@ -629,7 +629,7 @@
           } else if (inputs.containsAllOfTheseParts(["learn/ping"])) {
             intermediateResults(3);
             echo(tag_no_args);
-          } else if (inputs.containsAllOfTheseParts(["learn/tutorial"])) {
+          } else if (inputs.containsAllOfTheseParts(["registry-ice.ng.bluemix.net/ibmnode"])) {
             intermediateResults(2);
             echo(tag_no_args);
           } else {

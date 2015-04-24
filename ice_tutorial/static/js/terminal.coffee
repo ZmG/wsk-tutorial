@@ -479,7 +479,7 @@ do @myTerminal = ->
 					echo run_echo(sentence)
 				else
 					echo run_flag_defined_not_defined(switches)
-			else if imagename is "learn/tutorial"
+			else if imagename is "registry-ice.ng.bluemix.net/ibmnode"
 				if switches.length = 0
 					#missing --local tag 
 					echo run_learn_no_command
@@ -547,9 +547,9 @@ do @myTerminal = ->
 				else
 					if keyword is 'ubuntu'
 						result = util_slow_lines(term, pull_ubuntu, "", callback )
-					else if keyword is 'learn/tutorial'
+					else if keyword is 'ibmnode'
 						intermediateResults(1)
-					else if keyword is 'registry-ice.ng.bluemix.net/learn/tutorial'
+					else if keyword is 'registry-ice.ng.bluemix.net/ibmnode'
 						result = util_slow_lines(term, pull_tutorial, "", callback )
 					else
 						util_slow_lines(term, pull_no_results, keyword)					
@@ -617,7 +617,7 @@ do @myTerminal = ->
 						echo run_echo(sentence)
 					else
 						echo run_flag_defined_not_defined(switches)
-				else if imagename is "learn/tutorial"
+				else if imagename is "registry-ice.ng.bluemix.net/ibmnode"
 					if switches.length = 0
 						#missing --local tag TODO
 						echo run_learn_no_command
@@ -685,7 +685,7 @@ do @myTerminal = ->
 				else if inputs.containsAllOfTheseParts(["learn/ping"])
 					intermediateResults(3)
 					echo tag_no_args
-				else if inputs.containsAllOfTheseParts(["learn/tutorial"])
+				else if inputs.containsAllOfTheseParts(["registry-ice.ng.bluemix.net/ibmnode"])
 					intermediateResults(2)
 					echo tag_no_args
 				else

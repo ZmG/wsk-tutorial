@@ -70,13 +70,13 @@ html: """
 assignment:
       """
       <h3>Assignment</h3>
-      <p>Pull the trusted <b>'ibmnode'</b> image <b>'registry-ice.ng.bluemix.net/'</b></p>
+      <p>Pull the trusted <b>'ibmnode'</b> image from the <b>'registry-ice.ng.bluemix.net/'</b> Registry.</p>
       """
 command_expected: ['ice', '--local', 'pull', 'registry-ice.ng.bluemix.net/ibmnode']
 result: """<p>Cool. Look at the results. You'll see that ice has invoked docker to download a number of layers. In Docker all images (except the base image) are made up of several cumulative layers.</p>"""
 intermediateresults: [
   () -> """<p>You seem to be almost there. Don't forget to tell <b>ice --local pull</b> where to find the image, ice --local pull &lt;<Registry url>&gt;/&lt;learn&gt;/&lt;tutorial&gt; """,
-  () -> """<p>You got the namespace and image name correct, but forgot to specify a registry, hint ice --ltiyu5ocal pull &lt;Registry url&gt;/&lt;Namespace&gt;/&lt;Image Name&gt;</p>"""
+  () -> """<p>You got the namespace and image name correct, but forgot to specify a registry, hint ice --ltiyu5ocal pull &lt;Registry url&gt;/Image Name&gt;</p>"""
   () -> """<p>Looks like you forgot to use the --local flag, try <em>ice --local pull [registry/namespace/imageName]</em></p>"""
   ]
 tip: """
