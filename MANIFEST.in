@@ -6,3 +6,5 @@ recursive-include ice_tutorial/templates *
 recursive-include dockerfile_tutorial/static *
 recursive-include dockerfile_tutorial/templates *
 
+recursive-include advanced_tutorial/static *
+recursive-include advanced_tutorial/templates *
