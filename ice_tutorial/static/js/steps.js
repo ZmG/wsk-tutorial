@@ -262,6 +262,32 @@
     result: "<p>Well done! Let's move to the next assignment.</p>"
   });
 
+  adv_q.push({
+    html: "<h3>Logging In</h3>\n<p>The easiest way to get started is to log in to the IBM Containers infrastructure.  For details on login arguments, search the online \n<a href=\"#1\" onClick=\"window.open('https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#genTopProcId4','IBM Containers Doc','width=1000,height=900,left=50,top=50,menubar=0')\";>IBM Containers Doc</a>\nand by using the commandline</p>",
+    assignment: "<h3>Assignment</h3>\n<p>Use the <code>ice login</code> command to log in to the IBM Containers infrastructure. Ice will ask you for a username and password, any value will work.</p>",
+    command_expected: ['ice', 'login'],
+    result: "<p>You found it! Way to go!</p>",
+    tip: "the optional arguments for login are specified in the online Bluemix Containers doc"
+  });
+
+  adv_q.push({
+    html: "<h3>Downloading container images</h3>\n<p>This exercise will introduce the <b>--local</b> tag. calling ice --local is the same as calling docker. ice --local will pass arguements to docker and run like standard docker.</p>\n<p>Container images can be downloaded just as easily, using <code>docker pull</code>.</p>\n<p>However, instead of calling <code>docker pull</code> directly we will use <code>ice --local pull</code>, to pull images from registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image&gt;.</p>\n<p>For images from your namespace index, the name you specify is constructed as &lt;Namespace&gt;/&lt;Image Name&gt;</p>\n<p>A group of special, trusted images such as the ibmnode image can be retrieved by just their name registry-ice.ng.bluemix.net/&lt;Image Name&gt;.</p>",
+    assignment: "<h3>Assignment</h3>\n<p>Pull the trusted <b>'ibmnode'</b> image from the <b>'registry-ice.ng.bluemix.net/'</b> Registry.</p>",
+    command_expected: ['ice', '--local', 'pull', 'registry-ice.ng.bluemix.net/ibmnode'],
+    result: "<p>Cool. Look at the results. You'll see that ice has invoked docker to download a number of layers. In Docker all images (except the base image) are made up of several cumulative layers.</p>",
+    intermediateresults: [
+      function() {
+        return "<p>You seem to be almost there. Don't forget to tell <b>ice --local pull</b> where to find the image, ice --local pull &lt;<Registry url>&gt;/&lt;learn&gt;/&lt;tutorial&gt; ";
+      }, function() {
+        return "<p>You got the namespace and image name correct, but forgot to specify a registry, hint ice --ltiyu5ocal pull &lt;Registry url&gt;/Image Name&gt;</p>";
+      }, function() {
+        return "<p>Looks like you forgot to use the --local flag, try <em>ice --local pull [registry/namespace/imageName]</em></p>";
+      }
+    ],
+    tip: "<ul>\n  <li>The ibmnode image is a trusted image. Therefore you do not have to specify a namespace.</li>\n  <li>For this tutorial the namespace for your registry will always be <b>'learn'</b></li>\n  <li>Look under 'show expected command if you're stuck.</li>\n</ul>",
+    currentLocalImages: "REPOSITORY                              TAG                 IMAGE ID            CREATED              VIRTUAL SIZE\n  \nubuntu                                  latest              8dbd9e392a96        4 months ago         131.5 MB (virtual 131.5 MB)\nregistry-ice.ng.bluemix.net/ibmnode     latest              8dbd9e392a96        2 months ago         131.5 MB (virtual 131.5 MB)"
+  });
+
   questions = [];
 
 
@@ -519,11 +545,11 @@
 
   window.switchToAdvanced = switchToAdvanced = function() {
     var f, j, len, question, questionNumber, results1;
-    progressIndicator.empty();
+    statusMarker.nextAll('span').remove();
     questionNumber = 0;
     results1 = [];
-    for (j = 0, len = q.length; j < len; j++) {
-      question = q[j];
+    for (j = 0, len = adv_q.length; j < len; j++) {
+      question = adv_q[j];
       f = buildfunction(question);
       questions.push(f);
       drawStatusMarker(questionNumber);
