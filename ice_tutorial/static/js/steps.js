@@ -411,7 +411,9 @@
   next = function(which) {
     var data;
     $('#marker-' + current_question).addClass("complete").removeClass("active");
-    if (!which && which !== 0) {
+    if (which === 'ADV') {
+      switchToAdvanced();
+    } else if (!which && which !== 0) {
       current_question++;
     } else {
       current_question = which;

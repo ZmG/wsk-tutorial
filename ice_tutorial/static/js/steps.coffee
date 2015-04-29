@@ -686,8 +686,9 @@ current_question = 0
 next = (which) ->
   # before increment clear style from previous question progress indicator
   $('#marker-' + current_question).addClass("complete").removeClass("active")
-
-  if not which and which != 0
+  if which is 'ADV'
+    switchToAdvanced()
+  else if not which and which != 0
     current_question++
   else
     current_question = which
@@ -707,6 +708,8 @@ next = (which) ->
 
   # change the progress indicator
   $('#marker-' + current_question).removeClass("complete").addClass("active")
+
+
 
   $('#question-number').find('text').get(0).textContent = current_question
 
