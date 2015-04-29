@@ -5,7 +5,7 @@
  */
 
 (function() {
-  var COMPLETE_URL, EVENT_TYPES, adv_q, buildfunction, current_question, currentquestion, drawStatusMarker, err, f, j, len, logEvent, next, previous, progressIndicator, q, question, questionNumber, questions, results, staticDockerPs, statusMarker, switchToAdvanced;
+  var COMPLETE_URL, EVENT_TYPES, adv_q, advancedTag, buildfunction, current_question, currentquestion, drawStatusMarker, err, f, j, leftside, len, logEvent, next, previous, progressIndicator, q, question, questionNumber, questions, results, staticDockerPs, statusMarker, switchToAdvanced, tutorialTop;
 
   COMPLETE_URL = "/whats-next/";
 
@@ -543,9 +543,18 @@
 
   progressIndicator = $('#progress-indicator');
 
+  leftside = $('#leftside');
+
+  tutorialTop = $('#tutorialTop');
+
+  advancedTag = $('#advancedTag');
+
   window.switchToAdvanced = switchToAdvanced = function() {
     var f, j, len, question, questionNumber, results1;
     statusMarker.nextAll('span').remove();
+    leftside.css("background-color", "#543B3B");
+    tutorialTop.css("background-color", "#3F2626");
+    advancedTag.fadeIn();
     questionNumber = 0;
     results1 = [];
     for (j = 0, len = adv_q.length; j < len; j++) {

@@ -224,6 +224,12 @@
 #tutorialTop #title {
   font-weight: 100;
 }
+#tutorialTop #title #advancedTag {
+  display: none;
+  font-style: italic;
+  color: aquamarine;
+  margin-left: 10px;
+}
 #tutorialTop #titleLogo {
   padding: 2px;
   height: 64px;

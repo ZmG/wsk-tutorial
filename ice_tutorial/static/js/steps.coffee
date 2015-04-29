@@ -823,9 +823,16 @@ buildfunction = (q) ->
 
 statusMarker = $('#progress-marker-0')
 progressIndicator = $('#progress-indicator')
+leftside = $('#leftside')
+tutorialTop = $('#tutorialTop')
+advancedTag = $('#advancedTag')
 
 window.switchToAdvanced = switchToAdvanced = () -> 
-  statusMarker.nextAll('span').remove();
+  statusMarker.nextAll('span').remove()
+  leftside.css( "background-color", "#543B3B" )
+  tutorialTop.css( "background-color", "#3F2626" )
+  advancedTag.fadeIn()
+
   questionNumber = 0
   for question in adv_q
     f = buildfunction(question)
