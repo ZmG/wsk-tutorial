@@ -566,6 +566,8 @@
       f = buildfunction(question);
       questions.push(f);
       drawStatusMarker(questionNumber);
+      $('#marker-' + questionNumber).removeClass("active").hide();
+      $('#marker-' + questionNumber).fadeIn();
       results1.push(questionNumber++);
     }
     return results1;
