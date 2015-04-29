@@ -5,8 +5,8 @@ from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 
-from ..ice_tutorial import utils
-from ..ice_tutorial.models import TutorialUser, TutorialEvent, DockerfileEvent, Subscriber
+from .ice_tutorial import utils
+from .ice_tutorial.models import TutorialUser, TutorialEvent, DockerfileEvent, Subscriber
 
 __author__ = 'thatcher'
 
