@@ -481,6 +481,45 @@ finishedCallback: () ->
 
 })
 
+###intermediateresults:
+  [
+    () ->
+      $('#instructions .assignment').hide()
+      $('#tips, #command').hide()
+
+      $('#instructions .text').html("""
+        <div class="complete">
+          <h3>Congratulations!</h3>
+          <p>You have mastered the basic docker commands!</p>
+          <p><strong>Did you enjoy this tutorial? Share it!</strong></p>
+          <p>
+            <a href="mailto:?Subject=Check%20out%20the%20Docker%20interactive%20tutorial!&Body=%20JSTART"><img src="/static/img/email.png"></a>
+            <a href="http://www.facebook.com/sharer.php?u=JSTART"><img src="/static/img/facebook.png"></a>
+            <a href="http://twitter.com/share?url=JSTART&text=%20Check+out+the+docker+tutorial!"><img src="/static/img/twitter.png"></a>
+          </p>
+          <h3>Your next steps</h3>
+          <ol>
+            <li><a href="/news_signup/" target="_blank" >Register</a> for news and updates on Docker (opens in new window)</li>
+            <li><a href="http://twitter.com/docker" target="_blank" >Follow</a> us on twitter (opens in new window)</li>
+            <li><a href="#" onClick="leaveFullSizeMode()">Close</a> this tutorial, and continue with the rest of the getting started.</li>
+          </ol>
+          <p> - Or - </p>
+          <p>Continue to learn about the way to automatically build your containers from a file. </p><p><a href="/learn/dockerfile/" class='btn btn-primary secondary-action-button'>Start Dockerfile tutorial</a></p>
+
+        </div>
+        """)
+
+
+      data = { type: EVENT_TYPES.complete }
+      logEvent(data)
+
+      return """<p>All done!. You are now pushing a container image to the index. You can see that push, just like pull, happens layer by layer.</p>"""
+  ]
+finishedCallback: () ->
+  webterm.clear()
+  webterm.echo( myTerminal() )
+})
+###
 ###
   Array of ADVANCED question objects
 ###
@@ -488,7 +527,7 @@ finishedCallback: () ->
 adv_q = []
 adv_q.push ({
 html: """
-      <h3>Getting started</h3>
+      <h3>Volumes</h3>
       <p>Use IBM® Containers to run Docker containers in a hosted cloud environment on IBM Bluemix™. IBM Containers 
       helps you build and deploy containers where you can package your applications and services. Each container is 
       based on an image format, includes a set of standard operations, and is an execution environment in itself.
@@ -514,7 +553,7 @@ result: """<p>Well done! Let's move to the next assignment.</p>"""
 
 adv_q.push ({
 html: """
-      <h3>Logging In</h3>
+      <h3>Attaching Volumes</h3>
       <p>The easiest way to get started is to log in to the IBM Containers infrastructure.  For details on login arguments, search the online 
       <a href="#1" onClick="window.open('https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#genTopProcId4','IBM Containers Doc','width=1000,height=900,left=50,top=50,menubar=0')";>IBM Containers Doc</a>
       and by using the commandline</p>
@@ -530,7 +569,39 @@ tip: "the optional arguments for login are specified in the online Bluemix Conta
 
 adv_q.push ({
 html: """
-      <h3>Downloading container images</h3>
+      <h3>Binding Apps to Bluemix</h3>
+      <p>The easiest way to get started is to log in to the IBM Containers infrastructure.  For details on login arguments, search the online 
+      <a href="#1" onClick="window.open('https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#genTopProcId4','IBM Containers Doc','width=1000,height=900,left=50,top=50,menubar=0')";>IBM Containers Doc</a>
+      and by using the commandline</p>
+      """
+assignment: """
+      <h3>Assignment</h3>
+      <p>Use the <code>ice login</code> command to log in to the IBM Containers infrastructure. Ice will ask you for a username and password, any value will work.</p>
+      """
+command_expected: ['ice', 'login']
+result: """<p>You found it! Way to go!</p>"""
+tip: "the optional arguments for login are specified in the online Bluemix Containers doc"
+})
+
+adv_q.push ({
+html: """
+      <h3>Creating Container Groups</h3>
+      <p>The easiest way to get started is to log in to the IBM Containers infrastructure.  For details on login arguments, search the online 
+      <a href="#1" onClick="window.open('https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#genTopProcId4','IBM Containers Doc','width=1000,height=900,left=50,top=50,menubar=0')";>IBM Containers Doc</a>
+      and by using the commandline</p>
+      """
+assignment: """
+      <h3>Assignment</h3>
+      <p>Use the <code>ice login</code> command to log in to the IBM Containers infrastructure. Ice will ask you for a username and password, any value will work.</p>
+      """
+command_expected: ['ice', 'login']
+result: """<p>You found it! Way to go!</p>"""
+tip: "the optional arguments for login are specified in the online Bluemix Containers doc"
+})
+
+adv_q.push ({
+html: """
+      <h3>Working With Routes</h3>
       <p>This exercise will introduce the <b>--local</b> tag. calling ice --local is the same as calling docker. ice --local will pass arguements to docker and run like standard docker.</p>
       <p>Container images can be downloaded just as easily, using <code>docker pull</code>.</p>
       <p>However, instead of calling <code>docker pull</code> directly we will use <code>ice --local pull</code>, to pull images from registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image&gt;.</p>
@@ -842,9 +913,9 @@ window.switchToAdvanced = switchToAdvanced = () ->
     questions.push(f)
     drawStatusMarker(questionNumber)
     if questionNumber > 0
-      $('#marker-' + questionNumber).removeClass("active")
+      $('#marker-' + questionNumber).removeClass("active").removeClass("complete")
     else
-      $('#marker-' + questionNumber).addClass("active")
+      $('#marker-' + questionNumber).removeClass("complete").addClass("active")
     questionNumber++
 
   # go to first question  
