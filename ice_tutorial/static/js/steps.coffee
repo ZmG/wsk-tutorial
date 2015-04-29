@@ -842,7 +842,7 @@ window.switchToAdvanced = switchToAdvanced = () ->
     questions.push(f)
     drawStatusMarker(questionNumber)
     if questionNumber > 0
-      $('#marker-' + questionNumber).removeClass("active").removeClass("completed")
+      $('#marker-' + questionNumber).removeClass("active")
     else
       $('#marker-' + questionNumber).addClass("active")
     questionNumber++

@@ -493,8 +493,11 @@
 .progress-marker circle {
   fill: #eaeaea;
 }
-.progress-marker #marker-ADV > circle {
-  fill: #FF6262;
+.progress-marker #marker-ADV {
+  font-size: small;
+}
+.progress-marker #marker-ADV circle {
+  fill: #D76565;
 }
 .progress-marker text {
   fill: black;
