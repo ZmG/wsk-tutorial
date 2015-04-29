@@ -552,8 +552,12 @@
   window.switchToAdvanced = switchToAdvanced = function() {
     var f, j, len, question, questionNumber, results1;
     statusMarker.nextAll('span').remove();
-    leftside.css("background-color", "#543B3B");
-    tutorialTop.css("background-color", "#3F2626");
+    leftside.animate({
+      backgroundColor: "#543B3B"
+    }, 1000);
+    tutorialTop.animate({
+      backgroundColor: "#3F2626"
+    }, 1000);
     advancedTag.fadeIn();
     questionNumber = 0;
     results1 = [];

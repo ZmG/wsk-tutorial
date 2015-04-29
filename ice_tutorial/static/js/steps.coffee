@@ -829,8 +829,10 @@ advancedTag = $('#advancedTag')
 
 window.switchToAdvanced = switchToAdvanced = () -> 
   statusMarker.nextAll('span').remove()
-  leftside.css( "background-color", "#543B3B" )
-  tutorialTop.css( "background-color", "#3F2626" )
+  #leftside.css( "background-color", "#543B3B" )
+  leftside.animate({ backgroundColor: "#543B3B" }, 1000 );
+  tutorialTop.animate({ backgroundColor: "#3F2626" }, 1000 );
+  #tutorialTop.css( "background-color", "#3F2626" )
   advancedTag.fadeIn()
 
   questionNumber = 0
