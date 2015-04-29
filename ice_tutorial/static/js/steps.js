@@ -408,7 +408,7 @@
 
   current_question = 0;
 
-  window.next = next = function(which) {
+  next = function(which) {
     var data;
     $('#marker-' + current_question).addClass("complete").removeClass("active");
     if (!which && which !== 0) {
@@ -550,7 +550,7 @@
   advancedTag = $('#advancedTag');
 
   window.switchToAdvanced = switchToAdvanced = function() {
-    var f, j, len, question, questionNumber, results1;
+    var f, j, len, question, questionNumber;
     statusMarker.nextAll('span').remove();
     leftside.animate({
       backgroundColor: "#543B3B"
@@ -560,7 +560,6 @@
     }, 1000);
     advancedTag.fadeIn();
     questionNumber = 0;
-    results1 = [];
     for (j = 0, len = adv_q.length; j < len; j++) {
       question = adv_q[j];
       f = buildfunction(question);
@@ -571,9 +570,9 @@
       } else {
         $('#marker-' + questionNumber).addClass("active");
       }
-      results1.push(questionNumber++);
+      questionNumber++;
     }
-    return results1;
+    return next(0);
   };
 
   drawStatusMarker = function(i) {
@@ -600,6 +599,8 @@
     drawStatusMarker(questionNumber);
     questionNumber++;
   }
+
+  drawStatusMarker('ADV');
 
 
   /*

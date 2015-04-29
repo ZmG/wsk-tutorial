@@ -683,7 +683,7 @@ $('#command').click () ->
 
 
 current_question = 0
-window.next = next = (which) ->
+next = (which) ->
   # before increment clear style from previous question progress indicator
   $('#marker-' + current_question).addClass("complete").removeClass("active")
 
@@ -844,6 +844,9 @@ window.switchToAdvanced = switchToAdvanced = () ->
       $('#marker-' + questionNumber).addClass("active")
     questionNumber++
 
+  # go to first question  
+  next(0)
+
 
 drawStatusMarker = (i) ->
   if i == 0
@@ -864,7 +867,7 @@ for question in q
   questions.push(f)
   drawStatusMarker(questionNumber)
   questionNumber++
-
+drawStatusMarker('ADV')
 
 ###
   Initialization of program
