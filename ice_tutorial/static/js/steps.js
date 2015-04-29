@@ -5,7 +5,7 @@
  */
 
 (function() {
-  var COMPLETE_URL, EVENT_TYPES, buildfunction, current_question, currentquestion, drawStatusMarker, err, f, j, len, logEvent, next, previous, progressIndicator, q, question, questionNumber, questions, results, staticDockerPs, statusMarker;
+  var COMPLETE_URL, EVENT_TYPES, adv_q, buildfunction, current_question, currentquestion, drawStatusMarker, err, f, j, len, logEvent, next, previous, progressIndicator, q, question, questionNumber, questions, results, staticDockerPs, statusMarker, switchToAdvanced;
 
   COMPLETE_URL = "/whats-next/";
 
@@ -240,6 +240,26 @@
       webterm.clear();
       return webterm.echo(myTerminal());
     }
+  });
+
+
+  /*
+    Array of ADVANCED question objects
+   */
+
+  adv_q = [];
+
+  adv_q.push({
+    html: "<h3>Getting started</h3>\n<p>Use IBM® Containers to run Docker containers in a hosted cloud environment on IBM Bluemix™. IBM Containers \nhelps you build and deploy containers where you can package your applications and services. Each container is \nbased on an image format, includes a set of standard operations, and is an execution environment in itself.\n</p>\n<p>If you are familiar with Docker CLI, then the first half of this tutorial will show you how to use common docker \ncommands using ice --local. This CLI Has disabled docker commands. If you want to use a docker command you must use\n<code>ice --local</code>. 'ice --local' is equivalent to 'docker'</p>",
+    assignment: "<h3>Assignment</h3>\n<p>Use ice commands to check the current ice (IBM Containers Extension) CLI version you are running.</p>\n<p>If you see a version value then you know you that your all set with your ice client installation. The ice CLI is supported on Linux OS.\nFor Windows, your best option is to create an Ubuntu VM and install your client software there.</p>",
+    intermediateresults: [
+      function() {
+        return "<p>Use version instead of --version</p>";
+      }
+    ],
+    tip: "<p>Try typing <code>ice --help</code> to see the full list of accepted arguments</p> <p>This emulator provides only a limited set of shell and ice commands, so some commands may not work as expected</p>",
+    command_expected: ['ice', 'version'],
+    result: "<p>Well done! Let's move to the next assignment.</p>"
   });
 
   questions = [];
@@ -496,6 +516,21 @@
   statusMarker = $('#progress-marker-0');
 
   progressIndicator = $('#progress-indicator');
+
+  window.switchToAdvanced = switchToAdvanced = function() {
+    var f, j, len, question, questionNumber, results1;
+    progressIndicator.empty();
+    questionNumber = 0;
+    results1 = [];
+    for (j = 0, len = q.length; j < len; j++) {
+      question = q[j];
+      f = buildfunction(question);
+      questions.push(f);
+      drawStatusMarker(questionNumber);
+      results1.push(questionNumber++);
+    }
+    return results1;
+  };
 
   drawStatusMarker = function(i) {
     var marker;
