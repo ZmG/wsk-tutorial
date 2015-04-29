@@ -826,8 +826,8 @@ results = {
   Transform question objects into functions
 ###
 
-buildfunction = (q) ->
-  _q = q
+buildfunction = (question) ->
+  _q = question
   return ->
     console.debug("function called")
 
@@ -902,6 +902,7 @@ tutorialTop = $('#tutorialTop')
 advancedTag = $('#advancedTag')
 
 window.switchToAdvanced = switchToAdvanced = () -> 
+  questions = []
   statusMarker.nextAll('span').remove()
   leftside.animate({ backgroundColor: "#543B3B" }, 1000 )
   tutorialTop.animate({ backgroundColor: "#3F2626" }, 1000 )

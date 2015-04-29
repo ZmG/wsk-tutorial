@@ -526,9 +526,9 @@
     Transform question objects into functions
    */
 
-  buildfunction = function(q) {
+  buildfunction = function(question) {
     var _q;
-    _q = q;
+    _q = question;
     return function() {
       console.debug("function called");
       $('#instructions').hide().fadeIn();
@@ -610,6 +610,7 @@
 
   window.switchToAdvanced = switchToAdvanced = function() {
     var f, j, len, question, questionNumber;
+    questions = [];
     statusMarker.nextAll('span').remove();
     leftside.animate({
       backgroundColor: "#543B3B"
