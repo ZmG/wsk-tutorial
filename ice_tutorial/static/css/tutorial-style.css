@@ -493,6 +493,9 @@
 .progress-marker circle {
   fill: #eaeaea;
 }
+.progress-marker #marker-ADV > circle {
+  fill: #FF6262;
+}
 .progress-marker text {
   fill: black;
 }
