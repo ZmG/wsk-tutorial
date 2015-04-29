@@ -408,7 +408,7 @@
 
   current_question = 0;
 
-  next = function(which) {
+  window.next = next = function(which) {
     var data;
     $('#marker-' + current_question).addClass("complete").removeClass("active");
     if (!which && which !== 0) {
@@ -566,7 +566,11 @@
       f = buildfunction(question);
       questions.push(f);
       drawStatusMarker(questionNumber);
-      $('#marker-' + questionNumber).removeClass("active");
+      if (questionNumber > 0) {
+        $('#marker-' + questionNumber).removeClass("active").removeClass("completed");
+      } else {
+        $('#marker-' + questionNumber).addClass("active");
+      }
       results1.push(questionNumber++);
     }
     return results1;

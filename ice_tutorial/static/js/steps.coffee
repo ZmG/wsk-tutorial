@@ -683,7 +683,7 @@ $('#command').click () ->
 
 
 current_question = 0
-next = (which) ->
+window.next = next = (which) ->
   # before increment clear style from previous question progress indicator
   $('#marker-' + current_question).addClass("complete").removeClass("active")
 
@@ -838,7 +838,10 @@ window.switchToAdvanced = switchToAdvanced = () ->
     f = buildfunction(question)
     questions.push(f)
     drawStatusMarker(questionNumber)
-    $('#marker-' + questionNumber).removeClass("active")
+    if questionNumber > 0
+      $('#marker-' + questionNumber).removeClass("active").removeClass("completed")
+    else
+      $('#marker-' + questionNumber).addClass("active")
     questionNumber++
 
 
