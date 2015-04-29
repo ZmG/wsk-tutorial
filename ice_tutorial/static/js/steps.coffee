@@ -838,8 +838,7 @@ window.switchToAdvanced = switchToAdvanced = () ->
     f = buildfunction(question)
     questions.push(f)
     drawStatusMarker(questionNumber)
-    $('#marker-' + questionNumber).removeClass("active").hide()
-    $('#marker-' + questionNumber).fadeIn()
+    $('#marker-' + questionNumber).removeClass("active")
     questionNumber++
 
 
