@@ -520,6 +520,7 @@ finishedCallback: () ->
   webterm.echo( myTerminal() )
 })
 ###
+
 ###
   Array of ADVANCED question objects
 ###
@@ -528,35 +529,35 @@ adv_q = []
 adv_q.push ({
 html: """
       <h3>Volumes</h3>
-      <p>Use IBM® Containers to run Docker containers in a hosted cloud environment on IBM Bluemix™. IBM Containers 
-      helps you build and deploy containers where you can package your applications and services. Each container is 
-      based on an image format, includes a set of standard operations, and is an execution environment in itself.
-      </p>
-      <p>If you are familiar with Docker CLI, then the first half of this tutorial will show you how to use common docker 
-      commands using ice --local. This CLI Has disabled docker commands. If you want to use a docker command you must use
-      <code>ice --local</code>. 'ice --local' is equivalent to 'docker'</p>
+      <p>A data volume is a specially-designated directory within one or more containers that bypasses the Union File System. Data volumes provide several useful features for persistent or shared data:</p>
+      <ul>
+        <li>Volumes are initialized when a container is created. If the container's base image contains data at the specified mount point, that data is copied into the new volume.</li>
+        <li>Data volumes can be shared and reused among containers.</li>
+        <li>Changes to a data volume are made directly.</li>
+        <li>Changes to a data volume will not be included when you update an image.</li>
+        <li>Data volumes persist even if the container itself is deleted.</li>
+      </ul>
+      <p>Data volumes are designed to persist data, independent of the container's life cycle. Docker therefore never automatically delete volumes when you remove a container, 
+      nor will it "garbage collect" volumes that are no longer referenced by a container.</p>
       """
 assignment: """
       <h3>Assignment</h3>
-      <p>Use ice commands to check the current ice (IBM Containers Extension) CLI version you are running.</p>
-      <p>If you see a version value then you know you that your all set with your ice client installation. The ice CLI is supported on Linux OS.
-      For Windows, your best option is to create an Ubuntu VM and install your client software there.</p>
+      <p>In this exercise we will create a Volume on our Bluemix org so that it can be bound to containers.</p>
+      <p>Go ahead and use the <code>ice volume</code> commands to create a volume called <b>storage</b></p>
       """
-intermediateresults: [
-  () -> """<p>Use version instead of --version</p>"""
-  ]
-tip: "<p>Try typing <code>ice --help</code> to see the full list of accepted arguments</p>
-      <p>This emulator provides only a limited set of shell and ice commands, so some commands may not work as expected</p>"
-command_expected: ['ice', 'version']
-result: """<p>Well done! Let's move to the next assignment.</p>"""
+command_expected: ['ice', 'volume', 'create', 'storage']
+tip: """
+    <ul>
+      <li>Use <code>ice volume list</code> to list images</li>
+      <li>Use <code>ice volume -h</code> to see all the available commands</li>
+    </ul>
+     """
+result: """<p>Sweeet! now we're ready to bind a volume to a running container!</p>"""
 })
 
 adv_q.push ({
 html: """
       <h3>Attaching Volumes</h3>
-      <p>The easiest way to get started is to log in to the IBM Containers infrastructure.  For details on login arguments, search the online 
-      <a href="#1" onClick="window.open('https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#genTopProcId4','IBM Containers Doc','width=1000,height=900,left=50,top=50,menubar=0')";>IBM Containers Doc</a>
-      and by using the commandline</p>
       """
 assignment: """
       <h3>Assignment</h3>

@@ -13,7 +13,7 @@
 
 (function() {
   (this.myTerminal = function() {
-    var EMULATOR_VERSION, ICE_logo, IceCommands, auth, bash, commit, commit_containerid, commit_id_does_not_exist, docker_cmd, docker_version, help, ice, ice_help, ice_inspect_help, ice_ip, ice_ip_bind_fail, ice_ip_bind_help, ice_ip_bound, ice_ip_help, ice_ip_request, ice_ip_request_help, ice_logs, ice_logs_help, ice_no_args, ice_no_such_container, ice_pull, ice_rm, ice_rm_help, ice_rm_ice_ping, ice_run_help, ice_run_no_name, ice_stop, ice_stop_help, ice_stop_ice_ping, ice_version, inspect, inspect_ice_ping_container, inspect_no_such_container, inspect_ping_container, login, loginResult, login_cmd, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push_container_learn_ping, push_help, push_no_args, push_wrong_name, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_echo, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_localhost, run_ping_not_localhost, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait;
+    var EMULATOR_VERSION, ICE_logo, IceCommands, auth, bash, commit, commit_containerid, commit_id_does_not_exist, created_volume, docker_cmd, docker_version, help, ice, ice_help, ice_inspect_help, ice_ip, ice_ip_bind_fail, ice_ip_bind_help, ice_ip_bound, ice_ip_help, ice_ip_request, ice_ip_request_help, ice_logs, ice_logs_help, ice_no_args, ice_no_such_container, ice_pull, ice_rm, ice_rm_help, ice_rm_ice_ping, ice_run_help, ice_run_no_name, ice_stop, ice_stop_help, ice_stop_ice_ping, ice_version, ice_volume, ice_volume_create, ice_volume_create_help, ice_volume_help, ice_volume_list, ice_volume_list_help, ice_volume_rm, ice_volume_rm_help, inspect, inspect_ice_ping_container, inspect_no_such_container, inspect_ping_container, login, loginResult, login_cmd, not_implemented, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push_container_learn_ping, push_help, push_no_args, push_wrong_name, removed_volume, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_echo, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_localhost, run_ping_not_localhost, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait;
     EMULATOR_VERSION = "0.1.5";
     this.basesettings = {
       prompt: '[[b;#fff;]you@tutorial:~$] ',
@@ -34,6 +34,7 @@
       console.debug("sent " + string);
     };
     this.currentDockerPs = "";
+    this.currentVolumes = [""];
     this.currentIcePs = "\nContainer Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports";
     this.currentLocalImages = "Target is local host. Invoking docker with the given arguments...\nREPOSITORY            TAG                 IMAGE ID            CREATED             VIRTUAL SIZE\nubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)";
     this.currentCloudImages = "Image Id                             Created              Image Name\n\nd0feae99-b91d-4ce3-bcb4-6128886f6968 Mar 23 10:44:59 2015 registry-ice.ng.bluemix.net/ibmliberty:latest\n74831680-1c9c-424e-b8ea-ceede4aa0e40 Mar 23 10:41:24 2015 registry-ice.ng.bluemix.net/ibmnode:latest\n";
@@ -268,7 +269,7 @@
       }
     };
     ice = function(term, inputs) {
-      var callback, command, commands, echo, i, imagename, insert, k, keyword, l, len, len1, parsed_input, ref, ref1, result, sentence, swargs, switches, word;
+      var callback, command, commands, echo, i, imagename, index, insert, k, keyword, l, len, len1, parsed_input, ref, ref1, result, sentence, swargs, switches, word;
       echo = term.echo;
       insert = term.insert;
       callback = function() {
@@ -362,6 +363,41 @@
           echo(ice_no_such_container);
         } else {
           echo(ice_logs);
+        }
+      } else if (inputs[1] === "volume") {
+        if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
+          echo(ice_volume_help);
+        } else if (inputs[2] === 'inspect') {
+          echo(not_implemented(inputs[2]));
+        } else if (inputs[2] === 'list') {
+          if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
+            echo(ice_volume_list_help);
+          } else {
+            echo(ice_volume_list(currentVolumes));
+          }
+        } else if (inputs[2] === 'create') {
+          if (inputs[3] && (inputs[3] === "--help" || inputs[3] === "-h")) {
+            echo(ice_volume_create_help);
+          } else if (inputs[3]) {
+            currentVolumes.push(inputs[3]);
+            echo(created_volume(inputs[3]));
+          } else {
+            echo(ice_volume_create);
+          }
+        } else if (inputs[2] === 'rm') {
+          if (inputs[3] && (inputs[3] === "--help" || inputs[3] === "-h")) {
+            echo(ice_volume_rm_help);
+          } else if (inputs[3]) {
+            index = currentVolumes.indexOf();
+            if (index > -1) {
+              currentVolumes.splice(index, 1);
+            }
+            echo(removed_volume(inputs[3]));
+          } else {
+            echo(ice_volume_rm);
+          }
+        } else {
+          echo(ice_volume);
         }
       } else if (inputs[1] === "ip") {
         if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
@@ -672,6 +708,9 @@
     /*
     		Some default variables / commands
      */
+    not_implemented = function(command) {
+      return command + " is a valid argument, but not implemented.";
+    };
     ice_help = "usage: ice [-h] [--verbose] [--cloud | --local]\n           {login,tlogin,ps,run,inspect,logs,build,start,stop,restart,pause,unpause,rm,images,rmi,search,info,ip,group,route,volume,namespace,help,version,cpi}\n           ...\n\npositional arguments:\n  {login,tlogin,ps,run,inspect,logs,build,start,stop,restart,pause,unpause,rm,images,rmi,search,info,ip,group,route,volume,namespace,help,version,cpi}\n                        cloud commands, for specific command help follow the\n                        command by -h, to list local docker commands run\n                        'docker -h' or 'ice --local -h'\n    login               login to container cloud service\n    tlogin              tenant login, not available for Bluemix Containers\n    ps                  list containers in container cloud\n    run                 create and start container in container cloud\n    inspect             inspect container details\n    logs                get container logs\n    build               build docker image and push to cloud registry\n    start               run existing container\n    stop                stop running container\n    restart             restart running container\n    pause               pause existing container\n    unpause             unpause existing container\n    rm                  remove existing container\n    images              list images registered in container cloud\n    rmi                 remove image from container cloud registry\n    search              search image registry\n    info                display system info\n    ip                  manage floating-ips\n    group               manage auto-scaling groups\n    route               manage routing to container groups\n    volume              manage storage volumes\n    namespace           manage repository namespace\n    help                provide usage help for a specified command\n    version             display program version\n    cpi                 image copy (equivalent to pull, tag, and push)\n\noptional arguments:\n  -h, --help            show this help message and exit\n  --verbose, -v         display additional debug info\n  --cloud               execute command against container cloud service,\n                        default\n  --local, -L           execute any local docker host command. For list of\n                        available commands run 'docker help'";
     docker_cmd = "Target is local host. Invoking docker with the given arguments...\nUsage: docker [OPTIONS] COMMAND [arg...]\n\nA self-sufficient runtime for linux containers.\n\nOptions:\n  --api-enable-cors=false                                                Enable CORS headers in the remote API\n  -D, --debug=false                                                      Enable debug mode\n  -d, --daemon=false                                                     Enable daemon mode\n  -G, --group=\"docker\"                                                   Group to assign the unix socket specified by -H when running in daemon mode\n                                                                           use '' (the empty string) to disable setting of a group\n  -H, --host=[]                                                          The socket(s) to bind to in daemon mode or connect to in client mode, specified using one or more tcp://host:port, unix:///path/to/socket, fd://* or fd://socketfd.\n  -h, --help=false                                                       Print usage\n  -l, --log-level=\"info\"                                                 Set the logging level (debug, info, warn, error, fatal)\n  --tls=false                                                            Use TLS; implied by --tlsverify flag\n  --tlscacert=\"/Users/Pair5/.boot2docker/certs/boot2docker-vm/ca.pem\"    Trust only remotes providing a certificate signed by the CA given here\n  --tlscert=\"/Users/Pair5/.boot2docker/certs/boot2docker-vm/cert.pem\"    Path to TLS certificate file\n  --tlskey=\"/Users/Pair5/.boot2docker/certs/boot2docker-vm/key.pem\"      Path to TLS key file\n  --tlsverify=true                                                       Use TLS and verify the remote (daemon: verify client, client: verify daemon)\n  -v, --version=false                                                    Print version information and quit\n\nCommands:\n    attach    Attach to a running container\n    build     Build an image from a Dockerfile\n    commit    Create a new image from a container's changes\n    cp        Copy files/folders from a container's filesystem to the host path\n    create    Create a new container\n    diff      Inspect changes on a container's filesystem\n    events    Get real time events from the server\n    exec      Run a command in a running container\n    export    Stream the contents of a container as a tar archive\n    history   Show the history of an image\n    images    List images\n    import    Create a new filesystem image from the contents of a tarball\n    info      Display system-wide information\n    inspect   Return low-level information on a container or image\n    kill      Kill a running container\n    load      Load an image from a tar archive\n    login     Register or log in to a Docker registry server\n    logout    Log out from a Docker registry server\n    logs      Fetch the logs of a container\n    port      Lookup the public-facing port that is NAT-ed to PRIVATE_PORT\n    pause     Pause all processes within a container\n    ps        List containers\n    pull      Pull an image or a repository from a Docker registry server\n    push      Push an image or a repository to a Docker registry server\n    rename    Rename an existing container\n    restart   Restart a running container\n    rm        Remove one or more containers\n    rmi       Remove one or more images\n    run       Run a command in a new container\n    save      Save an image to a tar archive\n    search    Search for an image on the Docker Hub\n    start     Start a stopped container\n    stats     Display a live stream of one or more containers' resource usage statistics\n    stop      Stop a running container\n    tag       Tag an image into a repository\n    top       Lookup the running processes of a container\n    unpause   Unpause a paused container\n    version   Show the Docker version information\n    wait      Block until a container stops, then print its exit code\n\nRun 'docker COMMAND --help' for more information on a command.";
     IceCommands = {
@@ -726,6 +765,26 @@
     inspect = "\nUsage: Docker inspect CONTAINER|IMAGE [CONTAINER|IMAGE...]\n\nReturn low-level information on a container/image\n";
     ice_inspect_help = "usage: ice inspect [-h] CONTAINER\n\npositional arguments:\n  CONTAINER   container name or id\n\noptional arguments:\n  -h, --help  show this help message and exit";
     ice_run_help = "usage: ice run [-h] [--name NAME] [--memory MEMORY] [--env ENV]\n               [--publish PORT] [--volume VOL] [--bind APP] [--ssh SSHKEY]\n               IMAGE [CMD [CMD ...]]\n\npositional arguments:\n  IMAGE                 image to run\n  CMD                   command & args passed to container to execute\n\noptional arguments:\n  -h, --help            show this help message and exit\n  --name NAME, -n NAME  assign a name to the container\n  --memory MEMORY, -m MEMORY\n                        memory limit in MB, default is 256\n  --env ENV, -e ENV     set environment variable, ENV is key=value pair\n  --publish PORT, -p PORT\n                        expose PORT\n  --volume VOL, -v VOL  mount volume, VOL is VolumeId:ContainerPath[:ro],\n                        specifying ro makes the volume read-only instead of\n                        the default read-write\n  --bind APP, -b APP    bind to Bluemix app\n  --ssh SSHKEY, -k SSHKEY\n                        ssh key to be injected in container";
+    ice_volume = "usage: ice volume [-h] {list,create,rm,inspect} ...\nice volume: error: too few arguments";
+    ice_volume_help = "usage: ice volume [-h] {list,create,rm,inspect} ...\n\npositional arguments:\n  {list,create,rm,inspect}\n                        Volume management commands, for specific command help\n                        use: ice volume <command> -h\n    list                list volumes\n    create              create volume\n    rm                  remove volume\n    inspect             inspect volume\n\noptional arguments:\n  -h, --help            show this help message and exit";
+    ice_volume_list = function() {
+      var k, len, vol, volString;
+      volString = '';
+      for (k = 0, len = currentVolumes.length; k < len; k++) {
+        vol = currentVolumes[k];
+        volString += vol + "\n";
+      }
+      return volString;
+    };
+    ice_volume_list_help = "usage: ice volume list [-h]\n\noptional arguments:\n  -h, --help  show this help message and exit";
+    ice_volume_create = "usage: ice volume create [-h] VOLNAME\nice volume create: error: too few arguments";
+    ice_volume_rm = "usage: ice volume rm [-h] VOLNAME\nice volume rm: error: too few arguments";
+    ice_volume_rm_help = "usage: ice volume rm [-h] VOLNAME\n\npositional arguments:\n  VOLNAME     volume name\n\noptional arguments:\n  -h, --help  show this help message and exit";
+    removed_volume = "Removed volume successfully";
+    created_volume = function(vol) {
+      return "Created volume successfully: " + vol;
+    };
+    ice_volume_create_help = "usage: ice volume create [-h] VOLNAME\n\npositional arguments:\n  VOLNAME     volume name\n\noptional arguments:\n  -h, --help  show this help message and exit";
     inspect_no_such_container = function(keyword) {
       return "Error: No such image: " + keyword;
     };

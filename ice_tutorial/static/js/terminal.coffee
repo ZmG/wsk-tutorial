@@ -53,6 +53,8 @@ do @myTerminal = ->
 
 	@currentDockerPs = ""
 
+	@currentVolumes = [""]
+
 	@currentIcePs = """
 
 	Container Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports
@@ -412,6 +414,37 @@ do @myTerminal = ->
 				else
 					echo ice_logs
 
+		else if inputs[1] is "volume"
+				if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
+					echo ice_volume_help
+				else if inputs[2] is 'inspect'
+					echo not_implemented(inputs[2])
+				else if inputs[2] is 'list'
+					if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
+						echo ice_volume_list_help
+					else 
+						echo ice_volume_list(currentVolumes)
+				else if inputs[2] is 'create'
+					if inputs[3] and (inputs[3] is "--help" or inputs[3] is "-h")
+						echo ice_volume_create_help
+					else if inputs[3]
+						currentVolumes.push(inputs[3])
+						echo created_volume(inputs[3])
+					else
+						echo ice_volume_create
+				else if inputs[2] is 'rm'
+					if inputs[3] and (inputs[3] is "--help" or inputs[3] is "-h")
+						echo ice_volume_rm_help
+					else if inputs[3]
+						index = currentVolumes.indexOf()
+						if index > -1
+    						currentVolumes.splice(index, 1);
+						echo removed_volume(inputs[3])
+					else
+						echo ice_volume_rm
+				else
+					echo ice_volume
+
 		else if inputs[1] is "ip"
 				if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
 					echo ice_ip_help
@@ -736,6 +769,10 @@ do @myTerminal = ->
 		Some default variables / commands
 
 	###
+	not_implemented = (command) ->
+		"""
+		#{command} is a valid argument, but not implemented.
+		"""
 
 	ice_help = \
 		"""
@@ -1011,6 +1048,87 @@ do @myTerminal = ->
 	  --bind APP, -b APP    bind to Bluemix app
 	  --ssh SSHKEY, -k SSHKEY
 	                        ssh key to be injected in container
+	"""
+
+	ice_volume = \
+	"""
+	usage: ice volume [-h] {list,create,rm,inspect} ...
+	ice volume: error: too few arguments
+	"""
+
+	ice_volume_help = \
+	"""
+	usage: ice volume [-h] {list,create,rm,inspect} ...
+
+	positional arguments:
+	  {list,create,rm,inspect}
+	                        Volume management commands, for specific command help
+	                        use: ice volume <command> -h
+	    list                list volumes
+	    create              create volume
+	    rm                  remove volume
+	    inspect             inspect volume
+
+	optional arguments:
+	  -h, --help            show this help message and exit
+	"""
+
+	ice_volume_list = () ->
+		volString = ''
+		for vol in currentVolumes 
+			volString += vol + "\n"
+		return volString
+
+	ice_volume_list_help = \
+	"""
+	usage: ice volume list [-h]
+
+	optional arguments:
+	  -h, --help  show this help message and exit
+	"""
+
+	ice_volume_create = \
+	"""
+	usage: ice volume create [-h] VOLNAME
+	ice volume create: error: too few arguments
+	"""
+
+	ice_volume_rm = \
+	"""
+	usage: ice volume rm [-h] VOLNAME
+	ice volume rm: error: too few arguments
+	"""
+
+	ice_volume_rm_help = \
+	"""
+	usage: ice volume rm [-h] VOLNAME
+
+	positional arguments:
+	  VOLNAME     volume name
+
+	optional arguments:
+	  -h, --help  show this help message and exit
+	"""
+
+	removed_volume = \
+	"""
+	Removed volume successfully
+	"""
+
+	created_volume = (vol) ->
+		"""
+		Created volume successfully: #{vol}
+		"""
+
+	ice_volume_create_help = \
+	"""
+	usage: ice volume create [-h] VOLNAME
+
+	positional arguments:
+	  VOLNAME     volume name
+
+	optional arguments:
+	  -h, --help  show this help message and exit
 	"""
 
 	inspect_no_such_container = (keyword) ->
