@@ -479,6 +479,12 @@
   float: right;
   cursor: hand;
 }
+#marker-ADV {
+  font-size: small;
+}
+#marker-ADV circle {
+  fill: #D76565;
+}
 .progress-marker {
   position: relative;
   float: left;
@@ -492,12 +498,6 @@
 }
 .progress-marker circle {
   fill: #eaeaea;
-}
-.progress-marker #marker-ADV {
-  font-size: small;
-}
-.progress-marker #marker-ADV circle {
-  fill: #D76565;
 }
 .progress-marker text {
   fill: black;
