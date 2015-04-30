@@ -436,10 +436,10 @@ do @myTerminal = ->
 					if inputs[3] and (inputs[3] is "--help" or inputs[3] is "-h")
 						echo ice_volume_rm_help
 					else if inputs[3]
-						index = currentVolumes.indexOf()
+						index = currentVolumes.indexOf(inputs[3])
 						if index > -1
     						currentVolumes.splice(index, 1);
-						echo removed_volume()
+						echo removed_volume
 					else
 						echo ice_volume_rm
 				else

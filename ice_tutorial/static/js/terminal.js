@@ -388,11 +388,11 @@
           if (inputs[3] && (inputs[3] === "--help" || inputs[3] === "-h")) {
             echo(ice_volume_rm_help);
           } else if (inputs[3]) {
-            index = currentVolumes.indexOf();
+            index = currentVolumes.indexOf(inputs[3]);
             if (index > -1) {
               currentVolumes.splice(index, 1);
             }
-            echo(removed_volume());
+            echo(removed_volume);
           } else {
             echo(ice_volume_rm);
           }
