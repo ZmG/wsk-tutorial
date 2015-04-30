@@ -300,11 +300,11 @@
   });
 
   adv_q.push({
-    html: "<h3>Attaching Volumes</h3>\n<p>Volumes are attached to containers in the run command by using the <code>-v VolumeId:ContainerPath[:ro]</code> flag/</p>\n<p>The Volume Id is the volume's name (in our example 'storage'), the container path is the directory inside the container that the \nattached volume will mount. This means that all the data written to the specified container path will be stored on the Volume.</p>\n<p>There is an optional arguement for granting permissions [:ro] (read only). If not specified the Volume will default to :rw (read write).</p>",
-    assignment: "<h3>Assignment</h3>\n<p>Use the <code>ice run</code> command to run a container named <b>storeDocker</b>, running the ibmnode image. Attach the <b>storage</b> volume to the /var/log directory.</p>",
-    command_expected: ['ice', 'run', 'n', 'storeDocker', '-v', 'storage:/var/log', 'ibmnode'],
+    html: "<h3>Attaching Volumes</h3>\n<p>Volumes are attached to containers in the run command by using the <code>--volume VolumeId:ContainerPath[:ro]</code> flag/</p>\n<p>The Volume Id is the volume's name (in our example 'storage'), the container path is the directory inside the container that the \nattached volume will mount. This means that all the data written to the specified container path will be stored on the Volume. If the </p>\n<p>There is an optional arguement for granting permissions [:ro] (read only). If not specified the Volume will default to :rw (read write).</p>",
+    assignment: "<h3>Assignment</h3>\n<p>Use the <code>ice run</code> command to run a container named <b>storeDocker</b>, running the ibmnode image. Attach the <b>storage</b> volume to the /var/images directory.</p>",
+    command_expected: ['ice', 'run', '--name', 'storeDocker', '--volume', 'storage:/var/images', 'ibmnode'],
     result: "<p>You did it! Way to go!</p>",
-    tip: "use <code>ice run -h</code> to see the detailed flag details.",
+    tip: "<ul>\n  <li>use <code>ice run -h</code> to see the detailed flag details.</li>\n  <li>Note: the ice cli allows you to use -v and -n as equivalents to --volume and --name however this tutorial enforces the use of the long flag names.</li>\n</ul>",
     currentIcePs: "\nContainer Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports\n\ndc3ced78-61ed-4870-b668-411c87d2419d storeDocker                       ibmnode:latest                 Apr 30 10:18 Running                                    []"
   });
 
