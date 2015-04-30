@@ -13,7 +13,7 @@
 
 (function() {
   (this.myTerminal = function() {
-    var EMULATOR_VERSION, ICE_logo, IceCommands, auth, bash, commit, commit_containerid, commit_id_does_not_exist, created_volume, docker_cmd, docker_version, help, ice, ice_help, ice_inspect_help, ice_ip, ice_ip_bind_fail, ice_ip_bind_help, ice_ip_bound, ice_ip_help, ice_ip_request, ice_ip_request_help, ice_logs, ice_logs_help, ice_no_args, ice_no_such_container, ice_pull, ice_rm, ice_rm_help, ice_rm_ice_ping, ice_run_help, ice_run_no_name, ice_stop, ice_stop_help, ice_stop_ice_ping, ice_version, ice_volume, ice_volume_create, ice_volume_create_help, ice_volume_help, ice_volume_list, ice_volume_list_help, ice_volume_rm, ice_volume_rm_help, inspect, inspect_ice_ping_container, inspect_no_such_container, inspect_ping_container, login, loginResult, login_cmd, not_implemented, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push_container_learn_ping, push_help, push_no_args, push_wrong_name, removed_volume, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_echo, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_localhost, run_ping_not_localhost, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait;
+    var EMULATOR_VERSION, ICE_logo, IceCommands, auth, bash, commit, commit_containerid, commit_id_does_not_exist, created_volume, docker_cmd, docker_version, group_created, help, ice, ice_group, ice_group_create, ice_group_create_help, ice_group_help, ice_group_list_help, ice_help, ice_inspect_help, ice_ip, ice_ip_bind_fail, ice_ip_bind_help, ice_ip_bound, ice_ip_help, ice_ip_request, ice_ip_request_help, ice_logs, ice_logs_help, ice_no_args, ice_no_such_container, ice_pull, ice_rm, ice_rm_help, ice_rm_ice_ping, ice_run_help, ice_run_no_name, ice_stop, ice_stop_help, ice_stop_ice_ping, ice_version, ice_volume, ice_volume_create, ice_volume_create_help, ice_volume_help, ice_volume_list, ice_volume_list_help, ice_volume_rm, ice_volume_rm_help, inspect, inspect_ice_ping_container, inspect_no_such_container, inspect_ping_container, login, loginResult, login_cmd, not_implemented, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push_container_learn_ping, push_help, push_no_args, push_wrong_name, removed_volume, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_echo, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_localhost, run_ping_not_localhost, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait;
     EMULATOR_VERSION = "0.1.5";
     this.basesettings = {
       prompt: '[[b;#fff;]you@tutorial:~$] ',
@@ -35,6 +35,7 @@
     };
     this.currentDockerPs = "";
     this.currentVolumes = [""];
+    this.currentIceGroups = "\nGroup Id                             Name             Status               Created             Updated             Port";
     this.currentIcePs = "\nContainer Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports";
     this.currentLocalImages = "Target is local host. Invoking docker with the given arguments...\nREPOSITORY            TAG                 IMAGE ID            CREATED             VIRTUAL SIZE\nubuntu                latest              8dbd9e392a96        4 months ago        131.5 MB (virtual 131.5 MB)";
     this.currentCloudImages = "Image Id                             Created              Image Name\n\nd0feae99-b91d-4ce3-bcb4-6128886f6968 Mar 23 10:44:59 2015 registry-ice.ng.bluemix.net/ibmliberty:latest\n74831680-1c9c-424e-b8ea-ceede4aa0e40 Mar 23 10:41:24 2015 registry-ice.ng.bluemix.net/ibmnode:latest\n";
@@ -269,7 +270,7 @@
       }
     };
     ice = function(term, inputs) {
-      var callback, command, commands, echo, i, imagename, index, insert, k, keyword, l, len, len1, parsed_input, ref, ref1, result, sentence, swargs, switches, word;
+      var callback, command, commands, echo, i, ice_route, ice_route_help, ice_route_map, ice_route_map_help, ice_route_mapped, imagename, index, insert, k, keyword, l, len, len1, parsed_input, ref, ref1, result, sentence, swargs, switches, word;
       echo = term.echo;
       insert = term.insert;
       callback = function() {
@@ -398,6 +399,52 @@
           }
         } else {
           echo(ice_volume);
+        }
+      } else if (inputs[1] === "group") {
+        if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
+          echo(ice_group_help);
+        } else if (inputs[2] === 'inspect' || inputs[2] === 'instances' || inputs[2] === 'update' || inputs[2] === 'rm') {
+          echo(not_implemented(inputs[2]));
+        } else if (inputs[2] === 'list') {
+          if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
+            echo(ice_group_list_help);
+          } else {
+            echo(currentIceGroups);
+          }
+        } else if (inputs[2] === 'create') {
+          if (inputs[3] && (inputs[3] === "--help" || inputs[3] === "-h")) {
+            echo(ice_group_create_help);
+          } else if (inputs[3] && (!swargs.containsAllOfThese(['80']) && !switches.containsAllOfThese(['-p']))) {
+            intermediateResults;
+          } else if (inputs[3]) {
+            echo(group_created);
+          } else {
+            echo(ice_group_create);
+          }
+        } else {
+          echo(ice_group);
+          ice_route_help = "					";
+          ice_route_mapped = "					";
+          ice_route = "					";
+          ice_route_map = "					";
+          ice_route_map_help = "					";
+        }
+      } else if (inputs[1] === "route") {
+        if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
+          echo(ice_route_help);
+        } else if (inputs[2] === 'unmap') {
+          echo(not_implemented(inputs[2]));
+        } else if (inputs[2] === 'map') {
+          if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
+            echo(ice_route_map_help);
+          } else if (inputs[3]) {
+            echo(ice_route_mapped);
+            intermediateResults(0);
+          } else {
+            echo(ice_route_map);
+          }
+        } else {
+          echo(ice_route);
         }
       } else if (inputs[1] === "ip") {
         if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
@@ -788,7 +835,13 @@
     inspect_no_such_container = function(keyword) {
       return "Error: No such image: " + keyword;
     };
-    inspect_ice_ping_container = "{\n    \"BluemixApp\": null,\n    \"Config\": {\n        \"AttachStderr\": \"\",\n        \"AttachStdin\": \"\",\n        \"AttachStdout\": \"\",\n        \"Cmd\": [\n            \"ping\",\n            \"localhost\"\n        ],\n        \"Dns\": \"\",\n        \"Env\": [\n            \"group_id=0000\",\n            \"logging_password=h6Xs4_him67H\",\n            \"tagseparator=_\",\n            \"space_id=73c83834-c956-430c-92c2-3b9b35b6\",\n            \"logstash_target=opvis.bluemix.net:9091\",\n            \"tagformat=space_id group_id uuid\",\n            \"metrics_target=opvis.bluemix.net:9095\"\n        ],\n        \"Hostname\": \"\",\n        \"Image\": \"registry-ice.ng.bluemix.net/learn/ping:latest\",\n        \"Memory\": 256,\n        \"MemorySwap\": \"\",\n        \"OpenStdin\": \"\",\n        \"PortSpecs\": \"\",\n        \"StdinOnce\": \"\",\n        \"Tty\": \"\",\n        \"User\": \"\",\n        \"VCPU\": 1,\n        \"VolumesFrom\": \"\",\n        \"WorkingDir\": \"\"\n    },\n    \"ContainerState\": \"Running\",\n    \"Created\": 1429713738,\n    \"Group\": {},\n    \"HostConfig\": {\n        \"Binds\": \"null\",\n        \"CapAdd\": [],\n        \"CapDrop\": [],\n        \"ContainerIDFile\": \"\",\n        \"Links\": [],\n        \"LxcConf\": [],\n        \"PortBindings\": {},\n        \"Privileged\": \"false\",\n        \"PublishAllPorts\": \"false\"\n    },\n    \"HostId\": \"9669f466be49e034a72a56362ec824328629f1ec0621f11e73ee8163\",\n    \"Human_id\": \"ice-ping\",\n    \"Id\": \"fa219r52-bcbf-4c6d-977f-1aa67bb1233d\",\n    \"Image\": \"f44c4aa3-c4f0-4476-b670-chgd5363s5f8\",\n    \"Name\": \"ice-ping\",\n    \"NetworkSettings\": {\n        \"Bridge\": \"\",\n        \"Gateway\": \"\",\n        \"IpAddress\": \"172.4.12.30\",\n        \"IpPrefixLen\": 0,\n        \"PortMapping\": \"null\",\n        \"PublicIpAddress\": \"\"\n    },\n    \"Path\": \"date\",\n    \"ResolvConfPath\": \"/etc/resolv.conf\",\n    \"State\": {\n        \"ExitCode\": \"\",\n        \"Ghost\": \"\",\n        \"Pid\": \"\",\n        \"Running\": \"false\",\n        \"StartedAt\": \"\",\n        \"Status\": \"Shutdown\"\n    },\n    \"Volumes\": []\n}";
+    group_created = "28c5997e-8a3d-4e22-9ead-45d30dd2e203\nCreated group myGroup (id: 28c5997e-8a3d-4e22-9ead-45d30dd2e203)\nMinimum container instances: 1\nMaximum container instances: 2\nDesired container instances: 2";
+    ice_group = "usage: ice group [-h] {list,create,update,rm,inspect,instances} ...\nice group: error: too few arguments";
+    ice_group_help = "usage: ice group [-h] {list,create,update,rm,inspect,instances} ...\n\npositional arguments:\n  {list,create,update,rm,inspect,instances}\n                        auto-scaling groups management commands, for specific\n                        command help use: ice group <command> -h\n    list                list auto-scaling groups\n    create              create auto-scaling group\n    update              update auto-scaling group size\n    rm                  remove auto-scaling group\n    inspect             inspect group\n    instances           list group instances\n\noptional arguments:\n  -h, --help            show this help message and exit";
+    ice_group_list_help = "usage: ice group list [-h]\n\noptional arguments:\n  -h, --help  show this help message and exit";
+    ice_group_create = "usage: ice group create [-h] [--name NAME] [--memory MEMORY] [--env ENV]\n                        [--publish PORT] [--volume VOL] [--min MIN]\n                        [--max MAX] [--desired DESIRED] [--bind APP] [--auto]\n                        IMAGE [CMD [CMD ...]]\nice group create: error: too few arguments";
+    ice_group_create_help = "Please specify a name for your group using --name or -n option";
+    inspect_ice_ping_container = "\n{\n    \"BluemixApp\": null,\n    \"Config\": {\n        \"AttachStderr\": \"\",\n        \"AttachStdin\": \"\",\n        \"AttachStdout\": \"\",\n        \"Cmd\": [\n            \"ping\",\n            \"localhost\"\n        ],\n        \"Dns\": \"\",\n        \"Env\": [\n            \"group_id=0000\",\n            \"logging_password=h6Xs4_him67H\",\n            \"tagseparator=_\",\n            \"space_id=73c83834-c956-430c-92c2-3b9b35b6\",\n            \"logstash_target=opvis.bluemix.net:9091\",\n            \"tagformat=space_id group_id uuid\",\n            \"metrics_target=opvis.bluemix.net:9095\"\n        ],\n        \"Hostname\": \"\",\n        \"Image\": \"registry-ice.ng.bluemix.net/learn/ping:latest\",\n        \"Memory\": 256,\n        \"MemorySwap\": \"\",\n        \"OpenStdin\": \"\",\n        \"PortSpecs\": \"\",\n        \"StdinOnce\": \"\",\n        \"Tty\": \"\",\n        \"User\": \"\",\n        \"VCPU\": 1,\n        \"VolumesFrom\": \"\",\n        \"WorkingDir\": \"\"\n    },\n    \"ContainerState\": \"Running\",\n    \"Created\": 1429713738,\n    \"Group\": {},\n    \"HostConfig\": {\n        \"Binds\": \"null\",\n        \"CapAdd\": [],\n        \"CapDrop\": [],\n        \"ContainerIDFile\": \"\",\n        \"Links\": [],\n        \"LxcConf\": [],\n        \"PortBindings\": {},\n        \"Privileged\": \"false\",\n        \"PublishAllPorts\": \"false\"\n    },\n    \"HostId\": \"9669f466be49e034a72a56362ec824328629f1ec0621f11e73ee8163\",\n    \"Human_id\": \"ice-ping\",\n    \"Id\": \"fa219r52-bcbf-4c6d-977f-1aa67bb1233d\",\n    \"Image\": \"f44c4aa3-c4f0-4476-b670-chgd5363s5f8\",\n    \"Name\": \"ice-ping\",\n    \"NetworkSettings\": {\n        \"Bridge\": \"\",\n        \"Gateway\": \"\",\n        \"IpAddress\": \"172.4.12.30\",\n        \"IpPrefixLen\": 0,\n        \"PortMapping\": \"null\",\n        \"PublicIpAddress\": \"\"\n    },\n    \"Path\": \"date\",\n    \"ResolvConfPath\": \"/etc/resolv.conf\",\n    \"State\": {\n        \"ExitCode\": \"\",\n        \"Ghost\": \"\",\n        \"Pid\": \"\",\n        \"Running\": \"false\",\n        \"StartedAt\": \"\",\n        \"Status\": \"Shutdown\"\n    },\n    \"Volumes\": []\n}";
     inspect_ping_container = "[2013/07/30 01:52:26 GET /v1.3/containers/efef/json\n{\n	\"ID\": \"efefdc74a1d5900d7d7a74740e5261c09f5f42b6dae58ded6a1fde1cde7f4ac5\",\n	\"Created\": \"2013-07-30T00:54:12.417119736Z\",\n	\"Path\": \"ping\",\n	\"Args\": [\n			\"localhost\"\n	],\n	\"Config\": {\n			\"Hostname\": \"efefdc74a1d5\",\n			\"User\": \"\",\n			\"Memory\": 0,\n			\"MemorySwap\": 0,\n			\"CpuShares\": 0,\n			\"AttachStdin\": false,\n			\"AttachStdout\": true,\n			\"AttachStderr\": true,\n			\"PortSpecs\": null,\n			\"Tty\": false,\n			\"OpenStdin\": false,\n			\"StdinOnce\": false,\n			\"Env\": null,\n			\"Cmd\": [\n					\"ping\",\n					\"localhost\"\n			],\n			\"Dns\": null,\n			\"Image\": \"learn/ping\",\n			\"Volumes\": null,\n			\"VolumesFrom\": \"\",\n			\"Entrypoint\": null\n	},\n	\"State\": {\n			\"Running\": true,\n			\"Pid\": 22249,\n			\"ExitCode\": 0,\n			\"StartedAt\": \"2013-07-30T00:54:12.424817715Z\",\n			\"Ghost\": false\n	},\n	\"Image\": \"a1dbb48ce764c6651f5af98b46ed052a5f751233d731b645a6c57f91a4cb7158\",\n	\"NetworkSettings\": {\n			\"IPAddress\": \"172.16.42.6\",\n			\"IPPrefixLen\": 24,\n			\"Gateway\": \"172.16.42.1\",\n			\"Bridge\": \"docker0\",\n			\"PortMapping\": {\n					\"Tcp\": {},\n					\"Udp\": {}\n			}\n	},\n	\"SysInitPath\": \"/usr/bin/docker\",\n	\"ResolvConfPath\": \"/etc/resolv.conf\",\n	\"Volumes\": {},\n	\"VolumesRW\": {}";
     ping = "Usage: ping [-LRUbdfnqrvVaAD] [-c count] [-i interval] [-w deadline]\n				[-p pattern] [-s packetsize] [-t ttl] [-I interface]\n				[-M pmtudisc-hint] [-m mark] [-S sndbuf]\n				[-T tstamp-options] [-Q tos] [hop1 ...] destination";
     ps = "ID                  IMAGE               COMMAND               CREATED             STATUS              PORTS\nefefdc74a1d5        learn/ping:latest   ping localhost   37 seconds ago      Up 36 seconds";

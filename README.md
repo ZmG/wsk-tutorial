@@ -48,4 +48,11 @@ Running code coverage
 
 * coverage run ./runtests.py && coverage html --include="./docker_tutorial/*"
 
+Development:
+
+You want to create more steps?
+-------------------------------
+
+
 Happy coding!
+

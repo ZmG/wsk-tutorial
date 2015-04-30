@@ -357,7 +357,7 @@ currentIcePs: """
 
   Container Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports
 
-  fa219a32-bcbf-4c6d-977f-1aa67bb1233d ice-ping                          learn/ping:latest              Apr 22 10:42 Shutdown 172.17.228.45                   []
+  fa219a32-bcbf-4c6d-977f-1aa67bb1233d ice-ping                          learn/ping:latest              Apr 22 10:42 Shutdown 172.12.228.45                   []
   """
 });
 
@@ -472,7 +472,6 @@ intermediateresults:
       data = { type: EVENT_TYPES.complete }
       logEvent(data)
 
-      return """<p>All done!. You are now pushing a container image to the index. You can see that push, just like pull, happens layer by layer.</p>"""
   ]
 finishedCallback: () ->
   webterm.clear()
@@ -480,46 +479,6 @@ finishedCallback: () ->
 
 
 })
-
-###intermediateresults:
-  [
-    () ->
-      $('#instructions .assignment').hide()
-      $('#tips, #command').hide()
-
-      $('#instructions .text').html("""
-        <div class="complete">
-          <h3>Congratulations!</h3>
-          <p>You have mastered the basic docker commands!</p>
-          <p><strong>Did you enjoy this tutorial? Share it!</strong></p>
-          <p>
-            <a href="mailto:?Subject=Check%20out%20the%20Docker%20interactive%20tutorial!&Body=%20JSTART"><img src="/static/img/email.png"></a>
-            <a href="http://www.facebook.com/sharer.php?u=JSTART"><img src="/static/img/facebook.png"></a>
-            <a href="http://twitter.com/share?url=JSTART&text=%20Check+out+the+docker+tutorial!"><img src="/static/img/twitter.png"></a>
-          </p>
-          <h3>Your next steps</h3>
-          <ol>
-            <li><a href="/news_signup/" target="_blank" >Register</a> for news and updates on Docker (opens in new window)</li>
-            <li><a href="http://twitter.com/docker" target="_blank" >Follow</a> us on twitter (opens in new window)</li>
-            <li><a href="#" onClick="leaveFullSizeMode()">Close</a> this tutorial, and continue with the rest of the getting started.</li>
-          </ol>
-          <p> - Or - </p>
-          <p>Continue to learn about the way to automatically build your containers from a file. </p><p><a href="/learn/dockerfile/" class='btn btn-primary secondary-action-button'>Start Dockerfile tutorial</a></p>
-
-        </div>
-        """)
-
-
-      data = { type: EVENT_TYPES.complete }
-      logEvent(data)
-
-      return """<p>All done!. You are now pushing a container image to the index. You can see that push, just like pull, happens layer by layer.</p>"""
-  ]
-finishedCallback: () ->
-  webterm.clear()
-  webterm.echo( myTerminal() )
-})
-###
 
 ###
   Array of ADVANCED question objects
@@ -570,9 +529,9 @@ html: """
       """
 assignment: """
       <h3>Assignment</h3>
-      <p>Use the <code>ice run</code> command to run a container named <b>storeDocker</b>, running the ibmnode image. Attach the <b>storage</b> volume to the /var/images directory.</p>
+      <p>Use the <code>ice run</code> command to run a container named <b>iceVolume</b>, running the ibmnode image. Attach the <b>storage</b> volume to the /var/images directory.</p>
     """
-command_expected: ['ice', 'run', '--name', 'storeDocker', '--volume', 'storage:/var/images', 'ibmnode']
+command_expected: ['ice', 'run', '--name', 'iceVolume', '--volume', 'storage:/var/images', 'ibmnode']
 result: """<p>You did it! Way to go!</p>"""
 tip: """
     <ul>
@@ -585,77 +544,135 @@ currentIcePs: """
 
   Container Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports
 
-  dc3ced78-61ed-4870-b668-411c87d2419d storeDocker                       ibmnode:latest                 Apr 30 10:18 Running                                    []
+  dc3ced78-61ed-4870-b668-411c87d2419d iceVolume                         ibmnode:latest                 Apr 30 10:18 Running                                    []
   """
 })
 
 adv_q.push ({
 html: """
       <h3>Binding Apps to Bluemix</h3>
-      <p>The easiest way to get started is to log in to the IBM Containers infrastructure.  For details on login arguments, search the online 
-      <a href="#1" onClick="window.open('https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#genTopProcId4','IBM Containers Doc','width=1000,height=900,left=50,top=50,menubar=0')";>IBM Containers Doc</a>
-      and by using the commandline</p>
+      <p>You may already have applications running on Bluemix. Maybe these apps have services bound to them. These services could include things 
+      like Databases, or APIs. With ice you can take bind existing applications to you container. This gives the bound container access to all 
+      the services which are already bound to the app.</p>
+      <p>After a bind, all the services will store their connection info and credentials in the <code>VCAP_SERVICES</code> environment variable</p>
       """
 assignment: """
       <h3>Assignment</h3>
-      <p>Use the <code>ice login</code> command to log in to the IBM Containers infrastructure. Ice will ask you for a username and password, any value will work.</p>
+      <p>For this emulator we have provisioned an application called <b>myDB</b> it is a simple app connected to a MySQL Database, we want this database
+      to be accessible from the container.</p>
+      <p>start up another container named <b>boundDB</b> on the ibmnode image. Make sure to bind <b>myDB</b></p>
       """
-command_expected: ['ice', 'login']
-result: """<p>You found it! Way to go!</p>"""
-tip: "the optional arguments for login are specified in the online Bluemix Containers doc"
+command_expected: ['ice', 'run', '--name', 'boundDB', '--bind', 'myDB', 'ibmnode']
+result: """<p>Whoop! nice job, All the services are now available to you container.</p>"""
+tip: """"
+    use the <code>--bind</code> flag to bind the app.
+    note: the ice command line supports the use of either --bind or -b for binding, but this tutorial enforces the use of the long flag names.
+    """
+currentIcePs: """
+
+  Container Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports
+
+  0261b157-9390-4e5d-88ad-a73de12aacb0 boundDB                           ibmnode:latest                 Apr 30 14:40 Running  172.12.128.55                   []
+  dc3ced78-61ed-4870-b668-411c87d2419d iceVolume                         ibmnode:latest                 Apr 30 10:18 Running  172.12.128.55                   []
+  """
 })
 
 adv_q.push ({
 html: """
       <h3>Creating Container Groups</h3>
-      <p>The easiest way to get started is to log in to the IBM Containers infrastructure.  For details on login arguments, search the online 
-      <a href="#1" onClick="window.open('https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#genTopProcId4','IBM Containers Doc','width=1000,height=900,left=50,top=50,menubar=0')";>IBM Containers Doc</a>
-      and by using the commandline</p>
+      <p>Bluemix allows you create container groups to load balance your application. You can have a group comprised of 1 or more containers.
+      Each container is an exact copy so incoming connections are balanced between containers. This redundancy also gives applications more stability.</p>
       """
 assignment: """
       <h3>Assignment</h3>
-      <p>Use the <code>ice login</code> command to log in to the IBM Containers infrastructure. Ice will ask you for a username and password, any value will work.</p>
+      <p>use <code>ice create</code> to create a group named</p>
       """
-command_expected: ['ice', 'login']
+command_expected: ['ice', 'group', 'create', '-p', '80', '--name', 'myGroup', 'ibmnode']
 result: """<p>You found it! Way to go!</p>"""
-tip: "the optional arguments for login are specified in the online Bluemix Containers doc"
+tip: """
+  <ul>
+    <li>You can use the <code>--auto</code> flag to have Bluemix automatically restart failed instances.</li>
+    <li>You can use the <code>--desired</code> flag to specify the number of instances that you require. The default is 2.</li>
+    <li>Deleting groups is done using <code>ice group rm</code> (not a part of this emulator)</li>
+    <li>it is possible to pass commands to the ice group create command, the command will run on all containers on the group.</li>
+  </ul>
+"""
+currentIceGroups: """
+
+Group Id                             Name             Status               Created             Updated             Port
+
+8f97d754-e8fc-4128-ba75-f0d8f3a868ce myGroup          CREATE_COMPLETE      2015-04-28T18:57:42                     80
+"""
+currentIcePs: """
+
+  Container Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports
+
+  21c6724d-50e2-43fc-b947-fd76ef26fc2d my-ogvl-7g734rpjvvy... myGroup    ibmnode:latest                 Apr 30 15:28 Running  172.12.128.58                   []
+  cfb39cf2-1a38-4ca3-b948-4e5ae2b56dd2 my-ogvl-m5yb5noyrsj... myGroup    ibmnode:latest                 Apr 30 15:28 Running  172.12.128.57                   []
+  0261b157-9390-4e5d-88ad-a73de12aacb0 boundDB                           ibmnode:latest                 Apr 30 14:40 Running  172.12.128.55                   []
+  c684ae10-b410-4ad7-b866-babcb380ec8f wp3                               jstart/wordpress:latest        Apr 28 15:03 Running  172.12.128.46   129.41.232.65   [80]
+  """
 })
 
 adv_q.push ({
 html: """
       <h3>Working With Routes</h3>
-      <p>This exercise will introduce the <b>--local</b> tag. calling ice --local is the same as calling docker. ice --local will pass arguements to docker and run like standard docker.</p>
-      <p>Container images can be downloaded just as easily, using <code>docker pull</code>.</p>
-      <p>However, instead of calling <code>docker pull</code> directly we will use <code>ice --local pull</code>, to pull images from registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image&gt;.</p>
-      <p>For images from your namespace index, the name you specify is constructed as &lt;Namespace&gt;/&lt;Image Name&gt;</p>
-      <p>A group of special, trusted images such as the ibmnode image can be retrieved by just their name registry-ice.ng.bluemix.net/&lt;Image Name&gt;.</p>
+      <p>Before we get too far go ahead, check you running containers with <code>ice ps</code>. you can also check your groups using <code>ice group list</code></p>
+      <p>So now we have this group of containers, We could use ice to bind an ip to the group. But we already did that and it would be much more convenient 
+      to have a route instead of an ip address. Bluemix allows us to bind routes to groups by using the <code>ice route map</code> command</p>
       """
 assignment:
       """
       <h3>Assignment</h3>
       <p>Pull the trusted <b>'ibmnode'</b> image from the <b>'registry-ice.ng.bluemix.net/'</b> Registry.</p>
       """
-command_expected: ['ice', '--local', 'pull', 'registry-ice.ng.bluemix.net/ibmnode']
+command_expected: ['ice', 'route', 'map', 'myGroup']
 result: """<p>Cool. Look at the results. You'll see that ice has invoked docker to download a number of layers. In Docker all images (except the base image) are made up of several cumulative layers.</p>"""
-intermediateresults: [
-  () -> """<p>You seem to be almost there. Don't forget to tell <b>ice --local pull</b> where to find the image, ice --local pull &lt;<Registry url>&gt;/&lt;learn&gt;/&lt;tutorial&gt; """,
-  () -> """<p>You got the namespace and image name correct, but forgot to specify a registry, hint ice --ltiyu5ocal pull &lt;Registry url&gt;/Image Name&gt;</p>"""
-  () -> """<p>Looks like you forgot to use the --local flag, try <em>ice --local pull [registry/namespace/imageName]</em></p>"""
-  ]
 tip: """
     <ul>
-      <li>The ibmnode image is a trusted image. Therefore you do not have to specify a namespace.</li>
-      <li>For this tutorial the namespace for your registry will always be <b>'learn'</b></li>
-      <li>Look under 'show expected command if you're stuck.</li>
+    <li>use <code>ice route map -h</code> for usage details.</li>
+    <li>you can unmap routes using <code>ice route unmap</code> (not a part of this tutorial)</li>
+    <li>Your group must have an exposed port inorder for routing to work!</li>
     </ul>
      """
-currentLocalImages :
-  """
-  REPOSITORY                              TAG                 IMAGE ID            CREATED              VIRTUAL SIZE
-    
-  ubuntu                                  latest              8dbd9e392a96        4 months ago         131.5 MB (virtual 131.5 MB)
-  registry-ice.ng.bluemix.net/ibmnode     latest              8dbd9e392a96        2 months ago         131.5 MB (virtual 131.5 MB)
-  """
+intermediateresults:
+  [
+    () ->
+      $('#instructions .assignment').hide()
+      $('#tips, #command').hide()
+
+      $('#instructions .text').html("""
+        <div class="complete">
+          <h3>Congratulations!</h3>
+          <p>You have mastered the <em style="color:aquamarine;">Advanced</em> docker commands!</p>
+          <p><strong>Did you enjoy this tutorial? Share it!</strong></p>
+          <p>
+            <a href="mailto:?Subject=Check%20out%20the%20Docker%20interactive%20tutorial!&Body=%20JSTART"><img src="/static/img/email.png"></a>
+            <a href="http://www.facebook.com/sharer.php?u=JSTART"><img src="/static/img/facebook.png"></a>
+            <a href="http://twitter.com/share?url=JSTART&text=%20Check+out+the+docker+tutorial!"><img src="/static/img/twitter.png"></a>
+          </p>
+          <h3>Your next steps</h3>
+          <ol>
+            <li><a href="/news_signup/" target="_blank" >Register</a> for news and updates on Docker (opens in new window)</li>
+            <li><a href="http://twitter.com/docker" target="_blank" >Follow</a> us on twitter (opens in new window)</li>
+            <li><a href="#" onClick="leaveFullSizeMode()">Close</a> this tutorial, and continue with the rest of the getting started.</li>
+          </ol>
+          <p> - Or - </p>
+          <p>Continue to learn about the way to automatically build your containers from a file. </p><p><a href="/learn/dockerfile/" class='btn btn-primary secondary-action-button'>Start Dockerfile tutorial</a></p>
+
+        </div>
+        """)
+
+
+      data = { type: EVENT_TYPES.complete }
+      logEvent(data)
+
+      #return """<p>All done!. You are now pushing a container image to the index. You can see that push, just like pull, happens layer by layer.</p>"""
+  ]
+finishedCallback: () ->
+  webterm.clear()
+  webterm.echo( myTerminal() )
+
 })
 
 
@@ -668,7 +685,6 @@ questions = []
 ###
 
 @webterm = $('#terminal').terminal(interpreter, basesettings)
-
 
 EVENT_TYPES =
   none: "none"
@@ -876,6 +892,9 @@ buildfunction = (question) ->
 
     if _q.currentCloudImages?
       window.currentCloudImages = _q.currentCloudImages
+
+    #if _q.currentIceGroups?
+    #window.currentIceGroups = _q.currentIceGroups
 
     if _q.currentIcePs?
       window.currentIcePs = _q.currentIcePs

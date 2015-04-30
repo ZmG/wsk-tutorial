@@ -55,6 +55,11 @@ do @myTerminal = ->
 
 	@currentVolumes = [""]
 
+	@currentIceGroups = """
+
+	Group Id                             Name             Status               Created             Updated             Port
+	"""
+
 	@currentIcePs = """
 
 	Container Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports
@@ -444,6 +449,65 @@ do @myTerminal = ->
 						echo ice_volume_rm
 				else
 					echo ice_volume
+
+		else if inputs[1] is "group"
+				if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
+					echo ice_group_help
+				else if inputs[2] is 'inspect' or inputs[2] is 'instances' or inputs[2] is 'update'  or inputs[2] is 'rm' 
+					echo not_implemented(inputs[2])
+				else if inputs[2] is 'list'
+					if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
+						echo ice_group_list_help
+					else 
+						echo currentIceGroups
+				else if inputs[2] is 'create'
+					if inputs[3] and (inputs[3] is "--help" or inputs[3] is "-h")
+						echo ice_group_create_help
+					else if inputs[3] and (not swargs.containsAllOfThese(['80']) and not switches.containsAllOfThese(['-p']))
+						intermediateResults
+					else if inputs[3]	
+						echo group_created
+					else
+						echo ice_group_create
+				else
+					echo ice_group
+
+					ice_route_help = \
+					"""
+					"""
+
+					ice_route_mapped = \
+					"""
+					"""
+
+					ice_route = \
+					"""
+					"""
+
+					ice_route_map = \
+					"""
+					"""
+
+					ice_route_map_help = \
+					"""
+					"""
+
+
+		else if inputs[1] is "route"
+				if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
+					echo ice_route_help
+				else if inputs[2] is 'unmap' 
+					echo not_implemented(inputs[2])
+				else if inputs[2] is 'map'
+					if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
+						echo ice_route_map_help
+					else if inputs[3]
+							echo ice_route_mapped
+							intermediateResults(0)
+					else
+						echo ice_route_map
+				else echo ice_route
+					
 
 		else if inputs[1] is "ip"
 				if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
@@ -1136,8 +1200,66 @@ do @myTerminal = ->
 			Error: No such image: #{keyword}
 		"""
 
+	group_created = \
+	"""
+	28c5997e-8a3d-4e22-9ead-45d30dd2e203
+	Created group myGroup (id: 28c5997e-8a3d-4e22-9ead-45d30dd2e203)
+	Minimum container instances: 1
+	Maximum container instances: 2
+	Desired container instances: 2
+	"""
+
+	ice_group = \
+	"""
+	usage: ice group [-h] {list,create,update,rm,inspect,instances} ...
+	ice group: error: too few arguments
+	"""
+	ice_group_help = \
+	"""
+	usage: ice group [-h] {list,create,update,rm,inspect,instances} ...
+
+	positional arguments:
+	  {list,create,update,rm,inspect,instances}
+	                        auto-scaling groups management commands, for specific
+	                        command help use: ice group <command> -h
+	    list                list auto-scaling groups
+	    create              create auto-scaling group
+	    update              update auto-scaling group size
+	    rm                  remove auto-scaling group
+	    inspect             inspect group
+	    instances           list group instances
+
+	optional arguments:
+	  -h, --help            show this help message and exit
+	"""
+
+	ice_group_list_help = \
+	"""
+	usage: ice group list [-h]
+
+	optional arguments:
+	  -h, --help  show this help message and exit
+	"""
+
+
+	ice_group_create = \
+	"""
+	usage: ice group create [-h] [--name NAME] [--memory MEMORY] [--env ENV]
+	                        [--publish PORT] [--volume VOL] [--min MIN]
+	                        [--max MAX] [--desired DESIRED] [--bind APP] [--auto]
+	                        IMAGE [CMD [CMD ...]]
+	ice group create: error: too few arguments
+	"""
+
+	ice_group_create_help = \
+	"""
+	Please specify a name for your group using --name or -n option
+	"""
+
+
 	inspect_ice_ping_container = \
 	"""
+
 	{
     "BluemixApp": null,
     "Config": {
