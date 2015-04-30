@@ -893,8 +893,8 @@ buildfunction = (question) ->
     if _q.currentCloudImages?
       window.currentCloudImages = _q.currentCloudImages
 
-    #if _q.currentIceGroups?
-    #window.currentIceGroups = _q.currentIceGroups
+    if _q.currentIceGroups?
+      window.currentIceGroups = _q.currentIceGroups
 
     if _q.currentIcePs?
       window.currentIcePs = _q.currentIcePs

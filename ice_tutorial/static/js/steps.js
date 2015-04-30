@@ -518,6 +518,9 @@
       if (_q.currentCloudImages != null) {
         window.currentCloudImages = _q.currentCloudImages;
       }
+      if (_q.currentIceGroups != null) {
+        window.currentIceGroups = _q.currentIceGroups;
+      }
       if (_q.currentIcePs != null) {
         window.currentIcePs = _q.currentIcePs;
       } else {
