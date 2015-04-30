@@ -357,7 +357,7 @@ currentIcePs: """
 
   Container Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports
 
-  fa219a32-bcbf-4c6d-977f-1aa67bb1233d ice-ping                          learn/ping:latest             Apr 22 10:42 Shutdown 172.17.128.30                   []
+  fa219a32-bcbf-4c6d-977f-1aa67bb1233d ice-ping                          learn/ping:latest              Apr 22 10:42 Shutdown 172.17.228.45                   []
   """
 });
 
@@ -543,7 +543,7 @@ html: """
 assignment: """
       <h3>Assignment</h3>
       <p>In this exercise we will create a Volume on our Bluemix org so that it can be bound to containers.</p>
-      <p>Go ahead and use the <code>ice volume</code> commands to create a volume called <b>storage</b></p>
+      <p>Go ahead and use the <code>ice volume</code> commands to create a volume named <b>storage</b></p>
       """
 command_expected: ['ice', 'volume', 'create', 'storage']
 tip: """
@@ -553,19 +553,34 @@ tip: """
     </ul>
      """
 result: """<p>Sweeet! now we're ready to bind a volume to a running container!</p>"""
+currentIcePs: """
+
+  Container Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports
+
+  """
 })
 
 adv_q.push ({
 html: """
       <h3>Attaching Volumes</h3>
+      <p>Volumes are attached to containers in the run command by using the <code>-v VolumeId:ContainerPath[:ro]</code> flag/</p>
+      <p>The Volume Id is the volume's name (in our example 'storage'), the container path is the directory inside the container that the 
+      attached volume will mount. This means that all the data written to the specified container path will be stored on the Volume.</p>
+      <p>There is an optional arguement for granting permissions [:ro] (read only). If not specified the Volume will default to :rw (read write).</p>
       """
 assignment: """
       <h3>Assignment</h3>
-      <p>Use the <code>ice login</code> command to log in to the IBM Containers infrastructure. Ice will ask you for a username and password, any value will work.</p>
-      """
-command_expected: ['ice', 'login']
-result: """<p>You found it! Way to go!</p>"""
-tip: "the optional arguments for login are specified in the online Bluemix Containers doc"
+      <p>Use the <code>ice run</code> command to run a container named <b>storeDocker</b>, running the ibmnode image. Attach the <b>storage</b> volume to the /var/log directory.</p>
+    """
+command_expected: ['ice', 'run', 'n', 'storeDocker', '-v', 'storage:/var/log', 'ibmnode']
+result: """<p>You did it! Way to go!</p>"""
+tip: "use <code>ice run -h</code> to see the detailed flag details."
+currentIcePs: """
+
+  Container Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports
+
+  dc3ced78-61ed-4870-b668-411c87d2419d storeDocker                       ibmnode:latest                 Apr 30 10:18 Running                                    []
+  """
 })
 
 adv_q.push ({

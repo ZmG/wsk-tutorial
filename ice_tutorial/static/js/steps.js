@@ -179,7 +179,7 @@
       }
     ],
     tip: "<ul>\n<li>Notice that we will not use the <code>--local</code> because we are running on Bluemix, not local.</li> \n<li>Enter <code>ice run</code> to see flag usage details</li>\n</ul>",
-    currentIcePs: "\nContainer Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports\n\nfa219a32-bcbf-4c6d-977f-1aa67bb1233d ice-ping                          learn/ping:latest             Apr 22 10:42 Shutdown 172.17.128.30                   []"
+    currentIcePs: "\nContainer Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports\n\nfa219a32-bcbf-4c6d-977f-1aa67bb1233d ice-ping                          learn/ping:latest              Apr 22 10:42 Shutdown 172.17.228.45                   []"
   });
 
   q.push({
@@ -292,18 +292,20 @@
 
   adv_q.push({
     html: "<h3>Volumes</h3>\n<p>A data volume is a specially-designated directory within one or more containers that bypasses the Union File System. Data volumes provide several useful features for persistent or shared data:</p>\n<ul>\n  <li>Volumes are initialized when a container is created. If the container's base image contains data at the specified mount point, that data is copied into the new volume.</li>\n  <li>Data volumes can be shared and reused among containers.</li>\n  <li>Changes to a data volume are made directly.</li>\n  <li>Changes to a data volume will not be included when you update an image.</li>\n  <li>Data volumes persist even if the container itself is deleted.</li>\n</ul>\n<p>Data volumes are designed to persist data, independent of the container's life cycle. Docker therefore never automatically delete volumes when you remove a container, \nnor will it \"garbage collect\" volumes that are no longer referenced by a container.</p>",
-    assignment: "<h3>Assignment</h3>\n<p>In this exercise we will create a Volume on our Bluemix org so that it can be bound to containers.</p>\n<p>Go ahead and use the <code>ice volume</code> commands to create a volume called <b>storage</b></p>",
+    assignment: "<h3>Assignment</h3>\n<p>In this exercise we will create a Volume on our Bluemix org so that it can be bound to containers.</p>\n<p>Go ahead and use the <code>ice volume</code> commands to create a volume named <b>storage</b></p>",
     command_expected: ['ice', 'volume', 'create', 'storage'],
     tip: "<ul>\n  <li>Use <code>ice volume list</code> to list images</li>\n  <li>Use <code>ice volume -h</code> to see all the available commands</li>\n</ul>",
-    result: "<p>Sweeet! now we're ready to bind a volume to a running container!</p>"
+    result: "<p>Sweeet! now we're ready to bind a volume to a running container!</p>",
+    currentIcePs: "\nContainer Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports\n"
   });
 
   adv_q.push({
-    html: "<h3>Attaching Volumes</h3>",
-    assignment: "<h3>Assignment</h3>\n<p>Use the <code>ice login</code> command to log in to the IBM Containers infrastructure. Ice will ask you for a username and password, any value will work.</p>",
-    command_expected: ['ice', 'login'],
-    result: "<p>You found it! Way to go!</p>",
-    tip: "the optional arguments for login are specified in the online Bluemix Containers doc"
+    html: "<h3>Attaching Volumes</h3>\n<p>Volumes are attached to containers in the run command by using the <code>-v VolumeId:ContainerPath[:ro]</code> flag/</p>\n<p>The Volume Id is the volume's name (in our example 'storage'), the container path is the directory inside the container that the \nattached volume will mount. This means that all the data written to the specified container path will be stored on the Volume.</p>\n<p>There is an optional arguement for granting permissions [:ro] (read only). If not specified the Volume will default to :rw (read write).</p>",
+    assignment: "<h3>Assignment</h3>\n<p>Use the <code>ice run</code> command to run a container named <b>storeDocker</b>, running the ibmnode image. Attach the <b>storage</b> volume to the /var/log directory.</p>",
+    command_expected: ['ice', 'run', 'n', 'storeDocker', '-v', 'storage:/var/log', 'ibmnode'],
+    result: "<p>You did it! Way to go!</p>",
+    tip: "use <code>ice run -h</code> to see the detailed flag details.",
+    currentIcePs: "\nContainer Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports\n\ndc3ced78-61ed-4870-b668-411c87d2419d storeDocker                       ibmnode:latest                 Apr 30 10:18 Running                                    []"
   });
 
   adv_q.push({
