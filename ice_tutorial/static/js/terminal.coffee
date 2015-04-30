@@ -439,7 +439,7 @@ do @myTerminal = ->
 						index = currentVolumes.indexOf()
 						if index > -1
     						currentVolumes.splice(index, 1);
-						echo removed_volume(inputs[3])
+						echo removed_volume()
 					else
 						echo ice_volume_rm
 				else
