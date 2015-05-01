@@ -169,7 +169,7 @@
         } else if (switchArg === true) {
           switchArg = false;
           switchArgs.push(input);
-        } else if (j > 1 && imagename === "" && input !== create) {
+        } else if (j > 1 && imagename === "" && input !== 'create') {
           imagename = input;
         } else if (imagename !== "") {
           commands.push(input);

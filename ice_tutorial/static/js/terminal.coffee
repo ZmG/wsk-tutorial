@@ -208,7 +208,7 @@ do @myTerminal = ->
 				# reset switchArg
 				switchArg = false
 				switchArgs.push(input)
-			else if j > 1 and imagename == "" and input != create
+			else if j > 1 and imagename == "" and input != 'create'
 				# match wrong names
 				imagename = input
 			else if imagename != ""
