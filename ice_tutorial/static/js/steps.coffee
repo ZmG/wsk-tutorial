@@ -808,6 +808,7 @@ next = (which) ->
   if which is 'ADV'
     switchToAdvanced()
   else if which is '←'
+    switchToBasic()
   else if not which and which != 0
     current_question++
     if current_question is questions.length
@@ -989,7 +990,7 @@ window.switchToAdvanced = switchToAdvanced = () ->
 
   marker.attr("id", "marker-" + 'BSC')
   marker.find('text').get(0).textContent = '←'
-  marker.click( -> next(0) )
+  marker.click( switchToBasic() )
 
   questionNumber = 0
   for question in adv_q
