@@ -622,7 +622,7 @@ do @myTerminal = ->
 					echo 'h34ced78-61ed-4870-4e5d-a73de12aacb0'
 				else if switches.containsAllOfTheseParts(["--name", "--bind"]) && swargs.containsAllOfTheseParts(["boundDB", "myDB"])
 					echo "0261b157-9390-4e5d-88ad-a73de12aacb0"
-				else if switches.containsAllOfTheseParts(["--bind"]) && swargs.containsAllOfTheseParts(["boundDB"])
+				else if switches.containsAllOfTheseParts(["--bind"]) && swargs.containsAllOfTheseParts(["myDB"])
 					intermediateResults(0)
 					echo "0261b157-9390-4e5d-88ad-a73de12aacb0"
 				else if commands.containsAllOfTheseParts([ "ping", "localhost"]) && (switches.containsAllOfTheseParts(["--name"]) or switches.containsAllOfTheseParts(["-n"]))
