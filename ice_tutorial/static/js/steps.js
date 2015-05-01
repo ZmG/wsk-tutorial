@@ -5,7 +5,7 @@
  */
 
 (function() {
-  var COMPLETE_URL, EVENT_TYPES, adv_q, advancedTag, buildfunction, current_question, currentquestion, drawStatusMarker, err, f, isNumber, j, leftside, len, logEvent, next, previous, progressIndicator, q, question, questionNumber, questions, results, staticDockerPs, statusMarker, switchToAdvanced, switchToBasic, tutorialTop;
+  var COMPLETE_URL, EVENT_TYPES, adv_q, advancedTag, buildfunction, current_question, currentquestion, drawStatusMarker, endsWith, err, f, isNumber, j, leftside, len, logEvent, next, previous, progressIndicator, q, question, questionNumber, questions, results, staticDockerPs, statusMarker, switchToAdvanced, switchToBasic, tutorialTop;
 
   COMPLETE_URL = "/whats-next/";
 
@@ -400,6 +400,7 @@
   };
 
   this.goFullScreen = function(start) {
+    var index;
     window.scrollTo(0, 0);
     console.debug("going to fullsize mode");
     $('.togglesize').removeClass('startsize').addClass('fullsize');
@@ -415,6 +416,10 @@
       switchToBasic();
     } else if (isNumber(start)) {
       next(start);
+    } else if (endsWith(start, 'ADV')) {
+      switchToAdvanced();
+      index = start.split('-')[0];
+      next(index);
     } else {
       next(0);
     }
@@ -459,6 +464,10 @@
     Navigation amongst the questions
    */
 
+  endsWith = function(str, suffix) {
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+  };
+
   current_question = 0;
 
   window.next = next = function(which) {
@@ -484,7 +493,7 @@
       $('#commandHiddenText').removeClass("hidden").show();
     }
     if (window.advancedTut === true) {
-      history.pushState({}, "", "#" + current_question + "-ADV");
+      window.location.hash = "#" + current_question + "-ADV";
     }
     history.pushState({}, "", "#" + current_question);
     data = {

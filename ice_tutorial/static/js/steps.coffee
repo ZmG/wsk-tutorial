@@ -774,6 +774,10 @@ isNumber = (n) ->
     switchToBasic()
   else if isNumber(start)
     next(start)
+  else if endsWith(start, 'ADV')
+    switchToAdvanced()
+    index = start.split('-')[0]
+    next(index)
   else
     next(0)
 
@@ -817,6 +821,9 @@ $('#command').click () ->
 ###
   Navigation amongst the questions
 ###
+endsWith = (str, suffix) ->
+  return str.indexOf(suffix, str.length - suffix.length) isnt -1
+
 
 
 current_question = 0
@@ -844,7 +851,7 @@ window.next = next = (which) ->
 
   # enable history navigation
   if window.advancedTut is true
-    history.pushState({}, "", "#" + current_question + "-ADV")
+    window.location.hash = "#" + current_question + "-ADV"
   history.pushState({}, "", "#" + current_question)
   data = { 'type': EVENT_TYPES.next }
   logEvent(data)
