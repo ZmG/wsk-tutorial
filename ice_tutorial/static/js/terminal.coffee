@@ -471,9 +471,9 @@ do @myTerminal = ->
 				else if inputs[2] is 'create'
 					if inputs[3] and (inputs[3] is "--help" or inputs[3] is "-h")
 						echo ice_group_create_help
-					else if commands.containsAllOfTheseParts(["group", "create"]) && switches.containsAllOfTheseParts(["--name", "-p"]) && swargs.containsAllOfTheseParts(["boundDB", "80"])
+					else if commands.containsAllOfTheseParts(["group", "create"]) && switches.containsAllOfTheseParts(["--name", "-p"]) && swargs.containsAllOfTheseParts(["myGroup", "80"])
 						echo group_created
-					else if commands.containsAllOfTheseParts(["group", "create"]) && switches.containsAllOfTheseParts(["--name"]) && swargs.containsAllOfTheseParts(["boundDB"])
+					else if commands.containsAllOfTheseParts(["group", "create"]) && switches.containsAllOfTheseParts(["--name"]) && swargs.containsAllOfTheseParts(["myGroup"])
 						intermediateResults(0)
 						echo group_created
 					else if commands.containsAllOfTheseParts(["group", "create"])
@@ -606,7 +606,15 @@ do @myTerminal = ->
 					echo run_learn_no_command
 
 			else if imagename is "ibmnode"
-				if switches.containsAllOfTheseParts(["--name", "--bind"]) && swargs.containsAllOfTheseParts(["boundDB", "myDB"])
+				if switches.containsAllOfTheseParts(["--name", "--volume"]) && swargs.containsAllOfTheseParts(["iceVolume", "storage:/var/images"])
+					echo 'dc3ced78-61ed-4870-b668-411c87d2419d'
+				else if  switches.containsAllOfTheseParts(["--volume"]) && swargs.containsAllOfTheseParts(["storage:/var/images"])
+					intermediateResults(0)
+					echo 'h34ced78-61ed-4870-4e5d-a73de12aacb0'
+				else if  switches.containsAllOfTheseParts(["--name"]) && swargs.containsAllOfTheseParts(["iceVolume"])
+					intermediateResults()
+					echo 'h34ced78-61ed-4870-4e5d-a73de12aacb0'
+				else if switches.containsAllOfTheseParts(["--name", "--bind"]) && swargs.containsAllOfTheseParts(["boundDB", "myDB"])
 					echo "0261b157-9390-4e5d-88ad-a73de12aacb0"
 				else if switches.containsAllOfTheseParts(["--bind"]) && swargs.containsAllOfTheseParts(["boundDB"])
 					intermediateResults(0)

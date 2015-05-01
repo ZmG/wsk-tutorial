@@ -263,6 +263,13 @@
     command_expected: ['ice', 'run', '--name', 'iceVolume', '--volume', 'storage:/var/images', 'ibmnode'],
     result: "<p>You did it! Way to go!</p>",
     tip: "<ul>\n  <li>use <code>ice run -h</code> to see the detailed flag details.</li>\n  <li>Note: the ice cli allows you to use -v and -n as equivalents to --volume and --name however this tutorial enforces the use of the long flag names.</li>\n</ul>",
+    intermediateresults: [
+      function() {
+        return "Don't forget to name your container!";
+      }, function() {
+        return "Almost! looks like something was wrong with how you attached your volume.";
+      }
+    ],
     currentIcePs: "\nContainer Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports\n\ndc3ced78-61ed-4870-b668-411c87d2419d iceVolume                         ibmnode:latest                 Apr 30 10:18 Running                                    []"
   });
 

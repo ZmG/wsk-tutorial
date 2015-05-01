@@ -540,7 +540,11 @@ tip: """
       <li>Note: the ice cli allows you to use -v and -n as equivalents to --volume and --name however this tutorial enforces the use of the long flag names.</li>
     </ul>
     """
-    
+intermediateresults:
+  [
+    () -> """Don't forget to name your container!"""
+    () -> """Almost! looks like something was wrong with how you attached your volume."""
+  ]
 currentIcePs: """
 
   Container Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports
