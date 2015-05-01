@@ -801,6 +801,8 @@ next = (which) ->
     switchToAdvanced()
   else if not which and which != 0
     current_question++
+    if currentquestion is questions.length() 
+      next('ADV')
   else
     current_question = which
 
