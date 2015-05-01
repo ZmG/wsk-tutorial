@@ -5,7 +5,7 @@
  */
 
 (function() {
-  var COMPLETE_URL, EVENT_TYPES, adv_q, advancedTag, buildfunction, current_question, currentquestion, drawStatusMarker, err, f, j, leftside, len, logEvent, next, previous, progressIndicator, q, question, questionNumber, questions, results, staticDockerPs, statusMarker, switchToAdvanced, switchToBasic, tutorialTop;
+  var COMPLETE_URL, EVENT_TYPES, adv_q, advancedTag, buildfunction, current_question, currentquestion, drawStatusMarker, err, f, isNumber, j, leftside, len, logEvent, next, previous, progressIndicator, q, question, questionNumber, questions, results, staticDockerPs, statusMarker, switchToAdvanced, switchToBasic, tutorialTop;
 
   COMPLETE_URL = "/whats-next/";
 
@@ -395,6 +395,10 @@
     return goFullScreen();
   });
 
+  isNumber = function(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+  };
+
   this.goFullScreen = function(start) {
     window.scrollTo(0, 0);
     console.debug("going to fullsize mode");
@@ -407,10 +411,13 @@
     });
     if (start === 'adv') {
       switchToAdvanced();
-    } else {
+    } else if (start === 'basic') {
       switchToBasic();
+    } else if (isNumber(start)) {
+      next(start);
+    } else {
+      next(0);
     }
-    next(0);
     webterm.resize();
     return setTimeout(function() {
       return logEvent({

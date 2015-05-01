@@ -754,6 +754,10 @@ $('#feedbackSubmit').click ->
 $('#fullSizeOpen').click ->
   goFullScreen()
 
+
+isNumber = (n) ->
+  return !isNaN(parseFloat(n)) && isFinite(n);
+
 @goFullScreen = (start) ->
   
 
@@ -766,10 +770,12 @@ $('#fullSizeOpen').click ->
 
   if start is 'adv'
     switchToAdvanced()
-  else
+  else if start is 'basic'
     switchToBasic()
-
-  next(0)
+  else if isNumber(start)
+    next(start)
+  else
+    next(0)
 
   webterm.resize()
 
@@ -780,6 +786,7 @@ $('#fullSizeOpen').click ->
   setTimeout( () ->
     logEvent( { type: EVENT_TYPES.start } )
   , 3000)
+
 
 
 ## leave fullsize
