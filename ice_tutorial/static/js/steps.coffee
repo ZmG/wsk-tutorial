@@ -445,7 +445,7 @@ intermediateresults:
     () ->
       $('#instructions .assignment').hide()
       $('#tips, #command').hide()
-
+    
       $('#instructions .text').html("""
         <div class="complete">
           <h3>Congratulations!</h3>
@@ -463,7 +463,7 @@ intermediateresults:
             <li><a href="#" onClick="leaveFullSizeMode()">Close</a> this tutorial, and continue with the rest of the getting started.</li>
           </ol>
           <p> - Or - </p>
-          <p>Continue to learn about the way to automatically build your containers from a file. </p><p><a href="/learn/dockerfile/" class='btn btn-primary secondary-action-button'>Start Dockerfile tutorial</a></p>
+          <p>Continue to learn the advanced features of the ice CLI. </p><p><a onclick="switchToAdvanced()" class='btn btn-primary secondary-action-button'>Start Advanced tutorial</a></p>
 
         </div>
         """)
@@ -477,6 +477,7 @@ finishedCallback: () ->
   webterm.clear()
   webterm.echo( myTerminal() )
 
+      
 
 })
 
