@@ -483,6 +483,9 @@
       $('#commandShownText').addClass("hidden");
       $('#commandHiddenText').removeClass("hidden").show();
     }
+    if (window.advanced === true) {
+      history.pushState({}, "", "#" + current_question(+"-ADV"));
+    }
     history.pushState({}, "", "#" + current_question);
     data = {
       'type': EVENT_TYPES.next
@@ -614,6 +617,7 @@
 
   window.switchToBasic = switchToBasic = function() {
     var f, j, len, question, questionNumber;
+    window.Advanced = false;
     questions = [];
     statusMarker.prevAll('span').remove();
     statusMarker.nextAll('span').remove();
@@ -644,6 +648,7 @@
   window.switchToAdvanced = switchToAdvanced = function() {
     var f, j, len, marker, question, questionNumber;
     questions = [];
+    window.Advanced = true;
     statusMarker.prevAll('span').remove();
     statusMarker.nextAll('span').remove();
     leftside.animate({
