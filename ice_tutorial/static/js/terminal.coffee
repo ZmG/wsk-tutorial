@@ -459,6 +459,12 @@ do @myTerminal = ->
 					echo ice_volume
 
 		else if inputs[1] is "group"
+				# parse all input so we have a json object
+				parsed_input = parseInput(inputs)
+
+				switches = parsed_input.switches
+				swargs = parsed_input.switchArgs
+				commands = parsed_input.commands
 				if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
 					echo ice_group_help
 				else if inputs[2] is 'inspect' or inputs[2] is 'instances' or inputs[2] is 'update'  or inputs[2] is 'rm' 

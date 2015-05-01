@@ -406,6 +406,10 @@
           echo(ice_volume);
         }
       } else if (inputs[1] === "group") {
+        parsed_input = parseInput(inputs);
+        switches = parsed_input.switches;
+        swargs = parsed_input.switchArgs;
+        commands = parsed_input.commands;
         if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
           echo(ice_group_help);
         } else if (inputs[2] === 'inspect' || inputs[2] === 'instances' || inputs[2] === 'update' || inputs[2] === 'rm') {
