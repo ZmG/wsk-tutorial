@@ -844,7 +844,7 @@ window.next = next = (which) ->
 
   # enable history navigation
   if window.advancedTut is true
-    history.pushState({}, "", "#" + current_question +"-ADV");
+    history.pushState({}, "", "#" + current_question + "-ADV")
   history.pushState({}, "", "#" + current_question)
   data = { 'type': EVENT_TYPES.next }
   logEvent(data)

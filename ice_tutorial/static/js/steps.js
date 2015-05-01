@@ -484,7 +484,7 @@
       $('#commandHiddenText').removeClass("hidden").show();
     }
     if (window.advancedTut === true) {
-      history.pushState({}, "", "#" + current_question(+"-ADV"));
+      history.pushState({}, "", "#" + current_question + "-ADV");
     }
     history.pushState({}, "", "#" + current_question);
     data = {
