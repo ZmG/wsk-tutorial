@@ -806,7 +806,7 @@
     help = "IBM Container tutorial \n\n\n\nThe IBM Container tutorial is an emulater intended to help novice users get up to spead with the IBM Container\nExtension (ice) commands. This terminal contains a limited IBM Container CLI and a limited shell emulator.  \nTherefore some of the commands that you would expect do not exist.\n\n\n\nJust follow the steps and questions. If you are stuck, click on the 'expected command' to see what the command\nshould have been. Leave feedback if you find things confusing.\n";
     inspect = "\nUsage: Docker inspect CONTAINER|IMAGE [CONTAINER|IMAGE...]\n\nReturn low-level information on a container/image\n";
     ice_route_help = "usage: ice route [-h] {map,unmap} ...\n\npositional arguments:\n  {map,unmap}  Route management commands for container groups, for specific\n               command help use: ice route <command> -h\n    map        map route\n    unmap      unmap route\n\noptional arguments:\n  -h, --help   show this help message and exit";
-    ice_route_mapped = "NOT YET COMPLETE";
+    ice_route_mapped = "Successfully mapped myGroup to groupRoute.mybluemix.net";
     ice_route = "usage: ice route [-h] {map,unmap} ...\nice route: error: too few arguments";
     ice_route_map = "usage: ice route map [-h] [--hostname HOST] [--domain DOMAIN] GROUP\nice route map: error: too few arguments";
     ice_route_map_help = "usage: ice route map [-h] [--hostname HOST] [--domain DOMAIN] GROUP\n\npositional arguments:\n  GROUP                 group id or name\n\noptional arguments:\n  -h, --help            show this help message and exit\n  --hostname HOST, -n HOST\n                        host name for the route\n  --domain DOMAIN, -d DOMAIN\n                        domain name for the route";

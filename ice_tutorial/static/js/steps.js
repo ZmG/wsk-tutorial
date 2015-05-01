@@ -228,7 +228,7 @@
         var data;
         $('#instructions .assignment').hide();
         $('#tips, #command').hide();
-        $('#instructions .text').html("<div class=\"complete\">\n  <h3>Congratulations!</h3>\n  <p>You have mastered the basic docker commands!</p>\n  <p><strong>Did you enjoy this tutorial? Share it!</strong></p>\n  <p>\n    <a href=\"mailto:?Subject=Check%20out%20the%20Docker%20interactive%20tutorial!&Body=%20JSTART\"><img src=\"/static/img/email.png\"></a>\n    <a href=\"http://www.facebook.com/sharer.php?u=JSTART\"><img src=\"/static/img/facebook.png\"></a>\n    <a href=\"http://twitter.com/share?url=JSTART&text=%20Check+out+the+docker+tutorial!\"><img src=\"/static/img/twitter.png\"></a>\n  </p>\n  <h3>Your next steps</h3>\n  <ol>\n    <li><a href=\"/news_signup/\" target=\"_blank\" >Register</a> for news and updates on Docker (opens in new window)</li>\n    <li><a href=\"http://twitter.com/docker\" target=\"_blank\" >Follow</a> us on twitter (opens in new window)</li>\n    <li><a href=\"#\" onClick=\"leaveFullSizeMode()\">Close</a> this tutorial, and continue with the rest of the getting started.</li>\n  </ol>\n  <p> - Or - </p>\n  <p>Continue to learn the advanced features of the ice CLI. </p><p><a onclick=\"switchToAdvanced()\" class='btn btn-primary secondary-action-button'>Start Advanced tutorial</a></p>\n\n</div>");
+        $('#instructions .text').html("<div class=\"complete\">\n  <h3>Congratulations!</h3>\n  <p>You have mastered the basic docker commands!</p>\n  <p><strong>Did you enjoy this tutorial? Share it!</strong></p>\n  <p>\n    <a href=\"mailto:?Subject=Check%20out%20the%20Docker%20interactive%20tutorial!&Body=%20JSTART\"><img src=\"/static/img/email.png\"></a>\n    <a href=\"http://www.facebook.com/sharer.php?u=JSTART\"><img src=\"/static/img/facebook.png\"></a>\n    <a href=\"http://twitter.com/share?url=JSTART&text=%20Check+out+the+docker+tutorial!\"><img src=\"/static/img/twitter.png\"></a>\n  </p>\n  <h3>Your next steps</h3>\n  <ol>\n    <li><a href=\"/news_signup/\" target=\"_blank\" >Register</a> for news and updates on Docker (opens in new window)</li>\n    <li><a href=\"http://twitter.com/docker\" target=\"_blank\" >Follow</a> us on twitter (opens in new window)</li>\n    <li><a href=\"#\" onClick=\"leaveFullSizeMode()\">Close</a> this tutorial, and continue with the rest of the getting started.</li>\n  </ol>\n  <p> - Or - </p>\n  <p>Continue to learn the advanced features of the ice CLI. </p><p><a onclick=\"switchToAdvanced()\" class='btn btn-primary secondary-action-button'>Start <em style=\"color:aquamarine;\">Advanced</em> tutorial</a></p>\n\n</div>");
         data = {
           type: EVENT_TYPES.complete
         };
@@ -287,10 +287,10 @@
 
   adv_q.push({
     html: "<h3>Working With Routes</h3>\n<p>Before we get too far go ahead, check you running containers with <code>ice ps</code>. you can also check your groups using <code>ice group list</code></p>\n<p>So now we have this group of containers, We could use ice to bind an ip to the group. But we already did that and it would be much more convenient \nto have a route instead of an ip address. Bluemix allows us to bind routes to groups by using the <code>ice route map</code> command</p>",
-    assignment: "<h3>Assignment</h3>\n<p>Pull the trusted <b>'ibmnode'</b> image from the <b>'registry-ice.ng.bluemix.net/'</b> Registry.</p>",
-    command_expected: ['ice', 'route', 'map', 'myGroup'],
+    assignment: "<h3>Assignment</h3>\n<p>We need to bind a route to <b>myGroup</b>. the hostname will be <b>groupRoute</b> and the domain will be <b>mybluemix.net</b></p>",
+    command_expected: ['ice', 'route', 'map', '--hostname', 'groupRoute', '--domain', 'mybluemix.net', 'myGroup'],
     result: "<p>Cool. Look at the results. You'll see that ice has bound a Route to your container!.</p>",
-    tip: "<ul>\n<li>use <code>ice route map -h</code> for usage details.</li>\n<li>you can unmap routes using <code>ice route unmap</code> (not a part of this tutorial)</li>\n<li>Your group must have an exposed port inorder for routing to work!</li>\n</ul>",
+    tip: "<ul>\n<li>use <code>ice route map -h</code> for usage details.</li>\n<li>you can unmap routes using <code>ice route unmap</code> (not a part of this tutorial)</li>\n<li>Your group must have an exposed port inorder for routing to work!</li>\n<li>you will need to use <code>--hostname</code> and <code>--domain</code> to specify the hostname and domain!</li>\n</ul>",
     intermediateresults: [
       function() {
         var data;

@@ -1072,7 +1072,7 @@ do @myTerminal = ->
 
 	ice_route_mapped = \
 	"""
-	NOT YET COMPLETE
+	Successfully mapped myGroup to groupRoute.mybluemix.net
 	"""
 
 

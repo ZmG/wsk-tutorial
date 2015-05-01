@@ -463,7 +463,7 @@ intermediateresults:
             <li><a href="#" onClick="leaveFullSizeMode()">Close</a> this tutorial, and continue with the rest of the getting started.</li>
           </ol>
           <p> - Or - </p>
-          <p>Continue to learn the advanced features of the ice CLI. </p><p><a onclick="switchToAdvanced()" class='btn btn-primary secondary-action-button'>Start Advanced tutorial</a></p>
+          <p>Continue to learn the advanced features of the ice CLI. </p><p><a onclick="switchToAdvanced()" class='btn btn-primary secondary-action-button'>Start <em style="color:aquamarine;">Advanced</em> tutorial</a></p>
 
         </div>
         """)
@@ -625,15 +625,16 @@ html: """
 assignment:
       """
       <h3>Assignment</h3>
-      <p>Pull the trusted <b>'ibmnode'</b> image from the <b>'registry-ice.ng.bluemix.net/'</b> Registry.</p>
+      <p>We need to bind a route to <b>myGroup</b>. the hostname will be <b>groupRoute</b> and the domain will be <b>mybluemix.net</b></p>
       """
-command_expected: ['ice', 'route', 'map', 'myGroup']
+command_expected: ['ice', 'route', 'map', '--hostname', 'groupRoute', '--domain' , 'mybluemix.net','myGroup']
 result: """<p>Cool. Look at the results. You'll see that ice has bound a Route to your container!.</p>"""
 tip: """
     <ul>
     <li>use <code>ice route map -h</code> for usage details.</li>
     <li>you can unmap routes using <code>ice route unmap</code> (not a part of this tutorial)</li>
     <li>Your group must have an exposed port inorder for routing to work!</li>
+    <li>you will need to use <code>--hostname</code> and <code>--domain</code> to specify the hostname and domain!</li>
     </ul>
      """
 intermediateresults:
