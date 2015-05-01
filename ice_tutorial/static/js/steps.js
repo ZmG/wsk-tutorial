@@ -635,6 +635,7 @@
     marker.click(function() {
       return switchToBasic();
     });
+    marker.removeClass("active");
     questionNumber = 0;
     for (j = 0, len = adv_q.length; j < len; j++) {
       question = adv_q[j];

@@ -993,6 +993,7 @@ window.switchToAdvanced = switchToAdvanced = () ->
   marker.attr("id", "marker-" + 'BSC')
   marker.find('text').get(0).textContent = '←'
   marker.click( ->switchToBasic() )
+  marker.removeClass("active")
 
   questionNumber = 0
   for question in adv_q
