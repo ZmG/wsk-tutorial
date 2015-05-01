@@ -608,6 +608,7 @@
       }
       questionNumber++;
     }
+    drawStatusMarker('ADV');
     return next(0);
   };
 
@@ -623,6 +624,7 @@
     }, 1000);
     advancedTag.fadeIn();
     questionNumber = 0;
+    drawStatusMarker('Basic');
     for (j = 0, len = adv_q.length; j < len; j++) {
       question = adv_q[j];
       f = buildfunction(question);

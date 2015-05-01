@@ -970,6 +970,7 @@ window.switchToBasic = switchToBasic = () ->
     else
       $('#marker-' + questionNumber).removeClass("complete").addClass("active")
     questionNumber++
+  drawStatusMarker('ADV')
 
   # go to first question  
   next(0)
@@ -982,6 +983,7 @@ window.switchToAdvanced = switchToAdvanced = () ->
   advancedTag.fadeIn()
 
   questionNumber = 0
+  drawStatusMarker('Basic')
   for question in adv_q
     f = buildfunction(question)
     questions.push(f)
