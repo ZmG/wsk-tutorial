@@ -323,14 +323,6 @@ do @myTerminal = ->
 		callback = () -> @finishedCallback(inputs)
 		command = inputs[1]
 
-		# parse all input so we have a json object
-		parsed_input = parseInput(inputs)
-
-		switches = parsed_input.switches
-		swargs = parsed_input.switchArgs
-		imagename = parsed_input.imageName
-		commands = parsed_input.commands
-
 		# no command
 		if not inputs[1]
 			console.debug "no args"
@@ -538,7 +530,12 @@ do @myTerminal = ->
 
 		# Command run
 		else if inputs[1] is "run"
-			
+			# parse all input so we have a json object
+			parsed_input = parseInput(inputs)
+
+			switches = parsed_input.switches
+			swargs = parsed_input.switchArgs
+			commands = parsed_input.commands
 
 			console.log "commands"
 			console.log commands

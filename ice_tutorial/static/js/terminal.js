@@ -279,11 +279,6 @@
         return this.finishedCallback(inputs);
       };
       command = inputs[1];
-      parsed_input = parseInput(inputs);
-      switches = parsed_input.switches;
-      swargs = parsed_input.switchArgs;
-      imagename = parsed_input.imageName;
-      commands = parsed_input.commands;
       if (!inputs[1]) {
         console.debug("no args");
         echo(ice_no_args);
@@ -487,6 +482,10 @@
           echo(ice_ip);
         }
       } else if (inputs[1] === "run") {
+        parsed_input = parseInput(inputs);
+        switches = parsed_input.switches;
+        swargs = parsed_input.switchArgs;
+        commands = parsed_input.commands;
         console.log("commands");
         console.log(commands);
         console.log("switches");
