@@ -202,7 +202,7 @@ do @myTerminal = ->
 			if input.startsWith('-') and imagename == ""
 				switches.push(input)
 				if switches.length > 0
-					if not ['-i', '-t', '-d', '-p'].containsAllOfThese([input])
+					if not ['-i', '-t', '-d'].containsAllOfThese([input])
 						switchArg = true
 			else if switchArg == true
 				# reset switchArg
@@ -211,6 +211,8 @@ do @myTerminal = ->
 			else if j > 1 and imagename == "" and input != 'create'
 				# match wrong names
 				imagename = input
+			else if input is 'create'
+				commands.push (input)
 			else if imagename != ""
 				commands.push (input)
 			else

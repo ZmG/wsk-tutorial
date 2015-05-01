@@ -162,7 +162,7 @@
         if (input.startsWith('-') && imagename === "") {
           switches.push(input);
           if (switches.length > 0) {
-            if (!['-i', '-t', '-d', '-p'].containsAllOfThese([input])) {
+            if (!['-i', '-t', '-d'].containsAllOfThese([input])) {
               switchArg = true;
             }
           }
@@ -171,6 +171,8 @@
           switchArgs.push(input);
         } else if (j > 1 && imagename === "" && input !== 'create') {
           imagename = input;
+        } else if (input === 'create') {
+          commands.push(input);
         } else if (imagename !== "") {
           commands.push(input);
         } else {
