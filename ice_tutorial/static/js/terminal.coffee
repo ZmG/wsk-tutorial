@@ -476,7 +476,7 @@ do @myTerminal = ->
 					else if switches.containsAllOfTheseParts(["--name"]) && swargs.containsAllOfTheseParts(["myGroup"])
 						intermediateResults(0)
 						echo group_created
-					else if commands.containsAllOfTheseParts(["group", "create"])
+					else if commands.containsAllOfTheseParts(["create"])
 						intermediateResults(1)
 						echo group_created
 					else
