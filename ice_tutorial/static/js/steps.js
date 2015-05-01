@@ -454,7 +454,7 @@
 
   current_question = 0;
 
-  next = function(which) {
+  window.next = next = function(which) {
     var data;
     $('#marker-' + current_question).addClass("complete").removeClass("active");
     if (which === 'ADV') {

@@ -813,7 +813,7 @@ $('#command').click () ->
 
 
 current_question = 0
-next = (which) ->
+window.next = next = (which) ->
   # before increment clear style from previous question progress indicator
   $('#marker-' + current_question).addClass("complete").removeClass("active")
   if which is 'ADV'
