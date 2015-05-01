@@ -472,27 +472,6 @@ do @myTerminal = ->
 				else
 					echo ice_group
 
-					ice_route_help = \
-					"""
-					"""
-
-					ice_route_mapped = \
-					"""
-					"""
-
-					ice_route = \
-					"""
-					"""
-
-					ice_route_map = \
-					"""
-					"""
-
-					ice_route_map_help = \
-					"""
-					"""
-
-
 		else if inputs[1] is "route"
 				if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
 					echo ice_route_help
@@ -1076,6 +1055,53 @@ do @myTerminal = ->
 		Return low-level information on a container/image
 
 		"""
+
+	ice_route_help = \
+	"""
+	usage: ice route [-h] {map,unmap} ...
+
+	positional arguments:
+	  {map,unmap}  Route management commands for container groups, for specific
+	               command help use: ice route <command> -h
+	    map        map route
+	    unmap      unmap route
+
+	optional arguments:
+	  -h, --help   show this help message and exit
+	"""
+
+	ice_route_mapped = \
+	"""
+	NOT YET COMPLETE
+	"""
+
+
+	ice_route = \
+	"""
+	usage: ice route [-h] {map,unmap} ...
+	ice route: error: too few arguments
+	"""
+
+	ice_route_map = \
+	"""
+	usage: ice route map [-h] [--hostname HOST] [--domain DOMAIN] GROUP
+	ice route map: error: too few arguments
+	"""
+
+	ice_route_map_help = \
+	"""
+	usage: ice route map [-h] [--hostname HOST] [--domain DOMAIN] GROUP
+
+	positional arguments:
+	  GROUP                 group id or name
+
+	optional arguments:
+	  -h, --help            show this help message and exit
+	  --hostname HOST, -n HOST
+	                        host name for the route
+	  --domain DOMAIN, -d DOMAIN
+	                        domain name for the route
+	"""
 
 	ice_inspect_help = \
 		"""

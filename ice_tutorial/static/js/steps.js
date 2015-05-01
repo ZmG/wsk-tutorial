@@ -289,7 +289,7 @@
     html: "<h3>Working With Routes</h3>\n<p>Before we get too far go ahead, check you running containers with <code>ice ps</code>. you can also check your groups using <code>ice group list</code></p>\n<p>So now we have this group of containers, We could use ice to bind an ip to the group. But we already did that and it would be much more convenient \nto have a route instead of an ip address. Bluemix allows us to bind routes to groups by using the <code>ice route map</code> command</p>",
     assignment: "<h3>Assignment</h3>\n<p>Pull the trusted <b>'ibmnode'</b> image from the <b>'registry-ice.ng.bluemix.net/'</b> Registry.</p>",
     command_expected: ['ice', 'route', 'map', 'myGroup'],
-    result: "<p>Cool. Look at the results. You'll see that ice has invoked docker to download a number of layers. In Docker all images (except the base image) are made up of several cumulative layers.</p>",
+    result: "<p>Cool. Look at the results. You'll see that ice has bound a Route to your container!.</p>",
     tip: "<ul>\n<li>use <code>ice route map -h</code> for usage details.</li>\n<li>you can unmap routes using <code>ice route unmap</code> (not a part of this tutorial)</li>\n<li>Your group must have an exposed port inorder for routing to work!</li>\n</ul>",
     intermediateresults: [
       function() {

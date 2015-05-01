@@ -627,7 +627,7 @@ assignment:
       <p>Pull the trusted <b>'ibmnode'</b> image from the <b>'registry-ice.ng.bluemix.net/'</b> Registry.</p>
       """
 command_expected: ['ice', 'route', 'map', 'myGroup']
-result: """<p>Cool. Look at the results. You'll see that ice has invoked docker to download a number of layers. In Docker all images (except the base image) are made up of several cumulative layers.</p>"""
+result: """<p>Cool. Look at the results. You'll see that ice has bound a Route to your container!.</p>"""
 tip: """
     <ul>
     <li>use <code>ice route map -h</code> for usage details.</li>

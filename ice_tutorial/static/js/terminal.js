@@ -13,7 +13,7 @@
 
 (function() {
   (this.myTerminal = function() {
-    var EMULATOR_VERSION, ICE_logo, IceCommands, auth, bash, commit, commit_containerid, commit_id_does_not_exist, created_volume, docker_cmd, docker_version, group_created, help, ice, ice_group, ice_group_create, ice_group_create_help, ice_group_help, ice_group_list_help, ice_help, ice_inspect_help, ice_ip, ice_ip_bind_fail, ice_ip_bind_help, ice_ip_bound, ice_ip_help, ice_ip_request, ice_ip_request_help, ice_logs, ice_logs_help, ice_no_args, ice_no_such_container, ice_pull, ice_rm, ice_rm_help, ice_rm_ice_ping, ice_run_help, ice_run_no_name, ice_stop, ice_stop_help, ice_stop_ice_ping, ice_version, ice_volume, ice_volume_create, ice_volume_create_help, ice_volume_help, ice_volume_list, ice_volume_list_help, ice_volume_rm, ice_volume_rm_help, inspect, inspect_ice_ping_container, inspect_no_such_container, inspect_ping_container, login, loginResult, login_cmd, not_implemented, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push_container_learn_ping, push_help, push_no_args, push_wrong_name, removed_volume, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_echo, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_localhost, run_ping_not_localhost, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait;
+    var EMULATOR_VERSION, ICE_logo, IceCommands, auth, bash, commit, commit_containerid, commit_id_does_not_exist, created_volume, docker_cmd, docker_version, group_created, help, ice, ice_group, ice_group_create, ice_group_create_help, ice_group_help, ice_group_list_help, ice_help, ice_inspect_help, ice_ip, ice_ip_bind_fail, ice_ip_bind_help, ice_ip_bound, ice_ip_help, ice_ip_request, ice_ip_request_help, ice_logs, ice_logs_help, ice_no_args, ice_no_such_container, ice_pull, ice_rm, ice_rm_help, ice_rm_ice_ping, ice_route, ice_route_help, ice_route_map, ice_route_map_help, ice_route_mapped, ice_run_help, ice_run_no_name, ice_stop, ice_stop_help, ice_stop_ice_ping, ice_version, ice_volume, ice_volume_create, ice_volume_create_help, ice_volume_help, ice_volume_list, ice_volume_list_help, ice_volume_rm, ice_volume_rm_help, inspect, inspect_ice_ping_container, inspect_no_such_container, inspect_ping_container, login, loginResult, login_cmd, not_implemented, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push_container_learn_ping, push_help, push_no_args, push_wrong_name, removed_volume, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_echo, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_localhost, run_ping_not_localhost, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait;
     EMULATOR_VERSION = "0.1.5";
     this.basesettings = {
       prompt: '[[b;#fff;]you@tutorial:~$] ',
@@ -270,7 +270,7 @@
       }
     };
     ice = function(term, inputs) {
-      var callback, command, commands, echo, i, ice_route, ice_route_help, ice_route_map, ice_route_map_help, ice_route_mapped, imagename, index, insert, k, keyword, l, len, len1, parsed_input, ref, ref1, result, sentence, swargs, switches, word;
+      var callback, command, commands, echo, i, imagename, index, insert, k, keyword, l, len, len1, parsed_input, ref, ref1, result, sentence, swargs, switches, word;
       echo = term.echo;
       insert = term.insert;
       callback = function() {
@@ -423,11 +423,6 @@
           }
         } else {
           echo(ice_group);
-          ice_route_help = "					";
-          ice_route_mapped = "					";
-          ice_route = "					";
-          ice_route_map = "					";
-          ice_route_map_help = "					";
         }
       } else if (inputs[1] === "route") {
         if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
@@ -810,6 +805,11 @@
     };
     help = "IBM Container tutorial \n\n\n\nThe IBM Container tutorial is an emulater intended to help novice users get up to spead with the IBM Container\nExtension (ice) commands. This terminal contains a limited IBM Container CLI and a limited shell emulator.  \nTherefore some of the commands that you would expect do not exist.\n\n\n\nJust follow the steps and questions. If you are stuck, click on the 'expected command' to see what the command\nshould have been. Leave feedback if you find things confusing.\n";
     inspect = "\nUsage: Docker inspect CONTAINER|IMAGE [CONTAINER|IMAGE...]\n\nReturn low-level information on a container/image\n";
+    ice_route_help = "usage: ice route [-h] {map,unmap} ...\n\npositional arguments:\n  {map,unmap}  Route management commands for container groups, for specific\n               command help use: ice route <command> -h\n    map        map route\n    unmap      unmap route\n\noptional arguments:\n  -h, --help   show this help message and exit";
+    ice_route_mapped = "NOT YET COMPLETE";
+    ice_route = "usage: ice route [-h] {map,unmap} ...\nice route: error: too few arguments";
+    ice_route_map = "usage: ice route map [-h] [--hostname HOST] [--domain DOMAIN] GROUP\nice route map: error: too few arguments";
+    ice_route_map_help = "usage: ice route map [-h] [--hostname HOST] [--domain DOMAIN] GROUP\n\npositional arguments:\n  GROUP                 group id or name\n\noptional arguments:\n  -h, --help            show this help message and exit\n  --hostname HOST, -n HOST\n                        host name for the route\n  --domain DOMAIN, -d DOMAIN\n                        domain name for the route";
     ice_inspect_help = "usage: ice inspect [-h] CONTAINER\n\npositional arguments:\n  CONTAINER   container name or id\n\noptional arguments:\n  -h, --help  show this help message and exit";
     ice_run_help = "usage: ice run [-h] [--name NAME] [--memory MEMORY] [--env ENV]\n               [--publish PORT] [--volume VOL] [--bind APP] [--ssh SSHKEY]\n               IMAGE [CMD [CMD ...]]\n\npositional arguments:\n  IMAGE                 image to run\n  CMD                   command & args passed to container to execute\n\noptional arguments:\n  -h, --help            show this help message and exit\n  --name NAME, -n NAME  assign a name to the container\n  --memory MEMORY, -m MEMORY\n                        memory limit in MB, default is 256\n  --env ENV, -e ENV     set environment variable, ENV is key=value pair\n  --publish PORT, -p PORT\n                        expose PORT\n  --volume VOL, -v VOL  mount volume, VOL is VolumeId:ContainerPath[:ro],\n                        specifying ro makes the volume read-only instead of\n                        the default read-write\n  --bind APP, -b APP    bind to Bluemix app\n  --ssh SSHKEY, -k SSHKEY\n                        ssh key to be injected in container";
     ice_volume = "usage: ice volume [-h] {list,create,rm,inspect} ...\nice volume: error: too few arguments";
