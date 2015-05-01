@@ -613,7 +613,7 @@
   };
 
   window.switchToAdvanced = switchToAdvanced = function() {
-    var f, j, len, marker, question, questionNumber;
+    var f, j, len, question, questionNumber;
     questions = [];
     statusMarker.nextAll('span').remove();
     leftside.animate({
@@ -623,13 +623,6 @@
       backgroundColor: "#3F2626"
     }, 1000);
     advancedTag.fadeIn();
-    marker = statusMarker.clone();
-    marker.prependTo(progressIndicator);
-    marker.attr("id", "marker-" + i);
-    marker.find('text').get(0).textContent = '←';
-    marker.click(function() {
-      return next(0);
-    });
     questionNumber = 0;
     for (j = 0, len = adv_q.length; j < len; j++) {
       question = adv_q[j];
