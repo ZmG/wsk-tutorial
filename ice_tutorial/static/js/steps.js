@@ -589,7 +589,7 @@
   window.switchToBasic = switchToBasic = function() {
     var f, j, len, question, questionNumber;
     questions = [];
-    statusMarker.nextAll('span').remove();
+    statusMarker.prevAll('span').remove();
     statusMarker.nextAll('span').remove();
     leftside.animate({
       backgroundColor: "#26343f"
@@ -618,6 +618,7 @@
   window.switchToAdvanced = switchToAdvanced = function() {
     var f, j, len, marker, question, questionNumber;
     questions = [];
+    statusMarker.prevAll('span').remove();
     statusMarker.nextAll('span').remove();
     leftside.animate({
       backgroundColor: "#543B3B"
@@ -631,7 +632,9 @@
     marker.title = 'Go back to the Basic Tutorial';
     marker.attr("id", "marker-" + 'BSC');
     marker.find('text').get(0).textContent = '←';
-    marker.click(switchToBasic());
+    marker.click(function() {
+      return switchToBasic();
+    });
     questionNumber = 0;
     for (j = 0, len = adv_q.length; j < len; j++) {
       question = adv_q[j];

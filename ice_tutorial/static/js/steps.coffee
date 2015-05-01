@@ -958,7 +958,7 @@ advancedTag = $('#advancedTag')
 
 window.switchToBasic = switchToBasic = () -> 
   questions = []
-  statusMarker.nextAll('span').remove()
+  statusMarker.prevAll('span').remove()
   statusMarker.nextAll('span').remove()
   leftside.animate({ backgroundColor: "#26343f" }, 1000 )
   tutorialTop.animate({ backgroundColor: "#26343f" }, 1000 )
@@ -980,6 +980,7 @@ window.switchToBasic = switchToBasic = () ->
 
 window.switchToAdvanced = switchToAdvanced = () -> 
   questions = []
+  statusMarker.prevAll('span').remove()
   statusMarker.nextAll('span').remove()
   leftside.animate({ backgroundColor: "#543B3B" }, 1000 )
   tutorialTop.animate({ backgroundColor: "#3F2626" }, 1000 )
@@ -991,7 +992,7 @@ window.switchToAdvanced = switchToAdvanced = () ->
 
   marker.attr("id", "marker-" + 'BSC')
   marker.find('text').get(0).textContent = '←'
-  marker.click( switchToBasic() )
+  marker.click( ->switchToBasic() )
 
   questionNumber = 0
   for question in adv_q
