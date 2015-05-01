@@ -985,7 +985,7 @@ window.switchToAdvanced = switchToAdvanced = () ->
   marker = statusMarker.clone()
   marker.prependTo(progressIndicator)
 
-  marker.attr("id", "marker-" + BSC)
+  marker.attr("id", "marker-" + 'BSC')
   marker.find('text').get(0).textContent = '←'
   marker.click( -> next(0) )
 
