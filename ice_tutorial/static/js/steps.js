@@ -5,7 +5,7 @@
  */
 
 (function() {
-  var COMPLETE_URL, EVENT_TYPES, adv_q, advancedTag, buildfunction, current_question, currentquestion, drawStatusMarker, err, f, j, leftside, len, logEvent, next, previous, progressIndicator, q, question, questionNumber, questions, results, staticDockerPs, statusMarker, switchToAdvanced, tutorialTop;
+  var COMPLETE_URL, EVENT_TYPES, adv_q, advancedTag, buildfunction, current_question, currentquestion, drawStatusMarker, err, f, j, leftside, len, logEvent, next, previous, progressIndicator, q, question, questionNumber, questions, results, staticDockerPs, statusMarker, switchToAdvanced, switchToBasic, tutorialTop;
 
   COMPLETE_URL = "/whats-next/";
 
@@ -388,6 +388,8 @@
     });
     if (start === 'adv') {
       switchToAdvanced();
+    } else {
+      switchToBasic();
     }
     next(0);
     webterm.resize();
@@ -581,6 +583,33 @@
   tutorialTop = $('#tutorialTop');
 
   advancedTag = $('#advancedTag');
+
+  window.switchToBasic = switchToBasic = function() {
+    var f, j, len, question, questionNumber;
+    questions = [];
+    statusMarker.nextAll('span').remove();
+    leftside.animate({
+      backgroundColor: "#26343f"
+    }, 1000);
+    tutorialTop.animate({
+      backgroundColor: "#26343f"
+    }, 1000);
+    advancedTag.fadeOut();
+    questionNumber = 0;
+    for (j = 0, len = q.length; j < len; j++) {
+      question = q[j];
+      f = buildfunction(question);
+      questions.push(f);
+      drawStatusMarker(questionNumber);
+      if (questionNumber > 0) {
+        $('#marker-' + questionNumber).removeClass("active").removeClass("complete");
+      } else {
+        $('#marker-' + questionNumber).removeClass("complete").addClass("active");
+      }
+      questionNumber++;
+    }
+    return next(0);
+  };
 
   window.switchToAdvanced = switchToAdvanced = function() {
     var f, j, len, question, questionNumber;

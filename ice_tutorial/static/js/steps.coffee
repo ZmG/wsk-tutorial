@@ -752,9 +752,11 @@ $('#fullSizeOpen').click ->
 
   $('.hide-when-small').css({ display: 'inherit' })
   $('.hide-when-full').css({ display: 'none' })
-  
+
   if start is 'adv'
     switchToAdvanced()
+  else
+    switchToBasic()
 
   next(0)
 
@@ -951,6 +953,26 @@ progressIndicator = $('#progress-indicator')
 leftside = $('#leftside')
 tutorialTop = $('#tutorialTop')
 advancedTag = $('#advancedTag')
+
+window.switchToBasic = switchToBasic = () -> 
+  questions = []
+  statusMarker.nextAll('span').remove()
+  leftside.animate({ backgroundColor: "#26343f" }, 1000 )
+  tutorialTop.animate({ backgroundColor: "#26343f" }, 1000 )
+  advancedTag.fadeOut()
+  questionNumber = 0
+  for question in q
+    f = buildfunction(question)
+    questions.push(f)
+    drawStatusMarker(questionNumber)
+    if questionNumber > 0
+      $('#marker-' + questionNumber).removeClass("active").removeClass("complete")
+    else
+      $('#marker-' + questionNumber).removeClass("complete").addClass("active")
+    questionNumber++
+
+  # go to first question  
+  next(0)
 
 window.switchToAdvanced = switchToAdvanced = () -> 
   questions = []
