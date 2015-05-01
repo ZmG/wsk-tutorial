@@ -743,13 +743,18 @@ $('#feedbackSubmit').click ->
 $('#fullSizeOpen').click ->
   goFullScreen()
 
-@goFullScreen = () ->
+@goFullScreen = (start) ->
+  
+
   window.scrollTo(0, 0)
   console.debug("going to fullsize mode")
   $('.togglesize').removeClass('startsize').addClass('fullsize')
 
   $('.hide-when-small').css({ display: 'inherit' })
   $('.hide-when-full').css({ display: 'none' })
+  
+  if start is 'adv'
+    switchToAdvanced()
 
   next(0)
 

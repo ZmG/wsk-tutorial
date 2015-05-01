@@ -376,7 +376,7 @@
     return goFullScreen();
   });
 
-  this.goFullScreen = function() {
+  this.goFullScreen = function(start) {
     window.scrollTo(0, 0);
     console.debug("going to fullsize mode");
     $('.togglesize').removeClass('startsize').addClass('fullsize');
@@ -386,6 +386,9 @@
     $('.hide-when-full').css({
       display: 'none'
     });
+    if (start === 'adv') {
+      switchToAdvanced();
+    }
     next(0);
     webterm.resize();
     return setTimeout(function() {
