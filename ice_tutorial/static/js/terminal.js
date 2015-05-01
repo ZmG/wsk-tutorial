@@ -486,6 +486,7 @@
         switches = parsed_input.switches;
         swargs = parsed_input.switchArgs;
         commands = parsed_input.commands;
+        imagename = parsed.imagename;
         console.log("commands");
         console.log(commands);
         console.log("switches");
