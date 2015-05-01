@@ -536,7 +536,7 @@ do @myTerminal = ->
 			switches = parsed_input.switches
 			swargs = parsed_input.switchArgs
 			commands = parsed_input.commands
-			imagename = parsed_input.imagename
+			imagename = parsed_input.imageName
 
 			console.log "commands"
 			console.log commands
