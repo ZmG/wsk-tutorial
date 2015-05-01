@@ -420,9 +420,9 @@
         } else if (inputs[2] === 'create') {
           if (inputs[3] && (inputs[3] === "--help" || inputs[3] === "-h")) {
             echo(ice_group_create_help);
-          } else if (commands.containsAllOfTheseParts(["group", "create"]) && switches.containsAllOfTheseParts(["--name", "-p"]) && swargs.containsAllOfTheseParts(["myGroup", "80"])) {
+          } else if (switches.containsAllOfTheseParts(["--name", "-p"]) && swargs.containsAllOfTheseParts(["myGroup", "80"])) {
             echo(group_created);
-          } else if (commands.containsAllOfTheseParts(["group", "create"]) && switches.containsAllOfTheseParts(["--name"]) && swargs.containsAllOfTheseParts(["myGroup"])) {
+          } else if (switches.containsAllOfTheseParts(["--name"]) && swargs.containsAllOfTheseParts(["myGroup"])) {
             intermediateResults(0);
             echo(group_created);
           } else if (commands.containsAllOfTheseParts(["group", "create"])) {
