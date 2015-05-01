@@ -843,7 +843,7 @@ window.next = next = (which) ->
     $('#commandHiddenText').removeClass("hidden").show()
 
   # enable history navigation
-  if window.advanced is true
+  if window.advancedTut is true
     history.pushState({}, "", "#" + current_question +"-ADV");
   history.pushState({}, "", "#" + current_question)
   data = { 'type': EVENT_TYPES.next }
@@ -977,7 +977,7 @@ tutorialTop = $('#tutorialTop')
 advancedTag = $('#advancedTag')
 
 window.switchToBasic = switchToBasic = () -> 
-  window.Advanced = false
+  window.advancedTut = false
   questions = []
   statusMarker.prevAll('span').remove()
   statusMarker.nextAll('span').remove()
@@ -1001,7 +1001,7 @@ window.switchToBasic = switchToBasic = () ->
 
 window.switchToAdvanced = switchToAdvanced = () -> 
   questions = []
-  window.Advanced = true
+  window.advancedTut = true
   statusMarker.prevAll('span').remove()
   statusMarker.nextAll('span').remove()
   leftside.animate({ backgroundColor: "#543B3B" }, 1000 )

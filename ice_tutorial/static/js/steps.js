@@ -483,7 +483,7 @@
       $('#commandShownText').addClass("hidden");
       $('#commandHiddenText').removeClass("hidden").show();
     }
-    if (window.advanced === true) {
+    if (window.advancedTut === true) {
       history.pushState({}, "", "#" + current_question(+"-ADV"));
     }
     history.pushState({}, "", "#" + current_question);
@@ -617,7 +617,7 @@
 
   window.switchToBasic = switchToBasic = function() {
     var f, j, len, question, questionNumber;
-    window.Advanced = false;
+    window.advancedTut = false;
     questions = [];
     statusMarker.prevAll('span').remove();
     statusMarker.nextAll('span').remove();
@@ -648,7 +648,7 @@
   window.switchToAdvanced = switchToAdvanced = function() {
     var f, j, len, marker, question, questionNumber;
     questions = [];
-    window.Advanced = true;
+    window.advancedTut = true;
     statusMarker.prevAll('span').remove();
     statusMarker.nextAll('span').remove();
     leftside.animate({
