@@ -436,7 +436,7 @@
       switchToAdvanced();
     } else if (!which && which !== 0) {
       current_question++;
-      if (currentquestion === questions.length()) {
+      if (current_question === questions.length) {
         next('ADV');
       }
     } else {
