@@ -569,6 +569,10 @@ tip: """"
     use the <code>--bind</code> flag to bind the app.
     note: the ice command line supports the use of either --bind or -b for binding, but this tutorial enforces the use of the long flag names.
     """
+intermediateresults:
+  [
+    () -> """Don't forget to name your container!"""
+  ]
 currentIcePs: """
 
   Container Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports
@@ -604,6 +608,11 @@ Group Id                             Name             Status               Creat
 
 8f97d754-e8fc-4128-ba75-f0d8f3a868ce myGroup          CREATE_COMPLETE      2015-04-28T18:57:42                     80
 """
+intermediateresults:
+  [
+    () -> """Don't forget to expose port 80."""
+    () -> """Make sure to give you group a name, and expose port 80."""
+  ]
 currentIcePs: """
 
   Container Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports
@@ -611,7 +620,6 @@ currentIcePs: """
   21c6724d-50e2-43fc-b947-fd76ef26fc2d my-ogvl-7g734rpjvvy... myGroup    ibmnode:latest                 Apr 30 15:28 Running  172.12.128.58                   []
   cfb39cf2-1a38-4ca3-b948-4e5ae2b56dd2 my-ogvl-m5yb5noyrsj... myGroup    ibmnode:latest                 Apr 30 15:28 Running  172.12.128.57                   []
   0261b157-9390-4e5d-88ad-a73de12aacb0 boundDB                           ibmnode:latest                 Apr 30 14:40 Running  172.12.128.55                   []
-  c684ae10-b410-4ad7-b866-babcb380ec8f wp3                               jstart/wordpress:latest        Apr 28 15:03 Running  172.12.128.46   129.41.232.65   [80]
   """
 })
 

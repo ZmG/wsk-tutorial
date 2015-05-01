@@ -471,9 +471,13 @@ do @myTerminal = ->
 				else if inputs[2] is 'create'
 					if inputs[3] and (inputs[3] is "--help" or inputs[3] is "-h")
 						echo ice_group_create_help
-					else if inputs[3] and (not swargs.containsAllOfThese(['80']) and not switches.containsAllOfThese(['-p']))
-						intermediateResults
-					else if inputs[3]	
+					else if commands.containsAllOfTheseParts(["group", "create"]) && switches.containsAllOfTheseParts(["--name", "-p"]) && swargs.containsAllOfTheseParts(["boundDB", "80"])
+						echo group_created
+					else if commands.containsAllOfTheseParts(["group", "create"]) && switches.containsAllOfTheseParts(["--name"]) && swargs.containsAllOfTheseParts(["boundDB"])
+						intermediateResults(0)
+						echo group_created
+					else if commands.containsAllOfTheseParts(["group", "create"])
+						intermediateResults(1)
 						echo group_created
 					else
 						echo ice_group_create
@@ -588,6 +592,25 @@ do @myTerminal = ->
 					echo "fa219a32-bcbf-4c6d-977f-1aa67bb1233d"
 				else if commands.containsAllOfTheseParts(["ping", "localhost"]) && switches.containsAllOfTheseParts(["-n"]) && swargs.containsAllOfTheseParts(["ice-ping"])
 					echo "fa219a32-bcbf-4c6d-977f-1aa67bb1233d"
+				else if commands.containsAllOfTheseParts([ "ping", "localhost"]) && (switches.containsAllOfTheseParts(["--name"]) or switches.containsAllOfTheseParts(["-n"]))
+					intermediateResults(1)
+					echo ice_run_no_name
+				else if commands[0] is "ping" and commands[1]
+					intermediateResults(0)
+					echo run_ping_not_localhost(commands[1])
+				else if commands[0] is "ping"
+					echo pin
+				else if commands[0]
+					echo "#{commands[0]}: command not found"
+				else
+					echo run_learn_no_command
+
+			else if imagename is "ibmnode"
+				if switches.containsAllOfTheseParts(["--name", "--bind"]) && swargs.containsAllOfTheseParts(["boundDB", "myDB"])
+					echo "0261b157-9390-4e5d-88ad-a73de12aacb0"
+				else if switches.containsAllOfTheseParts(["--bind"]) && swargs.containsAllOfTheseParts(["boundDB"])
+					intermediateResults(0)
+					echo "0261b157-9390-4e5d-88ad-a73de12aacb0"
 				else if commands.containsAllOfTheseParts([ "ping", "localhost"]) && (switches.containsAllOfTheseParts(["--name"]) or switches.containsAllOfTheseParts(["-n"]))
 					intermediateResults(1)
 					echo ice_run_no_name

@@ -419,9 +419,13 @@
         } else if (inputs[2] === 'create') {
           if (inputs[3] && (inputs[3] === "--help" || inputs[3] === "-h")) {
             echo(ice_group_create_help);
-          } else if (inputs[3] && (!swargs.containsAllOfThese(['80']) && !switches.containsAllOfThese(['-p']))) {
-            intermediateResults;
-          } else if (inputs[3]) {
+          } else if (commands.containsAllOfTheseParts(["group", "create"]) && switches.containsAllOfTheseParts(["--name", "-p"]) && swargs.containsAllOfTheseParts(["boundDB", "80"])) {
+            echo(group_created);
+          } else if (commands.containsAllOfTheseParts(["group", "create"]) && switches.containsAllOfTheseParts(["--name"]) && swargs.containsAllOfTheseParts(["boundDB"])) {
+            intermediateResults(0);
+            echo(group_created);
+          } else if (commands.containsAllOfTheseParts(["group", "create"])) {
+            intermediateResults(1);
             echo(group_created);
           } else {
             echo(ice_group_create);
@@ -540,6 +544,25 @@
             echo("fa219a32-bcbf-4c6d-977f-1aa67bb1233d");
           } else if (commands.containsAllOfTheseParts(["ping", "localhost"]) && switches.containsAllOfTheseParts(["-n"]) && swargs.containsAllOfTheseParts(["ice-ping"])) {
             echo("fa219a32-bcbf-4c6d-977f-1aa67bb1233d");
+          } else if (commands.containsAllOfTheseParts(["ping", "localhost"]) && (switches.containsAllOfTheseParts(["--name"]) || switches.containsAllOfTheseParts(["-n"]))) {
+            intermediateResults(1);
+            echo(ice_run_no_name);
+          } else if (commands[0] === "ping" && commands[1]) {
+            intermediateResults(0);
+            echo(run_ping_not_localhost(commands[1]));
+          } else if (commands[0] === "ping") {
+            echo(pin);
+          } else if (commands[0]) {
+            echo(commands[0] + ": command not found");
+          } else {
+            echo(run_learn_no_command);
+          }
+        } else if (imagename === "ibmnode") {
+          if (switches.containsAllOfTheseParts(["--name", "--bind"]) && swargs.containsAllOfTheseParts(["boundDB", "myDB"])) {
+            echo("0261b157-9390-4e5d-88ad-a73de12aacb0");
+          } else if (switches.containsAllOfTheseParts(["--bind"]) && swargs.containsAllOfTheseParts(["boundDB"])) {
+            intermediateResults(0);
+            echo("0261b157-9390-4e5d-88ad-a73de12aacb0");
           } else if (commands.containsAllOfTheseParts(["ping", "localhost"]) && (switches.containsAllOfTheseParts(["--name"]) || switches.containsAllOfTheseParts(["-n"]))) {
             intermediateResults(1);
             echo(ice_run_no_name);

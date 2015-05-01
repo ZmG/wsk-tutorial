@@ -272,6 +272,11 @@
     command_expected: ['ice', 'run', '--name', 'boundDB', '--bind', 'myDB', 'ibmnode'],
     result: "<p>Whoop! nice job, All the services are now available to you container.</p>",
     tip: "\"\nuse the <code>--bind</code> flag to bind the app.\nnote: the ice command line supports the use of either --bind or -b for binding, but this tutorial enforces the use of the long flag names.",
+    intermediateresults: [
+      function() {
+        return "Don't forget to name your container!";
+      }
+    ],
     currentIcePs: "\nContainer Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports\n\n0261b157-9390-4e5d-88ad-a73de12aacb0 boundDB                           ibmnode:latest                 Apr 30 14:40 Running  172.12.128.55                   []\ndc3ced78-61ed-4870-b668-411c87d2419d iceVolume                         ibmnode:latest                 Apr 30 10:18 Running  172.12.128.55                   []"
   });
 
@@ -282,7 +287,14 @@
     result: "<p>You found it! Way to go!</p>",
     tip: "<ul>\n  <li>You can use the <code>--auto</code> flag to have Bluemix automatically restart failed instances.</li>\n  <li>You can use the <code>--desired</code> flag to specify the number of instances that you require. The default is 2.</li>\n  <li>Deleting groups is done using <code>ice group rm</code> (not a part of this emulator)</li>\n  <li>it is possible to pass commands to the ice group create command, the command will run on all containers on the group.</li>\n</ul>",
     currentIceGroups: "\nGroup Id                             Name             Status               Created             Updated             Port\n\n8f97d754-e8fc-4128-ba75-f0d8f3a868ce myGroup          CREATE_COMPLETE      2015-04-28T18:57:42                     80",
-    currentIcePs: "\nContainer Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports\n\n21c6724d-50e2-43fc-b947-fd76ef26fc2d my-ogvl-7g734rpjvvy... myGroup    ibmnode:latest                 Apr 30 15:28 Running  172.12.128.58                   []\ncfb39cf2-1a38-4ca3-b948-4e5ae2b56dd2 my-ogvl-m5yb5noyrsj... myGroup    ibmnode:latest                 Apr 30 15:28 Running  172.12.128.57                   []\n0261b157-9390-4e5d-88ad-a73de12aacb0 boundDB                           ibmnode:latest                 Apr 30 14:40 Running  172.12.128.55                   []\nc684ae10-b410-4ad7-b866-babcb380ec8f wp3                               jstart/wordpress:latest        Apr 28 15:03 Running  172.12.128.46   129.41.232.65   [80]"
+    intermediateresults: [
+      function() {
+        return "Don't forget to expose port 80.";
+      }, function() {
+        return "Make sure to give you group a name, and expose port 80.";
+      }
+    ],
+    currentIcePs: "\nContainer Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports\n\n21c6724d-50e2-43fc-b947-fd76ef26fc2d my-ogvl-7g734rpjvvy... myGroup    ibmnode:latest                 Apr 30 15:28 Running  172.12.128.58                   []\ncfb39cf2-1a38-4ca3-b948-4e5ae2b56dd2 my-ogvl-m5yb5noyrsj... myGroup    ibmnode:latest                 Apr 30 15:28 Running  172.12.128.57                   []\n0261b157-9390-4e5d-88ad-a73de12aacb0 boundDB                           ibmnode:latest                 Apr 30 14:40 Running  172.12.128.55                   []"
   });
 
   adv_q.push({
