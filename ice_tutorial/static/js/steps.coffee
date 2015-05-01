@@ -807,6 +807,7 @@ next = (which) ->
   $('#marker-' + current_question).addClass("complete").removeClass("active")
   if which is 'ADV'
     switchToAdvanced()
+  else if which is '←'
   else if not which and which != 0
     current_question++
     if current_question is questions.length
@@ -984,6 +985,7 @@ window.switchToAdvanced = switchToAdvanced = () ->
 
   marker = statusMarker.clone()
   marker.prependTo(progressIndicator)
+  marker.title = 'Go back to the Basic Tutorial'
 
   marker.attr("id", "marker-" + 'BSC')
   marker.find('text').get(0).textContent = '←'

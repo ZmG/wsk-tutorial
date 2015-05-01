@@ -440,6 +440,8 @@
     $('#marker-' + current_question).addClass("complete").removeClass("active");
     if (which === 'ADV') {
       switchToAdvanced();
+    } else if (which === '←') {
+
     } else if (!which && which !== 0) {
       current_question++;
       if (current_question === questions.length) {
@@ -625,6 +627,7 @@
     advancedTag.fadeIn();
     marker = statusMarker.clone();
     marker.prependTo(progressIndicator);
+    marker.title = 'Go back to the Basic Tutorial';
     marker.attr("id", "marker-" + 'BSC');
     marker.find('text').get(0).textContent = '←';
     marker.click(function() {
