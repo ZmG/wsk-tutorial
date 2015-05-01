@@ -162,14 +162,14 @@
         if (input.startsWith('-') && imagename === "") {
           switches.push(input);
           if (switches.length > 0) {
-            if (!['-i', '-t', '-d'].containsAllOfThese([input])) {
+            if (!['-i', '-t', '-d', '-p'].containsAllOfThese([input])) {
               switchArg = true;
             }
           }
         } else if (switchArg === true) {
           switchArg = false;
           switchArgs.push(input);
-        } else if (j > 1 && imagename === "") {
+        } else if (j > 1 && imagename === "" && input !== create) {
           imagename = input;
         } else if (imagename !== "") {
           commands.push(input);
