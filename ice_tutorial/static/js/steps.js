@@ -590,6 +590,7 @@
     var f, j, len, question, questionNumber;
     questions = [];
     statusMarker.nextAll('span').remove();
+    statusMarker.nextAll('span').remove();
     leftside.animate({
       backgroundColor: "#26343f"
     }, 1000);

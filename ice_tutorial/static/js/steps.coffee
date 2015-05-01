@@ -959,6 +959,7 @@ advancedTag = $('#advancedTag')
 window.switchToBasic = switchToBasic = () -> 
   questions = []
   statusMarker.nextAll('span').remove()
+  statusMarker.nextAll('span').remove()
   leftside.animate({ backgroundColor: "#26343f" }, 1000 )
   tutorialTop.animate({ backgroundColor: "#26343f" }, 1000 )
   advancedTag.fadeOut()
