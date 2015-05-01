@@ -463,7 +463,7 @@ intermediateresults:
             <li><a href="#" onClick="leaveFullSizeMode()">Close</a> this tutorial, and continue with the rest of the getting started.</li>
           </ol>
           <p> - Or - </p>
-          <p>Continue to learn the advanced features of the ice CLI. </p><p><a onclick="switchToAdvanced()" class='btn btn-primary secondary-action-button'>Start <em style="color:aquamarine;">Advanced</em> tutorial</a></p>
+          <p>Continue to learn the advanced features of the ice CLI. </p><p><a onclick="switchToAdvanced()" class='btn btn-primary secondary-action-button'>Start <em style="color:crimson;">Advanced</em> tutorial</a></p>
 
         </div>
         """)
