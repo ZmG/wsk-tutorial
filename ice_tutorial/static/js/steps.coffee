@@ -744,6 +744,7 @@ $('#fullSizeOpen').click ->
   goFullScreen()
 
 @goFullScreen = () ->
+  window.scrollTo(0, 0)
   console.debug("going to fullsize mode")
   $('.togglesize').removeClass('startsize').addClass('fullsize')
 
