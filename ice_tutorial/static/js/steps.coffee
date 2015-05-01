@@ -982,6 +982,13 @@ window.switchToAdvanced = switchToAdvanced = () ->
   tutorialTop.animate({ backgroundColor: "#3F2626" }, 1000 )
   advancedTag.fadeIn()
 
+  marker = statusMarker.clone()
+  marker.prependTo(progressIndicator)
+
+  marker.attr("id", "marker-" + BSC)
+  marker.find('text').get(0).textContent = '←'
+  marker.click( -> next(0) )
+
   questionNumber = 0
   for question in adv_q
     f = buildfunction(question)
