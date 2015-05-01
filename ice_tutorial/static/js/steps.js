@@ -614,7 +614,7 @@
       backgroundColor: "#26343f"
     }, 1000);
     tutorialTop.animate({
-      backgroundColor: "#26343f"
+      backgroundColor: "rgb(59, 74, 84)"
     }, 1000);
     advancedTag.fadeOut();
     questionNumber = 0;
