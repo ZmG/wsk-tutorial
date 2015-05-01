@@ -452,9 +452,9 @@ intermediateresults:
           <p>You have mastered the basic docker commands!</p>
           <p><strong>Did you enjoy this tutorial? Share it!</strong></p>
           <p>
-            <a href="mailto:?Subject=Check%20out%20the%20Docker%20interactive%20tutorial!&Body=%20JSTART"><img src="/static/img/email.png"></a>
-            <a href="http://www.facebook.com/sharer.php?u=JSTART"><img src="/static/img/facebook.png"></a>
-            <a href="http://twitter.com/share?url=JSTART&text=%20Check+out+the+docker+tutorial!"><img src="/static/img/twitter.png"></a>
+            <a href="mailto:?Subject=Check%20out%20the%20Docker%20interactive%20tutorial!&Body=%20http://ice.mybluemix.net/"><img src="/static/img/email.png"></a>
+            <a href="http://www.facebook.com/sharer.php?u=http://ice.mybluemix.net/"><img src="/static/img/facebook.png"></a>
+            <a href="http://twitter.com/share?url=http://ice.mybluemix.net/&text=%20Check+out+the+docker+tutorial!"><img src="/static/img/twitter.png"></a>
           </p>
           <h3>Your next steps</h3>
           <ol>
@@ -661,9 +661,9 @@ intermediateresults:
           <p>You have mastered the <em style="color:aquamarine;">Advanced</em> docker commands!</p>
           <p><strong>Did you enjoy this tutorial? Share it!</strong></p>
           <p>
-            <a href="mailto:?Subject=Check%20out%20the%20Docker%20interactive%20tutorial!&Body=%20JSTART"><img src="/static/img/email.png"></a>
-            <a href="http://www.facebook.com/sharer.php?u=JSTART"><img src="/static/img/facebook.png"></a>
-            <a href="http://twitter.com/share?url=JSTART&text=%20Check+out+the+docker+tutorial!"><img src="/static/img/twitter.png"></a>
+            <a href="mailto:?Subject=Check%20out%20the%20Docker%20interactive%20tutorial!&Body=%20http://ice.mybluemix.net/"><img src="/static/img/email.png"></a>
+            <a href="http://www.facebook.com/sharer.php?u=http://ice.mybluemix.net/"><img src="/static/img/facebook.png"></a>
+            <a href="http://twitter.com/share?url=http://ice.mybluemix.net/&text=%20Check+out+the+docker+tutorial!"><img src="/static/img/twitter.png"></a>
           </p>
           <h3>Your next steps</h3>
           <ol>
@@ -681,7 +681,6 @@ intermediateresults:
       data = { type: EVENT_TYPES.complete }
       logEvent(data)
 
-      #return """<p>All done!. You are now pushing a container image to the index. You can see that push, just like pull, happens layer by layer.</p>"""
   ]
 finishedCallback: () ->
   webterm.clear()
