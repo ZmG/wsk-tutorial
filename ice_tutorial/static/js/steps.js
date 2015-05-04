@@ -5,7 +5,7 @@
  */
 
 (function() {
-  var COMPLETE_URL, EVENT_TYPES, adv_q, advancedTag, buildfunction, current_question, currentquestion, drawStatusMarker, endsWith, err, f, isNumber, j, leftside, len, logEvent, next, previous, progressIndicator, q, question, questionNumber, questions, results, staticDockerPs, statusMarker, switchToAdvanced, switchToBasic, tutorialTop;
+  var COMPLETE_URL, EVENT_TYPES, adv_q, advancedTag, buildfunction, current_question, drawStatusMarker, endsWith, f, isNumber, j, leftside, len, logEvent, next, previous, progressIndicator, q, question, questionNumber, questions, results, staticDockerPs, statusMarker, switchToAdvanced, switchToBasic, tutorialTop;
 
   COMPLETE_URL = "/whats-next/";
 
@@ -727,17 +727,19 @@
     Initialization of program
    */
 
-  if (window.location.hash) {
-    try {
-      currentquestion = window.location.hash.split('#')[1].toNumber();
-      next(currentquestion);
-    } catch (_error) {
-      err = _error;
-      questions[0]();
-    }
-  } else {
-    questions[0]();
-  }
+
+  /*if (window.location.hash)
+    try
+      currentquestion = window.location.hash.split('#')[1].toNumber()
+   *    questions[currentquestion]()
+   *    current_question = currentquestion
+      next(currentquestion)
+  
+    catch err
+      questions[0]()
+  else
+    questions[0]()
+   */
 
   $('#results').hide();
 

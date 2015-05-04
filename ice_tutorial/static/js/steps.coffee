@@ -1072,7 +1072,7 @@ drawStatusMarker('ADV')
 ###
 
 #load the first question, or if the url hash is set, use that
-if (window.location.hash)
+###if (window.location.hash)
   try
     currentquestion = window.location.hash.split('#')[1].toNumber()
 #    questions[currentquestion]()
@@ -1082,7 +1082,7 @@ if (window.location.hash)
   catch err
     questions[0]()
 else
-  questions[0]()
+  questions[0]()###
 
 $('#results').hide()
 
