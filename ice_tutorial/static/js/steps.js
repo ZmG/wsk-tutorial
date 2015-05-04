@@ -494,6 +494,8 @@
     }
     if (window.advancedTut === true) {
       window.location.hash = "#" + current_question + "-ADV";
+    } else {
+      window.location.hash = "#" + current_question;
     }
     data = {
       'type': EVENT_TYPES.next
