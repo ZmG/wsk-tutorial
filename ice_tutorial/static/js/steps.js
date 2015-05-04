@@ -493,11 +493,11 @@
       $('#commandHiddenText').removeClass("hidden").show();
     }
     if (window.advancedTut === true) {
+      history.pushState({}, "", "#" + current_question + "-ADV");
       window.location.hash = "#" + current_question + "-ADV";
-      history.pushState({}, "", "#" + current_question);
     } else {
-      window.location.hash = "#" + current_question;
       history.pushState({}, "", "#" + current_question);
+      window.location.hash = "#" + current_question;
     }
     data = {
       'type': EVENT_TYPES.next
