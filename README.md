@@ -48,11 +48,51 @@ Running code coverage
 
 * coverage run ./runtests.py && coverage html --include="./docker_tutorial/*"
 
-Development:
 
-You want to create more steps?
+Get it running:
+from the trycedocker folder
+
+Development Guide:
+This is a two part application.
+1. trycedocker: the base page that serves as a catalog for the tutorials. (https://hub.jazz.net/project/joshisa/trycedocker/overview)
+2. trycedocker-tutorial: the tutorials. (https://hub.jazz.net/project/joshisa/trycedocker-tutorial/overview)
+
+to run call the following from trycedocker: sudo pip install -r requirements.txt;  ./manage.py runserver
+
+this will download all the dependencies from requirements.txt this includes the tutorial.
+So everytime you want to update something, make sure to re-run this command and make sure any changes made to 
+the tutorial have been committed to the repo: https://hub.jazz.net/project/joshisa/trycedocker-tutorial/overview
+
+
+Install dev tools:
 -------------------------------
+install less: npm install -g less
+install coffee-script: npm install -g coffee-script
 
+Updating questions
+-------------------------------
+All the questions are stored in a arrays. The basic tutorial is stored in 'q' while the advanced tutorial
+is stored in 'adv_q' both of which can be found in steps.coffee. If you follow the pattern in the steps.coffee 
+file it should be fairly trivial to figure out how to modify a question. When steps.cofee is modified you
+will need to compile the .coffee files to javascript file. For this you will need to have coffee-script 
+installed on your computer. see "Install dev tools" section above. 
+
+Expected command: contains the strings that need to be included in the valid answer.
+
+compilation command: coffee -c steps.coffee 
+this will generate the steps.js file.
+
+Updating the ice cli interpreter
+--------------------------------
+The interpreter is written in terminal.coffee, in the 'ice' function. The entire thing is really a giant set of 
+if else statements. The logic flow is pretty straight forward. to generate the js files, run the following.
+
+compilation command: coffee -c terminal.coffee 
+
+Compiling the less to css
+--------------------------------
+styling can be found in the tutorial-style.less file. to compile to tutorial-style.css
+run the following command: lessc tutorial-style.less > tutorial-style.css
 
 Happy coding!
 

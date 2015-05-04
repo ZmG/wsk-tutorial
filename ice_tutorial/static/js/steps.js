@@ -126,7 +126,7 @@
         return "You have not specified a repository name. This is not wrong, but giving your images a name make them much easier to work with.";
       }
     ],
-    tip: "<ul>\n<li>Remember you can use a partial match of the image id, three or more letters should work.</li>\n</ul>",
+    tip: "<ul>\n  <li>Remember you can use a partial match of the image id, three or more letters should work.</li>\n  <li>If you try this on your CLI make sure to run the previous step using the -d flag, or else the inspect logs will not exist. '-d'\n   allows your container to continue running in the background. Hitting Ctrl-C will terinate your container.</li>\n</ul>",
     currentDockerPs: "ID                  IMAGE               COMMAND               CREATED             STATUS              PORTS\nefefdc74a1d5        learn/ping:latest   ping localhost        37 seconds ago      Up 36 seconds"
   });
 
@@ -179,7 +179,7 @@
       }
     ],
     tip: "<ul>\n<li>Notice that we will not use the <code>--local</code> because we are running on Bluemix, not local.</li> \n<li>Enter <code>ice run</code> to see flag usage details</li>\n</ul>",
-    currentIcePs: "\nContainer Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports\n\nfa219a32-bcbf-4c6d-977f-1aa67bb1233d ice-ping                          learn/ping:latest              Apr 22 10:42 Shutdown 172.12.228.45                   []"
+    currentIcePs: "\nContainer Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports\n\nfa219a32-bcbf-4c6d-977f-1aa67bb1233d ice-ping                          learn/ping:latest              Apr 22 10:42 Running  172.12.228.45                   []"
   });
 
   q.push({
@@ -221,7 +221,7 @@
     assignment: "<h3>Assignment</h3>\n<p>Use <code>ice stop</code> to stop the container. Then use <code>ice rm</code> to remove the <b>ice-ping</b> container</p>",
     command_expected: ["ice", "rm", "ice-ping"],
     command_show: ["ice", "rm", "ice-ping"],
-    result: "<p>Great job! ice-ping has been stopped and removed. You Have completed the ice CLI tutorial! Hit next to move on to the <em style=\"color:aquamarine;\">Advanced</em> tutorial!</p>",
+    result: "<p>Great job! ice-ping has been stopped and removed. You Have completed the ice CLI tutorial! Hit next to move on to the <em style=\"color:crimson;\">Advanced</em> tutorial!</p>",
     tip: "<ul>\n<li>type <code>ice stop --help</code> and <code>ice rm --help</code> for complete usage.</li>\n</ul>",
     intermediateresults: [
       function() {
@@ -289,7 +289,7 @@
 
   adv_q.push({
     html: "<h3>Creating Container Groups</h3>\n<p>Bluemix allows you create container groups to load balance your application. You can have a group comprised of 1 or more containers.\nEach container is an exact copy so incoming connections are balanced between containers. This redundancy also gives applications more stability.</p>",
-    assignment: "<h3>Assignment</h3>\n<p>use <code>ice create</code> to create a group named</p>",
+    assignment: "<h3>Assignment</h3>\n<p>use <code>ice create</code> to create a group named <b>myGroup</b></p>",
     command_expected: ['ice', 'group', 'create', '-p', '80', '--name', 'myGroup', 'ibmnode'],
     result: "<p>You found it! Way to go!</p>",
     tip: "<ul>\n  <li>You can use the <code>--auto</code> flag to have Bluemix automatically restart failed instances.</li>\n  <li>You can use the <code>--desired</code> flag to specify the number of instances that you require. The default is 2.</li>\n  <li>Deleting groups is done using <code>ice group rm</code> (not a part of this emulator)</li>\n  <li>it is possible to pass commands to the ice group create command, the command will run on all containers on the group.</li>\n</ul>",

@@ -244,8 +244,10 @@ intermediateresults:
     () -> """You have not specified a repository name. This is not wrong, but giving your images a name make them much easier to work with."""
   ]
 tip: """<ul>
-     <li>Remember you can use a partial match of the image id, three or more letters should work.</li>
-     </ul>"""
+          <li>Remember you can use a partial match of the image id, three or more letters should work.</li>
+          <li>If you try this on your CLI make sure to run the previous step using the -d flag, or else the inspect logs will not exist. '-d'
+           allows your container to continue running in the background. Hitting Ctrl-C will terinate your container.</li>
+        </ul>"""
 currentDockerPs:
     """
     ID                  IMAGE               COMMAND               CREATED             STATUS              PORTS
@@ -357,7 +359,7 @@ currentIcePs: """
 
   Container Id                         Name                   Group      Image                          Created      State    Private IP      Public IP       Ports
 
-  fa219a32-bcbf-4c6d-977f-1aa67bb1233d ice-ping                          learn/ping:latest              Apr 22 10:42 Shutdown 172.12.228.45                   []
+  fa219a32-bcbf-4c6d-977f-1aa67bb1233d ice-ping                          learn/ping:latest              Apr 22 10:42 Running  172.12.228.45                   []
   """
 });
 
@@ -434,7 +436,7 @@ assignment: """
       """
 command_expected: ["ice", "rm", "ice-ping"]
 command_show: ["ice", "rm", "ice-ping"]
-result: """<p>Great job! ice-ping has been stopped and removed. You Have completed the ice CLI tutorial! Hit next to move on to the <em style="color:aquamarine;">Advanced</em> tutorial!</p>"""
+result: """<p>Great job! ice-ping has been stopped and removed. You Have completed the ice CLI tutorial! Hit next to move on to the <em style="color:crimson;">Advanced</em> tutorial!</p>"""
 tip: """
     <ul>
     <li>type <code>ice stop --help</code> and <code>ice rm --help</code> for complete usage.</li>
@@ -594,7 +596,7 @@ html: """
       """
 assignment: """
       <h3>Assignment</h3>
-      <p>use <code>ice create</code> to create a group named</p>
+      <p>use <code>ice create</code> to create a group named <b>myGroup</b></p>
       """
 command_expected: ['ice', 'group', 'create', '-p', '80', '--name', 'myGroup', 'ibmnode']
 result: """<p>You found it! Way to go!</p>"""
