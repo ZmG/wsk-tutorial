@@ -494,8 +494,10 @@
     }
     if (window.advancedTut === true) {
       window.location.hash = "#" + current_question + "-ADV";
+      history.pushState({}, "", "#" + current_question);
     } else {
       window.location.hash = "#" + current_question;
+      history.pushState({}, "", "#" + current_question);
     }
     data = {
       'type': EVENT_TYPES.next

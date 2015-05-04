@@ -854,10 +854,12 @@ window.next = next = (which) ->
   # enable history navigation
   if window.advancedTut is true
     window.location.hash = "#" + current_question + "-ADV"
+    history.pushState({}, "", "#" + current_question)
   else 
-    window.location.hash = "#" + current_question
+    window.location.hash = "#" + current_question  
+    history.pushState({}, "", "#" + current_question)
   # disabled to enable tutorial hashes to redirect to correct questions
-  #history.pushState({}, "", "#" + current_question)
+
   data = { 'type': EVENT_TYPES.next }
   logEvent(data)
 
