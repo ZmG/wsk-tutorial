@@ -18,14 +18,14 @@ staticDockerPs = """
 q = []
 q.push ({
 html: """
-      <h3>Getting started</h3>
-      <p>Use IBM® Containers to run Docker containers in a hosted cloud environment on IBM Bluemix™. IBM Containers 
-      helps you build and deploy containers where you can package your applications and services. Each container is 
+      <h3>Hello Getting started</h3>
+      <p>Use IBM® Containers to run Docker containers in a hosted cloud environment on IBM Bluemix™. IBM Containers
+      helps you build and deploy containers where you can package your applications and services. Each container is
       based on an image format, includes a set of standard operations, and is an execution environment in itself.
       </p>
-      <p>If you are familiar with Docker CLI, then the first half of this tutorial will show you how to use common docker 
-      commands using ice --local. This CLI Has disabled docker commands. If you want to use a docker command you must use
-      <code>ice --local</code>. 'ice --local' is equivalent to 'docker'</p>
+      <p>If you are familiar with Docker CLI, then the first half of this tutorial will show you how to use common docker
+      commands using ice --local. 'ice --local' is equivalent to 'docker'. So if you want to use a docker command you must use
+      <code>ice --local</code> instead.  This CLI Has disabled docker commands. </p>
       """
 assignment: """
       <h3>Assignment</h3>
@@ -45,7 +45,7 @@ result: """<p>Well done! Let's move to the next assignment.</p>"""
 q.push ({
 html: """
       <h3>Logging In</h3>
-      <p>The easiest way to get started is to log in to the IBM Containers infrastructure.  For details on login arguments, search the online 
+      <p>The easiest way to get started is to log in to the IBM Containers infrastructure.  For details on login arguments, search the online
       <a href="#1" onClick="window.open('https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#genTopProcId4','IBM Containers Doc','width=1000,height=900,left=50,top=50,menubar=0')";>IBM Containers Doc</a>
       and by using the commandline</p>
       """
@@ -89,7 +89,7 @@ tip: """
 currentLocalImages :
   """
   REPOSITORY                              TAG                 IMAGE ID            CREATED              VIRTUAL SIZE
-    
+
   ubuntu                                  latest              8dbd9e392a96        4 months ago         131.5 MB (virtual 131.5 MB)
   registry-ice.ng.bluemix.net/ibmnode     latest              8dbd9e392a96        2 months ago         131.5 MB (virtual 131.5 MB)
   """
@@ -130,7 +130,7 @@ tip: """
 currentLocalImages :
   """
   REPOSITORY                              TAG                 IMAGE ID            CREATED              VIRTUAL SIZE
-    
+
   ubuntu                                  latest              8dbd9e392a96        4 months ago         131.5 MB (virtual 131.5 MB)
   registry-ice.ng.bluemix.net/ibmnode     latest              8dbd9e392a96        2 months ago         131.5 MB (virtual 131.5 MB)
   """
@@ -191,7 +191,7 @@ tip: """<ul>
 currentLocalImages :
   """
   REPOSITORY                              TAG                 IMAGE ID            CREATED              VIRTUAL SIZE
-    
+
   ubuntu                                  latest              8dbd9e392a96        4 months ago         131.5 MB (virtual 131.5 MB)
   registry-ice.ng.bluemix.net/ibmnode     latest              8dbd9e392a96        2 months ago         131.5 MB (virtual 131.5 MB)
   learn/ping                              latest              effb66b31edb        10 minutes ago       11.57 MB (virtual 143.1 MB)
@@ -214,7 +214,7 @@ assignment: """
 command_expected: ["ice", "--local", "run", 'learn/ping', 'ping', 'localhost' ]
 result: """<p>That worked! Note that normally you can use Ctrl-C to disconnect. The container will keep running. This
         container will disconnect automatically.</p>"""
-intermediateresults: [ 
+intermediateresults: [
     () -> """Usually you would be able to ping other domains, but this emlator only supports localhost."""
   ]
 tip: """<ul>
@@ -239,8 +239,8 @@ assignment: """
       """
 command_expected: ["ice", "--local", "inspect", "efe" ]
 result: """<p>Success! Have a look at the output. You can see the ip-address, status and other information.</p>"""
-intermediateresults: 
-  [ 
+intermediateresults:
+  [
     () -> """You have not specified a repository name. This is not wrong, but giving your images a name make them much easier to work with."""
   ]
 tip: """<ul>
@@ -264,7 +264,7 @@ html: """
       to the Registry. That way you can easily retrieve them for re-use and share them with others. </p>
 
       <p>To use an image on bluemix, you will first need to push the image up to your,
-      bluemix registry. To do that we need to tag the pulled image with your namespace and a name, that will identify it in your 
+      bluemix registry. To do that we need to tag the pulled image with your namespace and a name, that will identify it in your
       bluemix registry.
       </p>
       <p>Note: You can also push images downloaded from the <a href="registry.hub.docker.com">Docker Public Registry</a> to your Bluemix Private Registry.</p>
@@ -351,7 +351,7 @@ intermediateresults:
   ]
 tip: """
     <ul>
-    <li>Notice that we will not use the <code>--local</code> because we are running on Bluemix, not local.</li> 
+    <li>Notice that we will not use the <code>--local</code> because we are running on Bluemix, not local.</li>
     <li>Enter <code>ice run</code> to see flag usage details</li>
     </ul>
     """
@@ -447,7 +447,7 @@ intermediateresults:
     () ->
       $('#instructions .assignment').hide()
       $('#tips, #command').hide()
-    
+
       $('#instructions .text').html("""
         <div class="complete">
           <h3>Congratulations!</h3>
@@ -479,7 +479,7 @@ finishedCallback: () ->
   webterm.clear()
   webterm.echo( myTerminal() )
 
-      
+
 
 })
 
@@ -499,7 +499,7 @@ html: """
         <li>Changes to a data volume will not be included when you update an image.</li>
         <li>Data volumes persist even if the container itself is deleted.</li>
       </ul>
-      <p>Data volumes are designed to persist data, independent of the container's life cycle. Docker therefore never automatically delete volumes when you remove a container, 
+      <p>Data volumes are designed to persist data, independent of the container's life cycle. Docker therefore never automatically delete volumes when you remove a container,
       nor will it "garbage collect" volumes that are no longer referenced by a container.</p>
       """
 assignment: """
@@ -526,7 +526,7 @@ adv_q.push ({
 html: """
       <h3>Attaching Volumes</h3>
       <p>Volumes are attached to containers in the run command by using the <code>--volume VolumeId:ContainerPath[:ro]</code> flag/</p>
-      <p>The Volume Id is the volume's name (in our example 'storage'), the container path is the directory inside the container that the 
+      <p>The Volume Id is the volume's name (in our example 'storage'), the container path is the directory inside the container that the
       attached volume will mount. This means that all the data written to the specified container path will be stored on the Volume. If the </p>
       <p>There is an optional arguement for granting permissions [:ro] (read only). If not specified the Volume will default to :rw (read write).</p>
       """
@@ -558,8 +558,8 @@ currentIcePs: """
 adv_q.push ({
 html: """
       <h3>Binding Apps to Bluemix</h3>
-      <p>You may already have applications running on Bluemix. Maybe these apps have services bound to them. These services could include things 
-      like Databases, or APIs. With ice you can take bind existing applications to you container. This gives the bound container access to all 
+      <p>You may already have applications running on Bluemix. Maybe these apps have services bound to them. These services could include things
+      like Databases, or APIs. With ice you can take bind existing applications to you container. This gives the bound container access to all
       the services which are already bound to the app.</p>
       <p>After a bind, all the services will store their connection info and credentials in the <code>VCAP_SERVICES</code> environment variable</p>
       """
@@ -633,7 +633,7 @@ adv_q.push ({
 html: """
       <h3>Working With Routes</h3>
       <p>Before we get too far go ahead, check you running containers with <code>ice ps</code>. you can also check your groups using <code>ice group list</code></p>
-      <p>So now we have this group of containers, We could use ice to bind an ip to the group. But we already did that and it would be much more convenient 
+      <p>So now we have this group of containers, We could use ice to bind an ip to the group. But we already did that and it would be much more convenient
       to have a route instead of an ip address. Bluemix allows us to bind routes to groups by using the <code>ice route map</code> command</p>
       """
 assignment:
@@ -761,7 +761,7 @@ isNumber = (n) ->
   return !isNaN(parseFloat(n)) && isFinite(n);
 
 @goFullScreen = (start) ->
-  
+
 
   window.scrollTo(0, 0)
   console.debug("going to fullsize mode")
@@ -855,9 +855,9 @@ window.next = next = (which) ->
   if window.advancedTut is true
     history.pushState({}, "", "#" + current_question + "-ADV")
     window.location.hash = "#" + current_question + "-ADV"
-  else 
+  else
     history.pushState({}, "", "#" + current_question)
-    window.location.hash = "#" + current_question  
+    window.location.hash = "#" + current_question
   # disabled to enable tutorial hashes to redirect to correct questions
 
   data = { 'type': EVENT_TYPES.next }
@@ -990,7 +990,7 @@ leftside = $('#leftside')
 tutorialTop = $('#tutorialTop')
 advancedTag = $('#advancedTag')
 
-window.switchToBasic = switchToBasic = () -> 
+window.switchToBasic = switchToBasic = () ->
   window.advancedTut = false
   questions = []
   statusMarker.prevAll('span').remove()
@@ -1010,10 +1010,10 @@ window.switchToBasic = switchToBasic = () ->
     questionNumber++
   drawStatusMarker('ADV')
 
-  # go to first question  
+  # go to first question
   next(0)
 
-window.switchToAdvanced = switchToAdvanced = () -> 
+window.switchToAdvanced = switchToAdvanced = () ->
   questions = []
   window.advancedTut = true
   statusMarker.prevAll('span').remove()
@@ -1042,7 +1042,7 @@ window.switchToAdvanced = switchToAdvanced = () ->
       $('#marker-' + questionNumber).removeClass("complete").addClass("active")
     questionNumber++
 
-  # go to first question  
+  # go to first question
   next(0)
 
 
@@ -1085,4 +1085,3 @@ else
   questions[0]()###
 
 $('#results').hide()
-
