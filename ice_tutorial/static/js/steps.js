@@ -19,7 +19,7 @@
   q = [];
 
   q.push({
-    html: "<h3>Hello Getting started</h3>\n<p>Use IBM® Containers to run Docker containers in a hosted cloud environment on IBM Bluemix™. IBM Containers\nhelps you build and deploy containers where you can package your applications and services. Each container is\nbased on an image format, includes a set of standard operations, and is an execution environment in itself.\n</p>\n<p>If you are familiar with Docker CLI, then the first half of this tutorial will show you how to use common docker\ncommands using ice --local. 'ice --local' is equivalent to 'docker'. So if you want to use a docker command you must use\n<code>ice --local</code> instead.  This CLI Has disabled docker commands. </p>",
+    html: "<h3>BLUEMIX Getting started</h3>\n<p>Use IBM® Containers to run Docker containers in a hosted cloud environment on IBM Bluemix™. IBM Containers\nhelps you build and deploy containers where you can package your applications and services. Each container is\nbased on an image format, includes a set of standard operations, and is an execution environment in itself.\n</p>\n<p>If you are familiar with Docker CLI, then the first half of this tutorial will show you how to use common docker\ncommands using ice --local. 'ice --local' is equivalent to 'docker'. So if you want to use a docker command you must use\n<code>ice --local</code> instead.  This CLI Has disabled docker commands. </p>",
     assignment: "<h3>Assignment</h3>\n<p>Use ice commands to check the current ice (IBM Containers Extension) CLI version you are running.</p>\n<p>If you see a version value then you know you that your all set with your ice client installation. The ice CLI is supported on Linux OS.\nFor Windows, your best option is to create an Ubuntu VM and install your client software there.</p>",
     intermediateresults: [
       function() {
@@ -48,7 +48,7 @@
       function() {
         return "<p>You seem to be almost there. Don't forget to tell <b>ice --local pull</b> where to find the image, ice --local pull &lt;<Registry url>&gt;/&lt;learn&gt;/&lt;tutorial&gt; ";
       }, function() {
-        return "<p>You got the namespace and image name correct, but forgot to specify a registry, hint ice --ltiyu5ocal pull &lt;Registry url&gt;/Image Name&gt;</p>";
+        return "<p>You got the namespace and image name correct, but forgot to specify a registry, hint ice --local pull &lt;Registry url&gt;/Image Name&gt;</p>";
       }, function() {
         return "<p>Looks like you forgot to use the --local flag, try <em>ice --local pull [registry/namespace/imageName]</em></p>";
       }

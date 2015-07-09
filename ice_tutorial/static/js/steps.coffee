@@ -18,7 +18,7 @@ staticDockerPs = """
 q = []
 q.push ({
 html: """
-      <h3>Hello Getting started</h3>
+      <h3>BLUEMIX Getting started</h3>
       <p>Use IBM® Containers to run Docker containers in a hosted cloud environment on IBM Bluemix™. IBM Containers
       helps you build and deploy containers where you can package your applications and services. Each container is
       based on an image format, includes a set of standard operations, and is an execution environment in itself.
@@ -76,7 +76,7 @@ command_expected: ['ice', '--local', 'pull', 'registry-ice.ng.bluemix.net/ibmnod
 result: """<p>Cool. Look at the results. You'll see that ice has invoked docker to download a number of layers. In Docker all images (except the base image) are made up of several cumulative layers.</p>"""
 intermediateresults: [
   () -> """<p>You seem to be almost there. Don't forget to tell <b>ice --local pull</b> where to find the image, ice --local pull &lt;<Registry url>&gt;/&lt;learn&gt;/&lt;tutorial&gt; """,
-  () -> """<p>You got the namespace and image name correct, but forgot to specify a registry, hint ice --ltiyu5ocal pull &lt;Registry url&gt;/Image Name&gt;</p>"""
+  () -> """<p>You got the namespace and image name correct, but forgot to specify a registry, hint ice --local pull &lt;Registry url&gt;/Image Name&gt;</p>"""
   () -> """<p>Looks like you forgot to use the --local flag, try <em>ice --local pull [registry/namespace/imageName]</em></p>"""
   ]
 tip: """

@@ -19,16 +19,16 @@ do @myTerminal = ->
 		prompt: '[[b;#fff;]you@tutorial:~$] ',
 		greetings: """
 							 Imitation is the sincerest form of flattery
-							 We loved Docker's try it approach - so we forked it 
+							 We loved Docker's try it approach - so we forked it
 							 Welcome to the IBM Bluemix(tm) Container tutorial
 							 Courtesy of IBM jStart (http://ibm.com/jstart)
 
-							    ____  __                     _     
+							    ____  __                     _
 							   / __ )/ /_  _____  ____ ___  (_)  __
 							  / __  / / / / / _ \\/ __ `__ \\/ / |/_/
-							 / /_/ / / /_/ /  __/ / / / / / />  <  
-							/_____/_/\\__,_/\\___/_/ /_/ /_/_/_/|_|  											 
-																			
+							 / /_/ / / /_/ /  __/ / / / / / />  <
+							/_____/_/\\__,_/\\___/_/ /_/ /_/_/_/|_|
+
 							"""
 
 	}
@@ -116,6 +116,8 @@ do @myTerminal = ->
 		else if command is "ice"
 			ice(term, inputs)
 
+else if command is "cf ic"
+	cfic(term, inputs)
 		else if command is "help"
 			term.echo help
 
@@ -316,6 +318,7 @@ do @myTerminal = ->
 	#---------------------------------------------------------------------------------------
 	#---------------------------------------------------------------------------------------
 
+cfic = (term, inputs) ->
 	ice = (term, inputs) ->
 
 		echo = term.echo
@@ -379,7 +382,7 @@ do @myTerminal = ->
 		else if inputs[1] is "stop"
 			if inputs[2] is "-h" or inputs[2] is "--help"
 				echo ice_stop_help
-			else if inputs[2] is "ice-ping" 
+			else if inputs[2] is "ice-ping"
 				echo ice_stop_ice_ping
 			else if not inputs[2]
 				echo ice_stop
@@ -389,7 +392,7 @@ do @myTerminal = ->
 		else if inputs[1] is "rm"
 			if inputs[2] is "-h" or inputs[3] is "--help"
 				echo ice_rm_help
-			else if inputs[2] is "ice-ping" 
+			else if inputs[2] is "ice-ping"
 				intermediateResults(0)
 				echo ice_rm_ice_ping
 			else if not inputs[2]
@@ -429,7 +432,7 @@ do @myTerminal = ->
 				else if inputs[2] is 'list'
 					if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
 						echo ice_volume_list_help
-					else 
+					else
 						echo ice_volume_list(currentVolumes)
 				else if inputs[2] is 'create'
 					if inputs[3] and (inputs[3] is "--help" or inputs[3] is "-h")
@@ -461,12 +464,12 @@ do @myTerminal = ->
 				commands = parsed_input.commands
 				if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
 					echo ice_group_help
-				else if inputs[2] is 'inspect' or inputs[2] is 'instances' or inputs[2] is 'update'  or inputs[2] is 'rm' 
+				else if inputs[2] is 'inspect' or inputs[2] is 'instances' or inputs[2] is 'update'  or inputs[2] is 'rm'
 					echo not_implemented(inputs[2])
 				else if inputs[2] is 'list'
 					if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
 						echo ice_group_list_help
-					else 
+					else
 						echo currentIceGroups
 				else if inputs[2] is 'create'
 					if inputs[3] and (inputs[3] is "--help" or inputs[3] is "-h")
@@ -487,7 +490,7 @@ do @myTerminal = ->
 		else if inputs[1] is "route"
 				if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
 					echo ice_route_help
-				else if inputs[2] is 'unmap' 
+				else if inputs[2] is 'unmap'
 					echo not_implemented(inputs[2])
 				else if inputs[2] is 'map'
 					if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
@@ -498,7 +501,7 @@ do @myTerminal = ->
 					else
 						echo ice_route_map
 				else echo ice_route
-					
+
 
 		else if inputs[1] is "ip"
 				if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
@@ -506,23 +509,23 @@ do @myTerminal = ->
 				else if inputs[2] is 'request'
 					if inputs[2] and (inputs[2] is "--help" or inputs[2] is "-h")
 						echo ice_ip_request_help
-					else 
+					else
 						echo ice_ip_request
 				else if inputs[2] is 'bind'
 					if inputs[3] and (inputs[3] is "--help" or inputs[3] is "-h")
 						echo ice_ip_bind_help
-					else if inputs[3] is "129.41.232.25" and inputs[4] is "ice-ping" 
+					else if inputs[3] is "129.41.232.25" and inputs[4] is "ice-ping"
 						echo ice_ip_bound
-					else if inputs[3] is "129.41.232.25" and not inputs[4] 
+					else if inputs[3] is "129.41.232.25" and not inputs[4]
 						intermediateResults(0)
 						echo ice_ip_bind_fail
-					else if inputs[3] is "129.41.232.25" and inputs[4] is not "ice-ping" 
+					else if inputs[3] is "129.41.232.25" and inputs[4] is not "ice-ping"
 						intermediateResults(3)
 						echo ice_ip_bind_fail
 					else if not inputs[3]
 						intermediateResults(1)
 						echo ice_ip_bind_fail
-					else 
+					else
 						intermediateResults(2)
 						echo ice_ip_bind_fail
 				else
@@ -556,7 +559,7 @@ do @myTerminal = ->
 						term.push ( (command, term) ->
 							if command
 								echo """this shell is not implemented. Enter 'exit' to exit."""
-								
+
 						), {prompt: 'root@687bbbc4231b:/# '}
 					else
 						echo run_image_wrong_command(commands)
@@ -569,7 +572,7 @@ do @myTerminal = ->
 					echo run_flag_defined_not_defined(switches)
 			else if imagename is "registry-ice.ng.bluemix.net/ibmnode"
 				if switches.length = 0
-					#missing --local tag 
+					#missing --local tag
 					echo run_learn_no_command
 					intermediateResults(0)
 				else if commands[0] is "/bin/bash"
@@ -649,7 +652,7 @@ do @myTerminal = ->
 		#  I C E   L O C A L   C O M M A N D S   -----------------------------------------------
 		#---------------------------------------------------------------------------------------
 		#---------------------------------------------------------------------------------------
-		
+
 		else if inputs[1] is "--local"
 			if inputs[2] is "-h" or inputs[2] is "--help"
 				echo docker_cmd
@@ -667,7 +670,7 @@ do @myTerminal = ->
 					else if keyword is 'registry-ice.ng.bluemix.net/ibmnode'
 						result = util_slow_lines(term, pull_tutorial, "", callback )
 					else
-						util_slow_lines(term, pull_no_results, keyword)					
+						util_slow_lines(term, pull_no_results, keyword)
 
 			# Search
 			else if inputs[2] is "search"
@@ -721,7 +724,7 @@ do @myTerminal = ->
 							term.push ( (command, term) ->
 								if command
 									echo """this shell is not implemented. Enter 'exit' to exit."""
-									
+
 							), {prompt: 'root@687bbbc4231b:/# '}
 						else
 							echo run_image_wrong_command(commands)
@@ -806,7 +809,7 @@ do @myTerminal = ->
 				else
 					intermediateResults(1)
 					echo tag_no_args
-				
+
 
 			# command ps
 			else if inputs[2] is "ps"
@@ -834,8 +837,6 @@ do @myTerminal = ->
 
 			else
 				echo docker_cmd
-
-		
 
 
 		else if IceCommands[inputs[1]]
@@ -1057,7 +1058,7 @@ do @myTerminal = ->
 	loginResult = (term) ->
 		term.echo (
 			"""
-			
+
 			API endpoint:   https://api.ng.bluemix.net (API version: 2.19.0)
 			User:           #{term.email}
 			Org:            tutorial
@@ -1076,7 +1077,7 @@ do @myTerminal = ->
 		IBM Container tutorial \n
 		\n
 		The IBM Container tutorial is an emulater intended to help novice users get up to spead with the IBM Container
-		Extension (ice) commands. This terminal contains a limited IBM Container CLI and a limited shell emulator.  
+		Extension (ice) commands. This terminal contains a limited IBM Container CLI and a limited shell emulator.
 		Therefore some of the commands that you would expect do not exist.\n
 		\n
 		Just follow the steps and questions. If you are stuck, click on the 'expected command' to see what the command
@@ -1084,7 +1085,7 @@ do @myTerminal = ->
 
 		"""
 
-	
+
 
 	inspect = \
 		"""
@@ -1204,7 +1205,7 @@ do @myTerminal = ->
 
 	ice_volume_list = () ->
 		volString = ''
-		for vol in currentVolumes 
+		for vol in currentVolumes
 			volString += vol + "\n"
 		return volString
 
@@ -1978,8 +1979,8 @@ do @myTerminal = ->
 									:iiiiii;.   .iiiiiiiii,,iiiiiiiiii   iii                   ,ttttttttttttttttttttttttttttttttttttttttttt
 								 .CCLtttLCCf  tCCLLLLLLL fLLLCCCLLLf  LCCC1                  ,ttttttttttttttttttttttttttttttttttttttttttt
 								 :CC:   .CCf .CCf           .CCt    .CC11CC                  ,ttttttttttttttttttttttttttttttttttttttttttt
-								 LCCCCCCCL,  ;CCCCCCCCf     tCC    .CCi .CC                                                              
-								:CCi    ;CC: CCL           .CCf   :CCLtttCC1                                                             
+								 LCCCCCCCL,  ;CCCCCCCCf     tCC    .CCi .CC
+								:CCi    ;CC: CCL           .CCf   :CCLtttCC1
 								tCC    ,LCC.:CC1,,,,,,.    ;CC,  1CC;;;;;CCC                 ,GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
 							 .CCCCCCCCL;  fCCCCCCCCC     CCL  LCC.     1CC                 :GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
 																																						 :GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
@@ -2007,9 +2008,8 @@ do @myTerminal = ->
 	iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
 	iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
 	iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
- 
+
 	'''
 
 
 return this
-
