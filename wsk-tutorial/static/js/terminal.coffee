@@ -20,7 +20,7 @@ do @myTerminal = ->
 		greetings: """
 							 Imitation is the sincerest form of flattery
 							 We loved Docker's try it approach - so we forked it
-							 Welcome to the IBM Bluemix(tm) Container tutorial
+							 Welcome to the IBM Bluemix(tm) Whisk tutorial
 							 Courtesy of IBM jStart (http://ibm.com/jstart)
 
 							    ____  __                     _
@@ -108,7 +108,7 @@ do @myTerminal = ->
 			term.echo 'which question?'
 
 		else if command is 'docker'
-			term.echo 'This tutorial was created to teach ice commands, the docker functionality has been disabled. Use "ice --local" instead! (ice --local == docker)'
+			term.echo 'This tutorial was created to teach wsk commands, the docker functionality has been disabled. Use "wsk --local" instead! (wsk --local == docker)'
 
 		else if command is 'cd'
 			bash(term, inputs)
@@ -116,8 +116,9 @@ do @myTerminal = ->
 		else if command is "ice"
 			ice(term, inputs)
 
-else if command is "cf ic"
-	cfic(term, inputs)
+		else if command is "cf ic"
+			cfic(term, inputs)
+
 		else if command is "help"
 			term.echo help
 
