@@ -10,7 +10,7 @@ settings.configure(
             'ENGINE': 'django.db.backends.sqlite3',
             }
         },
-    ROOT_URLCONF='ice_tutorial.urls',
+    ROOT_URLCONF='wsk_tutorial.urls',
     INSTALLED_APPS=(
         'django.contrib.auth',
         'django.contrib.contenttypes',
@@ -23,6 +23,6 @@ settings.configure(
 
 from django.test.runner import DiscoverRunner
 test_runner = DiscoverRunner(verbosity=1)
-failures = test_runner.run_tests(['ice_tutorial', ])
+failures = test_runner.run_tests(['wsk_tutorial', ])
 if failures:
     sys.exit(failures)

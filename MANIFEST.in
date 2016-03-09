@@ -1,7 +1,7 @@
 include *.txt
 include README.md
-recursive-include wsk-tutorial/static *
-recursive-include wsk-tutorial/templates *
+recursive-include wsk_tutorial/static *
+recursive-include wsk_tutorial/templates *
 
 recursive-include dockerfile_tutorial/static *
 recursive-include dockerfile_tutorial/templates *
