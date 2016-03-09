@@ -15,7 +15,7 @@
   var cfic;
 
   (this.myTerminal = function() {
-    var EMULATOR_VERSION, bash, login, parseInput, util_slow_lines, wait;
+    var EMULATOR_VERSION, bash, parseInput, util_slow_lines, wait;
     EMULATOR_VERSION = "0.1.5";
     this.basesettings = {
       prompt: '[[b;#fff;]you@tutorial:~$] ',
@@ -46,7 +46,7 @@
     		Base interpreter
      */
     this.interpreter = function(input, term) {
-      var IceCommand, command, description, inputs, ref;
+      var WskCommand, command, description, inputs, ref;
       input = input.trim();
       inputs = input.split(" ");
       command = inputs[0];
@@ -73,8 +73,8 @@
         term.echo('This tutorial was created to teach wsk commands, the docker functionality has been disabled. Use "wsk --local" instead! (wsk --local == docker)');
       } else if (command === 'cd') {
         bash(term, inputs);
-      } else if (command === "ice") {
-        ice(term, inputs);
+      } else if (command === "wsk") {
+        wsk(term, inputs);
       } else if (command === "cf ic") {
         cfic(term, inputs);
       } else if (command === "help") {
@@ -82,9 +82,9 @@
       } else if (command === "ls" || command === "cd" || command === "pwd") {
         term.echo("This is an emulator, not a shell. Try following the instructions.");
       } else if (command === "colors") {
-        for (IceCommand in IceCommands) {
-          description = IceCommands[IceCommand];
-          term.echo("[[b;#fff;]" + IceCommand + "] - " + description + "");
+        for (WskCommand in WskCommands) {
+          description = WskCommands[WskCommand];
+          term.echo("[[b;#fff;]" + WskCommand + "] - " + description + "");
         }
       } else if (command === "pull") {
         term.echo('[[b;#fff;]some text]');
@@ -233,7 +233,7 @@
     /*
     		Bash program
      */
-    bash = function(term, inputs) {
+    return bash = function(term, inputs) {
       var argument, echo, insert;
       echo = term.echo;
       insert = term.insert;
@@ -248,38 +248,11 @@
         }
       }
     };
-
-    /*
-    		ice login program
-     */
-    return login = function(term, inputs) {
-      var argument;
-      if (term.loginSequence === 1) {
-        term.email = inputs[0];
-        term.echo("");
-        term.set_prompt("Password> ");
-        term.loginSequence = 2;
-      } else if (term.loginSequence === 2) {
-        util_slow_lines(term, auth, "", loginResult);
-        term.loginSequence = 3;
-        term.set_prompt("[[b;#fff;]you@tutorial:~$] ");
-      }
-      if (!inputs[1]) {
-        return console.log("none");
-      } else {
-        argument = inputs[1];
-        if (argument.beginsWith('..')) {
-          return echo("-bash: cd: " + argument + ": Permission denied");
-        } else {
-          return echo("-bash: cd: " + argument + ": No such file or directory");
-        }
-      }
-    };
   })();
 
   cfic = function(term, inputs) {
-    var ICE_logo, IceCommands, auth, commit, commit_containerid, commit_id_does_not_exist, created_volume, docker_cmd, docker_version, group_created, help, ice, ice_group, ice_group_create, ice_group_create_help, ice_group_help, ice_group_list_help, ice_help, ice_inspect_help, ice_ip, ice_ip_bind_fail, ice_ip_bind_help, ice_ip_bound, ice_ip_help, ice_ip_request, ice_ip_request_help, ice_logs, ice_logs_help, ice_no_args, ice_no_such_container, ice_pull, ice_rm, ice_rm_help, ice_rm_ice_ping, ice_route, ice_route_help, ice_route_map, ice_route_map_help, ice_route_mapped, ice_run_help, ice_run_no_name, ice_stop, ice_stop_help, ice_stop_ice_ping, ice_version, ice_volume, ice_volume_create, ice_volume_create_help, ice_volume_help, ice_volume_list, ice_volume_list_help, ice_volume_rm, ice_volume_rm_help, inspect, inspect_ice_ping_container, inspect_no_such_container, inspect_ping_container, loginResult, login_cmd, not_implemented, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push_container_learn_ping, push_help, push_no_args, push_wrong_name, removed_volume, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_echo, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_localhost, run_ping_not_localhost, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing;
-    ice = function(term, inputs) {
+    var ICE_logo, IceCommands, auth, commit, commit_containerid, commit_id_does_not_exist, created_volume, docker_cmd, docker_version, group_created, help, ice_group, ice_group_create, ice_group_create_help, ice_group_help, ice_group_list_help, ice_help, ice_inspect_help, ice_ip, ice_ip_bind_fail, ice_ip_bind_help, ice_ip_bound, ice_ip_help, ice_ip_request, ice_ip_request_help, ice_logs, ice_logs_help, ice_no_args, ice_no_such_container, ice_pull, ice_rm, ice_rm_help, ice_rm_ice_ping, ice_route, ice_route_help, ice_route_map, ice_route_map_help, ice_route_mapped, ice_run_help, ice_run_no_name, ice_stop, ice_stop_help, ice_stop_ice_ping, ice_version, ice_volume, ice_volume_create, ice_volume_create_help, ice_volume_help, ice_volume_list, ice_volume_list_help, ice_volume_rm, ice_volume_rm_help, inspect, inspect_ice_ping_container, inspect_no_such_container, inspect_ping_container, loginResult, not_implemented, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push_container_learn_ping, push_help, push_no_args, push_wrong_name, removed_volume, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_echo, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_localhost, run_ping_not_localhost, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, wsk, wsk_help;
+    wsk = function(term, inputs) {
       var callback, command, commands, echo, i, imagename, index, insert, k, keyword, l, len, len1, parsed_input, ref, ref1, result, sentence, swargs, switches, word;
       echo = term.echo;
       insert = term.insert;
@@ -289,16 +262,16 @@
       command = inputs[1];
       if (!inputs[1]) {
         console.debug("no args");
-        echo(ice_no_args);
+        echo(wsk_no_args);
       } else if (inputs[1] === "--help" || inputs[1] === "-h") {
         console.debug("no args");
-        echo(ice_help);
+        echo(wsk_help);
       } else if (inputs[1] === "do") {
         term.push('do', {
           prompt: "do $ "
         });
       } else if (inputs[1] === "logo") {
-        echo(ICE_logo);
+        echo(WSK_logo);
       } else if (inputs[1] === "images") {
         echo(currentCloudImages);
       } else if (inputs[1] === "login") {
@@ -312,8 +285,8 @@
         console.log(switches);
         console.log("login");
         if (inputs[2] === "-h" || inputs[2] === "--help") {
-          echo(login_cmd);
-        } else if (inputs.containsAllOfTheseParts(['ice', 'login'])) {
+          echo(wsk_help);
+        } else if (inputs.containsAllOfTheseParts(['wsk', 'login'])) {
           term.echo("API endpoint: https://api.ng.bluemix.net\n");
           term.set_prompt("Email> ");
           term.loginSequence = 1;
@@ -903,7 +876,7 @@
     push_help = "Usage: docker push [OPTIONS] NAME[:TAG]\n\nPush an image or a repository to the registry\n\n  		--help=false       Print usage";
     push_container_learn_ping = "Target is local host. Invoking docker with the given arguments...\nThe push refers to a repository [registry-ice.ng.bluemix.net/learn/ping] (len: 1)\nProcessing checksums\nSending image list\nPushing repository learn/ping (1 tags)\nPushing 8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c\nImage 8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c already pushed, skipping\nPushing tags for rev [662c446b6cdd] on {https://registry-ice.ng.bluemix.net/v1/repositories/learn/ping/tags/latest}\nPushing a1dbb48ce764c6651f5af98b46ed052a5f751233d731b645a6c57f91a4cb7158\nPushing  11.5 MB/11.5 MB (100%)\nPushing tags for rev [a1dbb48ce764] on {https://registry-ice.ng.bluemix.net/v1/repositories/learn/ping/tags/latest}";
     push_wrong_name = "The push refers to a repository [dhrp/fail] (len: 0)";
-    login_cmd = "Usage: ice login [OPTIONS] [ARG...]\n\nLogin to the IBM Container Infrastructure\n\n-h, --help                        show this help message and exit\n--cf                              use Bluemix cf login, default (Bluemix params are used, api key ignored)\n-k API_KEY, --key API_KEY         secret key string (ignored when Bluemix login is used)\n-H HOST, --host HOST              container cloud service host or url\n-R REG_HOST, --registry REG_HOST  container cloud registry host\n-u USER, --user USER              Bluemix user id/email\n-p PSSWD, --psswd PSSWD           Bluemix password\n-o ORG, --org ORG                 Bluemix organization\n-s SPACE, --space SPACE           Bluemix space\n-a API_URL, --api API_URL         Bluemix API Endpoint";
+    wsk_help = "usage: wsk [-h] [-v] [--apihost hostname] [--apiversion version]\n           {action,activation,namespace,package,rule,trigger,sdk,property,list}\n           ...\n\nOpenWhisk is a distributed compute service to add event-driven logic to your\napps.\n\noptional arguments:\n  -h, --help            show this help message and exit\n  -v, --verbose         verbose output\n  --apihost hostname    whisk API host\n  --apiversion version  whisk API version\n\navailable commands:\n  {action,activation,namespace,package,rule,trigger,sdk,property,list}\n    action              work with actions\n    activation          work with activations\n    namespace           work with namespaces\n    package             work with packages\n    rule                work with rules\n    trigger             work with triggers\n    sdk                 work with the SDK\n    property            work with whisk properties\n    list                list all triggers, actions, and rules in the registry\n\nLearn more at https://developer.ibm.com/openwhisk fork on GitHub\nhttps://github.com/openwhisk. All trademarks are the property of their\nrespective owners.";
     run_cmd = "Usage: Docker run [OPTIONS] IMAGE COMMAND [ARG...]\n\nRun a command in a new container\n\n-a=map[]: Attach to stdin, stdout or stderr.\n-c=0: CPU shares (relative weight)\n-d=false: Detached mode: leave the container running in the background\n-dns=[]: Set custom dns servers\n-e=[]: Set environment variables\n-h=\"\": Container host name\n-i=false: Keep stdin open even if not attached\n-m=0: Memory limit (in bytes)\n-p=[]: Expose a container's port to the host (use 'docker port' to see the actual mapping)\n-t=false: Allocate a pseudo-tty\n-u=\"\": Username or UID\n-v=map[]: Attach a data volume\n-volumes-from=\"\": Mount volumes from the specified container";
     run_apt_get = "apt 0.8.16~exp12ubuntu10 for amd64 compiled on Apr 20 2012 10:19:39\nUsage: apt-get [options] command\n			 apt-get [options] install|remove pkg1 [pkg2 ...]\n			 apt-get [options] source pkg1 [pkg2 ...]\n\napt-get is a simple command line interface for downloading and\ninstalling packages. The most frequently used commands are update\nand install.\n\nCommands:\n	 update - Retrieve new lists of packages\n	 upgrade - Perform an upgrade\n	 install - Install new packages (pkg is libc6 not libc6.deb)\n	 remove - Remove packages\n	 autoremove - Remove automatically all unused packages\n	 purge - Remove packages and config files\n	 source - Download source archives\n	 build-dep - Configure build-dependencies for source packages\n	 dist-upgrade - Distribution upgrade, see apt-get(8)\n	 dselect-upgrade - Follow dselect selections\n	 clean - Erase downloaded archive files\n	 autoclean - Erase old downloaded archive files\n	 check - Verify that there are no broken dependencies\n	 changelog - Download and display the changelog for the given package\n	 download - Download the binary package into the current directory\n\nOptions:\n	-h  This help text.\n	-q  Loggable output - no progress indicator\n	-qq No output except for errors\n	-d  Download only - do NOT install or unpack archives\n	-s  No-act. Perform ordering simulation\n	-y  Assume Yes to all queries and do not prompt\n	-f  Attempt to correct a system with broken dependencies in place\n	-m  Attempt to continue if archives are unlocatable\n	-u  Show a list of upgraded packages as well\n	-b  Build the source package after fetching it\n	-V  Show verbose version numbers\n	-c=? Read this configuration file\n	-o=? Set an arbitrary configuration option, eg -o dir::cache=/tmp\nSee the apt-get(8), sources.list(5) and apt.conf(5) manual\npages for more information and options.\n											 This APT has Super Cow Powers.\n";
     run_apt_get_install_iputils_ping = "Target is local host. Invoking docker with the given arguments...\nReading package lists...\nBuilding dependency tree...\nThe following NEW packages will be installed:\n	iputils-ping\n0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.\nNeed to get 56.1 kB of archives.\nAfter this operation, 143 kB of additional disk space will be used.\nGet:1 http://archive.ubuntu.com/ubuntu/ precise/main iputils-ping amd64 3:20101006-1ubuntu1 [56.1 kB]\ndebconf: delaying package configuration, since apt-utils is not installed\nFetched 56.1 kB in 1s (50.3 kB/s)\nSelecting previously unselected package iputils-ping.\n(Reading database ... 7545 files and directories currently installed.)\nUnpacking iputils-ping (from .../iputils-ping_3%3a20101006-1ubuntu1_amd64.deb) ...\nSetting up iputils-ping (3:20101006-1ubuntu1) ...";

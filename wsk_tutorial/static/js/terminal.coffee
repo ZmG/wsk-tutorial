@@ -113,8 +113,8 @@ do @myTerminal = ->
 		else if command is 'cd'
 			bash(term, inputs)
 
-		else if command is "ice"
-			ice(term, inputs)
+		else if command is "wsk"
+			wsk(term, inputs)
 
 		else if command is "cf ic"
 			cfic(term, inputs)
@@ -126,8 +126,8 @@ do @myTerminal = ->
 			term.echo "This is an emulator, not a shell. Try following the instructions."
 
 		else if command is "colors"
-			for IceCommand, description of IceCommands
-				term.echo ("[[b;#fff;]" + IceCommand + "] - " + description + "")
+			for WskCommand, description of WskCommands
+				term.echo ("[[b;#fff;]" + WskCommand + "] - " + description + "")
 
 		else if command is "pull"
 			term.echo '[[b;#fff;]some text]'
@@ -286,33 +286,7 @@ do @myTerminal = ->
 			else
 				echo "-bash: cd: #{argument}: No such file or directory"
 
-	###
-		ice login program
-	###
-	login = (term, inputs) ->
-
-		if term.loginSequence is 1
-			term.email = inputs[0]
-			term.echo ""
-			term.set_prompt "Password> "
-			term.loginSequence = 2
-
-		else if term.loginSequence is 2
-			util_slow_lines(term, auth, "", loginResult)
-			term.loginSequence = 3
-
-			term.set_prompt "[[b;#fff;]you@tutorial:~$] "
-
-		if not inputs[1]
-			console.log("none")
-
-		else
-			argument = inputs[1]
-			if argument.beginsWith('..')
-				echo "-bash: cd: #{argument}: Permission denied"
-			else
-				echo "-bash: cd: #{argument}: No such file or directory"
-
+	
 	#---------------------------------------------------------------------------------------
 	#---------------------------------------------------------------------------------------
 	#  I C E   I N T E R P R E T E R   -----------------------------------------------------
@@ -320,7 +294,7 @@ do @myTerminal = ->
 	#---------------------------------------------------------------------------------------
 
 cfic = (term, inputs) ->
-	ice = (term, inputs) ->
+	wsk = (term, inputs) ->
 
 		echo = term.echo
 		insert = term.insert
@@ -330,17 +304,17 @@ cfic = (term, inputs) ->
 		# no command
 		if not inputs[1]
 			console.debug "no args"
-			echo ice_no_args
+			echo wsk_no_args
 
 		else if inputs[1] is "--help" or inputs[1] is "-h"
 			console.debug "no args"
-			echo ice_help
+			echo wsk_help
 
 		else if inputs[1] is "do"
 			term.push('do', {prompt: "do $ "})
 
 		else if inputs[1] is "logo"
-			echo ICE_logo
+			echo WSK_logo
 
 		else if inputs[1] is "images"
 			echo currentCloudImages
@@ -360,8 +334,8 @@ cfic = (term, inputs) ->
 			console.log switches
 			console.log("login")
 			if inputs[2] is "-h" or inputs[2] is "--help"
-				echo login_cmd
-			else if inputs.containsAllOfTheseParts(['ice', 'login'])
+				echo wsk_help
+			else if inputs.containsAllOfTheseParts(['wsk', 'login'])
 				term.echo "API endpoint: https://api.ng.bluemix.net\n"
 				term.set_prompt "Email> "
 				term.loginSequence = 1
@@ -1562,22 +1536,36 @@ cfic = (term, inputs) ->
 	The push refers to a repository [dhrp/fail] (len: 0)
 	"""
 
-	login_cmd = \
+	wsk_help = \
 		"""
-		Usage: ice login [OPTIONS] [ARG...]
+		usage: wsk [-h] [-v] [--apihost hostname] [--apiversion version]
+           {action,activation,namespace,package,rule,trigger,sdk,property,list}
+           ...
 
-		Login to the IBM Container Infrastructure
+		OpenWhisk is a distributed compute service to add event-driven logic to your
+		apps.
 
-		-h, --help                        show this help message and exit
-		--cf                              use Bluemix cf login, default (Bluemix params are used, api key ignored)
-		-k API_KEY, --key API_KEY         secret key string (ignored when Bluemix login is used)
-		-H HOST, --host HOST              container cloud service host or url
-		-R REG_HOST, --registry REG_HOST  container cloud registry host
-		-u USER, --user USER              Bluemix user id/email
-		-p PSSWD, --psswd PSSWD           Bluemix password
-		-o ORG, --org ORG                 Bluemix organization
-		-s SPACE, --space SPACE           Bluemix space
-		-a API_URL, --api API_URL         Bluemix API Endpoint
+		optional arguments:
+		  -h, --help            show this help message and exit
+		  -v, --verbose         verbose output
+		  --apihost hostname    whisk API host
+		  --apiversion version  whisk API version
+
+		available commands:
+		  {action,activation,namespace,package,rule,trigger,sdk,property,list}
+		    action              work with actions
+		    activation          work with activations
+		    namespace           work with namespaces
+		    package             work with packages
+		    rule                work with rules
+		    trigger             work with triggers
+		    sdk                 work with the SDK
+		    property            work with whisk properties
+		    list                list all triggers, actions, and rules in the registry
+
+		Learn more at https://developer.ibm.com/openwhisk fork on GitHub
+		https://github.com/openwhisk. All trademarks are the property of their
+		respective owners.
 		"""
 
 	run_cmd = \

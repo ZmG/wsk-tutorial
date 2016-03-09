@@ -33,8 +33,7 @@ assignment: """
 intermediateresults: [
   () -> """<p>Shorcut: Use -h instead of --help</p>"""
   ]
-tip: "<p>Try typing <code>wsk --help</code> to see the full list of accepted arguments</p>
-      <p>This emulator provides only a limited set of shell and wsk commands, so some commands may not work as expected</p>"
+tip: "<p>This emulator provides only a limited set of shell and wsk commands, so some commands may not work as expected</p>"
 command_expected: ['wsk', '--help']
 result: """<p>Well done! Let's move to the next assignment.</p>"""
 })
