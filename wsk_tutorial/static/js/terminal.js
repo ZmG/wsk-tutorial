@@ -74,6 +74,7 @@
       } else if (command === 'cd') {
         bash(term, inputs);
       } else if (command === "wsk") {
+        term.echo('This command was invoked!');
         wsk(term, inputs);
       } else if (command === "cf ic") {
         cfic(term, inputs);
@@ -251,8 +252,8 @@
   })();
 
   cfic = function(term, inputs) {
-    var ICE_logo, IceCommands, auth, commit, commit_containerid, commit_id_does_not_exist, created_volume, docker_cmd, docker_version, group_created, help, ice_group, ice_group_create, ice_group_create_help, ice_group_help, ice_group_list_help, ice_help, ice_inspect_help, ice_ip, ice_ip_bind_fail, ice_ip_bind_help, ice_ip_bound, ice_ip_help, ice_ip_request, ice_ip_request_help, ice_logs, ice_logs_help, ice_no_args, ice_no_such_container, ice_pull, ice_rm, ice_rm_help, ice_rm_ice_ping, ice_route, ice_route_help, ice_route_map, ice_route_map_help, ice_route_mapped, ice_run_help, ice_run_no_name, ice_stop, ice_stop_help, ice_stop_ice_ping, ice_version, ice_volume, ice_volume_create, ice_volume_create_help, ice_volume_help, ice_volume_list, ice_volume_list_help, ice_volume_rm, ice_volume_rm_help, inspect, inspect_ice_ping_container, inspect_no_such_container, inspect_ping_container, loginResult, not_implemented, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push_container_learn_ping, push_help, push_no_args, push_wrong_name, removed_volume, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_echo, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_localhost, run_ping_not_localhost, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, wsk, wsk_help;
-    wsk = function(term, inputs) {
+    var ICE_logo, IceCommands, auth, commit, commit_containerid, commit_id_does_not_exist, created_volume, docker_cmd, docker_version, group_created, help, ice, ice_group, ice_group_create, ice_group_create_help, ice_group_help, ice_group_list_help, ice_help, ice_inspect_help, ice_ip, ice_ip_bind_fail, ice_ip_bind_help, ice_ip_bound, ice_ip_help, ice_ip_request, ice_ip_request_help, ice_logs, ice_logs_help, ice_no_such_container, ice_pull, ice_rm, ice_rm_help, ice_rm_ice_ping, ice_route, ice_route_help, ice_route_map, ice_route_map_help, ice_route_mapped, ice_run_help, ice_run_no_name, ice_stop, ice_stop_help, ice_stop_ice_ping, ice_version, ice_volume, ice_volume_create, ice_volume_create_help, ice_volume_help, ice_volume_list, ice_volume_list_help, ice_volume_rm, ice_volume_rm_help, inspect, inspect_ice_ping_container, inspect_no_such_container, inspect_ping_container, loginResult, not_implemented, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push_container_learn_ping, push_help, push_no_args, push_wrong_name, removed_volume, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_echo, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_localhost, run_ping_not_localhost, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, wsk_help, wsk_no_args;
+    ice = function(term, inputs) {
       var callback, command, commands, echo, i, imagename, index, insert, k, keyword, l, len, len1, parsed_input, ref, ref1, result, sentence, swargs, switches, word;
       echo = term.echo;
       insert = term.insert;
@@ -921,7 +922,7 @@
     docker_version = function() {
       return "Docker Emulator version " + EMULATOR_VERSION + "\n\nEmulating:\nClient version: 0.5.3\nServer version: 0.5.3\nGo version: go1.1";
     };
-    ice_no_args = "usage: ice [-h] [--verbose] [--cloud | --local]\n           {login,tlogin,ps,run,inspect,logs,build,start,stop,restart,pause,unpause,rm,images,rmi,search,info,ip,group,route,volume,namespace,help,version,cpi}\n           ...\nice: error: too few arguments";
+    wsk_no_args = "usage: wsk [-h] [-v] [--apihost hostname] [--apiversion version]\n           {action,activation,namespace,package,rule,trigger,sdk,property,list}\n           ...\nwsk: error: too few arguments";
     ice_version = function() {
       return "ICE CLI Version        : 2.0.1 271 2015-03-30T15:40:18";
     };

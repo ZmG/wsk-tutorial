@@ -114,6 +114,7 @@ do @myTerminal = ->
 			bash(term, inputs)
 
 		else if command is "wsk"
+			term.echo 'This command was invoked!'
 			wsk(term, inputs)
 
 		else if command is "cf ic"
@@ -294,7 +295,7 @@ do @myTerminal = ->
 	#---------------------------------------------------------------------------------------
 
 cfic = (term, inputs) ->
-	wsk = (term, inputs) ->
+	ice = (term, inputs) ->
 
 		echo = term.echo
 		insert = term.insert
@@ -1787,12 +1788,12 @@ cfic = (term, inputs) ->
 		Go version: go1.1
 		"""
 
-	ice_no_args = \
+	wsk_no_args = \
 	"""
-	usage: ice [-h] [--verbose] [--cloud | --local]
-           {login,tlogin,ps,run,inspect,logs,build,start,stop,restart,pause,unpause,rm,images,rmi,search,info,ip,group,route,volume,namespace,help,version,cpi}
+	usage: wsk [-h] [-v] [--apihost hostname] [--apiversion version]
+           {action,activation,namespace,package,rule,trigger,sdk,property,list}
            ...
-	ice: error: too few arguments
+	wsk: error: too few arguments
 	"""
 
 	ice_version = () ->
