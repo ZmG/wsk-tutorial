@@ -114,8 +114,11 @@ do @myTerminal = ->
 			bash(term, inputs)
 
 		else if command is "wsk"
-			term.echo 'This command was invoked!'
 			wsk(term, inputs)
+
+		else if command is "cat"
+			cat(term, inputs)
+			
 
 		else if command is "help"
 			term.echo help
@@ -283,13 +286,15 @@ do @myTerminal = ->
 				echo "-bash: cd: #{argument}: Permission denied"
 			else
 				echo "-bash: cd: #{argument}: No such file or directory"
-
 	
 	#---------------------------------------------------------------------------------------
 	#---------------------------------------------------------------------------------------
 	#  WSK  I N T E R P R E T E R   -----------------------------------------------------
 	#---------------------------------------------------------------------------------------
 	#---------------------------------------------------------------------------------------
+	cat = (term, inputs) ->
+		if inputs[1] is "helloWorld.js"
+			echo wsk_cat_helloWorld
 
 	wsk = (term, inputs) ->
 
@@ -306,10 +311,6 @@ do @myTerminal = ->
 		else if inputs[1] is "--help" or inputs[1] is "-h"
 			console.debug "no args"
 			echo wsk_help
-
-		else if inputs[1] is "cat"
-			if inputs[2] is "helloWorld.js"
-				echo wsk_cat_helloWorld
 
 		else if inputs[1] is "action"
 			if inputs[2] is "create"
