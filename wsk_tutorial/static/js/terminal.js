@@ -72,8 +72,11 @@
       } else if (command === 'cd') {
         bash(term, inputs);
       } else if (command === "wsk") {
-        term.echo('This command was invoked!');
         wsk(term, inputs);
+      } else if (command === "cat") {
+        if (inputs[1] === "helloWorld.js") {
+          echo(wsk_cat_helloWorld);
+        }
       } else if (command === "help") {
         term.echo(help);
       } else if (command === "ls" || command === "cd" || command === "pwd") {
@@ -259,10 +262,6 @@
       } else if (inputs[1] === "--help" || inputs[1] === "-h") {
         console.debug("no args");
         echo(wsk_help);
-      } else if (inputs[1] === "cat") {
-        if (inputs[2] === "helloWorld.js") {
-          echo(wsk_cat_helloWorld);
-        }
       } else if (inputs[1] === "action") {
         if (inputs[2] === "create") {
           if (inputs[3] === "hello") {
