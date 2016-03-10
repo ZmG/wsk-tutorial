@@ -20,7 +20,7 @@
 
   q.push({
     html: "<h3>OpenWhisk Getting started</h3>\n<p>OpenWhisk is an event-driven compute platform that executes code in response to events or direct invocations.\n</p>\n<p>Examples of events include changes to database records, IoT sensor readings that exceed a certain temperature, new code commits to a GitHub repository, or simple HTTP requests from web or mobile apps. Events from external and internal event sources are channeled through a trigger, and rules allow actions to react to these events. </p>\n<p>Actions can be small snippets of Javascript or Swift code, or custom binaries embedded in a Docker container. Actions in OpenWhisk are instantly deployed and executed whenever a trigger fires. The more triggers fire, the more actions get invoked. If no trigger fires, no action code is running, so there is no cost.</p>\n<p>In addition to associating actions with triggers, it is possible to directly invoke an action by using the OpenWhisk API, CLI, or iOS SDK. A set of actions can also be chained without having to write any code. Each action in the chain is invoked in sequence with the output of one action passed as input to the next in the sequence.</p>",
-    assignment: "<h3>Assignment</h3>\n<p>Use wsk command to see the full list of accepted arguments</p>\n<p>If you see a list of arguments then you know you that your all set with your wsk client installation. </p>",
+    assignment: "<h3>Assignment</h3>\n<p>Use a wsk command to see the full list of accepted arguments</p>\n<p>If you see a list of arguments then you know you that your all set with your wsk client installation. </p>",
     intermediateresults: [
       function() {
         return "<p>Shorcut: Use -h instead of --help</p>";
@@ -32,15 +32,15 @@
   });
 
   q.push({
-    html: "<h3>Logging In</h3>\n<p>The easiest way to get started is to log in to the IBM Containers infrastructure.  For details on login arguments, search the online\n<a href=\"#1\" onClick=\"window.open('https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#genTopProcId4','IBM Containers Doc','width=1000,height=900,left=50,top=50,menubar=0')\";>IBM Containers Doc</a>\nand by using the commandline</p>",
-    assignment: "<h3>Assignment</h3>\n<p>Use the <code>ice login</code> command to log in to the IBM Containers infrastructure. Ice will ask you for a username and password, any value will work.</p>",
-    command_expected: ['ice', 'login'],
+    html: "<h3>Creating a JavaScript Action</h3>\n<p>Actions encapsulate an actual code to be executed. One can think of an action as a piece of code that runs in response to an event. Actions support multiple language bindings including NodeJS, Swift and arbitrary binary programs encapsulated in Docker Containers. Actions invoke any part of an open ecosystem including existing Bluemix services for analytics, data, cognitive, or any other 3rd party service. For this example, the file 'hello.js' had been already created. Perform \"cat hello.js\" to examine the contents of the file</p>",
+    assignment: "<h3>Assignment</h3>\n<p>Create an action called \"hello\" from the content of the \"hello.js\" file. Use the verbose switch to examine api calls</p>",
+    command_expected: ['wsk', 'action', 'create', 'hello', 'hello.js'],
     result: "<p>You found it! Way to go!</p>",
-    tip: "the optional arguments for login are specified in the online Bluemix Containers doc"
+    tip: "Use wsk --help to examine arguments usages"
   });
 
   q.push({
-    html: "<h3>Downloading container images</h3>\n<p>This exercise will introduce the <b>--local</b> tag. calling ice --local is the same as calling docker. ice --local will pass arguements to docker and run like standard docker.</p>\n<p>Container images can be downloaded just as easily, using <code>docker pull</code>.</p>\n<p>However, instead of calling <code>docker pull</code> directly we will use <code>ice --local pull</code>, to pull images from registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image&gt;.</p>\n<p>For images from your namespace index, the name you specify is constructed as &lt;Namespace&gt;/&lt;Image Name&gt;</p>\n<p>A group of special, trusted images such as the ibmnode image can be retrieved by just their name registry-ice.ng.bluemix.net/&lt;Image Name&gt;.</p>",
+    html: "<h3>List the actions you have created:</h3>\n<p>This exercise will introduce the <b>--local</b> tag. calling ice --local is the same as calling docker. ice --local will pass arguements to docker and run like standard docker.</p>\n<p>Container images can be downloaded just as easily, using <code>docker pull</code>.</p>\n<p>However, instead of calling <code>docker pull</code> directly we will use <code>ice --local pull</code>, to pull images from registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image&gt;.</p>\n<p>For images from your namespace index, the name you specify is constructed as &lt;Namespace&gt;/&lt;Image Name&gt;</p>\n<p>A group of special, trusted images such as the ibmnode image can be retrieved by just their name registry-ice.ng.bluemix.net/&lt;Image Name&gt;.</p>",
     assignment: "<h3>Assignment</h3>\n<p>Pull the trusted <b>'ibmnode'</b> image from the <b>'registry-ice.ng.bluemix.net/'</b> Registry.</p>",
     command_expected: ['ice', '--local', 'pull', 'registry-ice.ng.bluemix.net/ibmnode'],
     result: "<p>Cool. Look at the results. You'll see that ice has invoked docker to download a number of layers. In Docker all images (except the base image) are made up of several cumulative layers.</p>",

@@ -27,7 +27,7 @@ html: """
       """
 assignment: """
       <h3>Assignment</h3>
-      <p>Use wsk command to see the full list of accepted arguments</p>
+      <p>Use a wsk command to see the full list of accepted arguments</p>
       <p>If you see a list of arguments then you know you that your all set with your wsk client installation. </p>
       """
 intermediateresults: [
@@ -40,23 +40,21 @@ result: """<p>Well done! Let's move to the next assignment.</p>"""
 
 q.push ({
 html: """
-      <h3>Logging In</h3>
-      <p>The easiest way to get started is to log in to the IBM Containers infrastructure.  For details on login arguments, search the online
-      <a href="#1" onClick="window.open('https://www.ng.bluemix.net/docs/#starters/index-gentopic3.html#genTopProcId4','IBM Containers Doc','width=1000,height=900,left=50,top=50,menubar=0')";>IBM Containers Doc</a>
-      and by using the commandline</p>
+      <h3>Creating a JavaScript Action</h3>
+      <p>Actions encapsulate an actual code to be executed. One can think of an action as a piece of code that runs in response to an event. Actions support multiple language bindings including NodeJS, Swift and arbitrary binary programs encapsulated in Docker Containers. Actions invoke any part of an open ecosystem including existing Bluemix services for analytics, data, cognitive, or any other 3rd party service. For this example, the file 'hello.js' had been already created. Perform "cat hello.js" to examine the contents of the file</p>
       """
 assignment: """
       <h3>Assignment</h3>
-      <p>Use the <code>ice login</code> command to log in to the IBM Containers infrastructure. Ice will ask you for a username and password, any value will work.</p>
+      <p>Create an action called "hello" from the content of the "hello.js" file. Use the verbose switch to examine api calls</p>
       """
-command_expected: ['ice', 'login']
+command_expected: ['wsk', 'action', 'create', 'hello', 'hello.js']
 result: """<p>You found it! Way to go!</p>"""
-tip: "the optional arguments for login are specified in the online Bluemix Containers doc"
+tip: "Use wsk --help to examine arguments usages"
 })
 
 q.push ({
 html: """
-      <h3>Downloading container images</h3>
+      <h3>List the actions you have created:</h3>
       <p>This exercise will introduce the <b>--local</b> tag. calling ice --local is the same as calling docker. ice --local will pass arguements to docker and run like standard docker.</p>
       <p>Container images can be downloaded just as easily, using <code>docker pull</code>.</p>
       <p>However, instead of calling <code>docker pull</code> directly we will use <code>ice --local pull</code>, to pull images from registry-ice.ng.bluemix.net/&lt;Namespace&gt;/&lt;Image&gt;.</p>

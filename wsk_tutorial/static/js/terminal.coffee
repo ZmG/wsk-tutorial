@@ -320,8 +320,22 @@ do @myTerminal = ->
 						echo wsk_create_action_hello
 			else if inputs[2] is "list"
 				echo wsk_list_action_hello
+			else if inputs[2] is "invoke" 
+				if inputs[3] is "hello"
+					echo wsk_action_invoke_hello
 
-		else if inputs[1] is ""
+		else if inputs[1] is "activation"
+			if inputs[2] is "result"
+				if inputs[3] is "6bf1f670ee614a7eb5af3c9fde813043"
+					echo wsk_activation_result
+			else if inputs[2] is "list"
+				echo wsk_activation_list
+
+		else if inputs[1] is "-v"
+			if inputs[2] is "create"
+				if inputs[3] is "hello"
+					if inputs[4] is "hello.js"
+						echo wsk_create_action_hello_v
 
 		else if inputs[1] is "images"
 			echo currentCloudImages
@@ -1560,11 +1574,65 @@ do @myTerminal = ->
 		"""
 		ok: created action hello1
 		"""
+	wsk_create_action_hello_v = \
+		"""
+		{'apihost': 'openwhisk.ng.bluemix.net', 'namespace': 'jstart', 'clibuild': '2016-03-03T09:55:47-06:00', 'apiversion': 'v1'}
+		========
+		REQUEST:
+		PUT https://openwhisk.ng.bluemix.net/api/v1/namespaces/jstart/actions/hello
+		Headers sent:
+		{
+		    "Authorization": "Basic 
+		     UyLWJJkYu65JKhu7YjM0ZDcwODhlNzBiOmlFS3RWMHl0UWdIT1SxUGNrMUFJRHUzSF2VlFSV53hDUnZlVXhyMGJpbTBGeH827=",
+		    "Content-Type": "application/json"
+		}
+		Body sent:
+		{"exec": {"kind": "nodejs", "code": "function main(params) {\n   return {payload:  'Hello, ' + params.name + ' from ' + params.place};\n}\n\n"}}
+		--------
+		RESPONSE:
+		Got response with code 200
+		Body received:
+		{
+		  "name": "hello",
+		  "publish": false,
+		  "annotations": [],
+		  "version": "0.0.1",
+		  "exec": {
+		    "kind": "nodejs",
+		    "code": "function main(params) {\n   return {payload:  'Hello, ' + params.name + ' from ' + params.place};\n}\n\n"
+		  },
+		  "parameters": [],
+		  "limits": {
+		    "timeout": 60000,
+		    "memory": 256
+		  },
+		  "namespace": "jstart"
+		}
+		========
+		ok: created action hello
+		"""
 
 	wsk_list_action_hello = \ 
 		"""
 		actions
 		hello                                             private
+		"""
+
+	wsk_action_invoke_hello = \
+		"""
+		ok: invoked hello with id 6bf1f670ee614a7eb5af3c9fde813043
+		"""
+	wsk_activation_result = \
+		"""
+		{
+			"payload" : "Hello world"
+		}
+		"""
+
+	wsk_activation_list = \
+		"""
+		activations
+		6bf1f670ee614a7eb5af3c9fde813043	hello
 		"""
 
 	run_cmd = \
