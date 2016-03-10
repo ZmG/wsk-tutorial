@@ -117,9 +117,6 @@ do @myTerminal = ->
 			term.echo 'This command was invoked!'
 			wsk(term, inputs)
 
-		else if command is "cf ic"
-			cfic(term, inputs)
-
 		else if command is "help"
 			term.echo help
 
@@ -310,41 +307,23 @@ do @myTerminal = ->
 			console.debug "no args"
 			echo wsk_help
 
-		else if inputs[1] is "do"
-			term.push('do', {prompt: "do $ "})
+		else if inputs[1] is "cat"
+			if inputs[2] is "helloWorld.js"
+				echo wsk_cat_helloWorld
 
-		else if inputs[1] is "logo"
-			echo WSK_logo
+		else if inputs[1] is "action"
+			if inputs[2] is "create"
+				if inputs[3] is "hello"
+					if inputs[4] is "hello.js"
+						echo wsk_create_action_hello
+			else if inputs[2] is "list"
+				echo wsk_list_action_hello
+
+		else if inputs[1] is ""
 
 		else if inputs[1] is "images"
 			echo currentCloudImages
 
-		# Command login
-		else if inputs[1] is "login"
-			# parse all input so we have a json object
-			parsed_input = parseInput(inputs)
-
-			switches = parsed_input.switches
-			swargs = parsed_input.switchArgs
-			commands = parsed_input.commands
-
-			console.log "commands"
-			console.log commands
-			console.log "switches"
-			console.log switches
-			console.log("login")
-			if inputs[2] is "-h" or inputs[2] is "--help"
-				echo wsk_help
-			else if inputs.containsAllOfTheseParts(['wsk', 'login'])
-				term.echo "API endpoint: https://api.ng.bluemix.net\n"
-				term.set_prompt "Email> "
-				term.loginSequence = 1
-
-		else if inputs[1] is "version"
-			echo ice_version()
-		else if inputs[1] is "--version" or inputs[1] is "-version"
-			intermediateResults(0)
-			echo ice_no_args
 		# command ps
 		else if inputs[1] is "ps"
 			if inputs.containsAllOfThese(['-l'])
@@ -1568,6 +1547,24 @@ do @myTerminal = ->
 		respective owners.
 		"""
 
+	wsk_cat_helloWorld = \
+		"""
+		function main(params) {
+   			return {payload:  'Hello, ' + params.name + ' from ' + params.place};
+		}
+		"""
+
+	wsk_create_action_hello = \
+		"""
+		ok: created action hello1
+		"""
+
+	wsk_list_action_hello = \ 
+		"""
+		actions
+		hello                                             private
+		"""
+
 	run_cmd = \
 		"""
 		Usage: Docker run [OPTIONS] IMAGE COMMAND [ARG...]
@@ -1795,11 +1792,6 @@ do @myTerminal = ->
 	wsk: error: too few arguments
 	"""
 
-	ice_version = () ->
-			"""
-			ICE CLI Version        : 2.0.1 271 2015-03-30T15:40:18
-			"""
-
 	ice_rm = \
 	"""
 	usage: ice rm [-h] CONTAINER
@@ -1944,61 +1936,6 @@ do @myTerminal = ->
 	optional arguments:
 	  -h, --help  show this help message and exit
 	"""
-
-
-	ICE_logo = \
-	'''
-	ttttttttttttttttt1iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiittttttttttttttttttttttttttttttttttttttttttttttttttttttt
-	ttttttttttttttttt1iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiittttttttttttttttttttttttttttttttttttttttttttttttttttttt
-	ttttttttttttttttt1iiiiii:  iiiiii, .iiiiii. .iiiiii  ,iiiiiiiiiittttttt. .ttttt1  ;ttttt1  ittttti  itttttttttttttttttt
-	ttttttttttttttttt1iiiiii:  iiiiii, .iiiiii. .iiiiii  ,iiiiiiiiiittttttt. .ttttt1  ;ttttt1  ittttti  itttttttttttttttttt
-	ttttttttttttttttt1iiiiii:  iiiiii, .iiiiii. .iiiiii  ,iiiiiiiiiittttttt. .ttttt1  ;ttttt1  ittttti  itttttttttttttttttt
-	ttttttttttttttttt1iiiiii:  iiiiii, .iiiiii. .iiiiii  ,iiiiiiiiiittttttt. .ttttt1  ;ttttt1  ittttti  itttttttttttttttttt
-	ttttttttttttttttt1iiiiii:  iiiiii, .iiiiii. .iiiiii  ,iiiiiiiiiittttttt. .ttttt1  ;ttttt1  ittttti  itttttttttttttttttt
-	ttttttttttttttttt1iiiiii:  iiiiii, .iiiiii. .iiiiii  ,iiiiiiiiiittttttt. .ttttt1  ;ttttt1  ittttti  itttttttttttttttttt
-	ttttttttttttttttt1iiiiii:  iiiiii, .iiiiii. .iiiiii  ,iiiiiiiiiittttttt. .ttttt1  ;ttttt1  ittttti  itttttttttttttttttt
-	ttttttttttttttttt1iiiiii:  iiiiii, .iiiiii. .iiiiii  ,iiiiiiiiiittttttt. .ttttt1  ;ttttt1  ittttti  itttttttttttttttttt
-	ttttttttttttttttt1iiiiii:  iiiiii, .iiiiii. .iiiiii  ,iiiiiiiiiittttttt. .ttttt1  ;ttttt1  ittttti  itttttttttttttttttt
-	ttttttttttttttttt1iiiiii:  iiiiii, .iiiiii. .iiiiii  ,iiiiiiiiiittttttt. .ttttt1  ;ttttt1  ittttti  itttttttttttttttttt
-	tttttttttttttttttiiiiiii:  iiiiii, .iiiiii. .iiiiii  ,iiiiiiiiiiftttttt. .ttttt1  ;ttttt1  ittttti  itttttttttttttttttt
-																																						 ,ttt1  ;ttttt1  ittttti  itttttttttttttttttt
-																																						 ,ttt1  ;ttttt1  ittttti  itttttttttttttttttt
-																																						 ,ttt1  ;ttttt1  ittttti  itttttttttttttttttt
-																																						 ,ttt1  ;ttttt1  ittttti  itttttttttttttttttt
-									:iiiiii;.   .iiiiiiiii,,iiiiiiiiii   iii                   ,ttttttttttttttttttttttttttttttttttttttttttt
-								 .CCLtttLCCf  tCCLLLLLLL fLLLCCCLLLf  LCCC1                  ,ttttttttttttttttttttttttttttttttttttttttttt
-								 :CC:   .CCf .CCf           .CCt    .CC11CC                  ,ttttttttttttttttttttttttttttttttttttttttttt
-								 LCCCCCCCL,  ;CCCCCCCCf     tCC    .CCi .CC
-								:CCi    ;CC: CCL           .CCf   :CCLtttCC1
-								tCC    ,LCC.:CC1,,,,,,.    ;CC,  1CC;;;;;CCC                 ,GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
-							 .CCCCCCCCL;  fCCCCCCCCC     CCL  LCC.     1CC                 :GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
-																																						 :GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
-																																						 :GGGG;;fGGGGGC;;LGGGGGL;;LGGGGGGGGGGGGGGGGGG
-																																						 :GGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGGGGGGGG
-																																						 :GGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGGGGGGGG
-	,,,,,,,,,,,,,,,,,,1iiiii:  1iiiii, .1iiiii. .1iiiii  ,iiiiii    ,LLLLLL. ,LLGGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGGGGGGGG
-	G:,,,,,,,,,,,,,,,:tttttt;  tttttt: .tttttt. .tttttt  :tttttttttt0GGGGGG. ,GGGGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGGGGGGGG
-	GG ,,,,,,,,,,,,,,:tttttt;  tttttt: .tttttt. .tttttt  :tttttttttt0GGGGGG. ,GGGGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGGGGGGGG
-	GGGG:,,,,,,,,,,,,:tttttt;  tttttt: .tttttt. .tttttt  :tttttttttt0GGGGGG. ,GGGGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGGGGGGGG
-	GGGGGG;;;;;;;;;;;ttttttt;  tttttt: .tttttt. .tttttt  :tttttttttt0GGGGGG. ,GGGGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGGGGGGGG
-	GGGGGGGGGGGGGGGGGftttttt;  tttttt: .tttttt. .tttttt  :tttttttttt0GGGGGG. ,GGGGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGGGGGGGG
-	GGGGGGGGGGGGGGGGGftttttt;  tttttt: .tttttt. .tttttt  :tttttttttt0GGGGGG. ,GGGGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGGGGGGGG
-	GGGGGGGGGGGGGGGGGftttttt;  tttttt: .tttttt. .tttttt  :tttttttttt0GGGGGG. ,GGGGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGGGGGGGG
-	GGGGGGGGGGGGGGGGGftttttt;  tttttt: .tttttt. .tttttt  :tttttttttt0GGGGGG. ,GGGGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGGGGGGGG
-	GGGGGiiiiiiiiiiiiftttttt;  tttttt: .tttttt. .tttttt  :tttttttttt0GGGGGG. ,GGGGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGG1iiiiii
-	iiiiiiiiiiiiiiiiiftttttt;  tttttt: .tttttt. .tttttt  :tttttttttt0GGGGGG. ,GGGGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGiiiiiii
-	iiiiiiiiiiiiiiiiiftttttt;  tttttt: .tttttt. .tttttt  :tttttttttt0GGGGGG. ,GGGGGC  1GGGGGC  fGGGGGf  LGGGGGGGGGGGiiiiiii
-	iiiiiiiiiiiiiiiiiftttttti::tttttt;::tttttt:::tttttt::;tttttttttt0GGGGGGii1GGGGGGiifGGGGGCiiLGGGGGLiiCGGGGGGGGGGGiiiiiii
-	iiiiiiiiiiiiiiiiiftttttttttttttttttttttttttttttttttttttttttttttt0GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGiiiiiii
-	iiiiiiiiiiiiiiiiiftttttttttttttttttttttttttttttttttttttttttttttt0GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGiiiiiii
-	iiiiiiiiiiiiiiiii@tttttttttttttttttttttttttttttttttttttttttffffffGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG000000iiiiiii
-	iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
-	iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii1iiiiii
-	iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
-	iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
-	iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
-
-	'''
 
 
 return this
