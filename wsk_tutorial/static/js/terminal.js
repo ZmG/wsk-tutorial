@@ -247,6 +247,8 @@
       }
     };
     cat = function(term, inputs) {
+      var echo;
+      echo = term.echo;
       if (inputs[1] === "helloWorld.js") {
         return echo(wsk_cat_helloWorld);
       }
