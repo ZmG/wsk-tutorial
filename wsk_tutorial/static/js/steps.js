@@ -32,8 +32,8 @@
   });
 
   q.push({
-    html: "<h3>Creating a JavaScript Action</h3>\n<p>Actions encapsulate an actual code to be executed. One can think of an action as a piece of code that runs in response to an event. Actions support multiple language bindings including NodeJS, Swift and arbitrary binary programs encapsulated in Docker Containers. Actions invoke any part of an open ecosystem including existing Bluemix services for analytics, data, cognitive, or any other 3rd party service. For this example, the file 'hello.js' had been already created. Perform \"cat hello.js\" to examine the contents of the file</p>",
-    assignment: "<h3>Assignment</h3>\n<p>Create an action called \"hello\" from the content of the \"hello.js\" file. Use the verbose switch to examine api calls</p>",
+    html: "<h3>Creating a JavaScript Action</h3>\n<p>Actions encapsulate an actual code to be executed. One can think of an action as a piece of code that runs in response to an event. Actions support multiple language bindings including NodeJS, Swift and arbitrary binary programs encapsulated in Docker Containers. Actions invoke any part of an open ecosystem including existing Bluemix services for analytics, data, cognitive, or any other 3rd party service. </p>",
+    assignment: "<h3>Assignment</h3>\n<p>Create an action called \"hello\" from the content of the \"hello.js\" file. Use the verbose switch to examine api calls. For this assignment, the file 'hello.js' had been already created. Perform \"cat hello.js\" to examine the contents of the file</p>",
     command_expected: ['wsk', 'action', 'create', 'hello', 'hello.js'],
     result: "<p>You found it! Way to go!</p>",
     tip: "Use wsk --help to examine arguments usages"
@@ -76,9 +76,9 @@
 
   q.push({
     html: "<h3>Get action's invocation result using the activation ID</h3>\n<p>You can get an actions result by using the action activation ID. If you forgot to record the activation ID, you can get a list of activations ordered from most recent to the oldest running the <code> wsk activation list</code> command </p>",
-    assignment: "<h3>Assignment</h3>\n<p>Obtain action's result.   </p>",
-    command_expected: ["wsk", "action", "invoke", "hello"],
-    command_show: ["wsk", "action", "invoke", "hello"],
+    assignment: "<h3>Assignment</h3>\n<p>Obtain a non-blocking action's result.  Remember, a non-blocking invocation may execute in the background so obtaining the result requires the activation ID</p>",
+    command_expected: ["wsk", "activation", "result", "6bf1f670ee614a7eb5af3c9fde813043"],
+    command_show: ["wsk", "activation", "result", "6bf1f670ee614a7eb5af3c9fde813043"],
     result: "<p>Great! Action was invoked. Next we are going to obtain the result",
     intermediateresults: [
       function() {
