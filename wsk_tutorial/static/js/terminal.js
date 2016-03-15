@@ -13,7 +13,7 @@
 
 (function() {
   (this.myTerminal = function() {
-    var EMULATOR_VERSION, IceCommands, auth, bash, cat, commit, commit_containerid, commit_id_does_not_exist, created_volume, docker_cmd, docker_version, group_created, help, ice_group, ice_group_create, ice_group_create_help, ice_group_help, ice_group_list_help, ice_help, ice_inspect_help, ice_ip, ice_ip_bind_fail, ice_ip_bind_help, ice_ip_bound, ice_ip_help, ice_ip_request, ice_ip_request_help, ice_logs, ice_logs_help, ice_no_such_container, ice_pull, ice_rm, ice_rm_help, ice_rm_ice_ping, ice_route, ice_route_help, ice_route_map, ice_route_map_help, ice_route_mapped, ice_run_help, ice_run_no_name, ice_stop, ice_stop_help, ice_stop_ice_ping, ice_volume, ice_volume_create, ice_volume_create_help, ice_volume_help, ice_volume_list, ice_volume_list_help, ice_volume_rm, ice_volume_rm_help, inspect, inspect_ice_ping_container, inspect_no_such_container, inspect_ping_container, loginResult, not_implemented, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push_container_learn_ping, push_help, push_no_args, push_wrong_name, removed_volume, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_echo, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_localhost, run_ping_not_localhost, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait, wsk, wsk_action_invoke_hello, wsk_activation_list, wsk_activation_result, wsk_cat_helloWorld, wsk_create_action_hello, wsk_create_action_hello_v, wsk_help, wsk_list_action_hello, wsk_no_args;
+    var EMULATOR_VERSION, IceCommands, auth, bash, cat, commit, commit_containerid, commit_id_does_not_exist, created_volume, docker_cmd, docker_version, group_created, help, ice_group, ice_group_create, ice_group_create_help, ice_group_help, ice_group_list_help, ice_help, ice_inspect_help, ice_ip, ice_ip_bind_fail, ice_ip_bind_help, ice_ip_bound, ice_ip_help, ice_ip_request, ice_ip_request_help, ice_logs, ice_logs_help, ice_no_such_container, ice_pull, ice_rm, ice_rm_help, ice_rm_ice_ping, ice_route, ice_route_help, ice_route_map, ice_route_map_help, ice_route_mapped, ice_run_help, ice_run_no_name, ice_stop, ice_stop_help, ice_stop_ice_ping, ice_volume, ice_volume_create, ice_volume_create_help, ice_volume_help, ice_volume_list, ice_volume_list_help, ice_volume_rm, ice_volume_rm_help, inspect, inspect_ice_ping_container, inspect_no_such_container, inspect_ping_container, loginResult, not_implemented, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push_container_learn_ping, push_help, push_no_args, push_wrong_name, removed_volume, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_echo, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_localhost, run_ping_not_localhost, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait, wsk, wsk_action_invoke_blocking_hello, wsk_action_invoke_hello, wsk_activation_list, wsk_activation_result, wsk_cat_helloWorld, wsk_create_action_hello, wsk_create_action_hello_v, wsk_help, wsk_list_action_hello, wsk_no_args;
     EMULATOR_VERSION = "0.1.5";
     this.basesettings = {
       prompt: '[[b;#fff;]you@tutorial:~$] ',
@@ -249,7 +249,7 @@
     cat = function(term, inputs) {
       var echo;
       echo = term.echo;
-      if (inputs[1] === "helloWorld.js") {
+      if (inputs[1] === "hello.js") {
         return echo(wsk_cat_helloWorld);
       }
     };
@@ -279,6 +279,10 @@
         } else if (inputs[2] === "invoke") {
           if (inputs[3] === "hello") {
             echo(wsk_action_invoke_hello);
+          } else if (inputs[3] === "--blocking") {
+            if (inputs[4] === "hello") {
+              echo(wsk_action_invoke_blocking_hello);
+            }
           }
         }
       } else if (inputs[1] === "activation") {
@@ -290,10 +294,12 @@
           echo(wsk_activation_list);
         }
       } else if (inputs[1] === "-v") {
-        if (inputs[2] === "create") {
-          if (inputs[3] === "hello") {
-            if (inputs[4] === "hello.js") {
-              echo(wsk_create_action_hello_v);
+        if (inputs[2] === action) {
+          if (inputs[3] === "create") {
+            if (inputs[4] === "hello") {
+              if (inputs[5] === "hello.js") {
+                echo(wsk_create_action_hello_v);
+              }
             }
           }
         }
@@ -885,6 +891,7 @@
     wsk_create_action_hello_v = "{'apihost': 'openwhisk.ng.bluemix.net', 'namespace': 'jstart', 'clibuild': '2016-03-03T09:55:47-06:00', 'apiversion': 'v1'}\n========\nREQUEST:\nPUT https://openwhisk.ng.bluemix.net/api/v1/namespaces/jstart/actions/hello\nHeaders sent:\n{\n    \"Authorization\": \"Basic \n     UyLWJJkYu65JKhu7YjM0ZDcwODhlNzBiOmlFS3RWMHl0UWdIT1SxUGNrMUFJRHUzSF2VlFSV53hDUnZlVXhyMGJpbTBGeH827=\",\n    \"Content-Type\": \"application/json\"\n}\nBody sent:\n{\"exec\": {\"kind\": \"nodejs\", \"code\": \"function main(params) {\n   return {payload:  'Hello, ' + params.name + ' from ' + params.place};\n}\n\n\"}}\n--------\nRESPONSE:\nGot response with code 200\nBody received:\n{\n  \"name\": \"hello\",\n  \"publish\": false,\n  \"annotations\": [],\n  \"version\": \"0.0.1\",\n  \"exec\": {\n    \"kind\": \"nodejs\",\n    \"code\": \"function main(params) {\n   return {payload:  'Hello, ' + params.name + ' from ' + params.place};\n}\n\n\"\n  },\n  \"parameters\": [],\n  \"limits\": {\n    \"timeout\": 60000,\n    \"memory\": 256\n  },\n  \"namespace\": \"jstart\"\n}\n========\nok: created action hello";
     wsk_list_action_hello = "actions\nhello                                             private";
     wsk_action_invoke_hello = "ok: invoked hello with id 6bf1f670ee614a7eb5af3c9fde813043";
+    wsk_action_invoke_blocking_hello = "ok: invoked hello with id 44794bd6aab74415b4e42a308d880e5b\nresponse:\n{\n   \"result\": {\n       \"payload\": \"Hello world\"\n   },\n   \"status\": \"success\",\n   \"success\": true\n}";
     wsk_activation_result = "{\n	\"payload\" : \"Hello world\"\n}";
     wsk_activation_list = "activations\n6bf1f670ee614a7eb5af3c9fde813043	hello";
     run_cmd = "Usage: Docker run [OPTIONS] IMAGE COMMAND [ARG...]\n\nRun a command in a new container\n\n-a=map[]: Attach to stdin, stdout or stderr.\n-c=0: CPU shares (relative weight)\n-d=false: Detached mode: leave the container running in the background\n-dns=[]: Set custom dns servers\n-e=[]: Set environment variables\n-h=\"\": Container host name\n-i=false: Keep stdin open even if not attached\n-m=0: Memory limit (in bytes)\n-p=[]: Expose a container's port to the host (use 'docker port' to see the actual mapping)\n-t=false: Allocate a pseudo-tty\n-u=\"\": Username or UID\n-v=map[]: Attach a data volume\n-volumes-from=\"\": Mount volumes from the specified container";
