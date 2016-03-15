@@ -294,7 +294,7 @@
           echo(wsk_activation_list);
         }
       } else if (inputs[1] === "-v") {
-        if (inputs[2] === action) {
+        if (inputs[2] === "action") {
           if (inputs[3] === "create") {
             if (inputs[4] === "hello") {
               if (inputs[5] === "hello.js") {
@@ -770,7 +770,7 @@
       } else if (IceCommands[inputs[1]]) {
         echo(inputs[1] + " is a valid argument, but not implemented");
       } else {
-        echo(ice_no_args);
+        echo(wsk_no_args);
       }
     };
 
