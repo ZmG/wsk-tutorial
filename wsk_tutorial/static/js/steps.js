@@ -49,8 +49,8 @@
   q.push({
     html: "<h3>Running an action using a blocking invocation</h3>\n<p>After you create your action, you can run it in the cloud in OpenWhisk with the 'invoke' command. You can invoke actions with a blocking\ninvocation or a non-blocking invocation by specifying a flag in the command. A blocking invocation waits until the action runs to completion and\nreturns a result. This example uses blocking invocation.</p>",
     assignment: "<h3>Assignment</h3>\n<p>Invoke the hello action utilizing blocking invocation.  </p>",
-    command_expected: ["wsk", "action", "invoke", "--blocking", hello],
-    command_show: ["wsk", "action", "invoke", "--blocking", hello],
+    command_expected: ['wsk', 'action', 'invoke', '--blocking', 'hello'],
+    command_show: ['wsk', 'action', 'invoke', '--blocking', 'hello'],
     result: "<p>Great! The command outputs two important pieces of information:\nThe activation ID (44794bd6aab74415b4e42a308d880e5b)\nThe invocation result. The result in this case is the string Hello world \nreturned by the JavaScript function. The activation ID can be used to \nretrieve the logs or result of the invocation at a future time.",
     intermediateresults: [
       function() {
@@ -63,8 +63,8 @@
   q.push({
     html: "<h3>Running an action using a non-blocking invocation</h3>\n<p>If you don't need the action result right away, you can omit the --blocking flag to make a non-blocking invocation. You can get the result later by using the activation ID. </p>",
     assignment: "<h3>Assignment</h3>\n<p>Invoke the \"hello\" action utilizing non-blocking invocation.  </p>",
-    command_expected: ["wsk", "action", "invoke", "hello"],
-    command_show: ["wsk", "action", "invoke", "hello"],
+    command_expected: ['wsk', 'action', 'invoke', 'hello'],
+    command_show: ['wsk', 'action', 'invoke', 'hello'],
     result: "<p>Great! Action was invoked. Next we are going to obtain the result",
     intermediateresults: [
       function() {
