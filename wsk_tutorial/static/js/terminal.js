@@ -77,7 +77,9 @@
         cat(term, inputs);
       } else if (command === "help") {
         term.echo(help);
-      } else if (command === "ls" || command === "cd" || command === "pwd") {
+      } else if (command === "ls") {
+        term.echo("hello.js");
+      } else if (command === "cd" || command === "pwd") {
         term.echo("This is an emulator, not a shell. Try following the instructions.");
       } else if (command === "colors") {
         for (WskCommand in WskCommands) {
