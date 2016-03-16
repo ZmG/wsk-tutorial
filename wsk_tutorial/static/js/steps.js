@@ -79,27 +79,13 @@
     assignment: "<h3>Assignment</h3>\n<p>Obtain a non-blocking action's result.  Remember, a non-blocking invocation may execute in the background so obtaining the result requires the activation ID</p>",
     command_expected: ["wsk", "activation", "result", "6bf1f670ee614a7eb5af3c9fde813043"],
     command_show: ["wsk", "activation", "result", "6bf1f670ee614a7eb5af3c9fde813043"],
-    result: "<p>Great! ",
+    result: "<p>Great! End of tutorial",
     intermediateresults: [
       function() {
         return "<p>You seem to be almost there. Did you feed in the wsk action command \"list\" parameter and the activation ID";
       }
     ],
     tip: "<ul>\n   <li>You need to use the activation result command and supply the activation ID</li>\n</ul>"
-  });
-
-  q.push({
-    html: "<h3>Creating Sequence of actions/h3>\n<p>You can create an action that chains together a sequence of actions.Several utility actions are provided in a package called /whisk.system/util that you can use to create your first sequence. You can learn more about packages in the Packages section. </p>",
-    assignment: "<h3>Assignment</h3>\n<p>1. Display the actions in the /whisk.system/util package 2. Create an action sequence so that the result of one action is passed as an argument to the next action. </p>",
-    command_expected: ["wsk", "action", "create", "myAction", "--sequence", "/whisk.system/util/cat,/whisk.system/util/sort"],
-    command_show: ["wsk", "action", "create", "myAction", "--sequence", "/whisk.system/util/cat,/whisk.system/util/sort"],
-    result: "<p>Great! Tutorial complete",
-    intermediateresults: [
-      function() {
-        return "<p>You seem to be almost there.";
-      }
-    ],
-    tip: "<ul>\n   <li>Creating action sequences is similar to creating a single action except one needs to add the \"--sequence\" switch and specify a list of comma separated existing actions</li>\n</ul>"
   });
 
 
