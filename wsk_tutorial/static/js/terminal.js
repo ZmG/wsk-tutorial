@@ -13,7 +13,7 @@
 
 (function() {
   (this.myTerminal = function() {
-    var EMULATOR_VERSION, IceCommands, auth, bash, cat, commit, commit_containerid, commit_id_does_not_exist, created_volume, docker_cmd, docker_version, group_created, help, ice_group, ice_group_create, ice_group_create_help, ice_group_help, ice_group_list_help, ice_help, ice_inspect_help, ice_ip, ice_ip_bind_fail, ice_ip_bind_help, ice_ip_bound, ice_ip_help, ice_ip_request, ice_ip_request_help, ice_logs, ice_logs_help, ice_no_such_container, ice_pull, ice_rm, ice_rm_help, ice_rm_ice_ping, ice_route, ice_route_help, ice_route_map, ice_route_map_help, ice_route_mapped, ice_run_help, ice_run_no_name, ice_stop, ice_stop_help, ice_stop_ice_ping, ice_volume, ice_volume_create, ice_volume_create_help, ice_volume_help, ice_volume_list, ice_volume_list_help, ice_volume_rm, ice_volume_rm_help, inspect, inspect_ice_ping_container, inspect_no_such_container, inspect_ping_container, loginResult, not_implemented, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push_container_learn_ping, push_help, push_no_args, push_wrong_name, removed_volume, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_echo, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_localhost, run_ping_not_localhost, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait, wsk, wsk_action_invoke_blocking_hello, wsk_action_invoke_hello, wsk_activation_list, wsk_activation_result, wsk_cat_helloWorld, wsk_create_action_hello, wsk_create_action_hello_v, wsk_help, wsk_list_action_hello, wsk_no_args;
+    var EMULATOR_VERSION, IceCommands, auth, bash, cat, commit, commit_containerid, commit_id_does_not_exist, created_volume, docker_cmd, docker_version, group_created, help, ice_group, ice_group_create, ice_group_create_help, ice_group_help, ice_group_list_help, ice_help, ice_inspect_help, ice_ip, ice_ip_bind_fail, ice_ip_bind_help, ice_ip_bound, ice_ip_help, ice_ip_request, ice_ip_request_help, ice_logs, ice_logs_help, ice_no_such_container, ice_pull, ice_rm, ice_rm_help, ice_rm_ice_ping, ice_route, ice_route_help, ice_route_map, ice_route_map_help, ice_route_mapped, ice_run_help, ice_run_no_name, ice_stop, ice_stop_help, ice_stop_ice_ping, ice_volume, ice_volume_create, ice_volume_create_help, ice_volume_help, ice_volume_list, ice_volume_list_help, ice_volume_rm, ice_volume_rm_help, inspect, inspect_ice_ping_container, inspect_no_such_container, inspect_ping_container, loginResult, not_implemented, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push_container_learn_ping, push_help, push_no_args, push_wrong_name, removed_volume, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_echo, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_localhost, run_ping_not_localhost, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait, wsk, wsk_action_invoke_blocking_hello, wsk_action_invoke_hello, wsk_activation_list, wsk_activation_result, wsk_cat_helloWorld, wsk_create_action_hello, wsk_create_action_hello_v, wsk_create_action_sequence, wsk_help, wsk_list_action_hello, wsk_no_args, wsk_package_get, wsk_unrecognized_arguments;
     EMULATOR_VERSION = "0.1.5";
     this.basesettings = {
       prompt: '[[b;#fff;]you@tutorial:~$] ',
@@ -276,6 +276,15 @@
               echo(wsk_create_action_hello);
             }
           }
+          if (inputs[3] === "myAction") {
+            if (inputs[4] === "--sequence") {
+              if (inputs[5] === "/whisk.system/util/cat,/whisk.system/util/sort") {
+                echo(wsk_create_action_sequence);
+              } else {
+                echo(wsk_unrecognized_arguments);
+              }
+            }
+          }
         } else if (inputs[2] === "list") {
           echo(wsk_list_action_hello);
         } else if (inputs[2] === "invoke") {
@@ -284,6 +293,16 @@
           } else if (inputs[3] === "--blocking") {
             if (inputs[4] === "hello") {
               echo(wsk_action_invoke_blocking_hello);
+            }
+          } else {
+            echo(wsk_no_args);
+          }
+        }
+      } else if (inputs[1] === "package") {
+        if (inputs[2] === "get") {
+          if (inputs[3] === "--summary") {
+            if (inputs[4] === "/whisk.system/util") {
+              echo("wsk_package_get");
             }
           }
         }
@@ -941,6 +960,9 @@
       return "Docker Emulator version " + EMULATOR_VERSION + "\n\nEmulating:\nClient version: 0.5.3\nServer version: 0.5.3\nGo version: go1.1";
     };
     wsk_no_args = "usage: wsk [-h] [-v] [--apihost hostname] [--apiversion version]\n           {action,activation,namespace,package,rule,trigger,sdk,property,list}\n           ...\nwsk: error: too few arguments";
+    wsk_create_action_sequence = "ok: created action myAction";
+    wsk_unrecognized_arguments = "usage: wsk [-h] [-v] [--apihost hostname] [--apiversion version]\n           {action,activation,namespace,package,rule,trigger,sdk,property,list}\n           ...\nwsk: error: unrecognized arguments";
+    wsk_package_get = "package /whisk.system/util\naction /whisk.system/util/cat: Concatenate array of strings, and split lines into an array\naction /whisk.system/util/head: Filter first K array elements and discard rest\naction /whisk.system/util/date: Get current date and time\naction /whisk.system/util/sort: Sort array";
     ice_rm = "usage: ice rm [-h] CONTAINER\nice rm: error: too few arguments";
     ice_rm_help = "usage: ice rm [-h] CONTAINER\n\npositional arguments:\n  CONTAINER   container name or id\n\noptional arguments:\n  -h, --help  show this help message and exit";
     ice_rm_ice_ping = "Removed container successfully";

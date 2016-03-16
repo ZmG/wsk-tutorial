@@ -19,7 +19,7 @@
   q = [];
 
   q.push({
-    html: "<h3>OpenWhisk Getting started</h3>\n<p>OpenWhisk is an event-driven compute platform that executes code in response to events or direct invocations.\n</p>\n<p>Examples of events include changes to database records, IoT sensor readings that exceed a certain temperature, new code commits to a GitHub repository, or simple HTTP requests from web or mobile apps. Events from external and internal event sources are channeled through a trigger, and rules allow actions to react to these events. </p>\n<p>Actions can be small snippets of Javascript or Swift code, or custom binaries embedded in a Docker container. Actions in OpenWhisk are instantly deployed and executed whenever a trigger fires. The more triggers fire, the more actions get invoked. If no trigger fires, no action code is running, so there is no cost.</p>\n<p>In addition to associating actions with triggers, it is possible to directly invoke an action by using the OpenWhisk API, CLI, or iOS SDK. A set of actions can also be chained without having to write any code. Each action in the chain is invoked in sequence with the output of one action passed as input to the next in the sequence.</p>",
+    html: "<h3>OpenWhisk Getting started</h3>\n<p>OpenWhisk is an event-driven compute platform that executes code in response to events or direct invocations.\n</p>\n<p>Examples of events include changes to database records, IoT sensor readings that exceed a certain temperature, new code commits to a GitHub repository, or simple HTTP requests from web or mobile apps. Events from external and internal event sources are channeled through a trigger, and rules allow actions to react to these events. </p>\n<p>Actions can be small snippets of Javascript or Swift code, or custom binaries embedded in a Docker container. Actions in OpenWhisk are instantly deployed and executed whenever a trigger fires. The more triggers fire, the more actions get invoked. If no trigger fires, no action code is running, so there is no cost.</p>\n<p>In addition to associating actions with triggers, it is possible to directly invoke an action by using the OpenWhisk API, CLI, or iOS SDK. A set of actions can also be chained without having to write any code. Each action in the chain is invoked in sequence with the output of one action passed as input to the next in the sequence.</p> <a href=\"https://new-console.ng.bluemix.net/docs/openwhisk/index.html\"> Getting Started with Bluemix OpenWhisk documentation</a>",
     assignment: "<h3>Assignment</h3>\n<p>Use a wsk command to see the full list of accepted arguments</p>\n<p>If you see a list of arguments then you know you that your all set with your wsk client installation. </p>",
     intermediateresults: [
       function() {
@@ -79,13 +79,27 @@
     assignment: "<h3>Assignment</h3>\n<p>Obtain a non-blocking action's result.  Remember, a non-blocking invocation may execute in the background so obtaining the result requires the activation ID</p>",
     command_expected: ["wsk", "activation", "result", "6bf1f670ee614a7eb5af3c9fde813043"],
     command_show: ["wsk", "activation", "result", "6bf1f670ee614a7eb5af3c9fde813043"],
-    result: "<p>Great! Action was invoked. Next we are going to obtain the result",
+    result: "<p>Great! ",
     intermediateresults: [
       function() {
         return "<p>You seem to be almost there. Did you feed in the wsk action command \"list\" parameter and the activation ID";
       }
     ],
     tip: "<ul>\n   <li>You need to use the activation result command and supply the activation ID</li>\n</ul>"
+  });
+
+  q.push({
+    html: "<h3>Creating Sequence of actions/h3>\n<p>You can create an action that chains together a sequence of actions.Several utility actions are provided in a package called /whisk.system/util that you can use to create your first sequence. You can learn more about packages in the Packages section. </p>",
+    assignment: "<h3>Assignment</h3>\n<p>1. Display the actions in the /whisk.system/util package 2. Create an action sequence so that the result of one action is passed as an argument to the next action. </p>",
+    command_expected: ["wsk", "action", "create", "myAction", "--sequence", "/whisk.system/util/cat,/whisk.system/util/sort"],
+    command_show: ["wsk", "action", "create", "myAction", "--sequence", "/whisk.system/util/cat,/whisk.system/util/sort"],
+    result: "<p>Great! Tutorial complete",
+    intermediateresults: [
+      function() {
+        return "<p>You seem to be almost there.";
+      }
+    ],
+    tip: "<ul>\n   <li>Creating action sequences is similar to creating a single action except one needs to add the \"--sequence\" switch and specify a list of comma separated existing actions</li>\n</ul>"
   });
 
 
