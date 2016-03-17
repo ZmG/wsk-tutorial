@@ -13,7 +13,7 @@
 
 (function() {
   (this.myTerminal = function() {
-    var EMULATOR_VERSION, IceCommands, auth, bash, cat, commit, commit_containerid, commit_id_does_not_exist, created_volume, docker_cmd, docker_version, group_created, help, ice_group, ice_group_create, ice_group_create_help, ice_group_help, ice_group_list_help, ice_help, ice_inspect_help, ice_ip, ice_ip_bind_fail, ice_ip_bind_help, ice_ip_bound, ice_ip_help, ice_ip_request, ice_ip_request_help, ice_logs, ice_logs_help, ice_no_such_container, ice_pull, ice_rm, ice_rm_help, ice_rm_ice_ping, ice_route, ice_route_help, ice_route_map, ice_route_map_help, ice_route_mapped, ice_run_help, ice_run_no_name, ice_stop, ice_stop_help, ice_stop_ice_ping, ice_volume, ice_volume_create, ice_volume_create_help, ice_volume_help, ice_volume_list, ice_volume_list_help, ice_volume_rm, ice_volume_rm_help, inspect, inspect_ice_ping_container, inspect_no_such_container, inspect_ping_container, loginResult, not_implemented, parseInput, ping, ps, ps_a, ps_l, pull, pull_no_args, pull_no_results, pull_tutorial, pull_ubuntu, push_container_learn_ping, push_help, push_no_args, push_wrong_name, removed_volume, run_apt_get, run_apt_get_install_iputils_ping, run_apt_get_install_unknown_package, run_cmd, run_echo, run_flag_defined_not_defined, run_image_wrong_command, run_learn_no_command, run_learn_tutorial_echo_hello_world, run_notfound, run_ping_localhost, run_ping_not_localhost, run_switches, search, search_no_results, search_tutorial, search_ubuntu, tag_help, tag_no_args, tag_success, testing, util_slow_lines, wait, wsk, wsk_action_invoke_blocking_hello, wsk_action_invoke_hello, wsk_activation_list, wsk_activation_result, wsk_cat_helloWorld, wsk_create_action_hello, wsk_create_action_hello_v, wsk_create_action_sequence, wsk_help, wsk_list_action_hello, wsk_no_args, wsk_package_get, wsk_unrecognized_arguments;
+    var EMULATOR_VERSION, bash, cat, parseInput, util_slow_lines, wait, wsk, wsk_action_invoke_blocking_hello, wsk_action_invoke_hello, wsk_activation_list, wsk_activation_result, wsk_cat_helloWorld, wsk_create_action_hello, wsk_create_action_hello_v, wsk_create_action_sequence, wsk_help, wsk_list_action_hello, wsk_no_args, wsk_package_get, wsk_unrecognized_arguments;
     EMULATOR_VERSION = "0.1.5";
     this.basesettings = {
       prompt: '[[b;#fff;]you@tutorial:~$] ',
@@ -44,7 +44,7 @@
     		Base interpreter
      */
     this.interpreter = function(input, term) {
-      var WskCommand, command, description, inputs, ref;
+      var command, inputs, ref;
       input = input.trim();
       inputs = input.split(" ");
       command = inputs[0];
@@ -67,25 +67,16 @@
         location.reload('forceGet');
       } else if (command === '#') {
         term.echo('which question?');
-      } else if (command === 'docker') {
-        term.echo('This tutorial was created to teach wsk commands, the docker functionality has been disabled. Use "wsk --local" instead! (wsk --local == docker)');
       } else if (command === 'cd') {
         bash(term, inputs);
       } else if (command === "wsk") {
         wsk(term, inputs);
       } else if (command === "cat") {
         cat(term, inputs);
-      } else if (command === "help") {
-        term.echo(help);
       } else if (command === "ls") {
         term.echo("hello.js");
       } else if (command === "cd" || command === "pwd") {
         term.echo("This is an emulator, not a shell. Try following the instructions.");
-      } else if (command === "colors") {
-        for (WskCommand in WskCommands) {
-          description = WskCommands[WskCommand];
-          term.echo("[[b;#fff;]" + WskCommand + "] - " + description + "");
-        }
       } else if (command === "pull") {
         term.echo('[[b;#fff;]some text]');
         wait(term, 5000, true);
@@ -256,7 +247,7 @@
       }
     };
     wsk = function(term, inputs) {
-      var callback, command, commands, echo, i, imagename, index, insert, k, keyword, l, len, len1, parsed_input, ref, ref1, result, sentence, swargs, switches, word;
+      var callback, command, echo, insert;
       echo = term.echo;
       insert = term.insert;
       callback = function() {
@@ -265,10 +256,10 @@
       command = inputs[1];
       if (!inputs[1]) {
         console.debug("no args");
-        echo(wsk_no_args);
+        return echo(wsk_no_args);
       } else if (inputs[1] === "--help" || inputs[1] === "-h") {
         console.debug("no args");
-        echo(wsk_help);
+        return echo(wsk_help);
       } else if (inputs[1] === "action") {
         if (inputs[2] === "create") {
           if (inputs[3] === "hello") {
@@ -279,633 +270,55 @@
           if (inputs[3] === "myAction") {
             if (inputs[4] === "--sequence") {
               if (inputs[5] === "/whisk.system/util/cat,/whisk.system/util/sort") {
-                echo(wsk_create_action_sequence);
+                return echo(wsk_create_action_sequence);
               } else {
-                echo(wsk_unrecognized_arguments);
+                return echo(wsk_unrecognized_arguments);
               }
             }
           }
         } else if (inputs[2] === "list") {
-          echo(wsk_list_action_hello);
+          return echo(wsk_list_action_hello);
         } else if (inputs[2] === "invoke") {
           if (inputs[3] === "hello") {
-            echo(wsk_action_invoke_hello);
+            return echo(wsk_action_invoke_hello);
           } else if (inputs[3] === "--blocking") {
             if (inputs[4] === "hello") {
-              echo(wsk_action_invoke_blocking_hello);
+              return echo(wsk_action_invoke_blocking_hello);
             }
           } else {
-            echo(wsk_no_args);
+            return echo(wsk_no_args);
           }
         }
       } else if (inputs[1] === "package") {
         if (inputs[2] === "get") {
           if (inputs[3] === "--summary") {
             if (inputs[4] === "/whisk.system/util") {
-              echo(wsk_package_get);
+              return echo(wsk_package_get);
             }
           }
         }
       } else if (inputs[1] === "activation") {
         if (inputs[2] === "result") {
           if (inputs[3] === "6bf1f670ee614a7eb5af3c9fde813043") {
-            echo(wsk_activation_result);
+            return echo(wsk_activation_result);
           }
         } else if (inputs[2] === "list") {
-          echo(wsk_activation_list);
+          return echo(wsk_activation_list);
         }
       } else if (inputs[1] === "-v") {
         if (inputs[2] === "action") {
           if (inputs[3] === "create") {
             if (inputs[4] === "hello") {
               if (inputs[5] === "hello.js") {
-                echo(wsk_create_action_hello_v);
+                return echo(wsk_create_action_hello_v);
               }
             }
           }
         }
       } else if (inputs[1] === "images") {
-        echo(currentCloudImages);
-      } else if (inputs[1] === "ps") {
-        if (inputs.containsAllOfThese(['-l'])) {
-          echo(ps_l);
-        } else if (inputs.containsAllOfThese(['-a'])) {
-          echo(ps_a);
-        } else {
-          echo(currentIcePs);
-        }
-      } else if (inputs[1] === "stop") {
-        if (inputs[2] === "-h" || inputs[2] === "--help") {
-          echo(ice_stop_help);
-        } else if (inputs[2] === "ice-ping") {
-          echo(ice_stop_ice_ping);
-        } else if (!inputs[2]) {
-          echo(ice_stop);
-        } else {
-          echo(ice_no_such_container);
-        }
-      } else if (inputs[1] === "rm") {
-        if (inputs[2] === "-h" || inputs[3] === "--help") {
-          echo(ice_rm_help);
-        } else if (inputs[2] === "ice-ping") {
-          intermediateResults(0);
-          echo(ice_rm_ice_ping);
-        } else if (!inputs[2]) {
-          echo(ice_rm);
-        } else {
-          echo(ice_no_such_container);
-        }
-      } else if (inputs[1] === "pull") {
-        intermediateResults(2);
-        echo(ice_pull);
-      } else if (inputs[1] === "inspect") {
-        if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
-          echo(inspect_help);
-        } else if (inputs[2] && (inputs[2].match('ice-ping') || inputs[2].match('fa2'))) {
-          echo(inspect_ice_ping_container);
-        } else if (inputs[2]) {
-          echo(ice_no_such_container);
-        } else {
-          echo(inspect);
-        }
-      } else if (inputs[1] === "logs") {
-        if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
-          echo(ice_logs_help);
-        } else if (inputs[2] && (inputs[2].match('ice-ping') || inputs[2].match('fa2'))) {
-          echo(run_ping_localhost);
-        } else if (inputs[2]) {
-          echo(ice_no_such_container);
-        } else {
-          echo(ice_logs);
-        }
-      } else if (inputs[1] === "volume") {
-        if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
-          echo(ice_volume_help);
-        } else if (inputs[2] === 'inspect') {
-          echo(not_implemented(inputs[2]));
-        } else if (inputs[2] === 'list') {
-          if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
-            echo(ice_volume_list_help);
-          } else {
-            echo(ice_volume_list(currentVolumes));
-          }
-        } else if (inputs[2] === 'create') {
-          if (inputs[3] && (inputs[3] === "--help" || inputs[3] === "-h")) {
-            echo(ice_volume_create_help);
-          } else if (inputs[3]) {
-            currentVolumes.push(inputs[3]);
-            echo(created_volume(inputs[3]));
-          } else {
-            echo(ice_volume_create);
-          }
-        } else if (inputs[2] === 'rm') {
-          if (inputs[3] && (inputs[3] === "--help" || inputs[3] === "-h")) {
-            echo(ice_volume_rm_help);
-          } else if (inputs[3]) {
-            index = currentVolumes.indexOf(inputs[3]);
-            if (index > -1) {
-              currentVolumes.splice(index, 1);
-            }
-            echo(removed_volume);
-          } else {
-            echo(ice_volume_rm);
-          }
-        } else {
-          echo(ice_volume);
-        }
-      } else if (inputs[1] === "group") {
-        parsed_input = parseInput(inputs);
-        switches = parsed_input.switches;
-        swargs = parsed_input.switchArgs;
-        commands = parsed_input.commands;
-        if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
-          echo(ice_group_help);
-        } else if (inputs[2] === 'inspect' || inputs[2] === 'instances' || inputs[2] === 'update' || inputs[2] === 'rm') {
-          echo(not_implemented(inputs[2]));
-        } else if (inputs[2] === 'list') {
-          if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
-            echo(ice_group_list_help);
-          } else {
-            echo(currentIceGroups);
-          }
-        } else if (inputs[2] === 'create') {
-          if (inputs[3] && (inputs[3] === "--help" || inputs[3] === "-h")) {
-            echo(ice_group_create_help);
-          } else if (switches.containsAllOfTheseParts(["--name", "-p"]) && swargs.containsAllOfTheseParts(["myGroup", "80"])) {
-            echo(group_created);
-          } else if (switches.containsAllOfTheseParts(["--name"]) && swargs.containsAllOfTheseParts(["myGroup"])) {
-            intermediateResults(0);
-            echo(group_created);
-          } else if (commands.containsAllOfTheseParts(["create"])) {
-            intermediateResults(1);
-            echo(group_created);
-          } else {
-            echo(ice_group_create);
-          }
-        } else {
-          echo(ice_group);
-        }
-      } else if (inputs[1] === "route") {
-        if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
-          echo(ice_route_help);
-        } else if (inputs[2] === 'unmap') {
-          echo(not_implemented(inputs[2]));
-        } else if (inputs[2] === 'map') {
-          if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
-            echo(ice_route_map_help);
-          } else if (inputs[3]) {
-            echo(ice_route_mapped);
-            intermediateResults(0);
-          } else {
-            echo(ice_route_map);
-          }
-        } else {
-          echo(ice_route);
-        }
-      } else if (inputs[1] === "ip") {
-        if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
-          echo(ice_ip_help);
-        } else if (inputs[2] === 'request') {
-          if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
-            echo(ice_ip_request_help);
-          } else {
-            echo(ice_ip_request);
-          }
-        } else if (inputs[2] === 'bind') {
-          if (inputs[3] && (inputs[3] === "--help" || inputs[3] === "-h")) {
-            echo(ice_ip_bind_help);
-          } else if (inputs[3] === "129.41.232.25" && inputs[4] === "ice-ping") {
-            echo(ice_ip_bound);
-          } else if (inputs[3] === "129.41.232.25" && !inputs[4]) {
-            intermediateResults(0);
-            echo(ice_ip_bind_fail);
-          } else if (inputs[3] === "129.41.232.25" && inputs[4] === !"ice-ping") {
-            intermediateResults(3);
-            echo(ice_ip_bind_fail);
-          } else if (!inputs[3]) {
-            intermediateResults(1);
-            echo(ice_ip_bind_fail);
-          } else {
-            intermediateResults(2);
-            echo(ice_ip_bind_fail);
-          }
-        } else {
-          echo(ice_ip);
-        }
-      } else if (inputs[1] === "run") {
-        parsed_input = parseInput(inputs);
-        switches = parsed_input.switches;
-        swargs = parsed_input.switchArgs;
-        commands = parsed_input.commands;
-        imagename = parsed_input.imageName;
-        console.log("commands");
-        console.log(commands);
-        console.log("switches");
-        console.log(switches);
-        console.log("parsed input");
-        console.log(parsed_input);
-        console.log("imagename: " + imagename);
-        if (inputs[2] && (inputs[2] === "--help" || inputs[2] === "-h")) {
-          echo(ice_run_help);
-        } else if (imagename === "ubuntu") {
-          if (switches.containsAllOfTheseParts(['-i', '-t'])) {
-            if (commands.containsAllOfTheseParts(['bash'])) {
-              term.push((function(command, term) {
-                if (command) {
-                  return echo("this shell is not implemented. Enter 'exit' to exit.");
-                }
-              }), {
-                prompt: 'root@687bbbc4231b:/# '
-              });
-            } else {
-              echo(run_image_wrong_command(commands));
-            }
-          } else if (commands.containsAllOfTheseParts(['echo'])) {
-            sentence = '';
-            ref = commands.slice(1);
-            for (k = 0, len = ref.length; k < len; k++) {
-              word = ref[k];
-              sentence += word + " ";
-            }
-            echo(run_echo(sentence));
-          } else {
-            echo(run_flag_defined_not_defined(switches));
-          }
-        } else if (imagename === "registry-ice.ng.bluemix.net/ibmnode") {
-          if (switches.length = 0) {
-            echo(run_learn_no_command);
-            intermediateResults(0);
-          } else if (commands[0] === "/bin/bash") {
-            echo(run_learn_tutorial_echo_hello_world(commands));
-            intermediateResults(2);
-          } else if (commands[0] === "echo") {
-            echo(run_learn_tutorial_echo_hello_world(commands));
-          } else if (commands.containsAllOfThese(['apt-get', 'install', '-y', 'iputils-ping'])) {
-            echo(run_apt_get_install_iputils_ping);
-          } else if (commands.containsAllOfThese(['apt-get', 'install', 'iputils-ping'])) {
-            echo(run_apt_get_install_iputils_ping);
-          } else if (commands.containsAllOfThese(['apt-get', 'install', 'ping'])) {
-            echo(run_apt_get_install_iputils_ping);
-          } else if (commands.containsAllOfThese(['apt-get', 'install'])) {
-            i = commands.length - 1;
-            echo(run_apt_get_install_unknown_package(commands[i]));
-          } else if (commands[0] === "apt-get") {
-            echo(run_apt_get);
-          } else if (commands[0]) {
-            echo(run_image_wrong_command(commands[0]));
-          } else {
-            echo(run_learn_no_command);
-          }
-        } else if (imagename === "learn/ping") {
-          if (commands.containsAllOfTheseParts(["ping", "localhost"]) && switches.containsAllOfTheseParts(["--name"]) && swargs.containsAllOfTheseParts(["ice-ping"])) {
-            echo("fa219a32-bcbf-4c6d-977f-1aa67bb1233d");
-          } else if (commands.containsAllOfTheseParts(["ping", "localhost"]) && switches.containsAllOfTheseParts(["-n"]) && swargs.containsAllOfTheseParts(["ice-ping"])) {
-            echo("fa219a32-bcbf-4c6d-977f-1aa67bb1233d");
-          } else if (commands.containsAllOfTheseParts(["ping", "localhost"]) && (switches.containsAllOfTheseParts(["--name"]) || switches.containsAllOfTheseParts(["-n"]))) {
-            intermediateResults(1);
-            echo(ice_run_no_name);
-          } else if (commands[0] === "ping" && commands[1]) {
-            intermediateResults(0);
-            echo(run_ping_not_localhost(commands[1]));
-          } else if (commands[0] === "ping") {
-            echo(pin);
-          } else if (commands[0]) {
-            echo(commands[0] + ": command not found");
-          } else {
-            echo(run_learn_no_command);
-          }
-        } else if (imagename === "ibmnode") {
-          if (switches.containsAllOfTheseParts(["--name", "--volume"]) && swargs.containsAllOfTheseParts(["iceVolume", "storage:/var/images"])) {
-            echo('dc3ced78-61ed-4870-b668-411c87d2419d');
-          } else if (switches.containsAllOfTheseParts(["--volume"]) && swargs.containsAllOfTheseParts(["storage:/var/images"])) {
-            intermediateResults(0);
-            echo('h34ced78-61ed-4870-4e5d-a73de12aacb0');
-          } else if (switches.containsAllOfTheseParts(["--name"]) && swargs.containsAllOfTheseParts(["iceVolume"])) {
-            intermediateResults(1);
-            echo('h34ced78-61ed-4870-4e5d-a73de12aacb0');
-          } else if (switches.containsAllOfTheseParts(["--name", "--bind"]) && swargs.containsAllOfTheseParts(["boundDB", "myDB"])) {
-            echo("0261b157-9390-4e5d-88ad-a73de12aacb0");
-          } else if (switches.containsAllOfTheseParts(["--bind"]) && swargs.containsAllOfTheseParts(["myDB"])) {
-            intermediateResults(0);
-            echo("0261b157-9390-4e5d-88ad-a73de12aacb0");
-          } else if (commands.containsAllOfTheseParts(["ping", "localhost"]) && (switches.containsAllOfTheseParts(["--name"]) || switches.containsAllOfTheseParts(["-n"]))) {
-            intermediateResults(1);
-            echo(ice_run_no_name);
-          } else if (commands[0] === "ping" && commands[1]) {
-            intermediateResults(0);
-            echo(run_ping_not_localhost(commands[1]));
-          } else if (commands[0] === "ping") {
-            echo(ping);
-          } else if (commands[0]) {
-            echo(commands[0] + ": command not found");
-          } else {
-            echo(run_learn_no_command);
-          }
-        } else if (imagename) {
-          echo(run_notfound(inputs[2]));
-        } else {
-          console.log("run");
-          echo(ice_run_help);
-        }
-      } else if (inputs[1] === "--local") {
-        if (inputs[2] === "-h" || inputs[2] === "--help") {
-          echo(docker_cmd);
-        } else if (inputs[2] === "pull") {
-          keyword = inputs[3];
-          if (inputs[3] === '-h' || inputs === '--help') {
-            echo(pull);
-          } else if (!inputs[3]) {
-            echo(pull_no_args);
-          } else {
-            if (keyword === 'ubuntu') {
-              result = util_slow_lines(term, pull_ubuntu, "", callback);
-            } else if (keyword === 'ibmnode') {
-              intermediateResults(1);
-            } else if (keyword === 'registry-ice.ng.bluemix.net/ibmnode') {
-              result = util_slow_lines(term, pull_tutorial, "", callback);
-            } else {
-              util_slow_lines(term, pull_no_results, keyword);
-            }
-          }
-        } else if (inputs[2] === "search") {
-          if (keyword = inputs[3]) {
-            if (keyword === "ubuntu") {
-              echo(search_ubuntu);
-            } else if (keyword === "tutorial") {
-              echo(search_tutorial);
-            } else {
-              echo(search_no_results(inputs[3]));
-            }
-          } else {
-            echo(search);
-          }
-        } else if (inputs[2] === "commit") {
-          if (inputs[2] === "-h" || inputs[2] === "--help") {
-            echo(commit);
-          } else if (inputs.containsAllOfTheseParts(['ice', '--local', 'commit', '698', 'learn/ping'])) {
-            util_slow_lines(term, commit_containerid, "", callback);
-          } else if (inputs.containsAllOfTheseParts(['ice', '--local', 'commit', '698'])) {
-            util_slow_lines(term, commit_containerid, "", callback);
-            intermediateResults(0);
-          } else if (inputs.containsAllOfTheseParts(['ice', '--local', 'commit']) && inputs[3]) {
-            echo(commit_id_does_not_exist(inputs[3]));
-          } else {
-            echo(commit);
-          }
-        } else if (inputs[2] === "run") {
-          parsed_input = parseInput(inputs);
-          switches = parsed_input.switches;
-          swargs = parsed_input.switchArgs;
-          imagename = parsed_input.imageName;
-          commands = parsed_input.commands;
-          console.log("commands");
-          console.log(commands);
-          console.log("switches");
-          console.log(switches);
-          console.log("parsed input");
-          console.log(parsed_input);
-          console.log("imagename: " + imagename);
-          if (imagename === "ubuntu") {
-            if (switches.containsAllOfTheseParts(['-i', '-t'])) {
-              if (commands.containsAllOfTheseParts(['bash'])) {
-                term.push((function(command, term) {
-                  if (command) {
-                    return echo("this shell is not implemented. Enter 'exit' to exit.");
-                  }
-                }), {
-                  prompt: 'root@687bbbc4231b:/# '
-                });
-              } else {
-                echo(run_image_wrong_command(commands));
-              }
-            } else if (commands.containsAllOfTheseParts(['echo'])) {
-              sentence = '';
-              ref1 = commands.slice(1);
-              for (l = 0, len1 = ref1.length; l < len1; l++) {
-                word = ref1[l];
-                sentence += word + " ";
-              }
-              echo(run_echo(sentence));
-            } else {
-              echo(run_flag_defined_not_defined(switches));
-            }
-          } else if (imagename === "registry-ice.ng.bluemix.net/ibmnode") {
-            if (switches.length = 0) {
-              echo(run_learn_no_command);
-              intermediateResults(0);
-            } else if (commands[0] === "/bin/bash") {
-              echo(run_learn_tutorial_echo_hello_world(commands));
-              intermediateResults(2);
-            } else if (commands[0] === "echo") {
-              echo(run_learn_tutorial_echo_hello_world(commands));
-            } else if (commands.containsAllOfThese(['apt-get', 'install', '-y', 'iputils-ping']) || commands.containsAllOfThese(['apt-get', 'install', '-y', 'ping'])) {
-              echo(run_apt_get_install_iputils_ping);
-            } else if (commands.containsAllOfThese(['apt-get', 'install', 'iputils-ping']) || commands.containsAllOfThese(['apt-get', 'install', 'ping'])) {
-              intermediateResults(0);
-              echo(run_apt_get_install_iputils_ping);
-            } else if (commands.containsAllOfThese(['apt-get', 'install', 'ping'])) {
-              echo(run_apt_get_install_iputils_ping);
-            } else if (commands.containsAllOfThese(['apt-get', 'install'])) {
-              i = commands.length - 1;
-              echo(run_apt_get_install_unknown_package(commands[i]));
-            } else if (commands[0] === "apt-get") {
-              echo(run_apt_get);
-            } else if (commands[0]) {
-              echo(run_image_wrong_command(commands[0]));
-            } else {
-              echo(run_learn_no_command);
-            }
-          } else if (imagename === "learn/ping") {
-            if (commands.containsAllOfTheseParts(["ping", "localhost"])) {
-              util_slow_lines(term, run_ping_localhost, "", callback);
-            } else if (commands[0] === "ping" && commands[1]) {
-              intermediateResults(0);
-              echo(run_ping_not_localhost(commands[1]));
-            } else if (commands[0] === "ping") {
-              echo(ping);
-            } else if (commands[0]) {
-              echo(commands[0] + ": command not found");
-            } else {
-              echo(run_learn_no_command);
-            }
-          } else if (imagename) {
-            echo(run_notfound(inputs[3]));
-          } else {
-            console.log("run");
-            echo(run_cmd);
-          }
-        } else if (inputs[2] === "images") {
-          echo(currentLocalImages);
-        } else if (inputs[2] === "inspect") {
-          if (inputs[3] && inputs[3].match('ef')) {
-            echo(inspect_ping_container);
-          } else if (inputs[3]) {
-            echo(inspect_no_such_container(inputs[3]));
-          } else {
-            echo(inspect);
-          }
-        } else if (inputs[2] === "tag") {
-          if (inputs[3] === "-h" || inputs[3] === "--help") {
-            echo(tag_help);
-          } else if (inputs.containsAllOfTheseParts(["registry-ice.ng.bluemix.net/learn/ping", "learn/ping"])) {
-            echo("Target is local host. Invoking docker with the given arguments...");
-          } else if (inputs.containsAllOfTheseParts(["registry-ice.ng.bluemix.net/learn/ping"])) {
-            intermediateResults(0);
-            echo(tag_no_args);
-          } else if (inputs.containsAllOfTheseParts(["learn/ping"])) {
-            intermediateResults(3);
-            echo(tag_no_args);
-          } else if (inputs.containsAllOfTheseParts(["registry-ice.ng.bluemix.net/ibmnode"])) {
-            intermediateResults(2);
-            echo(tag_no_args);
-          } else {
-            intermediateResults(1);
-            echo(tag_no_args);
-          }
-        } else if (inputs[2] === "ps") {
-          if (inputs.containsAllOfThese(['-l'])) {
-            echo(ps_l);
-          } else if (inputs.containsAllOfThese(['-a'])) {
-            echo(ps_a);
-          } else {
-            echo(currentDockerPs);
-          }
-        } else if (inputs[2] === "push") {
-          if (inputs[3] === "-h" || inputs[3] === "--help") {
-            echo(push_help);
-          } else if (inputs[3] === "learn/ping") {
-            intermediateResults(0);
-            echo(push_wrong_name);
-          } else if (inputs[3].match("registry-ice.ng.bluemix.net/learn/ping")) {
-            util_slow_lines(term, push_container_learn_ping, "", callback);
-          } else if (!inputs[3]) {
-            echo(push_no_args);
-          } else if (inputs[3] === !"http://registry-ice.ng.bluemix.net/learn/ping") {
-            intermediateResults(0);
-          } else {
-            echo(push_wrong_name);
-          }
-        } else {
-          echo(docker_cmd);
-        }
-      } else if (IceCommands[inputs[1]]) {
-        echo(inputs[1] + " is a valid argument, but not implemented");
-      } else {
-        echo(wsk_no_args);
+        return echo(currentCloudImages);
       }
     };
-
-    /*
-    		Some default variables / commands
-     */
-    not_implemented = function(command) {
-      return command + " is a valid argument, but not implemented.";
-    };
-    ice_help = "usage: ice [-h] [--verbose] [--cloud | --local]\n           {login,tlogin,ps,run,inspect,logs,build,start,stop,restart,pause,unpause,rm,images,rmi,search,info,ip,group,route,volume,namespace,help,version,cpi}\n           ...\n\npositional arguments:\n  {login,tlogin,ps,run,inspect,logs,build,start,stop,restart,pause,unpause,rm,images,rmi,search,info,ip,group,route,volume,namespace,help,version,cpi}\n                        cloud commands, for specific command help follow the\n                        command by -h, to list local docker commands run\n                        'docker -h' or 'ice --local -h'\n    login               login to container cloud service\n    tlogin              tenant login, not available for Bluemix Containers\n    ps                  list containers in container cloud\n    run                 create and start container in container cloud\n    inspect             inspect container details\n    logs                get container logs\n    build               build docker image and push to cloud registry\n    start               run existing container\n    stop                stop running container\n    restart             restart running container\n    pause               pause existing container\n    unpause             unpause existing container\n    rm                  remove existing container\n    images              list images registered in container cloud\n    rmi                 remove image from container cloud registry\n    search              search image registry\n    info                display system info\n    ip                  manage floating-ips\n    group               manage auto-scaling groups\n    route               manage routing to container groups\n    volume              manage storage volumes\n    namespace           manage repository namespace\n    help                provide usage help for a specified command\n    version             display program version\n    cpi                 image copy (equivalent to pull, tag, and push)\n\noptional arguments:\n  -h, --help            show this help message and exit\n  --verbose, -v         display additional debug info\n  --cloud               execute command against container cloud service,\n                        default\n  --local, -L           execute any local docker host command. For list of\n                        available commands run 'docker help'";
-    docker_cmd = "Target is local host. Invoking docker with the given arguments...\nUsage: docker [OPTIONS] COMMAND [arg...]\n\nA self-sufficient runtime for linux containers.\n\nOptions:\n  --api-enable-cors=false                                                Enable CORS headers in the remote API\n  -D, --debug=false                                                      Enable debug mode\n  -d, --daemon=false                                                     Enable daemon mode\n  -G, --group=\"docker\"                                                   Group to assign the unix socket specified by -H when running in daemon mode\n                                                                           use '' (the empty string) to disable setting of a group\n  -H, --host=[]                                                          The socket(s) to bind to in daemon mode or connect to in client mode, specified using one or more tcp://host:port, unix:///path/to/socket, fd://* or fd://socketfd.\n  -h, --help=false                                                       Print usage\n  -l, --log-level=\"info\"                                                 Set the logging level (debug, info, warn, error, fatal)\n  --tls=false                                                            Use TLS; implied by --tlsverify flag\n  --tlscacert=\"/Users/Pair5/.boot2docker/certs/boot2docker-vm/ca.pem\"    Trust only remotes providing a certificate signed by the CA given here\n  --tlscert=\"/Users/Pair5/.boot2docker/certs/boot2docker-vm/cert.pem\"    Path to TLS certificate file\n  --tlskey=\"/Users/Pair5/.boot2docker/certs/boot2docker-vm/key.pem\"      Path to TLS key file\n  --tlsverify=true                                                       Use TLS and verify the remote (daemon: verify client, client: verify daemon)\n  -v, --version=false                                                    Print version information and quit\n\nCommands:\n    attach    Attach to a running container\n    build     Build an image from a Dockerfile\n    commit    Create a new image from a container's changes\n    cp        Copy files/folders from a container's filesystem to the host path\n    create    Create a new container\n    diff      Inspect changes on a container's filesystem\n    events    Get real time events from the server\n    exec      Run a command in a running container\n    export    Stream the contents of a container as a tar archive\n    history   Show the history of an image\n    images    List images\n    import    Create a new filesystem image from the contents of a tarball\n    info      Display system-wide information\n    inspect   Return low-level information on a container or image\n    kill      Kill a running container\n    load      Load an image from a tar archive\n    login     Register or log in to a Docker registry server\n    logout    Log out from a Docker registry server\n    logs      Fetch the logs of a container\n    port      Lookup the public-facing port that is NAT-ed to PRIVATE_PORT\n    pause     Pause all processes within a container\n    ps        List containers\n    pull      Pull an image or a repository from a Docker registry server\n    push      Push an image or a repository to a Docker registry server\n    rename    Rename an existing container\n    restart   Restart a running container\n    rm        Remove one or more containers\n    rmi       Remove one or more images\n    run       Run a command in a new container\n    save      Save an image to a tar archive\n    search    Search for an image on the Docker Hub\n    start     Start a stopped container\n    stats     Display a live stream of one or more containers' resource usage statistics\n    stop      Stop a running container\n    tag       Tag an image into a repository\n    top       Lookup the running processes of a container\n    unpause   Unpause a paused container\n    version   Show the Docker version information\n    wait      Block until a container stops, then print its exit code\n\nRun 'docker COMMAND --help' for more information on a command.";
-    IceCommands = {
-      " ": "              For specific command help, follow the command by -h",
-      " ": "              To list local docker commands, run 'ice --local -h'",
-      " ": "              ",
-      "login": "          Login to container cloud service",
-      "tlogin": "         Tenant login, not available for Bluemix Containers",
-      "ps": "             List containers in container cloud",
-      "run": "            Create and start container in container cloud",
-      "inspect": "        Inspect container details",
-      "logs": "           Get container logs",
-      "build": "          Build docker image and push to cloud registry",
-      "start": "          Run existing container",
-      "stop": "           Stop running container",
-      "restart": "        Restart running container",
-      "pause": "          Pause existing container",
-      "unpause": "        Unpause existing container",
-      "rm": "             Remove existing container",
-      "images": "         List images registered in container cloud",
-      "rmi": "            Remove image from container cloud registry",
-      "search": "         Search image registry",
-      "info": "           Display system info",
-      "ip": "             Manage floating-ips",
-      "group": "          Manage auto-scaling groups",
-      "route": "          Manage routing to container groups",
-      "volume": "         Manage storage volumes",
-      "namespace": "      Manage repository namespace",
-      "help": "           Provide usage help for a specified command",
-      "version": "        Display program version",
-      "cpi": "            image copy (equivalent to pull, tag, and push)"
-    };
-    run_switches = {
-      "-p": ['port'],
-      "-t": [],
-      "-i": [],
-      "-h": ['hostname']
-    };
-    commit = "Usage: Docker commit [OPTIONS] CONTAINER [REPOSITORY [TAG]]\n\nCreate a new image from a container's changes\n\n	-author=\"\": Author (eg. \"John Hannibal Smith <hannibal@a-team.com>\"\n	-m=\"\": Commit message\n	-run=\"\": Config automatically applied when the image is run. (ex: {\"Cmd\": [\"cat\", \"/world\"], \"PortSpecs\": [\"22\"]}')";
-    tag_success = "Target is local host. Invoking docker with the given arguments...";
-    tag_no_args = "Target is local host. Invoking docker with the given arguments...\ndocker: \"tag\" requires 2 arguments. See 'docker tag --help'.";
-    tag_help = "Target is local host. Invoking docker with the given arguments...\n\nUsage: ice --local tag [OPTIONS] IMAGE[:TAG] [REGISTRYHOST/][USERNAME/]NAME[:TAG]\n\nTag an image into a repository\n\n  -f, --force=false    Force\n  --help=false         Print usage";
-    commit_id_does_not_exist = function(keyword) {
-      return "2013/07/08 23:51:21 Error: No such container: " + keyword;
-    };
-    commit_containerid = "effb66b31edb";
-    auth = "Authenticating...\nOK\n";
-    loginResult = function(term) {
-      return term.echo("\nAPI endpoint:   https://api.ng.bluemix.net (API version: 2.19.0)\nUser:           " + term.email + "\nOrg:            tutorial\nSpace:          tutorial\nAuthentication with container cloud service at https://api-ice.ng.bluemix.net/v2/containers completed successfully\nYou can issue commands now to the container service\n\nProceeding to authenticate with the container cloud registry at registry-ice.ng.bluemix.net\nLogin Succeeded\n");
-    };
-    help = "IBM Container tutorial \n\n\n\nThe IBM Container tutorial is an emulater intended to help novice users get up to spead with the IBM Container\nExtension (ice) commands. This terminal contains a limited IBM Container CLI and a limited shell emulator.\nTherefore some of the commands that you would expect do not exist.\n\n\n\nJust follow the steps and questions. If you are stuck, click on the 'expected command' to see what the command\nshould have been. Leave feedback if you find things confusing.\n";
-    inspect = "\nUsage: Docker inspect CONTAINER|IMAGE [CONTAINER|IMAGE...]\n\nReturn low-level information on a container/image\n";
-    ice_route_help = "usage: ice route [-h] {map,unmap} ...\n\npositional arguments:\n  {map,unmap}  Route management commands for container groups, for specific\n               command help use: ice route <command> -h\n    map        map route\n    unmap      unmap route\n\noptional arguments:\n  -h, --help   show this help message and exit";
-    ice_route_mapped = "Successfully mapped myGroup to groupRoute.mybluemix.net";
-    ice_route = "usage: ice route [-h] {map,unmap} ...\nice route: error: too few arguments";
-    ice_route_map = "usage: ice route map [-h] [--hostname HOST] [--domain DOMAIN] GROUP\nice route map: error: too few arguments";
-    ice_route_map_help = "usage: ice route map [-h] [--hostname HOST] [--domain DOMAIN] GROUP\n\npositional arguments:\n  GROUP                 group id or name\n\noptional arguments:\n  -h, --help            show this help message and exit\n  --hostname HOST, -n HOST\n                        host name for the route\n  --domain DOMAIN, -d DOMAIN\n                        domain name for the route";
-    ice_inspect_help = "usage: ice inspect [-h] CONTAINER\n\npositional arguments:\n  CONTAINER   container name or id\n\noptional arguments:\n  -h, --help  show this help message and exit";
-    ice_run_help = "usage: ice run [-h] [--name NAME] [--memory MEMORY] [--env ENV]\n               [--publish PORT] [--volume VOL] [--bind APP] [--ssh SSHKEY]\n               IMAGE [CMD [CMD ...]]\n\npositional arguments:\n  IMAGE                 image to run\n  CMD                   command & args passed to container to execute\n\noptional arguments:\n  -h, --help            show this help message and exit\n  --name NAME, -n NAME  assign a name to the container\n  --memory MEMORY, -m MEMORY\n                        memory limit in MB, default is 256\n  --env ENV, -e ENV     set environment variable, ENV is key=value pair\n  --publish PORT, -p PORT\n                        expose PORT\n  --volume VOL, -v VOL  mount volume, VOL is VolumeId:ContainerPath[:ro],\n                        specifying ro makes the volume read-only instead of\n                        the default read-write\n  --bind APP, -b APP    bind to Bluemix app\n  --ssh SSHKEY, -k SSHKEY\n                        ssh key to be injected in container";
-    ice_volume = "usage: ice volume [-h] {list,create,rm,inspect} ...\nice volume: error: too few arguments";
-    ice_volume_help = "usage: ice volume [-h] {list,create,rm,inspect} ...\n\npositional arguments:\n  {list,create,rm,inspect}\n                        Volume management commands, for specific command help\n                        use: ice volume <command> -h\n    list                list volumes\n    create              create volume\n    rm                  remove volume\n    inspect             inspect volume\n\noptional arguments:\n  -h, --help            show this help message and exit";
-    ice_volume_list = function() {
-      var k, len, vol, volString;
-      volString = '';
-      for (k = 0, len = currentVolumes.length; k < len; k++) {
-        vol = currentVolumes[k];
-        volString += vol + "\n";
-      }
-      return volString;
-    };
-    ice_volume_list_help = "usage: ice volume list [-h]\n\noptional arguments:\n  -h, --help  show this help message and exit";
-    ice_volume_create = "usage: ice volume create [-h] VOLNAME\nice volume create: error: too few arguments";
-    ice_volume_rm = "usage: ice volume rm [-h] VOLNAME\nice volume rm: error: too few arguments";
-    ice_volume_rm_help = "usage: ice volume rm [-h] VOLNAME\n\npositional arguments:\n  VOLNAME     volume name\n\noptional arguments:\n  -h, --help  show this help message and exit";
-    removed_volume = "Removed volume successfully";
-    created_volume = function(vol) {
-      return "Created volume successfully: " + vol;
-    };
-    ice_volume_create_help = "usage: ice volume create [-h] VOLNAME\n\npositional arguments:\n  VOLNAME     volume name\n\noptional arguments:\n  -h, --help  show this help message and exit";
-    inspect_no_such_container = function(keyword) {
-      return "Error: No such image: " + keyword;
-    };
-    group_created = "28c5997e-8a3d-4e22-9ead-45d30dd2e203\nCreated group myGroup (id: 28c5997e-8a3d-4e22-9ead-45d30dd2e203)\nMinimum container instances: 1\nMaximum container instances: 2\nDesired container instances: 2";
-    ice_group = "usage: ice group [-h] {list,create,update,rm,inspect,instances} ...\nice group: error: too few arguments";
-    ice_group_help = "usage: ice group [-h] {list,create,update,rm,inspect,instances} ...\n\npositional arguments:\n  {list,create,update,rm,inspect,instances}\n                        auto-scaling groups management commands, for specific\n                        command help use: ice group <command> -h\n    list                list auto-scaling groups\n    create              create auto-scaling group\n    update              update auto-scaling group size\n    rm                  remove auto-scaling group\n    inspect             inspect group\n    instances           list group instances\n\noptional arguments:\n  -h, --help            show this help message and exit";
-    ice_group_list_help = "usage: ice group list [-h]\n\noptional arguments:\n  -h, --help  show this help message and exit";
-    ice_group_create = "usage: ice group create [-h] [--name NAME] [--memory MEMORY] [--env ENV]\n                        [--publish PORT] [--volume VOL] [--min MIN]\n                        [--max MAX] [--desired DESIRED] [--bind APP] [--auto]\n                        IMAGE [CMD [CMD ...]]\nice group create: error: too few arguments";
-    ice_group_create_help = "Please specify a name for your group using --name or -n option";
-    inspect_ice_ping_container = "\n{\n    \"BluemixApp\": null,\n    \"Config\": {\n        \"AttachStderr\": \"\",\n        \"AttachStdin\": \"\",\n        \"AttachStdout\": \"\",\n        \"Cmd\": [\n            \"ping\",\n            \"localhost\"\n        ],\n        \"Dns\": \"\",\n        \"Env\": [\n            \"group_id=0000\",\n            \"logging_password=h6Xs4_him67H\",\n            \"tagseparator=_\",\n            \"space_id=73c83834-c956-430c-92c2-3b9b35b6\",\n            \"logstash_target=opvis.bluemix.net:9091\",\n            \"tagformat=space_id group_id uuid\",\n            \"metrics_target=opvis.bluemix.net:9095\"\n        ],\n        \"Hostname\": \"\",\n        \"Image\": \"registry-ice.ng.bluemix.net/learn/ping:latest\",\n        \"Memory\": 256,\n        \"MemorySwap\": \"\",\n        \"OpenStdin\": \"\",\n        \"PortSpecs\": \"\",\n        \"StdinOnce\": \"\",\n        \"Tty\": \"\",\n        \"User\": \"\",\n        \"VCPU\": 1,\n        \"VolumesFrom\": \"\",\n        \"WorkingDir\": \"\"\n    },\n    \"ContainerState\": \"Running\",\n    \"Created\": 1429713738,\n    \"Group\": {},\n    \"HostConfig\": {\n        \"Binds\": \"null\",\n        \"CapAdd\": [],\n        \"CapDrop\": [],\n        \"ContainerIDFile\": \"\",\n        \"Links\": [],\n        \"LxcConf\": [],\n        \"PortBindings\": {},\n        \"Privileged\": \"false\",\n        \"PublishAllPorts\": \"false\"\n    },\n    \"HostId\": \"9669f466be49e034a72a56362ec824328629f1ec0621f11e73ee8163\",\n    \"Human_id\": \"ice-ping\",\n    \"Id\": \"fa219r52-bcbf-4c6d-977f-1aa67bb1233d\",\n    \"Image\": \"f44c4aa3-c4f0-4476-b670-chgd5363s5f8\",\n    \"Name\": \"ice-ping\",\n    \"NetworkSettings\": {\n        \"Bridge\": \"\",\n        \"Gateway\": \"\",\n        \"IpAddress\": \"172.4.12.30\",\n        \"IpPrefixLen\": 0,\n        \"PortMapping\": \"null\",\n        \"PublicIpAddress\": \"\"\n    },\n    \"Path\": \"date\",\n    \"ResolvConfPath\": \"/etc/resolv.conf\",\n    \"State\": {\n        \"ExitCode\": \"\",\n        \"Ghost\": \"\",\n        \"Pid\": \"\",\n        \"Running\": \"false\",\n        \"StartedAt\": \"\",\n        \"Status\": \"Shutdown\"\n    },\n    \"Volumes\": []\n}";
-    inspect_ping_container = "[2013/07/30 01:52:26 GET /v1.3/containers/efef/json\n{\n	\"ID\": \"efefdc74a1d5900d7d7a74740e5261c09f5f42b6dae58ded6a1fde1cde7f4ac5\",\n	\"Created\": \"2013-07-30T00:54:12.417119736Z\",\n	\"Path\": \"ping\",\n	\"Args\": [\n			\"localhost\"\n	],\n	\"Config\": {\n			\"Hostname\": \"efefdc74a1d5\",\n			\"User\": \"\",\n			\"Memory\": 0,\n			\"MemorySwap\": 0,\n			\"CpuShares\": 0,\n			\"AttachStdin\": false,\n			\"AttachStdout\": true,\n			\"AttachStderr\": true,\n			\"PortSpecs\": null,\n			\"Tty\": false,\n			\"OpenStdin\": false,\n			\"StdinOnce\": false,\n			\"Env\": null,\n			\"Cmd\": [\n					\"ping\",\n					\"localhost\"\n			],\n			\"Dns\": null,\n			\"Image\": \"learn/ping\",\n			\"Volumes\": null,\n			\"VolumesFrom\": \"\",\n			\"Entrypoint\": null\n	},\n	\"State\": {\n			\"Running\": true,\n			\"Pid\": 22249,\n			\"ExitCode\": 0,\n			\"StartedAt\": \"2013-07-30T00:54:12.424817715Z\",\n			\"Ghost\": false\n	},\n	\"Image\": \"a1dbb48ce764c6651f5af98b46ed052a5f751233d731b645a6c57f91a4cb7158\",\n	\"NetworkSettings\": {\n			\"IPAddress\": \"172.16.42.6\",\n			\"IPPrefixLen\": 24,\n			\"Gateway\": \"172.16.42.1\",\n			\"Bridge\": \"docker0\",\n			\"PortMapping\": {\n					\"Tcp\": {},\n					\"Udp\": {}\n			}\n	},\n	\"SysInitPath\": \"/usr/bin/docker\",\n	\"ResolvConfPath\": \"/etc/resolv.conf\",\n	\"Volumes\": {},\n	\"VolumesRW\": {}";
-    ping = "Usage: ping [-LRUbdfnqrvVaAD] [-c count] [-i interval] [-w deadline]\n				[-p pattern] [-s packetsize] [-t ttl] [-I interface]\n				[-M pmtudisc-hint] [-m mark] [-S sndbuf]\n				[-T tstamp-options] [-Q tos] [hop1 ...] destination";
-    ps = "ID                  IMAGE               COMMAND               CREATED             STATUS              PORTS\nefefdc74a1d5        learn/ping:latest   ping localhost   37 seconds ago      Up 36 seconds";
-    ps_a = "ID                  IMAGE               COMMAND                CREATED             STATUS              PORTS\n6982a9948422        ubuntu:12.04        apt-get install ping   1 minute ago        Exit 0\nefefdc74a1d5        learn/ping:latest   ping localhost   37 seconds ago       Up 36 seconds";
-    ps_l = "ID                  IMAGE               COMMAND                CREATED             STATUS              PORTS\n6982a9948422        ubuntu:12.04        apt-get install ping   1 minute ago        Exit 0";
-    pull = "Usage: docker pull NAME\n\nPull an image or a repository from the registry\n\n-registry=\"\": Registry to download from. Necessary if image is pulled by ID\n-t=\"\": Download tagged image in repository";
-    pull_no_args = "Target is local host. Invoking docker with the given arguments...\ndocker: \"pull\" requires 1 argument. See 'docker pull --help'.";
-    pull_no_results = function(keyword) {
-      return "Pulling repository " + keyword + "\n2013/06/19 19:27:03 HTTP code: 404";
-    };
-    pull_ubuntu = "Target is local host. Invoking docker with the given arguments...\nPulling repository ubuntu from https://index.docker.io/v1\nPulling image 8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c (precise) from ubuntu\nPulling image b750fe79269d2ec9a3c593ef05b4332b1d1a02a62b4accb2c21d589ff2f5f2dc (12.10) from ubuntu\nPulling image 27cf784147099545 () from ubuntu";
-    pull_tutorial = "Target is local host. Invoking docker with the given arguments...\nPulling repository learn/tutorial from https://index.docker.io/v1\nPulling image 8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c (precise) from ubuntu\nPulling image b750fe79269d2ec9a3c593ef05b4332b1d1a02a62b4accb2c21d589ff2f5f2dc (12.10) from ubuntu\nPulling image 27cf784147099545 () from tutorial";
-    push_no_args = "Target is local host. Invoking docker with the given arguments...\ndocker: \"push\" requires 1 argument. See 'docker push --help'.";
-    push_help = "Usage: docker push [OPTIONS] NAME[:TAG]\n\nPush an image or a repository to the registry\n\n  		--help=false       Print usage";
-    push_container_learn_ping = "Target is local host. Invoking docker with the given arguments...\nThe push refers to a repository [registry-ice.ng.bluemix.net/learn/ping] (len: 1)\nProcessing checksums\nSending image list\nPushing repository learn/ping (1 tags)\nPushing 8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c\nImage 8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c already pushed, skipping\nPushing tags for rev [662c446b6cdd] on {https://registry-ice.ng.bluemix.net/v1/repositories/learn/ping/tags/latest}\nPushing a1dbb48ce764c6651f5af98b46ed052a5f751233d731b645a6c57f91a4cb7158\nPushing  11.5 MB/11.5 MB (100%)\nPushing tags for rev [a1dbb48ce764] on {https://registry-ice.ng.bluemix.net/v1/repositories/learn/ping/tags/latest}";
-    push_wrong_name = "The push refers to a repository [dhrp/fail] (len: 0)";
     wsk_help = "usage: wsk [-h] [-v] [--apihost hostname] [--apiversion version]\n           {action,activation,namespace,package,rule,trigger,sdk,property,list}\n           ...\n\nOpenWhisk is a distributed compute service to add event-driven logic to your\napps.\n\noptional arguments:\n  -h, --help            show this help message and exit\n  -v, --verbose         verbose output\n  --apihost hostname    whisk API host\n  --apiversion version  whisk API version\n\navailable commands:\n  {action,activation,namespace,package,rule,trigger,sdk,property,list}\n    action              work with actions\n    activation          work with activations\n    namespace           work with namespaces\n    package             work with packages\n    rule                work with rules\n    trigger             work with triggers\n    sdk                 work with the SDK\n    property            work with whisk properties\n    list                list all triggers, actions, and rules in the registry\n\nLearn more at https://developer.ibm.com/openwhisk fork on GitHub\nhttps://github.com/openwhisk. All trademarks are the property of their\nrespective owners.";
     wsk_cat_helloWorld = "function main(params) {\n   			return {payload:  'Hello world'};\n}";
     wsk_create_action_hello = "ok: created action hello1";
@@ -915,72 +328,10 @@
     wsk_action_invoke_blocking_hello = "ok: invoked hello with id 44794bd6aab74415b4e42a308d880e5b\nresponse:\n{\n   \"result\": {\n       \"payload\": \"Hello world\"\n   },\n   \"status\": \"success\",\n   \"success\": true\n}";
     wsk_activation_result = "{\n	\"payload\" : \"Hello world\"\n}";
     wsk_activation_list = "activations\n44794bd6aab74415b4e42a308d880e5b         hello\n6bf1f670ee614a7eb5af3c9fde813043         hello";
-    run_cmd = "Usage: Docker run [OPTIONS] IMAGE COMMAND [ARG...]\n\nRun a command in a new container\n\n-a=map[]: Attach to stdin, stdout or stderr.\n-c=0: CPU shares (relative weight)\n-d=false: Detached mode: leave the container running in the background\n-dns=[]: Set custom dns servers\n-e=[]: Set environment variables\n-h=\"\": Container host name\n-i=false: Keep stdin open even if not attached\n-m=0: Memory limit (in bytes)\n-p=[]: Expose a container's port to the host (use 'docker port' to see the actual mapping)\n-t=false: Allocate a pseudo-tty\n-u=\"\": Username or UID\n-v=map[]: Attach a data volume\n-volumes-from=\"\": Mount volumes from the specified container";
-    run_apt_get = "apt 0.8.16~exp12ubuntu10 for amd64 compiled on Apr 20 2012 10:19:39\nUsage: apt-get [options] command\n			 apt-get [options] install|remove pkg1 [pkg2 ...]\n			 apt-get [options] source pkg1 [pkg2 ...]\n\napt-get is a simple command line interface for downloading and\ninstalling packages. The most frequently used commands are update\nand install.\n\nCommands:\n	 update - Retrieve new lists of packages\n	 upgrade - Perform an upgrade\n	 install - Install new packages (pkg is libc6 not libc6.deb)\n	 remove - Remove packages\n	 autoremove - Remove automatically all unused packages\n	 purge - Remove packages and config files\n	 source - Download source archives\n	 build-dep - Configure build-dependencies for source packages\n	 dist-upgrade - Distribution upgrade, see apt-get(8)\n	 dselect-upgrade - Follow dselect selections\n	 clean - Erase downloaded archive files\n	 autoclean - Erase old downloaded archive files\n	 check - Verify that there are no broken dependencies\n	 changelog - Download and display the changelog for the given package\n	 download - Download the binary package into the current directory\n\nOptions:\n	-h  This help text.\n	-q  Loggable output - no progress indicator\n	-qq No output except for errors\n	-d  Download only - do NOT install or unpack archives\n	-s  No-act. Perform ordering simulation\n	-y  Assume Yes to all queries and do not prompt\n	-f  Attempt to correct a system with broken dependencies in place\n	-m  Attempt to continue if archives are unlocatable\n	-u  Show a list of upgraded packages as well\n	-b  Build the source package after fetching it\n	-V  Show verbose version numbers\n	-c=? Read this configuration file\n	-o=? Set an arbitrary configuration option, eg -o dir::cache=/tmp\nSee the apt-get(8), sources.list(5) and apt.conf(5) manual\npages for more information and options.\n											 This APT has Super Cow Powers.\n";
-    run_apt_get_install_iputils_ping = "Target is local host. Invoking docker with the given arguments...\nReading package lists...\nBuilding dependency tree...\nThe following NEW packages will be installed:\n	iputils-ping\n0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.\nNeed to get 56.1 kB of archives.\nAfter this operation, 143 kB of additional disk space will be used.\nGet:1 http://archive.ubuntu.com/ubuntu/ precise/main iputils-ping amd64 3:20101006-1ubuntu1 [56.1 kB]\ndebconf: delaying package configuration, since apt-utils is not installed\nFetched 56.1 kB in 1s (50.3 kB/s)\nSelecting previously unselected package iputils-ping.\n(Reading database ... 7545 files and directories currently installed.)\nUnpacking iputils-ping (from .../iputils-ping_3%3a20101006-1ubuntu1_amd64.deb) ...\nSetting up iputils-ping (3:20101006-1ubuntu1) ...";
-    run_apt_get_install_unknown_package = function(keyword) {
-      return "Reading package lists...\nBuilding dependency tree...\nE: Unable to locate package " + keyword;
-    };
-    run_flag_defined_not_defined = function(keyword) {
-      return "2013/08/15 22:19:14 flag provided but not defined: " + keyword;
-    };
-    run_learn_no_command = "2013/07/02 02:00:59 Error: No command specified";
-    run_learn_tutorial_echo_hello_world = function(commands) {
-      var command, k, len, ref, string;
-      string = "Target is local host. Invoking docker with the given arguments...\n";
-      ref = commands.slice(1);
-      for (k = 0, len = ref.length; k < len; k++) {
-        command = ref[k];
-        command = command.replace('"', '');
-        string += command + " ";
-      }
-      return string;
-    };
-    run_echo = function(echo) {
-      return "Target is local host. Invoking docker with the given arguments...\n" + echo;
-    };
-    run_image_wrong_command = function(keyword) {
-      return "2013/07/08 23:13:30 Unable to locate " + keyword;
-    };
-    run_notfound = function(keyword) {
-      return "Pulling repository " + keyword + " from https://index.docker.io/v1\n2013/07/02 02:14:47 Error: No such image: " + keyword;
-    };
-    run_ping_not_localhost = function(keyword) {
-      return "ping: unknown host " + keyword;
-    };
-    run_ping_localhost = "PING localhost (127.0.0.1) 56(84) bytes of data.\n64 bytes from nuq05s02-in-f20.1e100.net (127.0.0.1): icmp_req=1 ttl=55 time=2.23 ms\n64 bytes from nuq05s02-in-f20.1e100.net (127.0.0.1): icmp_req=2 ttl=55 time=2.30 ms\n64 bytes from nuq05s02-in-f20.1e100.net (127.0.0.1): icmp_req=3 ttl=55 time=2.27 ms\n64 bytes from nuq05s02-in-f20.1e100.net (127.0.0.1): icmp_req=4 ttl=55 time=2.30 ms\n64 bytes from nuq05s02-in-f20.1e100.net (127.0.0.1): icmp_req=5 ttl=55 time=2.25 ms\n64 bytes from nuq05s02-in-f20.1e100.net (127.0.0.1): icmp_req=6 ttl=55 time=2.29 ms\n64 bytes from nuq05s02-in-f20.1e100.net (127.0.0.1): icmp_req=7 ttl=55 time=2.23 ms\n64 bytes from nuq05s02-in-f20.1e100.net (127.0.0.1): icmp_req=8 ttl=55 time=2.30 ms\n64 bytes from nuq05s02-in-f20.1e100.net (127.0.0.1): icmp_req=9 ttl=55 time=2.35 ms\n-> This would normally just keep going. However, this emulator does not support Ctrl-C, so we quit here.";
-    search = "\nUsage: Docker search NAME\n\nSearch the Docker index for images\n";
-    search_no_results = function(keyword) {
-      return "Found 0 results matching your query (\"" + keyword + "\")\nNAME                DESCRIPTION";
-    };
-    search_tutorial = "Found 1 results matching your query (\"tutorial\")\nNAME                      DESCRIPTION\nlearn/tutorial            An image for the interactive tutorial";
-    search_ubuntu = "Found 22 results matching your query (\"ubuntu\")\nNAME                DESCRIPTION\nshykes/ubuntu\nbase                Another general use Ubuntu base image. Tag...\nubuntu              General use Ubuntu base image. Tags availa...\nboxcar/raring       Ubuntu Raring 13.04 suitable for testing v...\ndhrp/ubuntu\ncreack/ubuntu       Tags:\n12.04-ssh,\n12.10-ssh,\n12.10-ssh-l...\ncrohr/ubuntu              Ubuntu base images. Only lucid (10.04) for...\nknewton/ubuntu\npallet/ubuntu2\nerikh/ubuntu\nsamalba/wget              Test container inherited from ubuntu with ...\ncreack/ubuntu-12-10-ssh\nknewton/ubuntu-12.04\ntithonium/rvm-ubuntu      The base 'ubuntu' image, with rvm installe...\ndekz/build                13.04 ubuntu with build\nooyala/test-ubuntu\nooyala/test-my-ubuntu\nooyala/test-ubuntu2\nooyala/test-ubuntu3\nooyala/test-ubuntu4\nooyala/test-ubuntu5\nsurma/go                  Simple augmentation of the standard Ubuntu...\n";
-    testing = "Testing leads to failure, and failure leads to understanding. ~Burt Rutan";
-    docker_version = function() {
-      return "Docker Emulator version " + EMULATOR_VERSION + "\n\nEmulating:\nClient version: 0.5.3\nServer version: 0.5.3\nGo version: go1.1";
-    };
     wsk_no_args = "usage: wsk [-h] [-v] [--apihost hostname] [--apiversion version]\n           {action,activation,namespace,package,rule,trigger,sdk,property,list}\n           ...\nwsk: error: too few arguments";
     wsk_create_action_sequence = "ok: created action myAction";
     wsk_unrecognized_arguments = "usage: wsk [-h] [-v] [--apihost hostname] [--apiversion version]\n           {action,activation,namespace,package,rule,trigger,sdk,property,list}\n           ...\nwsk: error: unrecognized arguments";
-    wsk_package_get = "package /whisk.system/util\naction /whisk.system/util/cat: Concatenate array of strings, and split lines into an array\naction /whisk.system/util/head: Filter first K array elements and discard rest\naction /whisk.system/util/date: Get current date and time\naction /whisk.system/util/sort: Sort array";
-    ice_rm = "usage: ice rm [-h] CONTAINER\nice rm: error: too few arguments";
-    ice_rm_help = "usage: ice rm [-h] CONTAINER\n\npositional arguments:\n  CONTAINER   container name or id\n\noptional arguments:\n  -h, --help  show this help message and exit";
-    ice_rm_ice_ping = "Removed container successfully";
-    ice_stop = "usage: ice stop [-h] [--time SECS] CONTAINER\nice stop: error: too few arguments";
-    ice_stop_help = "usage: ice stop [-h] [--time SECS] CONTAINER\n\npositional arguments:\n  CONTAINER             container name or id\n\noptional arguments:\n  -h, --help            show this help message and exit\n  --time SECS, -t SECS  seconds to wait before killing container";
-    ice_stop_ice_ping = "Stopped container successfully";
-    ice_no_such_container = "Command failed with container cloud service\nno such container";
-    ice_pull = "usage: ice [-h] [--verbose] [--cloud | --local]\n           {login,tlogin,ps,run,inspect,logs,build,start,stop,restart,pause,unpause,rm,images,rmi,search,info,ip,group,route,volume,namespace,help,version,cpi}\n           ...\nice: error: argument subparser_name: invalid choice: 'pull' (choose from 'login', 'tlogin', 'ps', 'run', 'inspect', 'logs', 'build', 'start', 'stop', 'restart', 'pause', 'unpause', 'rm', 'images', 'rmi', 'search', 'info', 'ip', 'group', 'route', 'volume', 'namespace', 'help', 'version', 'cpi')";
-    ice_logs = "usage: ice logs [-h] [--stdout | --stderr] CONTAINER\nice logs: error: too few arguments";
-    ice_logs_help = "usage: ice logs [-h] [--stdout | --stderr] CONTAINER\n\npositional arguments:\n  CONTAINER     container name or id\n\noptional arguments:\n  -h, --help    show this help message and exit\n  --stdout, -o  get output log, default\n  --stderr, -e  get error log";
-    ice_run_no_name = "Please specify a name for your container using --name or -n option";
-    ice_ip = "usage: ice ip [-h] {list,bind,unbind,request,release} ...\nice ip: error: too few arguments";
-    ice_ip_help = "usage: ice ip [-h] {list,bind,unbind,request,release} ...\n\npositional arguments:\n  {list,bind,unbind,request,release}\n                        floating-ips management commands, for specific command\n                        help use: ice ip <command> -h\n    list                list floating ips, defaults to available only ips\n    bind                bind floating ip to container\n    unbind              unbind floating ip from container\n    request             request a new floating ip\n    release             release floating ip back to general pool\n";
-    ice_ip_bound = "Successfully bound ip";
-    ice_ip_bind_fail = "usage: ice ip bind [-h] ADDRESS CONTAINER\nice ip bind: error: too few arguments";
-    ice_ip_bind_help = "usage: ice ip bind [-h] ADDRESS CONTAINER\n\npositional arguments:\n  ADDRESS     ip address\n  CONTAINER   container id or name\n\noptional arguments:\n  -h, --help  show this help message and exit";
-    ice_ip_request = "Successfully obtained ip: \"129.41.232.25\"";
-    return ice_ip_request_help = "usage: ice ip bind [-h] ADDRESS CONTAINER\n\npositional arguments:\n  ADDRESS     ip address\n  CONTAINER   container id or name\n\noptional arguments:\n  -h, --help  show this help message and exit";
+    return wsk_package_get = "package /whisk.system/util\naction /whisk.system/util/cat: Concatenate array of strings, and split lines into an array\naction /whisk.system/util/head: Filter first K array elements and discard rest\naction /whisk.system/util/date: Get current date and time\naction /whisk.system/util/sort: Sort array";
   })();
 
   return this;
