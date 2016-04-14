@@ -225,6 +225,12 @@
 #tutorialTop #title {
   font-weight: 100;
 }
+
+h3#title {
+  padding-left: :17px;
+  padding-top:15px;
+}
+
 #tutorialTop #title #advancedTag {
   display: none;
   font-style: italic;
