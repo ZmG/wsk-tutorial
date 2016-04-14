@@ -23,7 +23,7 @@
     assignment: "<h3>Assignment</h3>\n<p>Use a wsk command to see the full list of accepted arguments</p>\n<p>If you see a list of arguments then you know that you are all set with your wsk client installation.</p>",
     intermediateresults: [
       function() {
-        return "<p>Shorcut: Use -h instead of --help</p>";
+        return "<p>Whisk argument swithces usually start with two dashes. Try \"--help\"</p>";
       }
     ],
     tip: "<p>This emulator provides only a limited set of shell and wsk commands, so some commands may not work as expected</p>",

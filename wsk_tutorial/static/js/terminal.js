@@ -13,7 +13,7 @@
 
 (function() {
   (this.myTerminal = function() {
-    var EMULATOR_VERSION, bash, cat, parseInput, util_slow_lines, wait, wsk, wsk_action_invoke_blocking_hello, wsk_action_invoke_hello, wsk_activation_list, wsk_activation_result, wsk_cat_helloWorld, wsk_create_action_hello, wsk_create_action_hello_v, wsk_create_action_sequence, wsk_help, wsk_list_action_hello, wsk_no_args, wsk_package_get, wsk_unrecognized_arguments;
+    var EMULATOR_VERSION, bash, cat, parseInput, util_slow_lines, wait, wsk, wsk_action_invoke_blocking_hello, wsk_action_invoke_hello, wsk_activation_list, wsk_activation_result, wsk_cat_helloWorld, wsk_create_action_hello, wsk_create_action_hello_v, wsk_create_action_sequence, wsk_help, wsk_invalid_choice, wsk_list_action_hello, wsk_no_args, wsk_package_get, wsk_unrecognized_arguments;
     EMULATOR_VERSION = "0.1.5";
     this.basesettings = {
       prompt: '[[b;#fff;]you@tutorial:~$] ',
@@ -258,8 +258,10 @@
         console.debug("no args");
         return echo(wsk_no_args);
       } else if (inputs[1] === "--help" || inputs[1] === "-h") {
-        console.debug("no args");
         return echo(wsk_help);
+      } else if (inputs[1] === !"--help" || inputs[1] === !"-h") {
+        intermediateResults(0);
+        return echo(wsk_invalid_choice);
       } else if (inputs[1] === "action") {
         if (inputs[2] === "create") {
           if (inputs[3] === "hello") {
@@ -320,6 +322,7 @@
       }
     };
     wsk_help = "usage: wsk [-h] [-v] [--apihost hostname] [--apiversion version]\n           {action,activation,namespace,package,rule,trigger,sdk,property,list}\n           ...\n\nOpenWhisk is a distributed compute service to add event-driven logic to your\napps.\n\noptional arguments:\n  -h, --help            show this help message and exit\n  -v, --verbose         verbose output\n  --apihost hostname    whisk API host\n  --apiversion version  whisk API version\n\navailable commands:\n  {action,activation,namespace,package,rule,trigger,sdk,property,list}\n    action              work with actions\n    activation          work with activations\n    namespace           work with namespaces\n    package             work with packages\n    rule                work with rules\n    trigger             work with triggers\n    sdk                 work with the SDK\n    property            work with whisk properties\n    list                list all triggers, actions, and rules in the registry\n\nLearn more at https://developer.ibm.com/openwhisk fork on GitHub\nhttps://github.com/openwhisk. All trademarks are the property of their\nrespective owners.";
+    wsk_invalid_choice = "usage: wsk [-h] [-v] [--apihost hostname] [--apiversion version]\n           {action,activation,namespace,package,rule,trigger,sdk,property,list}\n           ...\nwsk: error: argument cmd: invalid choice: (choose from 'action', 'activation', 'namespace', 'package', 'rule', 'trigger', 'sdk', 'property', 'list')";
     wsk_cat_helloWorld = "function main(params) {\n   			return {payload:  'Hello world'};\n}";
     wsk_create_action_hello = "ok: created action hello1";
     wsk_create_action_hello_v = "{'apihost': 'openwhisk.ng.bluemix.net', 'namespace': 'jstart', 'clibuild': '2016-03-03T09:55:47-06:00', 'apiversion': 'v1'}\n========\nREQUEST:\nPUT https://openwhisk.ng.bluemix.net/api/v1/namespaces/jstart/actions/hello\nHeaders sent:\n{\n    \"Authorization\": \"Basic \n     UyLWJJkYu65JKhu7YjM0ZDcwODhlNzBiOmlFS3RWMHl0UWdIT1SxUGNrMUFJRHUzSF2VlFSV53hDUnZlVXhyMGJpbTBGeH827=\",\n    \"Content-Type\": \"application/json\"\n}\nBody sent:\n{\"exec\": {\"kind\": \"nodejs\", \"code\": \"function main(params) {\n   return {payload:  'Hello, ' + params.name + ' from ' + params.place};\n}\n\n\"}}\n--------\nRESPONSE:\nGot response with code 200\nBody received:\n{\n  \"name\": \"hello\",\n  \"publish\": false,\n  \"annotations\": [],\n  \"version\": \"0.0.1\",\n  \"exec\": {\n    \"kind\": \"nodejs\",\n    \"code\": \"function main(params) {\n   return {payload:  'Hello, ' + params.name + ' from ' + params.place};\n}\n\n\"\n  },\n  \"parameters\": [],\n  \"limits\": {\n    \"timeout\": 60000,\n    \"memory\": 256\n  },\n  \"namespace\": \"jstart\"\n}\n========\nok: created action hello";
