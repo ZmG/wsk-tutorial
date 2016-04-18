@@ -79,7 +79,7 @@
     assignment: "<h3>Assignment</h3>\n<p>Obtain a non-blocking action's result.  Remember, a non-blocking invocation may execute in the background so obtaining the result requires the activation ID</p>",
     command_expected: ["wsk", "activation", "result", "6bf1f670ee614a7eb5af3c9fde813043"],
     command_show: ["wsk", "activation", "result", "6bf1f670ee614a7eb5af3c9fde813043"],
-    result: "<p>Great! You Have completed the ice CLI tutorial! Hit next to move on to the <em style=\"color:crimson;\">Advanced</em> tutorial!",
+    result: "<p>Great! You Have completed the Basic wsk CLI tutorial! Hit next to move on to the <em style=\"color:crimson;\">Advanced</em> tutorial!",
     tip: "<ul>\n   <li>You need to use the <code> wsk activation result</code> command along with the activation ID</li>\n</ul>",
     intermediateresults: [
       function() {
@@ -111,14 +111,14 @@
     assignment: "<h3>Assignment</h3>\n<p>1. Display the actions in the /whisk.system/util package using <code>wsk package get --summary /whisk.system/util</code> 2. Create an action sequence called \"sequenceOfActions\" so that the result of the <code>/whisk.system/util/cat</code> action is passed as an argument to the <code>/whisk.system/util/sort</code> action. </p>",
     command_expected: ["wsk", "action", "create", "sequenceOfActions", "--sequence", "/whisk.system/util/cat,/whisk.system/util/sort"],
     command_show: ["wsk", "action", "create", "sequenceOfActions", "--sequence", "/whisk.system/util/cat,/whisk.system/util/sort"],
-    result: "<p>Great! ",
+    result: "<p>Great! You Have completed the Advanced CLI tutorial!",
     tip: "<ul>\n   <li>Creating action sequences is similar to creating a single action except one needs to add the \"--sequence\" switch and specify a list of comma separated existing actions</li>\n</ul>",
     intermediateresults: [
       function() {
         var data;
         $('#instructions .assignment').hide();
         $('#tips, #command').hide();
-        $('#instructions .text').html("<div class=\"complete\">\n  <h3>Congratulations!</h3>\n  <p>You have mastered the <em style=\"color:aquamarine;\">Advanced</em> wsk commands!</p>\n  <p><strong>Did you enjoy this tutorial?</p>\n  <h3>Your next steps</h3>\n  <ol>\n    <li><a href=\"#\" onClick=\"leaveFullSizeMode()\">Close</a> this tutorial, and continue with the rest of the getting started.</li>\n  </ol>\n</div>");
+        $('#instructions .text').html("<div class=\"complete\">\n  <h3>Congratulations!</h3>\n  <p>You have mastered the <em style=\"color:aquamarine;\">Advanced</em> wsk commands!</p>\n  <p><strong>Did you enjoy this tutorial?</p>\n  <h3>Your next steps</h3>\n  <ol>\n    <li><a href=\"#\" onClick=\"leaveFullSizeMode()\">Close</a> this tutorial, and continue with the rest of the getting started.</li>\n  </ol>\n  <p> - Or - </p>\n  <p>Return back to getting started. </p><p><a onclick=\"leaveFullSizeMode()\" class='btn btn-primary secondary-action-button'>Return to Getting Started</a></p>\n</div>");
         data = {
           type: EVENT_TYPES.complete
         };
