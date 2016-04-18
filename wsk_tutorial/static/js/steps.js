@@ -74,14 +74,13 @@
     tip: "<ul>\n  <li>Remember to use wsk action</li>\n</ul>"
   });
 
-  q.push(({
+  q.push({
     html: "<h3>Get action's invocation result using the activation ID</h3>\n<p>You can get an actions result by using the action activation ID. If you forgot to record the activation ID, you can get a list of activations ordered from most recent to the oldest running the <code> wsk activation list</code> command </p>",
     assignment: "<h3>Assignment</h3>\n<p>Obtain a non-blocking action's result.  Remember, a non-blocking invocation may execute in the background so obtaining the result requires the activation ID</p>",
     command_expected: ["wsk", "activation", "result", "6bf1f670ee614a7eb5af3c9fde813043"],
     command_show: ["wsk", "activation", "result", "6bf1f670ee614a7eb5af3c9fde813043"],
     result: "<p>Great! You Have completed the ice CLI tutorial! Hit next to move on to the <em style=\"color:crimson;\">Advanced</em> tutorial!",
-    tip: "<ul>\n   <li>You need to use the <code> wsk activation result</code> command along with the activation ID</li>\n</ul>"
-  }, {
+    tip: "<ul>\n   <li>You need to use the <code> wsk activation result</code> command along with the activation ID</li>\n</ul>",
     intermediateresults: [
       function() {
         var data;
@@ -98,7 +97,7 @@
       webterm.clear();
       return webterm.echo(myTerminal());
     }
-  }));
+  });
 
 
   /*
