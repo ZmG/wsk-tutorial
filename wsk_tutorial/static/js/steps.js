@@ -5,7 +5,7 @@
  */
 
 (function() {
-  var COMPLETE_URL, EVENT_TYPES, advancedTag, buildfunction, current_question, drawStatusMarker, endsWith, f, isNumber, j, leftside, len, logEvent, next, previous, progressIndicator, q, question, questionNumber, questions, results, staticDockerPs, statusMarker, switchToAdvanced, switchToBasic, tutorialTop;
+  var COMPLETE_URL, EVENT_TYPES, adv_q, advancedTag, buildfunction, current_question, drawStatusMarker, endsWith, f, isNumber, j, leftside, len, logEvent, next, previous, progressIndicator, q, question, questionNumber, questions, results, staticDockerPs, statusMarker, switchToAdvanced, switchToBasic, tutorialTop;
 
   COMPLETE_URL = "/whats-next/";
 
@@ -33,15 +33,15 @@
 
   q.push({
     html: "<h3>Creating a JavaScript Action</h3>\n<p>Actions encapsulate an actual code to be executed. One can think of an action as a piece of code that runs in response to an event. Actions support multiple language bindings including NodeJS, Swift and arbitrary binary programs encapsulated in Docker Containers. Actions invoke any part of an open ecosystem including existing Bluemix services for analytics, data, cognitive, or any other 3rd party service. </p>",
-    assignment: "<h3>Assignment</h3>\n<p>Create an action called \"hello\" from the content of the \"hello.js\" file. Use the verbose switch to examine API calls.</p>",
-    command_expected: ['wsk', '-v', 'action', 'create', 'hello', 'hello.js'],
+    assignment: "<h3>Assignment</h3>\n<p>Create an action called \"hello\" from the content of the \"hello.js\" file. \"hello.js\" had been already created.</p>",
+    command_expected: ['wsk', 'action', 'create', 'hello', 'hello.js'],
     result: "<p>You found it! Way to go!</p>",
     tip: "For this assignment, the file 'hello.js' had been already created. Perform a 'ls' to ensure file exists and 'cat hello.js' to examine the contents of the file"
   });
 
   q.push({
     html: "<h3>List actions that have been created. </h3>\n<p>Existing and newly created actions can be looked up by using a wsk command.</p>",
-    assignment: "<h3>Assignment</h3>\n<p>List the actions you have created</p>",
+    assignment: "<h3>Assignment</h3>\n<p>List the actions that were created</p>",
     command_expected: ['wsk', 'action', 'list'],
     result: "<p>Cool. Look at the result. You'll see that the action created in step 1 was listed</p>"
   });
@@ -51,7 +51,7 @@
     assignment: "<h3>Assignment</h3>\n<p>Invoke the hello action utilizing blocking invocation.  </p>",
     command_expected: ['wsk', 'action', 'invoke', '--blocking', 'hello'],
     command_show: ['wsk', 'action', 'invoke', '--blocking', 'hello'],
-    result: "<p>Great! The command outputs two important pieces of information:\n<li>\n  <ul>The activation ID (44794bd6aab74415b4e42a308d880e5b)</ul>\n  <ul>The invocation result. The result in this case is the string Hello world \n  returned by the JavaScript function. The activation ID can be used to \n  retrieve the logs or result of the invocation at a future time.</ul>\n</li>",
+    result: "<p>Great! The command outputs two important pieces of information:\n<ul>\n  <li>The activation ID (44794bd6aab74415b4e42a308d880e5b)</li>\n  <li>The invocation result. The result in this case is the string Hello world \n  returned by the JavaScript function. The activation ID can be used to \n  retrieve the logs or result of the invocation at a future time.</li>\n</ul>",
     intermediateresults: [
       function() {
         return "<p>You seem to be almost there. Did you feed in the \"wsk action\" command \"invoke --blocking hello\" parameters?";
@@ -85,7 +85,28 @@
         return "<p>You seem to be almost there. Did you feed in the wsk action command \"list\" parameter and the activation ID";
       }
     ],
-    tip: "<ul>\n   <li>You need to use the activation result command and supply the activation ID</li>\n</ul>"
+    tip: "<ul>\n   <li>You need to use the <code> wsk activation result</code> command along with the activation ID</li>\n</ul>"
+  });
+
+
+  /*
+    Array of ADVANCED question objects
+   */
+
+  adv_q = [];
+
+  q.push({
+    html: "<h3>Creating Sequence of actions</h3>\n<p>You can create an action that chains together a sequence of actions.Several utility actions are provided in a package called /whisk.system/util that you can use to create your first sequence. You can learn more about packages in the Packages section. </p>",
+    assignment: "<h3>Assignment</h3>\n<p>1. Display the actions in the /whisk.system/util package using \"wsk package get --summary /whisk.system/util\" 2. Create an action sequence so that the result of one action is passed as an argument to the next action. </p>",
+    command_expected: ["wsk", "action", "create", "myAction", "--sequence", "/whisk.system/util/cat,/whisk.system/util/sort"],
+    command_show: ["wsk", "action", "create", "myAction", "--sequence", "/whisk.system/util/cat,/whisk.system/util/sort"],
+    result: "<p>Great! Tutorial complete",
+    intermediateresults: [
+      function() {
+        return "<p>You seem to be almost there.";
+      }
+    ],
+    tip: "<ul>\n   <li>Creating action sequences is similar to creating a single action except one needs to add the \"--sequence\" switch and specify a list of comma separated existing actions</li>\n</ul>"
   });
 
   questions = [];
