@@ -74,19 +74,31 @@
     tip: "<ul>\n  <li>Remember to use wsk action</li>\n</ul>"
   });
 
-  q.push({
+  q.push(({
     html: "<h3>Get action's invocation result using the activation ID</h3>\n<p>You can get an actions result by using the action activation ID. If you forgot to record the activation ID, you can get a list of activations ordered from most recent to the oldest running the <code> wsk activation list</code> command </p>",
     assignment: "<h3>Assignment</h3>\n<p>Obtain a non-blocking action's result.  Remember, a non-blocking invocation may execute in the background so obtaining the result requires the activation ID</p>",
     command_expected: ["wsk", "activation", "result", "6bf1f670ee614a7eb5af3c9fde813043"],
     command_show: ["wsk", "activation", "result", "6bf1f670ee614a7eb5af3c9fde813043"],
-    result: "<p>Great! End of tutorial",
+    result: "<p>Great! You Have completed the ice CLI tutorial! Hit next to move on to the <em style=\"color:crimson;\">Advanced</em> tutorial!",
+    tip: "<ul>\n   <li>You need to use the <code> wsk activation result</code> command along with the activation ID</li>\n</ul>"
+  }, {
     intermediateresults: [
       function() {
-        return "<p>You seem to be almost there. Did you feed in the wsk action command \"list\" parameter and the activation ID";
+        var data;
+        $('#instructions .assignment').hide();
+        $('#tips, #command').hide();
+        $('#instructions .text').html("<div class=\"complete\">\n  <h3>Congratulations!</h3>\n  <p>You have mastered the basic wsk commands!</p>\n  <p><strong>Did you enjoy this tutorial? </p>\n  <h3>Your next steps</h3>\n  <ol>\n    <li><a href=\"#\" onClick=\"leaveFullSizeMode()\">Close</a> this tutorial, and continue with the rest of the getting started.</li>\n  </ol>\n  <p> - Or - </p>\n  <p>Continue to learn the advanced features of the wsk CLI. </p><p><a onclick=\"switchToAdvanced()\" class='btn btn-primary secondary-action-button'>Start <em style=\"color:crimson;\">Advanced</em> tutorial</a></p>\n\n</div>");
+        data = {
+          type: EVENT_TYPES.complete
+        };
+        return logEvent(data);
       }
     ],
-    tip: "<ul>\n   <li>You need to use the <code> wsk activation result</code> command along with the activation ID</li>\n</ul>"
-  });
+    finishedCallback: function() {
+      webterm.clear();
+      return webterm.echo(myTerminal());
+    }
+  }));
 
 
   /*
@@ -97,16 +109,27 @@
 
   q.push({
     html: "<h3>Creating Sequence of actions</h3>\n<p>You can create an action that chains together a sequence of actions.Several utility actions are provided in a package called /whisk.system/util that you can use to create your first sequence. You can learn more about packages in the Packages section. </p>",
-    assignment: "<h3>Assignment</h3>\n<p>1. Display the actions in the /whisk.system/util package using \"wsk package get --summary /whisk.system/util\" 2. Create an action sequence so that the result of one action is passed as an argument to the next action. </p>",
-    command_expected: ["wsk", "action", "create", "myAction", "--sequence", "/whisk.system/util/cat,/whisk.system/util/sort"],
-    command_show: ["wsk", "action", "create", "myAction", "--sequence", "/whisk.system/util/cat,/whisk.system/util/sort"],
-    result: "<p>Great! Tutorial complete",
+    assignment: "<h3>Assignment</h3>\n<p>1. Display the actions in the /whisk.system/util package using <code>wsk package get --summary /whisk.system/util</code> 2. Create an action sequence called \"sequenceOfActions\" so that the result of the <code>/whisk.system/util/cat</code> action is passed as an argument to the <code>/whisk.system/util/sort</code> action. </p>",
+    command_expected: ["wsk", "action", "create", "sequenceOfActions", "--sequence", "/whisk.system/util/cat,/whisk.system/util/sort"],
+    command_show: ["wsk", "action", "create", "sequenceOfActions", "--sequence", "/whisk.system/util/cat,/whisk.system/util/sort"],
+    result: "<p>Great! ",
+    tip: "<ul>\n   <li>Creating action sequences is similar to creating a single action except one needs to add the \"--sequence\" switch and specify a list of comma separated existing actions</li>\n</ul>",
     intermediateresults: [
       function() {
-        return "<p>You seem to be almost there.";
+        var data;
+        $('#instructions .assignment').hide();
+        $('#tips, #command').hide();
+        $('#instructions .text').html("<div class=\"complete\">\n  <h3>Congratulations!</h3>\n  <p>You have mastered the <em style=\"color:aquamarine;\">Advanced</em> wsk commands!</p>\n  <p><strong>Did you enjoy this tutorial?</p>\n  <h3>Your next steps</h3>\n  <ol>\n    <li><a href=\"#\" onClick=\"leaveFullSizeMode()\">Close</a> this tutorial, and continue with the rest of the getting started.</li>\n  </ol>\n</div>");
+        data = {
+          type: EVENT_TYPES.complete
+        };
+        return logEvent(data);
       }
     ],
-    tip: "<ul>\n   <li>Creating action sequences is similar to creating a single action except one needs to add the \"--sequence\" switch and specify a list of comma separated existing actions</li>\n</ul>"
+    finishedCallback: function() {
+      webterm.clear();
+      return webterm.echo(myTerminal());
+    }
   });
 
   questions = [];
