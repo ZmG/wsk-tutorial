@@ -107,7 +107,7 @@
 
   adv_q = [];
 
-  q.push({
+  adv_q.push({
     html: "<h3>Creating Sequence of actions</h3>\n<p>You can create an action that chains together a sequence of actions.Several utility actions are provided in a package called /whisk.system/util that you can use to create your first sequence. You can learn more about packages in the Packages section. </p>",
     assignment: "<h3>Assignment</h3>\n<p>1. Display the actions in the /whisk.system/util package using <code>wsk package get --summary /whisk.system/util</code> 2. Create an action sequence called \"sequenceOfActions\" so that the result of the <code>/whisk.system/util/cat</code> action is passed as an argument to the <code>/whisk.system/util/sort</code> action. </p>",
     command_expected: ["wsk", "action", "create", "sequenceOfActions", "--sequence", "/whisk.system/util/cat,/whisk.system/util/sort"],
