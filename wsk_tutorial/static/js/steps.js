@@ -248,14 +248,14 @@
     $('.hide-when-full').css({
       display: 'none'
     });
-    if (start === 'adv') {
-      switchToAdvanced();
+    if (start === 'trg') {
+      switchToTrigger();
     } else if (start === 'basic') {
       switchToBasic();
     } else if (isNumber(start)) {
       next(start);
-    } else if (endsWith(start, 'ADV')) {
-      switchToAdvanced();
+    } else if (endsWith(start, 'TRG')) {
+      switchToTrigger();
       index = start.split('-')[0];
       next(index);
     } else {
