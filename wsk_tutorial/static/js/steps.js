@@ -308,14 +308,14 @@
   window.next = next = function(which) {
     var data;
     $('#marker-' + current_question).addClass("complete").removeClass("active");
-    if (which === 'ADV') {
-      switchToAdvanced();
+    if (which === 'TRG') {
+      switchToTriggers();
     } else if (which === '←') {
       switchToBasic();
     } else if (!which && which !== 0) {
       current_question++;
       if (current_question === questions.length) {
-        next('ADV');
+        next('TRG');
       }
     } else {
       current_question = which;
@@ -327,9 +327,9 @@
       $('#commandShownText').addClass("hidden");
       $('#commandHiddenText').removeClass("hidden").show();
     }
-    if (window.advancedTut === true) {
-      history.pushState({}, "", "#" + current_question + "-ADV");
-      window.location.hash = "#" + current_question + "-ADV";
+    if (window.triggerTut === true) {
+      history.pushState({}, "", "#" + current_question + "-TRG");
+      window.location.hash = "#" + current_question + "-TRG";
     } else {
       history.pushState({}, "", "#" + current_question);
       window.location.hash = "#" + current_question;
@@ -464,7 +464,7 @@
 
   window.switchToBasic = switchToBasic = function() {
     var f, j, len, question, questionNumber;
-    window.advancedTut = false;
+    window.triggersTut = false;
     questions = [];
     statusMarker.prevAll('span').remove();
     statusMarker.nextAll('span').remove();
@@ -488,14 +488,14 @@
       }
       questionNumber++;
     }
-    drawStatusMarker('ADV');
+    drawStatusMarker('TRG');
     return next(0);
   };
 
   window.switchToTriggers = switchToTriggers = function() {
     var f, j, len, marker, question, questionNumber;
     questions = [];
-    window.advancedTut = false;
+    window.triggersTut = false;
     window.basicTut = false;
     statusMarker.prevAll('span').remove();
     statusMarker.nextAll('span').remove();
@@ -534,7 +534,7 @@
   window.switchToAdvanced = switchToAdvanced = function() {
     var f, j, len, marker, question, questionNumber;
     questions = [];
-    window.advancedTut = true;
+    window.triggersTut = true;
     statusMarker.prevAll('span').remove();
     statusMarker.nextAll('span').remove();
     leftside.animate({
@@ -594,7 +594,7 @@
     questionNumber++;
   }
 
-  drawStatusMarker('ADV');
+  drawStatusMarker('TRG');
 
 
   /*
