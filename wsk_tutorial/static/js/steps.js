@@ -5,7 +5,7 @@
  */
 
 (function() {
-  var COMPLETE_URL, EVENT_TYPES, adv_q, advancedTag, buildfunction, current_question, drawStatusMarker, endsWith, f, isNumber, j, leftside, len, logEvent, next, previous, progressIndicator, q, question, questionNumber, questions, results, staticDockerPs, statusMarker, switchToAdvanced, switchToBasic, tutorialTop;
+  var COMPLETE_URL, EVENT_TYPES, adv_q, advancedTag, buildfunction, current_question, drawStatusMarker, endsWith, f, isNumber, j, leftside, len, logEvent, next, previous, progressIndicator, q, question, questionNumber, questions, results, staticDockerPs, statusMarker, switchToAdvanced, switchToBasic, switchToTriggers, triggers_q, tutorialTop;
 
   COMPLETE_URL = "/whats-next/";
 
@@ -112,6 +112,38 @@
     command_expected: ["wsk", "action", "create", "sequenceOfActions", "--sequence", "/whisk.system/util/cat,/whisk.system/util/sort"],
     command_show: ["wsk", "action", "create", "sequenceOfActions", "--sequence", "/whisk.system/util/cat,/whisk.system/util/sort"],
     result: "<p>Great! You Have completed the Advanced CLI tutorial!",
+    tip: "<ul>\n   <li>Creating action sequences is similar to creating a single action except one needs to add the \"--sequence\" switch and specify a list of comma separated existing actions</li>\n</ul>",
+    intermediateresults: [
+      function() {
+        var data;
+        $('#instructions .assignment').hide();
+        $('#tips, #command').hide();
+        $('#instructions .text').html("<div class=\"complete\">\n  <h3>Congratulations!</h3>\n  <p>You have mastered the <em style=\"color:aquamarine;\">Advanced</em> wsk commands!</p>\n  <p><strong>Did you enjoy this tutorial?</p>\n  <h3>Your next steps</h3>\n  <ol>\n    <li><a href=\"#\" onClick=\"leaveFullSizeMode()\">Close</a> this tutorial, and continue with the rest of the getting started.</li>\n  </ol>\n  <p> - Or - </p>\n  <p>Return back to getting started. </p><p><a onclick=\"leaveFullSizeMode()\" class='btn btn-primary secondary-action-button'>Return to Getting Started</a></p>\n</div>");
+        data = {
+          type: EVENT_TYPES.complete
+        };
+        return logEvent(data);
+      }
+    ],
+    finishedCallback: function() {
+      webterm.clear();
+      return webterm.echo(myTerminal());
+    }
+  });
+
+
+  /*
+    Array of Triggers question objects
+   */
+
+  triggers_q = [];
+
+  triggers_q.push({
+    html: "<h3>Creating Triggers</h3>\n<p>You can create an a trigger ..... </p>",
+    assignment: "<h3>Assignment</h3>\n<p></p>",
+    command_expected: ["wsk", "action", "create", "sequenceOfActions", "--sequence", "/whisk.system/util/cat,/whisk.system/util/sort"],
+    command_show: ["wsk", "action", "create", "sequenceOfActions", "--sequence", "/whisk.system/util/cat,/whisk.system/util/sort"],
+    result: "<p>Great! You Have completed the Trigger CLI tutorial!",
     tip: "<ul>\n   <li>Creating action sequences is similar to creating a single action except one needs to add the \"--sequence\" switch and specify a list of comma separated existing actions</li>\n</ul>",
     intermediateresults: [
       function() {
@@ -457,6 +489,45 @@
       questionNumber++;
     }
     drawStatusMarker('ADV');
+    return next(0);
+  };
+
+  window.switchToTriggers = switchToTriggers = function() {
+    var f, j, len, marker, question, questionNumber;
+    questions = [];
+    window.advancedTut = false;
+    window.basicTut = false;
+    statusMarker.prevAll('span').remove();
+    statusMarker.nextAll('span').remove();
+    leftside.animate({
+      backgroundColor: "#543B3B"
+    }, 1000);
+    tutorialTop.animate({
+      backgroundColor: "#3F2626"
+    }, 1000);
+    advancedTag.fadeIn();
+    marker = statusMarker.clone();
+    marker.prependTo(progressIndicator);
+    marker.title = 'Go back to the Basic Tutorial';
+    marker.attr("id", "marker-" + 'BSC');
+    marker.find('text').get(0).textContent = '←';
+    marker.click(function() {
+      return switchToBasic();
+    });
+    marker.removeClass("active");
+    questionNumber = 0;
+    for (j = 0, len = triggers_q.length; j < len; j++) {
+      question = triggers_q[j];
+      f = buildfunction(question);
+      questions.push(f);
+      drawStatusMarker(questionNumber);
+      if (questionNumber > 0) {
+        $('#marker-' + questionNumber).removeClass("active").removeClass("complete");
+      } else {
+        $('#marker-' + questionNumber).removeClass("complete").addClass("active");
+      }
+      questionNumber++;
+    }
     return next(0);
   };
 
