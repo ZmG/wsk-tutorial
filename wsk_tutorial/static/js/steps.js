@@ -90,8 +90,7 @@
         data = {
           type: EVENT_TYPES.complete
         };
-        logEvent(data);
-        return logEvent(data.start);
+        return logEvent(data);
       }
     ],
     finishedCallback: function() {
@@ -123,8 +122,7 @@
         data = {
           type: EVENT_TYPES.complete
         };
-        logEvent(data);
-        return logEvent(data.start);
+        return logEvent(data);
       }
     ],
     finishedCallback: function() {
@@ -156,8 +154,7 @@
         data = {
           type: EVENT_TYPES.complete
         };
-        logEvent(data);
-        return logEvent(data.start);
+        return logEvent(data);
       }
     ],
     finishedCallback: function() {
@@ -248,14 +245,14 @@
     $('.hide-when-full').css({
       display: 'none'
     });
-    if (start === 'trg') {
-      switchToTrigger();
+    if (start === 'adv') {
+      switchToAdvanced();
     } else if (start === 'basic') {
       switchToBasic();
     } else if (isNumber(start)) {
       next(start);
-    } else if (endsWith(start, 'TRG')) {
-      switchToTrigger();
+    } else if (endsWith(start, 'ADV')) {
+      switchToAdvanced();
       index = start.split('-')[0];
       next(index);
     } else {
@@ -311,14 +308,14 @@
   window.next = next = function(which) {
     var data;
     $('#marker-' + current_question).addClass("complete").removeClass("active");
-    if (which === 'TRG') {
-      switchToTriggers();
+    if (which === 'ADV') {
+      switchToAdvanced();
     } else if (which === '←') {
       switchToBasic();
     } else if (!which && which !== 0) {
       current_question++;
       if (current_question === questions.length) {
-        next('TRG');
+        next('ADV');
       }
     } else {
       current_question = which;
@@ -330,9 +327,9 @@
       $('#commandShownText').addClass("hidden");
       $('#commandHiddenText').removeClass("hidden").show();
     }
-    if (window.triggerTut === true) {
-      history.pushState({}, "", "#" + current_question + "-TRG");
-      window.location.hash = "#" + current_question + "-TRG";
+    if (window.advancedTut === true) {
+      history.pushState({}, "", "#" + current_question + "-ADV");
+      window.location.hash = "#" + current_question + "-ADV";
     } else {
       history.pushState({}, "", "#" + current_question);
       window.location.hash = "#" + current_question;
@@ -467,7 +464,7 @@
 
   window.switchToBasic = switchToBasic = function() {
     var f, j, len, question, questionNumber;
-    window.triggersTut = false;
+    window.advancedTut = false;
     questions = [];
     statusMarker.prevAll('span').remove();
     statusMarker.nextAll('span').remove();
@@ -491,14 +488,14 @@
       }
       questionNumber++;
     }
-    drawStatusMarker('TRG');
+    drawStatusMarker('ADV');
     return next(0);
   };
 
   window.switchToTriggers = switchToTriggers = function() {
     var f, j, len, marker, question, questionNumber;
     questions = [];
-    window.triggersTut = false;
+    window.advancedTut = false;
     window.basicTut = false;
     statusMarker.prevAll('span').remove();
     statusMarker.nextAll('span').remove();
@@ -537,7 +534,7 @@
   window.switchToAdvanced = switchToAdvanced = function() {
     var f, j, len, marker, question, questionNumber;
     questions = [];
-    window.triggersTut = true;
+    window.advancedTut = true;
     statusMarker.prevAll('span').remove();
     statusMarker.nextAll('span').remove();
     leftside.animate({
@@ -597,7 +594,7 @@
     questionNumber++;
   }
 
-  drawStatusMarker('TRG');
+  drawStatusMarker('ADV');
 
 
   /*
