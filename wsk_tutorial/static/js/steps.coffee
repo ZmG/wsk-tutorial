@@ -43,9 +43,9 @@ html: """
       """
 assignment: """
       <h3>Assignment</h3>
-      <p>Create an action called "hello" from the content of the "hello.js" file. Use the verbose switch to examine API calls.</p>
+      <p>Create an action called "hello" from the content of the "hello.js" file. "hello.js" had been already created.</p>
       """
-command_expected: ['wsk','-v', 'action', 'create', 'hello', 'hello.js']
+command_expected: ['wsk', 'action', 'create', 'hello', 'hello.js']
 result: """<p>You found it! Way to go!</p>"""
 tip: "For this assignment, the file 'hello.js' had been already created. Perform a 'ls' to ensure file exists and 'cat hello.js' to examine the contents of the file"
 })
@@ -58,7 +58,7 @@ html: """
 assignment:
       """
       <h3>Assignment</h3>
-      <p>List the actions you have created</p>
+      <p>List the actions that were created</p>
       """
 command_expected: ['wsk', 'action', 'list']
 result: """<p>Cool. Look at the result. You'll see that the action created in step 1 was listed</p>"""
@@ -79,12 +79,12 @@ command_expected: ['wsk', 'action', 'invoke', '--blocking', 'hello']
 command_show: ['wsk', 'action', 'invoke', '--blocking', 'hello']
 
 result: """<p>Great! The command outputs two important pieces of information:
-            <li>
-              <ul>The activation ID (44794bd6aab74415b4e42a308d880e5b)</ul>
-              <ul>The invocation result. The result in this case is the string Hello world 
+            <ul>
+              <li>The activation ID (44794bd6aab74415b4e42a308d880e5b)</li>
+              <li>The invocation result. The result in this case is the string Hello world 
               returned by the JavaScript function. The activation ID can be used to 
-              retrieve the logs or result of the invocation at a future time.</ul>
-            </li>"""
+              retrieve the logs or result of the invocation at a future time.</li>
+            </ul>"""
 intermediateresults: [
   () -> """<p>You seem to be almost there. Did you feed in the "wsk action" command "invoke --blocking hello" parameters?"""
   ]
@@ -130,16 +130,100 @@ assignment: """
 command_expected: ["wsk", "activation", "result", "6bf1f670ee614a7eb5af3c9fde813043"]
 command_show: ["wsk", "activation", "result", "6bf1f670ee614a7eb5af3c9fde813043"]
 
-result: """<p>Great! End of tutorial"""
-intermediateresults: [
-  () -> """<p>You seem to be almost there. Did you feed in the wsk action command "list" parameter and the activation ID"""
-  ]
+result: """<p>Great! You Have completed the Basic wsk CLI tutorial! Hit next to move on to the <em style="color:crimson;">Advanced</em> tutorial!"""
 tip: """
   <ul>
-     <li>You need to use the activation result command and supply the activation ID</li>
+     <li>You need to use the <code> wsk activation result</code> command along with the activation ID</li>
   </ul>
   """
+intermediateresults:
+  [
+    () ->
+      $('#instructions .assignment').hide()
+      $('#tips, #command').hide()
+
+      $('#instructions .text').html("""
+        <div class="complete">
+          <h3>Congratulations!</h3>
+          <p>You have mastered the basic wsk commands!</p>
+          <p><strong>Did you enjoy this tutorial? </p>
+          <h3>Your next steps</h3>
+          <ol>
+            <li><a href="#" onClick="leaveFullSizeMode()">Close</a> this tutorial, and continue with the rest of the getting started.</li>
+          </ol>
+          <p> - Or - </p>
+          <p>Continue to learn the advanced features of the wsk CLI. </p><p><a onclick="switchToAdvanced()" class='btn btn-primary secondary-action-button'>Start <em style="color:crimson;">Advanced</em> tutorial</a></p>
+
+        </div>
+        """)
+
+
+      data = { type: EVENT_TYPES.complete }
+      logEvent(data)
+
+  ]
+finishedCallback: () ->
+  webterm.clear()
+  webterm.echo( myTerminal() )
+
 })
+
+
+###
+  Array of ADVANCED question objects
+###
+
+adv_q = []
+adv_q.push ({
+html: """
+      <h3>Creating Sequence of actions</h3>
+      <p>You can create an action that chains together a sequence of actions.Several utility actions are provided in a package called /whisk.system/util that you can use to create your first sequence. You can learn more about packages in the Packages section. </p>
+      """
+assignment: """
+      <h3>Assignment</h3>
+      <p>1. Display the actions in the /whisk.system/util package using <code>wsk package get --summary /whisk.system/util</code> 2. Create an action sequence called "sequenceOfActions" so that the result of the <code>/whisk.system/util/cat</code> action is passed as an argument to the <code>/whisk.system/util/sort</code> action. </p>
+      """
+command_expected: ["wsk", "action", "create", "sequenceOfActions", "--sequence", "/whisk.system/util/cat,/whisk.system/util/sort"]
+command_show: ["wsk", "action", "create", "sequenceOfActions", "--sequence", "/whisk.system/util/cat,/whisk.system/util/sort"]
+
+result: """<p>Great! You Have completed the Advanced CLI tutorial!"""
+tip: """
+  <ul>
+     <li>Creating action sequences is similar to creating a single action except one needs to add the "--sequence" switch and specify a list of comma separated existing actions</li>
+  </ul>
+  """
+intermediateresults:
+  [
+    () ->
+      $('#instructions .assignment').hide()
+      $('#tips, #command').hide()
+
+      $('#instructions .text').html("""
+        <div class="complete">
+          <h3>Congratulations!</h3>
+          <p>You have mastered the <em style="color:aquamarine;">Advanced</em> wsk commands!</p>
+          <p><strong>Did you enjoy this tutorial?</p>
+          <h3>Your next steps</h3>
+          <ol>
+            <li><a href="#" onClick="leaveFullSizeMode()">Close</a> this tutorial, and continue with the rest of the getting started.</li>
+          </ol>
+          <p> - Or - </p>
+          <p>Return back to getting started. </p><p><a onclick="leaveFullSizeMode()" class='btn btn-primary secondary-action-button'>Return to Getting Started</a></p>
+        </div>
+        """)
+
+
+      data = { type: EVENT_TYPES.complete }
+      logEvent(data)
+
+  ]
+finishedCallback: () ->
+  webterm.clear()
+  webterm.echo( myTerminal() )
+
+})
+
+
 
 # the index arr
 questions = []

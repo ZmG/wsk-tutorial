@@ -302,9 +302,6 @@ do @myTerminal = ->
 
 		else if inputs[1] is "--help" or inputs[1] is "-h"
 			echo wsk_help
-		else if inputs[1] is not "--help" or inputs[1] is not "-h"
-			intermediateResults(0)
-			echo wsk_invalid_choice
 
 		else if inputs[1] is "action"
 			if inputs[2] is "create"
@@ -406,7 +403,7 @@ do @myTerminal = ->
 
 	wsk_create_action_hello = \
 		"""
-		ok: created action hello1
+		ok: created action hello
 		"""
 	wsk_create_action_hello_v = \
 		"""
@@ -494,7 +491,7 @@ do @myTerminal = ->
 
 	wsk_create_action_sequence = \
 	"""
-	ok: created action myAction
+	ok: created action sequenceOfActions
 	"""
 
 	wsk_unrecognized_arguments = \
