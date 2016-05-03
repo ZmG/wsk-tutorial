@@ -90,7 +90,8 @@
         data = {
           type: EVENT_TYPES.complete
         };
-        return logEvent(data);
+        logEvent(data);
+        return logEvent(data.start);
       }
     ],
     finishedCallback: function() {
@@ -122,7 +123,8 @@
         data = {
           type: EVENT_TYPES.complete
         };
-        return logEvent(data);
+        logEvent(data);
+        return logEvent(data.start);
       }
     ],
     finishedCallback: function() {
@@ -154,7 +156,8 @@
         data = {
           type: EVENT_TYPES.complete
         };
-        return logEvent(data);
+        logEvent(data);
+        return logEvent(data.start);
       }
     ],
     finishedCallback: function() {
