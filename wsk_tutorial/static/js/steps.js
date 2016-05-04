@@ -5,7 +5,7 @@
  */
 
 (function() {
-  var COMPLETE_URL, EVENT_TYPES, adv_q, advancedTag, buildfunction, current_question, drawStatusMarker, endsWith, f, isNumber, j, k, l, leftside, len, len1, len2, logEvent, mob_q, next, pkg_q, previous, progressIndicator, q, question, questionNumber, questions, results, rlz_q, staticDockerPs, statusMarker, switchToAdvanced, switchToBasic, switchToMobileSDK, switchToPackages, switchToRules, switchToTriggers, triggers_q, tutorialTop;
+  var COMPLETE_URL, EVENT_TYPES, adv_q, advancedTag, buildfunction, current_question, drawStatusMarker, endsWith, f, isNumber, j, leftside, len, logEvent, mob_q, next, pkg_q, previous, progressIndicator, q, question, questionNumber, questions, results, rlz_q, staticDockerPs, statusMarker, switchToAdvanced, switchToBasic, switchToMobileSDK, switchToPackages, switchToRules, switchToTriggers, triggers_q, tutorialTop;
 
   COMPLETE_URL = "/whats-next/";
 
@@ -646,82 +646,66 @@
     return next(0);
   };
 
-  window.switchToPackages = switchToPackages = function() {};
-
-  window.advancedTut = false;
-
-  questions = [];
-
-  statusMarker.prevAll('span').remove();
-
-  statusMarker.nextAll('span').remove();
-
-  leftside.animate({
-    backgroundColor: "#26343f"
-  }, 1000);
-
-  tutorialTop.animate({
-    backgroundColor: "rgb(59, 74, 84)"
-  }, 1000);
-
-  advancedTag.fadeOut();
-
-  questionNumber = 0;
-
-  for (j = 0, len = pkg_q.length; j < len; j++) {
-    question = pkg_q[j];
-    f = buildfunction(question);
-    questions.push(f);
-    drawStatusMarker(questionNumber);
-    if (questionNumber > 0) {
-      $('#marker-' + questionNumber).removeClass("active").removeClass("complete");
-    } else {
-      $('#marker-' + questionNumber).removeClass("complete").addClass("active");
+  window.switchToPackages = switchToPackages = function() {
+    var f, j, len, question, questionNumber;
+    window.advancedTut = false;
+    questions = [];
+    statusMarker.prevAll('span').remove();
+    statusMarker.nextAll('span').remove();
+    leftside.animate({
+      backgroundColor: "#26343f"
+    }, 1000);
+    tutorialTop.animate({
+      backgroundColor: "rgb(59, 74, 84)"
+    }, 1000);
+    advancedTag.fadeOut();
+    questionNumber = 0;
+    for (j = 0, len = pkg_q.length; j < len; j++) {
+      question = pkg_q[j];
+      f = buildfunction(question);
+      questions.push(f);
+      drawStatusMarker(questionNumber);
+      if (questionNumber > 0) {
+        $('#marker-' + questionNumber).removeClass("active").removeClass("complete");
+      } else {
+        $('#marker-' + questionNumber).removeClass("complete").addClass("active");
+      }
+      questionNumber++;
     }
-    questionNumber++;
-  }
+    return next(0);
+  };
 
-  next(0);
-
-  window.switchToMobileSDK = switchToMobileSDK = function() {};
-
-  window.advancedTut = false;
-
-  questions = [];
-
-  statusMarker.prevAll('span').remove();
-
-  statusMarker.nextAll('span').remove();
-
-  leftside.animate({
-    backgroundColor: "#26343f"
-  }, 1000);
-
-  tutorialTop.animate({
-    backgroundColor: "rgb(59, 74, 84)"
-  }, 1000);
-
-  advancedTag.fadeOut();
-
-  questionNumber = 0;
-
-  for (k = 0, len1 = mob_q.length; k < len1; k++) {
-    question = mob_q[k];
-    f = buildfunction(question);
-    questions.push(f);
-    drawStatusMarker(questionNumber);
-    if (questionNumber > 0) {
-      $('#marker-' + questionNumber).removeClass("active").removeClass("complete");
-    } else {
-      $('#marker-' + questionNumber).removeClass("complete").addClass("active");
+  window.switchToMobileSDK = switchToMobileSDK = function() {
+    var f, j, len, question, questionNumber;
+    window.advancedTut = false;
+    questions = [];
+    statusMarker.prevAll('span').remove();
+    statusMarker.nextAll('span').remove();
+    leftside.animate({
+      backgroundColor: "#26343f"
+    }, 1000);
+    tutorialTop.animate({
+      backgroundColor: "rgb(59, 74, 84)"
+    }, 1000);
+    advancedTag.fadeOut();
+    questionNumber = 0;
+    for (j = 0, len = mob_q.length; j < len; j++) {
+      question = mob_q[j];
+      f = buildfunction(question);
+      questions.push(f);
+      drawStatusMarker(questionNumber);
+      if (questionNumber > 0) {
+        $('#marker-' + questionNumber).removeClass("active").removeClass("complete");
+      } else {
+        $('#marker-' + questionNumber).removeClass("complete").addClass("active");
+      }
+      questionNumber++;
     }
-    questionNumber++;
-  }
-
-  next(0);
+    return next(0);
+  };
 
   window.switchToAdvanced = switchToAdvanced = function() {
-    var l, len2, marker;
+    var f, j, len, marker, question, questionNumber;
     questions = [];
     window.advancedTut = true;
     statusMarker.prevAll('span').remove();
@@ -743,8 +727,8 @@
     });
     marker.removeClass("active");
     questionNumber = 0;
-    for (l = 0, len2 = adv_q.length; l < len2; l++) {
-      question = adv_q[l];
+    for (j = 0, len = adv_q.length; j < len; j++) {
+      question = adv_q[j];
       f = buildfunction(question);
       questions.push(f);
       drawStatusMarker(questionNumber);
@@ -775,8 +759,8 @@
 
   questionNumber = 0;
 
-  for (l = 0, len2 = q.length; l < len2; l++) {
-    question = q[l];
+  for (j = 0, len = q.length; j < len; j++) {
+    question = q[j];
     f = buildfunction(question);
     questions.push(f);
     drawStatusMarker(questionNumber);
