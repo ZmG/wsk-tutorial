@@ -17,7 +17,7 @@
     EMULATOR_VERSION = "0.1.5";
     this.basesettings = {
       prompt: '[[b;#fff;]you@tutorial:~$] ',
-      greetings: " Imitation is the sincerest form of flattery\n We loved Docker's try it approach - so we forked it\n Welcome to the IBM Bluemix(tm) Whisk tutorial\n Courtesy of IBM jStart (http://ibm.com/jstart)\n\n    ____  __                     _\n   / __ )/ /_  _____  ____ ___  (_)  __\n  / __  / / / / / _ \\/ __ `__ \\/ / |/_/\n / /_/ / / /_/ /  __/ / / / / / />  <\n/_____/_/\\__,_/\\___/_/ /_/ /_/_/_/|_|\n"
+      greetings: "	 Imitation is the sincerest form of flattery\n	 We loved Docker's try it approach - so we forked it\n	 Welcome to the IBM OpenWhisk tutorial\n	 Courtesy of IBM jStart (http://ibm.com/jstart)\n\n   ____                 _       ____    _      __  \n  / __ \____  ___  ____| |     / / /_  (_)____/ /__\n / / / / __ \/ _ \/ __ \ | /| / / __ \/ / ___/ //_/\n/ /_/ / /_/ /  __/ / / / |/ |/ / / / / (__  ) ,<   \n\____/ .___/\___/_/ /_/|__/|__/_/ /_/_/____/_/|_|  \n    /_/\n"
     };
 
     /*
