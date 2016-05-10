@@ -15,8 +15,7 @@ settings.configure(
         'django.contrib.auth',
         'django.contrib.contenttypes',
         'django.contrib.sessions',
-        'django.contrib.admin',
-        'trycedocker_tutorial',),
+        'django.contrib.admin',),
     MIDDLEWARE_CLASSES=(
         'django.contrib.sessions.middleware.SessionMiddleware',
     ))
