@@ -223,7 +223,211 @@ finishedCallback: () ->
 
 })
 
+###
+  Array of Triggers question objects
+###
 
+trigger_q = []
+trigger_q.push ({
+html: """
+      <h3>Creating Triggers</h3>
+      <p>You can create a trigger using the trigger command</p>
+      """
+assignment: """
+      <h3>Assignment</h3>
+      <p>Create a trigger called 'myTrigger'</p>
+      """
+command_expected: ["wsk", "trigger", "create", "myTrigger"]
+command_show: ["wsk", "trigger", "create", "myTrigger"]
+
+result: """<p>Great! You Have completed the Trigger tutorial!"""
+tip: """
+  """
+intermediateresults:
+  [
+    () ->
+      $('#instructions .assignment').hide()
+      $('#tips, #command').hide()
+
+      $('#instructions .text').html("""
+        <div class="complete">
+          <h3>Congratulations!</h3>
+          <p>You have mastered the <em style="color:aquamarine;">trigger</em> wsk commands!</p>
+          <p><strong>Did you enjoy this tutorial?</p>
+          <h3>Your next steps</h3>
+          <ol>
+            <li><a href="#" onClick="leaveFullSizeMode()">Close</a> this tutorial, and continue with the rest of the getting started.</li>
+          </ol>
+          <p> - Or - </p>
+          <p>Return back to getting started. </p><p><a onclick="leaveFullSizeMode()" class='btn btn-primary secondary-action-button'>Return to Getting Started</a></p>
+        </div>
+        """)
+
+
+      data = { type: EVENT_TYPES.complete }
+      logEvent(data)
+
+  ]
+finishedCallback: () ->
+  webterm.clear()
+  webterm.echo( myTerminal() )
+
+})
+
+
+###
+  Array of Rules question objects
+###
+
+rlz_q = []
+rlz_q.push ({
+html: """
+      <h3>Creating a rule</h3>
+      <p>You can create a rule using the rule command</p>
+      """
+assignment: """
+      <h3>Assignment</h3>
+      <p>Create a rule called 'myRule'</p>
+      """
+command_expected: ["wsk", "rule", "create", "myRule"]
+command_show: ["wsk", "rule", "create", "myRule"]
+
+result: """<p>Great! You Have completed the Rules tutorial!"""
+tip: """
+  """
+intermediateresults:
+  [
+    () ->
+      $('#instructions .assignment').hide()
+      $('#tips, #command').hide()
+
+      $('#instructions .text').html("""
+        <div class="complete">
+          <h3>Congratulations!</h3>
+          <p>You have mastered the <em style="color:aquamarine;">rules</em> wsk commands!</p>
+          <p><strong>Did you enjoy this tutorial?</p>
+          <h3>Your next steps</h3>
+          <ol>
+            <li><a href="#" onClick="leaveFullSizeMode()">Close</a> this tutorial, and continue with the rest of the getting started.</li>
+          </ol>
+          <p> - Or - </p>
+          <p>Return back to getting started. </p><p><a onclick="leaveFullSizeMode()" class='btn btn-primary secondary-action-button'>Return to Getting Started</a></p>
+        </div>
+        """)
+
+
+      data = { type: EVENT_TYPES.complete }
+      logEvent(data)
+
+  ]
+finishedCallback: () ->
+  webterm.clear()
+  webterm.echo( myTerminal() )
+
+})
+
+###
+  Array of Packages question objects
+###
+
+pkg_q = []
+pkg_q.push ({
+html: """
+      <h3>Creating a package</h3>
+      <p>You can create a package using the package command</p>
+      """
+assignment: """
+      <h3>Assignment</h3>
+      <p>Create a package called 'myPackage'</p>
+      """
+command_expected: ["wsk", "package", "create", "myPackage"]
+command_show: ["wsk", "package", "create", "myPackage"]
+
+result: """<p>Great! You Have completed the package tutorial!"""
+tip: """
+  """
+intermediateresults:
+  [
+    () ->
+      $('#instructions .assignment').hide()
+      $('#tips, #command').hide()
+
+      $('#instructions .text').html("""
+        <div class="complete">
+          <h3>Congratulations!</h3>
+          <p>You have mastered the <em style="color:aquamarine;">package</em> wsk commands!</p>
+          <p><strong>Did you enjoy this tutorial?</p>
+          <h3>Your next steps</h3>
+          <ol>
+            <li><a href="#" onClick="leaveFullSizeMode()">Close</a> this tutorial, and continue with the rest of the getting started.</li>
+          </ol>
+          <p> - Or - </p>
+          <p>Return back to getting started. </p><p><a onclick="leaveFullSizeMode()" class='btn btn-primary secondary-action-button'>Return to Getting Started</a></p>
+        </div>
+        """)
+
+
+      data = { type: EVENT_TYPES.complete }
+      logEvent(data)
+
+  ]
+finishedCallback: () ->
+  webterm.clear()
+  webterm.echo( myTerminal() )
+
+})
+
+
+###
+  Array of Packages question objects
+###
+
+mob_q = []
+mob_q.push ({
+html: """
+      <h3>Placeholder for mobile SDK</h3>
+      <p></p>
+      """
+assignment: """
+      <h3>Assignment</h3>
+      <p>Placeholder</p>
+      """
+command_expected: ["placeholder"]
+command_show: ["placeholder"]
+
+result: """<p>Great! You Have completed the MobileSDK tutorial!"""
+tip: """
+  """
+intermediateresults:
+  [
+    () ->
+      $('#instructions .assignment').hide()
+      $('#tips, #command').hide()
+
+      $('#instructions .text').html("""
+        <div class="complete">
+          <h3>Congratulations!</h3>
+          <p>You have mastered the <em style="color:aquamarine;">MobileSDK</em> wsk commands!</p>
+          <p><strong>Did you enjoy this tutorial?</p>
+          <h3>Your next steps</h3>
+          <ol>
+            <li><a href="#" onClick="leaveFullSizeMode()">Close</a> this tutorial, and continue with the rest of the getting started.</li>
+          </ol>
+          <p> - Or - </p>
+          <p>Return back to getting started. </p><p><a onclick="leaveFullSizeMode()" class='btn btn-primary secondary-action-button'>Return to Getting Started</a></p>
+        </div>
+        """)
+
+
+      data = { type: EVENT_TYPES.complete }
+      logEvent(data)
+
+  ]
+finishedCallback: () ->
+  webterm.clear()
+  webterm.echo( myTerminal() )
+
+})
 
 # the index arr
 questions = []
@@ -538,6 +742,95 @@ window.switchToBasic = switchToBasic = () ->
       $('#marker-' + questionNumber).removeClass("complete").addClass("active")
     questionNumber++
   drawStatusMarker('ADV')
+
+  # go to first question
+  next(0)
+
+
+window.switchToTriggers = switchToTriggers = () ->
+  window.advancedTut = false
+  questions = []
+  statusMarker.prevAll('span').remove()
+  statusMarker.nextAll('span').remove()
+  leftside.animate({ backgroundColor: "#26343f" }, 1000 )
+  tutorialTop.animate({ backgroundColor: "rgb(59, 74, 84)" }, 1000 )
+  advancedTag.fadeOut()
+  questionNumber = 0
+  for question in trigger_q
+    f = buildfunction(question)
+    questions.push(f)
+    drawStatusMarker(questionNumber)
+    if questionNumber > 0
+      $('#marker-' + questionNumber).removeClass("active").removeClass("complete")
+    else
+      $('#marker-' + questionNumber).removeClass("complete").addClass("active")
+    questionNumber++
+
+  # go to first question
+  next(0)
+
+window.switchToRules = switchToRules = () ->
+  window.advancedTut = false
+  questions = []
+  statusMarker.prevAll('span').remove()
+  statusMarker.nextAll('span').remove()
+  leftside.animate({ backgroundColor: "#26343f" }, 1000 )
+  tutorialTop.animate({ backgroundColor: "rgb(59, 74, 84)" }, 1000 )
+  advancedTag.fadeOut()
+  questionNumber = 0
+  for question in rlz_q
+    f = buildfunction(question)
+    questions.push(f)
+    drawStatusMarker(questionNumber)
+    if questionNumber > 0
+      $('#marker-' + questionNumber).removeClass("active").removeClass("complete")
+    else
+      $('#marker-' + questionNumber).removeClass("complete").addClass("active")
+    questionNumber++
+
+  # go to first question
+  next(0)
+
+window.switchToPackages = switchToPackages = () ->
+  window.advancedTut = false
+  questions = []
+  statusMarker.prevAll('span').remove()
+  statusMarker.nextAll('span').remove()
+  leftside.animate({ backgroundColor: "#26343f" }, 1000 )
+  tutorialTop.animate({ backgroundColor: "rgb(59, 74, 84)" }, 1000 )
+  advancedTag.fadeOut()
+  questionNumber = 0
+  for question in pkg_q
+    f = buildfunction(question)
+    questions.push(f)
+    drawStatusMarker(questionNumber)
+    if questionNumber > 0
+      $('#marker-' + questionNumber).removeClass("active").removeClass("complete")
+    else
+      $('#marker-' + questionNumber).removeClass("complete").addClass("active")
+    questionNumber++
+
+  # go to first question
+  next(0)
+
+window.switchToMobileSDK = switchToMobileSDK = () ->
+  window.advancedTut = false
+  questions = []
+  statusMarker.prevAll('span').remove()
+  statusMarker.nextAll('span').remove()
+  leftside.animate({ backgroundColor: "#26343f" }, 1000 )
+  tutorialTop.animate({ backgroundColor: "rgb(59, 74, 84)" }, 1000 )
+  advancedTag.fadeOut()
+  questionNumber = 0
+  for question in mob_q
+    f = buildfunction(question)
+    questions.push(f)
+    drawStatusMarker(questionNumber)
+    if questionNumber > 0
+      $('#marker-' + questionNumber).removeClass("active").removeClass("complete")
+    else
+      $('#marker-' + questionNumber).removeClass("complete").addClass("active")
+    questionNumber++
 
   # go to first question
   next(0)

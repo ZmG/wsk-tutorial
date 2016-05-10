@@ -20,14 +20,15 @@ do @myTerminal = ->
 		greetings: """
 							 Imitation is the sincerest form of flattery
 							 We loved Docker's try it approach - so we forked it
-							 Welcome to the IBM Bluemix(tm) Whisk tutorial
+							 Welcome to the IBM OpenWhisk tutorial
 							 Courtesy of IBM jStart (http://ibm.com/jstart)
 
-							    ____  __                     _
-							   / __ )/ /_  _____  ____ ___  (_)  __
-							  / __  / / / / / _ \\/ __ `__ \\/ / |/_/
-							 / /_/ / / /_/ /  __/ / / / / / />  <
-							/_____/_/\\__,_/\\___/_/ /_/ /_/_/_/|_|
+						   ____                 _       ____    _      __  
+						  / __ &#92;____  ___  ____| |     / / /_  (_)____/ /__
+						 / / / / __ &#92;/ _ &#92;/ __ &#92; | /| / / __ &#92;/ / ___/ //_/
+						/ /_/ / /_/ /  __/ / / / |/ |/ / / / / (__  ) ,<   
+						&#92;____/ .___/&#92;___/_/ /_/|__/|__/_/ /_/_/____/_/|_|  
+						    /_/
 
 							"""
 
