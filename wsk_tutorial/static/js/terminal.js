@@ -13,7 +13,7 @@
 
 (function() {
   (this.myTerminal = function() {
-    var EMULATOR_VERSION, bash, cat, parseInput, util_slow_lines, wait, wsk, wsk_action_invoke_blocking_hello, wsk_action_invoke_hello, wsk_activation_list, wsk_activation_result, wsk_cat_helloWorld, wsk_create_action_hello, wsk_create_action_hello_v, wsk_create_action_sequence, wsk_help, wsk_invalid_choice, wsk_list_action_hello, wsk_no_args, wsk_package_get, wsk_unrecognized_arguments;
+    var EMULATOR_VERSION, bash, cat, parseInput, util_slow_lines, wait, wsk, wsk_action_invoke_blocking_hello, wsk_action_invoke_hello, wsk_activation_list, wsk_activation_result, wsk_cat_helloWorld, wsk_create_action_hello, wsk_create_action_hello_v, wsk_create_action_sequence, wsk_help, wsk_invalid_choice, wsk_list_action_hello, wsk_no_args, wsk_package_get, wsk_trigger_list, wsk_unrecognized_arguments;
     EMULATOR_VERSION = "0.1.5";
     this.basesettings = {
       prompt: '[[b;#fff;]you@tutorial:~$] ',
@@ -288,6 +288,10 @@
             return echo(wsk_no_args);
           }
         }
+      } else if (inputs[1] === "trigger") {
+        if (inputs[2] === "list") {
+          return echo(wsk_trigger_list);
+        }
       } else if (inputs[1] === "package") {
         if (inputs[2] === "get") {
           if (inputs[3] === "--summary") {
@@ -329,6 +333,7 @@
     wsk_activation_result = "{\n	\"payload\" : \"Hello world\"\n}";
     wsk_activation_list = "activations\n44794bd6aab74415b4e42a308d880e5b         hello\n6bf1f670ee614a7eb5af3c9fde813043         hello";
     wsk_no_args = "usage: wsk [-h] [-v] [--apihost hostname] [--apiversion version]\n           {action,activation,namespace,package,rule,trigger,sdk,property,list}\n           ...\nwsk: error: too few arguments";
+    wsk_trigger_list = "triggers\n/weatherUpdate                                           private ";
     wsk_create_action_sequence = "ok: created action sequenceOfActions";
     wsk_unrecognized_arguments = "usage: wsk [-h] [-v] [--apihost hostname] [--apiversion version]\n           {action,activation,namespace,package,rule,trigger,sdk,property,list}\n           ...\nwsk: error: unrecognized arguments";
     return wsk_package_get = "package /whisk.system/util\naction /whisk.system/util/cat: Concatenate array of strings, and split lines into an array\naction /whisk.system/util/head: Filter first K array elements and discard rest\naction /whisk.system/util/date: Get current date and time\naction /whisk.system/util/sort: Sort array";
