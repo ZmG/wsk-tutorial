@@ -26,7 +26,7 @@ install coffee-script: `npm install -g coffee-script`
 
 Adding/Updating steps
 -------------------------------
-All the steps are stored in a arrays. The basic tutorial is stored in 'q' while the advanced tutorial
+All the steps are stored in arrays. The basic tutorial is stored in 'q' while the advanced tutorial
 is stored in 'adv_q' both of which can be found in steps.coffee. If you follow the pattern in the steps.coffee 
 file it should be fairly trivial to figure out how to modify a question. When steps.cofee is modified you
 will need to compile the .coffee files to javascript file. For this you will need to have coffee-script 
