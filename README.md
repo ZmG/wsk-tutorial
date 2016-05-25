@@ -6,7 +6,8 @@ The Whisk tutorial is an interactive learning environment to get familiar with t
 
 Development Guide:
 ==================
-This is a two part application:       
+This is a two part application:      
+
 1. trywsk: the base page that serves as a catalog for the tutorials. (https://github.com/ZmG/trywsk)   
 2. wsk-tutorial: the tutorials. (https://github.com/ZmG/wsk_tutorial)  
 
@@ -14,7 +15,7 @@ To run the application on Bluemix, call the following from trywsk directory:
 cf push
 
 This will download all the dependencies from requirements.txt including this tutorial.
-Everytime you want to update something, make sure to re-run this command and make sure any changes made to 
+Everytime you want to update something, make sure to re-run this command and ensure any changes made to 
 the tutorial have been committed to the repo: https://github.com/ZmG/wsk_tutorial
 
 
