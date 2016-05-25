@@ -29,7 +29,7 @@ assignment: """
       <p>If you see a list of arguments then you know that you are all set with your wsk client installation.</p>
       """
 intermediateresults: [
-  () -> """<p>Whisk argument swithces usually start with two dashes. Try "--help"</p>"""
+  () -> """<p>Whisk argument switches usually start with two dashes. Try "--help"</p>"""
   ]
 tip: "<p>This emulator provides only a limited set of shell and wsk commands, so some commands may not work as expected</p>"
 command_expected: ['wsk', '--help']
@@ -228,6 +228,7 @@ finishedCallback: () ->
 ###
 
 trigger_q = []
+
 trigger_q.push ({
 html: """
       <h3>Creating Triggers</h3>

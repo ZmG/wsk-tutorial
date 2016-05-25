@@ -23,7 +23,7 @@
     assignment: "<h3>Assignment</h3>\n<p>Use a wsk command to see the full list of accepted arguments</p>\n<p>If you see a list of arguments then you know that you are all set with your wsk client installation.</p>",
     intermediateresults: [
       function() {
-        return "<p>Whisk argument swithces usually start with two dashes. Try \"--help\"</p>";
+        return "<p>Whisk argument switches usually start with two dashes. Try \"--help\"</p>";
       }
     ],
     tip: "<p>This emulator provides only a limited set of shell and wsk commands, so some commands may not work as expected</p>",
@@ -137,15 +137,6 @@
    */
 
   trigger_q = [];
-
-  trigger_q.push({
-    html: "<h3>List Created triggers</h3>\n<p></p>",
-    assignment: "<h3>Assignment</h3>\n<p>List created triggers  </p>",
-    command_expected: ['wsk', 'trigger', 'list'],
-    command_show: ['wsk', 'trigger', 'list'],
-    result: "<p>Great! Listing triggers",
-    tip: "<ul>\n  <li>Remember to use wsk trigger command</li>\n</ul>"
-  });
 
   trigger_q.push({
     html: "<h3>Creating Triggers</h3>\n<p>You can create a trigger using the trigger command</p>",
