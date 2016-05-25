@@ -12,7 +12,7 @@ This is a two part application:
 2. wsk-tutorial: the tutorials. (https://github.com/ZmG/wsk_tutorial)  
 
 To run the application on Bluemix, call the following from trywsk directory:    
-cf push
+`cf push`
 
 This will download all the dependencies from requirements.txt including this tutorial.
 Everytime you want to update something, make sure to re-run this command and ensure any changes made to 
@@ -21,7 +21,7 @@ the tutorial have been committed to the repo: https://github.com/ZmG/wsk_tutoria
 
 Install dev tools:
 -------------------------------
-install coffee-script: npm install -g coffee-script
+install coffee-script: `npm install -g coffee-script`
 
 
 Adding/Updating steps
@@ -37,7 +37,7 @@ installed on your computer. see "Install dev tools" section above.
 3. Push a new item to the corresponding q. You can reuse the structure from previous steps.   
    Example: trigger_q.push({...})
 
-compilation command: coffee -c steps.coffee 
+compilation command: `coffee -c steps.coffee`
 this will generate the steps.js file.
 
 Updating the wsk cli interpreter
@@ -53,7 +53,7 @@ if else statements. The logic flow is pretty straight forward. To generate the j
      a. Locate "WSK Content" comment block.   
      b. Create a new variable holding the output content for the command to be added.   
 3. Compile the terminal.coffee file:   
-    a. coffee -c terminal.coffee 
+    a. `coffee -c terminal.coffee` 
 
 
 Styling
