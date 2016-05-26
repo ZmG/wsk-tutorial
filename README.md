@@ -42,8 +42,8 @@ this will generate the steps.js file.
 
 Updating the wsk cli interpreter
 --------------------------------
-The interpreter is written in terminal.coffee, in the 'wsk' function. The entire thing is really a giant set of 
-if else statements. The logic flow is pretty straight forward. To generate the js files, run the following:
+The interpreter is written in terminal.coffee, in the 'wsk' function. The itepreter logic is a set of 
+if else statements. The logic flow is pretty straight forward. To generate the js file, run the following:
 
 1. Open the terminal.coffee file that is located in the wsk_tutorial/static/js directory.
 2. Adding a new command to the interpreter:    
@@ -53,7 +53,7 @@ if else statements. The logic flow is pretty straight forward. To generate the j
      a. Locate "WSK Content" comment block.   
      b. Create a new variable holding the output content for the command to be added.   
 3. Compile the terminal.coffee file:   
-    a. `coffee -c terminal.coffee` 
+  1. `coffee -c terminal.coffee` 
 
 
 Styling
