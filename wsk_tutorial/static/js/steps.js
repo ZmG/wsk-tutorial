@@ -139,6 +139,15 @@
   trigger_q = [];
 
   trigger_q.push({
+    html: "<h3>List existing triggers</h3>\n<p></p>",
+    assignment: "<h3>Assignment</h3>\n<p>List existing triggers  </p>",
+    command_expected: ['wsk', 'trigger', 'list'],
+    command_show: ['wsk', 'trigger', 'list'],
+    result: "<p>Great! Listing triggers",
+    tip: "<ul>\n  <li>Remember to use wsk trigger command</li>\n</ul>"
+  });
+
+  trigger_q.push({
     html: "<h3>Creating Triggers</h3>\n<p>You can create a trigger using the trigger command</p>",
     assignment: "<h3>Assignment</h3>\n<p>Create a trigger called 'myTrigger'</p>",
     command_expected: ["wsk", "trigger", "create", "myTrigger"],
