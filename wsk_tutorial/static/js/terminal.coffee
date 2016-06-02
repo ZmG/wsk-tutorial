@@ -349,7 +349,7 @@ do @myTerminal = ->
 		else if inputs[1] is "images"
 			echo currentCloudImages
 
-		esle if inputs[1] is "trigger"
+		else if inputs[1] is "trigger"
 			if inputs[2] is "list"
 				echo wsk_trigger_list
 			
@@ -365,7 +365,7 @@ do @myTerminal = ->
 		/weatherUpdate                                           private 
 		"""
 
-	
+
 	wsk_help = \
 		"""
 		usage: wsk [-h] [-v] [--apihost hostname] [--apiversion version]
