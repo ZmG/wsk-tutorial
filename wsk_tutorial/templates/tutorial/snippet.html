@@ -1,16 +1,10 @@
+{% load staticfiles %}
 
 <link href="https://cdn.jsdelivr.net/jquery.terminal/0.8.8/jquery.terminal.css" rel="stylesheet"/>
 
-<script src="https://cdn.jsdelivr.net/jquery/1.7.1/jquery.js" ></script>
-<script src="https://cdn.jsdelivr.net/mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
-<script src="https://cdn.jsdelivr.net/jquery.terminal/0.8.8/jquery.terminal-src.js"></script>
-
-{% load staticfiles %}
-<script src="{% static 'js/terminal.js' %}"></script>
-<script src="{% static 'js/steps.js' %}"></script>
-
-<script src="https://cdn.jsdelivr.net/sugar/1.3.9/sugar.min.js"></script>
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<!--
+<link href="{% static 'lib/css/jquery.terminal.css' %}" rel="stylesheet"/>
+-->
 
 <link rel="stylesheet" href="{% static 'css/tutorial-style.css' %}" />
 
@@ -122,7 +116,23 @@
     </div>
 </div>
 
+<!--
+<script src="{% static 'lib/js/jquery-1.7.1.min.js' %}" ></script>
+<script src="{% static 'lib/js/jquery.mousewheel-min.js' %}"></script>
+<script src="{% static 'lib/js/jquery.terminal-0.7.4.min.js' %}"></script>
+<script src="{% static 'lib/js/sugar-1.3.9.min.js' %}"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/g/mousewheel@3.1.13,jquery.terminal@0.7.8,sugar@1.3.9,jquery.ui@1.11.4,jquery@1.7.1"></script>
+-->
 
+
+<script src="https://cdn.jsdelivr.net/jquery/1.7.1/jquery.js" ></script>
+<script src="https://cdn.jsdelivr.net/mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.terminal/0.8.8/jquery.terminal-src.js"></script>
+<script src="https://cdn.jsdelivr.net/sugar/1.3.9/sugar.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<script src="{% static 'js/terminal.js' %}"></script>
+<script src="{% static 'js/steps.js' %}"></script>
 
 <!-- temporary solution to start in fullscreen -->
 <script type="text/javascript">
