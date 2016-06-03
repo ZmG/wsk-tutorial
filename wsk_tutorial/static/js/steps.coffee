@@ -227,6 +227,8 @@ finishedCallback: () ->
   Array of Triggers question objects
 ###
 
+trigger_q = []
+
 trigger_q.push ({
 html: """
       <h3>Creating Triggers</h3>
