@@ -326,6 +326,7 @@ do @myTerminal = ->
 				else 
 					echo wsk_no_args
 
+
 		else if inputs[1] is "package"
 			if inputs[2] is "get"
 				if inputs[3] is "--summary"
@@ -348,24 +349,13 @@ do @myTerminal = ->
 
 		else if inputs[1] is "images"
 			echo currentCloudImages
-
-		else if inputs[1] is "trigger"
-			if inputs[2] is "list"
-				echo wsk_trigger_list
 			
 	#---------------------------------------------------------------------------------------
 	#---------------------------------------------------------------------------------------
 	#  WSK  C O N T E N T    ---------------------------------------------------------------
 	#---------------------------------------------------------------------------------------
 	#---------------------------------------------------------------------------------------
-	
-	wsk_trigger_list = \
-		"""
-		triggers
-		/weatherUpdate                                           private 
-		"""
-
-
+		
 	wsk_help = \
 		"""
 		usage: wsk [-h] [-v] [--apihost hostname] [--apiversion version]

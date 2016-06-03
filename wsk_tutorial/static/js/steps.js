@@ -5,7 +5,7 @@
  */
 
 (function() {
-  var COMPLETE_URL, EVENT_TYPES, adv_q, advancedTag, buildfunction, current_question, drawStatusMarker, endsWith, f, isNumber, j, leftside, len, logEvent, mob_q, next, pkg_q, previous, progressIndicator, q, question, questionNumber, questions, results, rlz_q, staticDockerPs, statusMarker, switchToAdvanced, switchToBasic, switchToMobileSDK, switchToPackages, switchToRules, switchToTriggers, trigger_q, tutorialTop;
+  var COMPLETE_URL, EVENT_TYPES, adv_q, advancedTag, buildfunction, current_question, drawStatusMarker, endsWith, f, isNumber, j, leftside, len, logEvent, mob_q, next, pkg_q, previous, progressIndicator, q, question, questionNumber, questions, results, rlz_q, staticDockerPs, statusMarker, switchToAdvanced, switchToBasic, switchToMobileSDK, switchToPackages, switchToRules, switchToTriggers, tutorialTop;
 
   COMPLETE_URL = "/whats-next/";
 
@@ -135,17 +135,6 @@
   /*
     Array of Triggers question objects
    */
-
-  trigger_q = [];
-
-  trigger_q.push({
-    html: "<h3>List existing triggers</h3>\n<p></p>",
-    assignment: "<h3>Assignment</h3>\n<p>List existing triggers  </p>",
-    command_expected: ['wsk', 'trigger', 'list'],
-    command_show: ['wsk', 'trigger', 'list'],
-    result: "<p>Great! Listing triggers",
-    tip: "<ul>\n  <li>Remember to use wsk trigger command</li>\n</ul>"
-  });
 
   trigger_q.push({
     html: "<h3>Creating Triggers</h3>\n<p>You can create a trigger using the trigger command</p>",

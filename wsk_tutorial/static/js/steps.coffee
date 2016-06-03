@@ -227,28 +227,6 @@ finishedCallback: () ->
   Array of Triggers question objects
 ###
 
-trigger_q = []
-
-trigger_q.push ({
-html: """
-      <h3>List existing triggers</h3>
-      <p></p>
-      """
-assignment: """
-            <h3>Assignment</h3>
-            <p>List existing triggers  </p>
-            """
-command_expected: ['wsk', 'trigger', 'list']
-command_show: ['wsk', 'trigger', 'list']
-
-result: """<p>Great! Listing triggers"""
-tip:  """
-      <ul>
-        <li>Remember to use wsk trigger command</li>
-      </ul>
-      """
-})
-
 trigger_q.push ({
 html: """
       <h3>Creating Triggers</h3>

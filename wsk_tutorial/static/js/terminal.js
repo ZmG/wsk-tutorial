@@ -13,7 +13,7 @@
 
 (function() {
   (this.myTerminal = function() {
-    var EMULATOR_VERSION, bash, cat, parseInput, util_slow_lines, wait, wsk, wsk_action_invoke_blocking_hello, wsk_action_invoke_hello, wsk_activation_list, wsk_activation_result, wsk_cat_helloWorld, wsk_create_action_hello, wsk_create_action_hello_v, wsk_create_action_sequence, wsk_help, wsk_invalid_choice, wsk_list_action_hello, wsk_no_args, wsk_package_get, wsk_trigger_list, wsk_unrecognized_arguments;
+    var EMULATOR_VERSION, bash, cat, parseInput, util_slow_lines, wait, wsk, wsk_action_invoke_blocking_hello, wsk_action_invoke_hello, wsk_activation_list, wsk_activation_result, wsk_cat_helloWorld, wsk_create_action_hello, wsk_create_action_hello_v, wsk_create_action_sequence, wsk_help, wsk_invalid_choice, wsk_list_action_hello, wsk_no_args, wsk_package_get, wsk_unrecognized_arguments;
     EMULATOR_VERSION = "0.1.5";
     this.basesettings = {
       prompt: '[[b;#fff;]you@tutorial:~$] ',
@@ -256,9 +256,9 @@
       command = inputs[1];
       if (!inputs[1]) {
         console.debug("no args");
-        echo(wsk_no_args);
+        return echo(wsk_no_args);
       } else if (inputs[1] === "--help" || inputs[1] === "-h") {
-        echo(wsk_help);
+        return echo(wsk_help);
       } else if (inputs[1] === "action") {
         if (inputs[2] === "create") {
           if (inputs[3] === "hello") {
@@ -269,57 +269,55 @@
           if (inputs[3] === "myAction") {
             if (inputs[4] === "--sequence") {
               if (inputs[5] === "/whisk.system/util/cat,/whisk.system/util/sort") {
-                echo(wsk_create_action_sequence);
+                return echo(wsk_create_action_sequence);
               } else {
-                echo(wsk_unrecognized_arguments);
+                return echo(wsk_unrecognized_arguments);
               }
             }
           }
         } else if (inputs[2] === "list") {
-          echo(wsk_list_action_hello);
+          return echo(wsk_list_action_hello);
         } else if (inputs[2] === "invoke") {
           if (inputs[3] === "hello") {
-            echo(wsk_action_invoke_hello);
+            return echo(wsk_action_invoke_hello);
           } else if (inputs[3] === "--blocking") {
             if (inputs[4] === "hello") {
-              echo(wsk_action_invoke_blocking_hello);
+              return echo(wsk_action_invoke_blocking_hello);
             }
           } else {
-            echo(wsk_no_args);
+            return echo(wsk_no_args);
           }
         }
       } else if (inputs[1] === "package") {
         if (inputs[2] === "get") {
           if (inputs[3] === "--summary") {
             if (inputs[4] === "/whisk.system/util") {
-              echo(wsk_package_get);
+              return echo(wsk_package_get);
             }
           }
         }
       } else if (inputs[1] === "activation") {
         if (inputs[2] === "result") {
           if (inputs[3] === "6bf1f670ee614a7eb5af3c9fde813043") {
-            echo(wsk_activation_result);
+            return echo(wsk_activation_result);
           }
         } else if (inputs[2] === "list") {
-          echo(wsk_activation_list);
+          return echo(wsk_activation_list);
         }
       } else if (inputs[1] === "-v") {
         if (inputs[2] === "action") {
           if (inputs[3] === "create") {
             if (inputs[4] === "hello") {
               if (inputs[5] === "hello.js") {
-                echo(wsk_create_action_hello_v);
+                return echo(wsk_create_action_hello_v);
               }
             }
           }
         }
       } else if (inputs[1] === "images") {
-        echo(currentCloudImages);
+        return echo(currentCloudImages);
       }
-      return esle(inputs[1] === "trigger" ? inputs[2] === "list" ? echo(wsk_trigger_list) : void 0 : void 0);
     };
-    wsk_trigger_list = "triggers\n/weatherUpdate                                           private ";
     wsk_help = "usage: wsk [-h] [-v] [--apihost hostname] [--apiversion version]\n           {action,activation,namespace,package,rule,trigger,sdk,property,list}\n           ...\n\nOpenWhisk is a distributed compute service to add event-driven logic to your\napps.\n\noptional arguments:\n  -h, --help            show this help message and exit\n  -v, --verbose         verbose output\n  --apihost hostname    whisk API host\n  --apiversion version  whisk API version\n\navailable commands:\n  {action,activation,namespace,package,rule,trigger,sdk,property,list}\n    action              work with actions\n    activation          work with activations\n    namespace           work with namespaces\n    package             work with packages\n    rule                work with rules\n    trigger             work with triggers\n    sdk                 work with the SDK\n    property            work with whisk properties\n    list                list all triggers, actions, and rules in the registry\n\nLearn more at https://developer.ibm.com/openwhisk fork on GitHub\nhttps://github.com/openwhisk. All trademarks are the property of their\nrespective owners.";
     wsk_invalid_choice = "usage: wsk [-h] [-v] [--apihost hostname] [--apiversion version]\n           {action,activation,namespace,package,rule,trigger,sdk,property,list}\n           ...\nwsk: error: argument cmd: invalid choice: (choose from 'action', 'activation', 'namespace', 'package', 'rule', 'trigger', 'sdk', 'property', 'list')";
     wsk_cat_helloWorld = "function main(params) {\n   			return {payload:  'Hello world'};\n}";
